@@ -13,6 +13,7 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.models.Color;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -36,6 +37,28 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+  }
+
+  public void readColor(){
+    String gameData = DriverStation.getInstance().getGameSpecificMessage();
+    if(gameData.length() > 0){
+      switch(gameData.charAt(0)){
+        case 'B':
+          color = Color.BLUE;
+          break;
+        case 'G':
+          color = Color.GREEN;
+          break;
+        case 'R':
+          color = Color.RED;
+          break;
+        case 'Y':
+          color = Color.YELLOW;
+          break;
+        default:
+          System.out.println("FMS Color is invalid");
+      }
+    }
   }
 
   /**
