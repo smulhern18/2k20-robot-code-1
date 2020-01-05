@@ -6,7 +6,7 @@ Here's an overview of how we use Git. I hope this helps.
 
 ## Cloning
 - You need to get the project onto your own machine. To do this, you'll need to "clone" our code off of GitHub.
-     - Basically get your own local copy on your computer from Github
+     - Basically downloads a copy onto your computer from Github
 - If you are on Mac, open terminal. If you are on Windows, open CMD.
 - In terminal/CMD, copy and paste: `git clone https://github.com/Team-190/2k20-robot-code.git`
 - Hit enter
@@ -20,6 +20,6 @@ Here's an overview of how we use Git. I hope this helps.
 - After you have made some changes and are ready to move them to GitHub, you first need to choose which files you want to add.
 - Run the command: `git status` in the terminal/commandline to see what has changed.
 - Then to add individual files, the command: `git add [filename]`, repeated for each file
-     - to add all files with changes, use: `git add --all`
+     - to add all files with changes, use: `git add .`
 - After the files have been added, check with 'git status' again, the files you have added should be green
-- Then run the command: `git commit`, and add summary of all the files you have changed and what you did.
+- Then run the command: `git commit -m "MESSAGE HERE"`, where you replace the message with the answer to this question: "if you use these changes it will..."
