@@ -29,8 +29,6 @@ public class RobotContainer {
   private Color color;
 
 
-  
-
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
