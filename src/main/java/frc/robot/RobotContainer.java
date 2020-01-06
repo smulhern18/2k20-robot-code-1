@@ -40,7 +40,7 @@ public class RobotContainer {
   public void readColor(){
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     if(gameData.length() > 0){
-      color = Color.getEnum(gameData.charAt(0));
+      color = Color.getColor(gameData.charAt(0));
     } else {
       color = Color.CORRUPT;
     }

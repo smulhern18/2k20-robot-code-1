@@ -41,7 +41,7 @@ Here's an overview of how we use Git. I hope this helps.
 - A mentor or Grant will review the PR, and merge it if it's good. 
      - If not, they will leave some comments (or changes) and you should go back and review with the reviewer
 
-#Reference
+# Reference
 - `git clone https://github.com/Team-190/2k20-robot-code.git`
 - `git checkout -b <<BRANCH_NAME_HERE>>`
 - `git checkout <<BRANCH_NAME_HERE>>`

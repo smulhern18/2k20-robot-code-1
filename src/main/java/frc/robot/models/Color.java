@@ -8,28 +8,15 @@ package frc.robot.models;
 public enum Color {
 
   // Values
-  BLUE('B'), GREEN('G'), YELLOW('Y'), RED('R'), CORRUPT('C');
+  BLUE, GREEN, YELLOW, RED, CORRUPT;
 
-  private char charValue;
-
-
-  // Constructer
-  private Color (char charColor){
-    if (charColor != 'B' || charColor != 'G' || charColor !='Y' || charColor != 'R'){
-      this.charValue = 'C';
-    } else {
-      this.charValue = charColor;
-    }
-  }
-
-  // Get the Char values from the Enum
-  public final char charValue(){
-    return charValue;
-  }
-
-  // Get the char and return the Enum
-  public static Color getEnum(char charValue){
-    switch(charValue){
+  /**
+   * Convert the char from FMS to enum
+   * @param value FMS data
+   * @return corresponding enum
+   */
+  public static Color getColor(char value) {
+    switch (value) {
       case 'B':
         return BLUE;
       case 'G':
@@ -42,23 +29,4 @@ public enum Color {
         return CORRUPT;
     }
   }
-
-  // Get the color that we want to aim for
-  public static Color getAimColor(Color color){
-    switch(color){
-      case BLUE:
-        return RED;
-      case RED:
-        return BLUE;
-      case GREEN:
-        return YELLOW;
-      case YELLOW:
-        return GREEN;
-      default:
-        return CORRUPT;
-    }
-  }
-
-
-
 }
