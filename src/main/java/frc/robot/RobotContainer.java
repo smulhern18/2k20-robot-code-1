@@ -42,22 +42,7 @@ public class RobotContainer {
   public void readColor(){
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     if(gameData.length() > 0){
-      switch(gameData.charAt(0)){
-        case 'B':
-          color = Color.BLUE;
-          break;
-        case 'G':
-          color = Color.GREEN;
-          break;
-        case 'R':
-          color = Color.RED;
-          break;
-        case 'Y':
-          color = Color.YELLOW;
-          break;
-        default:
-          System.out.println("FMS Color is invalid");
-      }
+      color = Color.getEnum(gameData.charAt(0));
     }
   }
 
