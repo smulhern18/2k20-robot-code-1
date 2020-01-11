@@ -12,14 +12,16 @@ import frc.robot.input.AttackThree.AttackThreeAxis;
 public class DefaultDriveCommand extends CommandBase {
     private final DrivetrainSubsystem drivetrain;
 
-    private final AttackThree leftStick = new AttackThree(0); //REMINDER subject to change channel number
-    private final AttackThree rightStick = new AttackThree(1);
+    private final AttackThree leftStick; //REMINDER subject to change channel number
+    private final AttackThree rightStick;
 
     /**
      * Creates a new DefaultDriveCommand.
      * @param subsystem The subsystem used by this command.
      */
-    public DefaultDriveCommand(DrivetrainSubsystem drivetrain) { // Constructor
+    public DefaultDriveCommand(DrivetrainSubsystem drivetrain, AttackThree leftStick, AttackThree rightStick) { // Constructor
+        this.leftStick = leftStick;
+        this.rightStick = rightStick;
         this.drivetrain = drivetrain;
 
         // Command dependent on having a drive train.
