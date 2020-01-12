@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.models.PairedTalonSRX;
-import frc.robot.commands.drivetraincommands.DefaultDriveCommand;
+import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.Constants.DrivetrainConstants;
 

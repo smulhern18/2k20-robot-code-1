@@ -1,4 +1,4 @@
-package frc.robot.commands.collectorcommands;
+package frc.robot.commands.collector;
 
 import frc.robot.subsystems.ExampleSubsystem;
 
