@@ -1,4 +1,4 @@
-package frc.robot.commands.shootercommands;
+package frc.robot.commands.shooter;
 
 import frc.robot.subsystems.ExampleSubsystem;
 
