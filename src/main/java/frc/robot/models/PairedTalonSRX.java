@@ -1,42 +1,35 @@
 package frc.robot.models;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.Encoder;
 
-public class PairedTalonSRX{
-    TalonSRX leader, follower;
-    FeedbackDevice encoder;
+public class PairedTalonSRX extends WPI_TalonSRX {
+    Encoder encoder;
 
-    public PairedTalonSRX(TalonSRX leader, TalonSRX follower, boolean inverted){
-        this.leader = leader;
-        this.follower = follower;
-        this.leader.setInverted(inverted);
-        this.follower.setInverted(inverted);
-        follower.follow(leader);
-        
+    private final WPI_TalonSRX follower;
+
+    public PairedTalonSRX(int leaderDeviceNumber, int followerDeviceNumber) {
+        super(leaderDeviceNumber);
+        configFactoryDefault();
+
+        follower = new WPI_TalonSRX(followerDeviceNumber);
+        follower.configFactoryDefault();
+        follower.follow(this);
+        follower.setInverted(InvertType.FollowMaster);
     }
 
-    public PairedTalonSRX(TalonSRX leader, TalonSRX follower, boolean inverted, FeedbackDevice encoder) {
-        this(leader, follower, inverted);
-        this.encoder = encoder;
+    @Override
+    public void setNeutralMode(NeutralMode mode) {
+        super.setNeutralMode(mode);
+        follower.setNeutralMode(mode);
     }
 
-    /**
-     * Sets the speed & moves the motor pair with a given control mode and a given value.
-     * @param mode {@link ControlMode} 
-     * @param val speed of motor [-1, 1]
-     */
-    public void set(ControlMode mode, double val){
-        leader.set(mode, val);
+    public void configPIDF(int slotIdx, double P, double I, double D, double F) {
+        config_kP(slotIdx, P);
+        config_kI(slotIdx, I);
+        config_kD(slotIdx, D);
+        config_kF(slotIdx, F);
     }
-
-    /**
-     * Sets the speed & moves the motor pair with Percent Output control mode and a given value .
-     * @param val speed of motor [-1, 1]
-     */
-    public void set(double val){
-        set(ControlMode.PercentOutput, val);
-    }
-
 }
