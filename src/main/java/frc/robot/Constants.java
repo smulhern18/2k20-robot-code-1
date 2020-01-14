@@ -31,17 +31,17 @@ public final class Constants {
         public static final double S_VOLTS = 0; //TODO: run characterization tool
         public static final double V_VOLT_SECONDS_PER_METER = 0;
         public static final double A_VOLT_SECONDS_SQUARED_PER_METER = 0;
-        public static final double TRACKWIDTH_METERS = 0; // horizontal distance between wheels
+        public static final double TRACKWIDTH_METERS = 0.6889; // horizontal distance between wheels
         public static final double WHEEL_DIAMETER_METERS = 0.1524;
         public static final DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(TRACKWIDTH_METERS);
-        public static final double MAX_SPEED_METERS_PER_SECOND = 0;
+        public static final double MAX_SPEED_METERS_PER_SECOND = 9;//possibly 10ft per second, 9ft with load, 11ft free
         public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 0;
         public static final double RAMSETE_B = 2; // DO NOT CHANGE
         public static final double RAMSETE_ZETA = .7; // DO NOT CHANGE
 
         public static final int PID_X = 0;
-        public static final int TIMEOUT_MS = 0;
-        public static final double COUNTS_PER_REVOLUTION = 0; //TODO: configure
+        public static final int TIMEOUT_MS = 0;//done
+        public static final double COUNTS_PER_REVOLUTION = 1024; //TODO: configure
         public static final double METERS_PER_COUNT = (WHEEL_DIAMETER_METERS * Math.PI) / COUNTS_PER_REVOLUTION;
 
         public static final int MAX_VOLTAGE = 10;
