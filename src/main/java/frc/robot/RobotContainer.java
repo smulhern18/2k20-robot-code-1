@@ -8,7 +8,9 @@
 package frc.robot;
 
 import java.util.List;
+import java.util.Set;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -22,6 +24,8 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.models.Color;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -85,6 +89,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+//    return new RunCommand(() -> drivetrain.drive(ControlMode.PercentOutput, .5, .5), drivetrain).withTimeout(5);
     Trajectory testTrajectory = TrajectoryGenerator.generateTrajectory(List.of(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(3, 0, new Rotation2d(0))), drivetrain.getTrajectoryConfig());
     RamseteCommand ramseteCommand = new RamseteCommand(
         testTrajectory,
