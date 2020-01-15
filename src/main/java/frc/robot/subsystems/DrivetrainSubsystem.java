@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import frc.robot.models.PairedTalonSRX;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
@@ -53,7 +55,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     leftPair = new PairedTalonSRX(DrivetrainConstants.LEFT_LEADER_CHANNEL, DrivetrainConstants.LEFT_FOLLOWER_CHANNEL);
     rightPair = new PairedTalonSRX(DrivetrainConstants.RIGHT_LEADER_CHANNEL, DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL);
 
-    navx = new AHRS(SPI.Port.kMXP);
+    navx = new AHRS(Port.kUSB);
 
     rightPair.setInverted(true);
 
@@ -76,6 +78,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
         DrivetrainConstants.MAX_ACCELERATION_METERS_PER_SECOND_SQUARED);
     trajectoryConfig.setKinematics(DrivetrainConstants.DRIVE_KINEMATICS);
     trajectoryConfig.addConstraint(autoVoltageConstraint);
+    
 
 
     this.setDefaultCommand(new DefaultDriveCommand(this, leftStick, rightStick));
@@ -122,6 +125,9 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
   @Override
   public void periodic() {
     odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
+    SmartDashboard.putNumber("yaw",getYawDegrees());
+    SmartDashboard.putNumber("left encoder", getLeftDistance());
+    SmartDashboard.putNumber("right encoder", getRightDistance());
   }
 
   @Override

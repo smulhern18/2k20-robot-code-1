@@ -7,8 +7,20 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 import frc.robot.commands.ExampleCommand;
 import frc.robot.models.Color;
@@ -73,6 +85,22 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    Trajectory testTrajectory = TrajectoryGenerator.generateTrajectory(List.of(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(3, 0, new Rotation2d(0))), drivetrain.getTrajectoryConfig());
+    RamseteCommand ramseteCommand = new RamseteCommand(
+        testTrajectory,
+        drivetrain::getPose,
+        new RamseteController(DrivetrainConstants.RAMSETE_B, DrivetrainConstants.RAMSETE_ZETA),
+        new SimpleMotorFeedforward(DrivetrainConstants.S_VOLTS,
+                                   DrivetrainConstants.V_VOLT_SECONDS_PER_METER,
+                                   DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER),
+        DrivetrainConstants.DRIVE_KINEMATICS,
+        drivetrain::getWheelSpeeds,
+        new PIDController(DrivetrainConstants.P_ENCODER_GAIN, 0, 0),
+        new PIDController(DrivetrainConstants.P_ENCODER_GAIN, 0, 0),
+        // RamseteCommand passes volts to the callback
+        drivetrain::drive,
+        drivetrain
+    );
+    return ramseteCommand.andThen(() -> drivetrain.drive(0, 0));
   }
 }
