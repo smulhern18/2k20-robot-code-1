@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
@@ -65,6 +66,8 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     leftPair.setSensorPhase(true);
     rightPair.setSensorPhase(true);
 
+//    leftPair.set
+
     resetEncoders();
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
@@ -106,6 +109,10 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     drive(ControlMode.PercentOutput, left, right);
   }
 
+  public void driveVolts(double left, double right) {
+    drive(left / RobotController.getBatteryVoltage(), right / RobotController.getBatteryVoltage());
+  }
+
   /**
    * Set speed controllers to Coast mode
    */
@@ -128,6 +135,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     SmartDashboard.putNumber("yaw",getYawDegrees());
     SmartDashboard.putNumber("left encoder", getLeftDistance());
     SmartDashboard.putNumber("right encoder", getRightDistance());
+    SmartDashboard.putString("Odom", odometry.getPoseMeters().toString());
   }
 
   @Override
@@ -146,7 +154,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
    * @return yaw in degrees
    */
   public double getYawDegrees() {
-    return navx.getYaw();
+    return Math.IEEEremainder(navx.getAngle(), 360) *(-1.0);
   }
 
   /**
@@ -196,11 +204,12 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
   }
 
   public double getTurnRate() {
-    return navx.getRate();
+    return -navx.getRate();
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(leftPair.getSelectedSensorVelocity(), rightPair.getSelectedSensorVelocity());
+    return new DifferentialDriveWheelSpeeds(leftPair.getSelectedSensorVelocity()*DrivetrainConstants.METERS_PER_COUNT,
+        rightPair.getSelectedSensorVelocity()*DrivetrainConstants.METERS_PER_COUNT);
   }
 
   public TrajectoryConfig getTrajectoryConfig() {

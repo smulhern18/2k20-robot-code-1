@@ -90,7 +90,15 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
 //    return new RunCommand(() -> drivetrain.drive(ControlMode.PercentOutput, .5, .5), drivetrain).withTimeout(5);
-    Trajectory testTrajectory = TrajectoryGenerator.generateTrajectory(List.of(new Pose2d(0, 0, new Rotation2d(0)), new Pose2d(3, 0, new Rotation2d(0))), drivetrain.getTrajectoryConfig());
+    drivetrain.resetNavX();
+    drivetrain.resetEncoders();
+    drivetrain.resetOdometry(new Pose2d());
+    drivetrain.setCoast();
+    Trajectory testTrajectory = TrajectoryGenerator.generateTrajectory(
+        List.of(
+            new Pose2d(0, 0, new Rotation2d(0)),
+            new Pose2d(3, 0, new Rotation2d(0))),
+        drivetrain.getTrajectoryConfig());
     RamseteCommand ramseteCommand = new RamseteCommand(
         testTrajectory,
         drivetrain::getPose,
@@ -103,7 +111,7 @@ public class RobotContainer {
         new PIDController(DrivetrainConstants.P_ENCODER_GAIN, 0, 0),
         new PIDController(DrivetrainConstants.P_ENCODER_GAIN, 0, 0),
         // RamseteCommand passes volts to the callback
-        drivetrain::drive,
+        drivetrain::driveVolts,
         drivetrain
     );
     return ramseteCommand.andThen(() -> drivetrain.drive(0, 0));

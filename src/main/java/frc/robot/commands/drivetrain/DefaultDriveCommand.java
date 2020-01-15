@@ -15,10 +15,7 @@ public class DefaultDriveCommand extends CommandBase {
     private final AttackThree leftStick; //REMINDER subject to change channel number
     private final AttackThree rightStick;
 
-    /**
-     * Creates a new DefaultDriveCommand.
-     * @param subsystem The subsystem used by this command.
-     */
+
     public DefaultDriveCommand(DrivetrainSubsystem drivetrain, AttackThree leftStick, AttackThree rightStick) { // Constructor
         this.leftStick = leftStick;
         this.rightStick = rightStick;
