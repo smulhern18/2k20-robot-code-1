@@ -215,6 +215,13 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     odometry.resetPosition(pose, Rotation2d.fromDegrees(getYawDegrees()));
   }
 
+  public void resetAll() {
+    resetNavX();
+    resetEncoders();
+    resetOdometry(new Pose2d());
+    setCoast();
+  }
+
   /**
    * Gets the rotational velocity
    *
