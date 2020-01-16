@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.models.Color;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.Constants.DrivetrainConstants;
@@ -99,14 +100,8 @@ public class RobotContainer {
             new Pose2d(0, 0, new Rotation2d(0)),
             new Pose2d(3, 0, new Rotation2d(0))),
         drivetrain.getForwardTrajectoryConfig());
-    RamseteCommand ramseteCommand = new RamseteCommand(
-        testTrajectory,
-        drivetrain::getPose,
-        new RamseteController(DrivetrainConstants.RAMSETE_B, DrivetrainConstants.RAMSETE_ZETA),
-        DrivetrainConstants.DRIVE_KINEMATICS,
-        drivetrain::driveVelocity,
-        drivetrain
-    );
-    return ramseteCommand.andThen(() -> drivetrain.drive(0, 0));
+    TrajectoryFollowerCommand followerCommand = new TrajectoryFollowerCommand(testTrajectory, drivetrain);
+
+    return followerCommand.andThen(() -> drivetrain.drive(0, 0));
   }
 }
