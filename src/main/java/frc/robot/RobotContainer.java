@@ -103,15 +103,8 @@ public class RobotContainer {
         testTrajectory,
         drivetrain::getPose,
         new RamseteController(DrivetrainConstants.RAMSETE_B, DrivetrainConstants.RAMSETE_ZETA),
-        new SimpleMotorFeedforward(DrivetrainConstants.S_VOLTS,
-                                   DrivetrainConstants.V_VOLT_SECONDS_PER_METER,
-                                   DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER),
         DrivetrainConstants.DRIVE_KINEMATICS,
-        drivetrain::getWheelSpeeds,
-        new PIDController(DrivetrainConstants.P_ENCODER_GAIN, 0, 0),
-        new PIDController(DrivetrainConstants.P_ENCODER_GAIN, 0, 0),
-        // RamseteCommand passes volts to the callback
-        drivetrain::driveVolts,
+        drivetrain::driveVelocity,
         drivetrain
     );
     return ramseteCommand.andThen(() -> drivetrain.drive(0, 0));

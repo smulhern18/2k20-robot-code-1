@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 import frc.robot.models.PairedTalonSRX;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.input.AttackThree;
+import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstants;
 
 
@@ -59,6 +60,8 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     navx = new AHRS(Port.kUSB);
 
     rightPair.setInverted(true);
+    leftPair.configPIDF(0, Constants.DrivetrainConstants.P_ENCODER_GAIN, 0, 0, 0);
+    leftPair.configPIDF(0, Constants.DrivetrainConstants.P_ENCODER_GAIN, 0, 0, 0);
 
     leftPair.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, DrivetrainConstants.PID_X, DrivetrainConstants.TIMEOUT_MS);
     rightPair.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, DrivetrainConstants.PID_X, DrivetrainConstants.TIMEOUT_MS);
@@ -111,6 +114,11 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
 
   public void driveVolts(double left, double right) {
     drive(left / RobotController.getBatteryVoltage(), right / RobotController.getBatteryVoltage());
+  }
+
+  public void driveVelocity(double left, double right){
+    leftPair.set(ControlMode.Velocity, left / Constants.DrivetrainConstants.METERS_PER_COUNT, Constants.DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(left));
+    rightPair.set(ControlMode.Velocity, right / Constants.DrivetrainConstants.METERS_PER_COUNT, Constants.DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(right));
   }
 
   /**
