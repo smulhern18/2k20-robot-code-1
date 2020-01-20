@@ -32,14 +32,14 @@ public final class Constants {
     public static final double S_VOLTS = 1.34;
     public static final double V_VOLT_SECONDS_PER_METER = 3.13;
     public static final double A_VOLT_SECONDS_SQUARED_PER_METER = 0.926;
-    public static final double P_ENCODER_GAIN = .00306;
+    public static final double P_ENCODER_GAIN = 7;
     public static final double TRACKWIDTH_METERS = 0.6889; // horizontal distance between wheels
     public static final double WHEEL_DIAMETER_METERS = 0.1524;
     public static final DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(TRACKWIDTH_METERS);
     public static final double MAX_SPEED_METERS_PER_SECOND = 2.7432;
     public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 2;
     public static final double RAMSETE_B = 2;
-    public static final double RAMSETE_ZETA = .7;
+    public static final double RAMSETE_ZETA = .9;
     public static final SimpleMotorFeedforward DRIVE_FEED_FORWARD = new SimpleMotorFeedforward(
         DrivetrainConstants.S_VOLTS,
         DrivetrainConstants.V_VOLT_SECONDS_PER_METER,
