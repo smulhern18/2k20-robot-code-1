@@ -53,4 +53,20 @@ public final class Constants {
     public static final int MAX_VOLTAGE = 10;
   }
 
+    public static class ShooterConstants {
+
+        public static final int LEADER_CHANNEL = 0;
+        public static final int FOLLOWER_CHANNEL = 1;
+
+        public static final double P = 1;
+        public static final double I = 0;
+        public static final double D = 0;
+        public static final double F = 0;
+
+        public static final int PID_X = 0;
+        public static final int TIMEOUT_MS = 0;
+
+        public static final double COUNTS_PER_REVOLUTION = 12;
+
+    }
 }

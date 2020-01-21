@@ -18,11 +18,13 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.models.Color;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.input.AttackThree;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
@@ -35,7 +37,8 @@ public class RobotContainer {
   private AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
   private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
-  private DrivetrainSubsystem drivetrain = new DrivetrainSubsystem(leftStick, rightStick);
+  private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem(leftStick, rightStick);
+  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private Color color;
 
 
@@ -75,7 +78,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-
     drivetrain.resetAll();
     System.out.println(Units.degreesToRadians(45));
     Trajectory grabTrajectory = TrajectoryGenerator.generateTrajectory(
