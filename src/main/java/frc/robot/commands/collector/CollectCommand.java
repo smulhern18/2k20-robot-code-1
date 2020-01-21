@@ -1,16 +1,12 @@
 package frc.robot.commands.collector;
 
-import frc.robot.subsystems.ExampleSubsystem;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class CollectCommand extends CommandBase{
-  private final ExampleSubsystem m_subsystem;
 
-  public CollectCommand(ExampleSubsystem subsystem) {
-    m_subsystem = subsystem;
+  public CollectCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements();
   }
 
   // Called when the command is initially scheduled.

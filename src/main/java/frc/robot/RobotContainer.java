@@ -78,21 +78,21 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    drivetrain.resetAll();
+    drivetrainSubsystem.resetAll();
     System.out.println(Units.degreesToRadians(45));
     Trajectory grabTrajectory = TrajectoryGenerator.generateTrajectory(
         List.of(
             new Pose2d(0, 0, new Rotation2d(0)),
-            new Pose2d(1, 0, new Rotation2d(3.14/2))),
-        drivetrain.getForwardTrajectoryConfig());
+            new Pose2d(1, 0, new Rotation2d(3.14 / 2))),
+        drivetrainSubsystem.getForwardTrajectoryConfig());
 
     Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(
         List.of(
             new Pose2d(1, 0, new Rotation2d(Units.degreesToRadians(45))),
             new Pose2d(0, 0, new Rotation2d(0))),
-        drivetrain.getBackwardTrajectoryConfig());
+        drivetrainSubsystem.getBackwardTrajectoryConfig());
 
-    Command grabCommand = new TrajectoryFollowerCommand(grabTrajectory, drivetrain).andThen(() -> drivetrain.drive(0, 0));
+    Command grabCommand = new TrajectoryFollowerCommand(grabTrajectory, drivetrainSubsystem).andThen(() -> drivetrainSubsystem.drive(0, 0));
 //    TrajectoryFollowerCommand returnCommand = new TrajectoryFollowerCommand(returnTrajectory, drivetrain);
     return grabCommand;//.andThen(returnCommand).andThen(() -> drivetrain.drive(0, 0));
   }

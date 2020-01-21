@@ -30,6 +30,7 @@ public class ShooterSubsystem extends SubsystemBase { // shooter subsystem
     SmartDashboard.putNumber("set shooter velocity", 0);
 
     resetEncoder();
+    setCoast();
 
     setDefaultCommand(new ShootCommand(this));
   }
@@ -38,7 +39,7 @@ public class ShooterSubsystem extends SubsystemBase { // shooter subsystem
    * Shoot with a specified mode
    *
    * @param mode  A {@link ControlMode}
-   * @param value  speed of the one motor pair [-1, 1]
+   * @param value speed of the one motor pair [-1, 1]
    */
   private void shoot(ControlMode mode, double value) {
     pair.set(mode, value);
@@ -47,7 +48,7 @@ public class ShooterSubsystem extends SubsystemBase { // shooter subsystem
   /**
    * Shoot with a specified mode
    *
-   * @param velocity  
+   * @param velocity RPM velocity
    */
   public void shoot(double velocity) {
 
@@ -63,20 +64,13 @@ public class ShooterSubsystem extends SubsystemBase { // shooter subsystem
   }
 
   /**
-   * Set speed controllers to Brake mode
-   */
-  public void setBrake() {
-    pair.setNeutralMode(NeutralMode.Brake);
-  }
-
-  /**
    * Get velocity of shaft
    */
   public double getVelocity() {
     return (pair.getSelectedSensorVelocity() * 60.0) / (ShooterConstants.COUNTS_PER_REVOLUTION * 10.0);
   }
 
-   /**
+  /**
    * Get velocity of shaft
    */
   public double getSetpointVelocity() {
@@ -94,5 +88,5 @@ public class ShooterSubsystem extends SubsystemBase { // shooter subsystem
   public void resetEncoder() {
     pair.setSelectedSensorPosition(0);
   }
-  
+
 }
