@@ -124,16 +124,6 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
   }
 
-  @Override
-  public String getName() { //returns the name of the subsytem
-    return "Drivetrain";
-  }
-
-  @Override
-  public String getSubsystem() { //returns the name of the subsytem for Sendable
-    return "Drivetrain";
-  }
-
   /**
    * Gets the chassis's yaw (orientation of the robot)
    *
