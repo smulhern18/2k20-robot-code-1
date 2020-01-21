@@ -7,9 +7,16 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.util.Units;
+import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.models.Color;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.DrivetrainConstants;
@@ -27,8 +34,6 @@ import edu.wpi.first.wpilibj.DriverStation;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-
   private AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
   private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
@@ -45,9 +50,12 @@ public class RobotContainer {
     configureButtonBindings();
   }
 
-  public void readColor(){
+  /**
+   * Gets the color from the DS
+   */
+  public void readColor() {
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
-    if(gameData.length() > 0){
+    if (gameData.length() > 0) {
       color = Color.getColor(gameData.charAt(0));
     } else {
       color = Color.CORRUPT;
@@ -70,7 +78,22 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+    drivetrain.resetAll();
+    System.out.println(Units.degreesToRadians(45));
+    Trajectory grabTrajectory = TrajectoryGenerator.generateTrajectory(
+        List.of(
+            new Pose2d(0, 0, new Rotation2d(0)),
+            new Pose2d(1, 0, new Rotation2d(3.14/2))),
+        drivetrain.getForwardTrajectoryConfig());
+
+    Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(
+        List.of(
+            new Pose2d(1, 0, new Rotation2d(Units.degreesToRadians(45))),
+            new Pose2d(0, 0, new Rotation2d(0))),
+        drivetrain.getBackwardTrajectoryConfig());
+
+    Command grabCommand = new TrajectoryFollowerCommand(grabTrajectory, drivetrain).andThen(() -> drivetrain.drive(0, 0));
+//    TrajectoryFollowerCommand returnCommand = new TrajectoryFollowerCommand(returnTrajectory, drivetrain);
+    return grabCommand;//.andThen(returnCommand).andThen(() -> drivetrain.drive(0, 0));
   }
 }
