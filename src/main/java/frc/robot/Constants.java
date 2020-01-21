@@ -46,5 +46,10 @@ public final class Constants {
 
         public static final int MAX_VOLTAGE = 10;
     }
+
+    public static final class LEDConstants{
+        public static final int BLINKIN_PARK_CHANNEL = 3;
+
+    }
     
 }
