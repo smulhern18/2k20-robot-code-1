@@ -1,8 +1,9 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+
+import frc.robot.subsystems.ShooterSubsystem;
 
 /**
  * Reads velocity from Shuffleboard, runs shooter at that speed
