@@ -83,7 +83,7 @@ public class RobotContainer {
     Trajectory grabTrajectory = TrajectoryGenerator.generateTrajectory(
         List.of(
             new Pose2d(0, 0, new Rotation2d(0)),
-            new Pose2d(1, 0, new Rotation2d(3.14 / 2))),
+            new Pose2d(1, 0, new Rotation2d(Units.degreesToRadians(45)))),
         drivetrainSubsystem.getForwardTrajectoryConfig());
 
     Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(
@@ -93,7 +93,7 @@ public class RobotContainer {
         drivetrainSubsystem.getBackwardTrajectoryConfig());
 
     Command grabCommand = new TrajectoryFollowerCommand(grabTrajectory, drivetrainSubsystem).andThen(() -> drivetrainSubsystem.drive(0, 0));
-//    TrajectoryFollowerCommand returnCommand = new TrajectoryFollowerCommand(returnTrajectory, drivetrain);
-    return grabCommand;//.andThen(returnCommand).andThen(() -> drivetrain.drive(0, 0));
+    TrajectoryFollowerCommand returnCommand = new TrajectoryFollowerCommand(returnTrajectory, drivetrainSubsystem);
+    return grabCommand.andThen(returnCommand).andThen(() -> drivetrainSubsystem.drive(0, 0));
   }
 }

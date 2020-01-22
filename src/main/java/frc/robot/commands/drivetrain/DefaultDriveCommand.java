@@ -36,7 +36,9 @@ public class DefaultDriveCommand extends CommandBase {
      */
     @Override
     public void execute() {
-        drivetrain.drive(leftStick.getAxis(AttackThreeAxis.Y), rightStick.getAxis(AttackThreeAxis.Y));
+        drivetrain.drive(
+            leftStick.getAxis(AttackThreeAxis.Y),
+            rightStick.getAxis(AttackThreeAxis.Y));
     }
 
     /**

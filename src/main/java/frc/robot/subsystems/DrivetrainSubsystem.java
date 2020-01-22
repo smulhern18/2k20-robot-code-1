@@ -55,8 +55,14 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
 
     rightPair.setInverted(true);
 
-    leftPair.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, DrivetrainConstants.PID_X, DrivetrainConstants.TIMEOUT_MS);
-    rightPair.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, DrivetrainConstants.PID_X, DrivetrainConstants.TIMEOUT_MS);
+    leftPair.configSelectedFeedbackSensor(
+        FeedbackDevice.QuadEncoder,
+        DrivetrainConstants.PID_LOOPTYPE,
+        DrivetrainConstants.TIMEOUT_MS);
+    rightPair.configSelectedFeedbackSensor(
+        FeedbackDevice.QuadEncoder,
+        DrivetrainConstants.PID_LOOPTYPE,
+        DrivetrainConstants.TIMEOUT_MS);
 
     leftPair.setSensorPhase(true);
     rightPair.setSensorPhase(true);
@@ -67,7 +73,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
 
     autoVoltageConstraint = new DifferentialDriveVoltageConstraint(
-        new SimpleMotorFeedforward(DrivetrainConstants.S_VOLTS, DrivetrainConstants.V_VOLT_SECONDS_PER_METER, DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER),
+        DrivetrainConstants.DRIVE_FEED_FORWARD,
         DrivetrainConstants.DRIVE_KINEMATICS,
         DrivetrainConstants.MAX_VOLTAGE);
 
@@ -103,7 +109,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
    * @param left  speed of left motor pair [-1, 1]
    * @param right speed of right motor pair [-1, 1]
    */
-  public void drive(ControlMode mode, double left, double right) {
+  private void drive(ControlMode mode, double left, double right) {
     leftPair.set(mode, left);
     rightPair.set(mode, right);
   }
@@ -171,7 +177,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
   /**
    * Sets yaw to 0
    */
-  public void   resetNavX() {
+  public void resetNavX() {
     navx.reset();
   }
 

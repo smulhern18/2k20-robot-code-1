@@ -3,31 +3,35 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.models.PairedTalonSRX;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.shooter.ShootCommand;;
 
 /**
- * The motors and sensors that the robot uses to shoot.
+ * The shooter
  */
-public class ShooterSubsystem extends SubsystemBase { // shooter subsystem
+public class ShooterSubsystem extends SubsystemBase {
+
+
+  private PairedTalonSRX pair;
+  private String setpointEntry = "Set Shooter Velocity";
+
   /**
    * Creates a new ShooterSubsystem.
    */
-
-  private PairedTalonSRX pair;
-
   public ShooterSubsystem() {
 
     pair = new PairedTalonSRX(ShooterConstants.LEADER_CHANNEL, ShooterConstants.FOLLOWER_CHANNEL);
-    pair.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, ShooterConstants.PID_X, ShooterConstants.TIMEOUT_MS);
+    pair.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, ShooterConstants.PID_LOOPTYPE, ShooterConstants.TIMEOUT_MS);
 
     pair.configPIDF(0, ShooterConstants.P, ShooterConstants.I, ShooterConstants.D, ShooterConstants.F);
     pair.setSensorPhase(true);
 
-    SmartDashboard.putNumber("set shooter velocity", 0);
+    SmartDashboard.putNumber(setpointEntry, 0);
 
     resetEncoder();
     setCoast();
@@ -46,40 +50,42 @@ public class ShooterSubsystem extends SubsystemBase { // shooter subsystem
   }
 
   /**
-   * Shoot with a specified mode
+   * Set flywheel to specified velocity
    *
    * @param velocity RPM velocity
    */
   public void shoot(double velocity) {
-
-    velocity = velocity * ShooterConstants.COUNTS_PER_REVOLUTION * 10.0 / 60.0;
+    velocity = velocity * ShooterConstants.COUNTS_PER_REVOLUTION * 10.0 * (1.0 / 60.0);
     shoot(ControlMode.Velocity, velocity);
   }
 
   /**
    * Set speed controllers to Coast mode
    */
-  public void setCoast() {
+  private void setCoast() {
     pair.setNeutralMode(NeutralMode.Coast);
   }
 
   /**
-   * Get velocity of shaft
+   * Get velocity of shooting wheel
    */
   public double getVelocity() {
-    return (pair.getSelectedSensorVelocity() * 60.0) / (ShooterConstants.COUNTS_PER_REVOLUTION * 10.0);
+    return pair.getSelectedSensorVelocity() * 60.0 * (1 / ShooterConstants.COUNTS_PER_REVOLUTION) * (1.0 / 10.0);
   }
 
   /**
-   * Get velocity of shaft
+   * Get input setpoint velocity from Shuffleboard
    */
   public double getSetpointVelocity() {
-    return SmartDashboard.getNumber("set shooter velocity", 0);
+    return SmartDashboard.getNumber(setpointEntry, 0);
   }
 
+  /**
+   * Puts current velocity of shooter wheel
+   */
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("shooter velocity", getVelocity());
+    SmartDashboard.putNumber("Shooter Velocity", getVelocity());
   }
 
   /**

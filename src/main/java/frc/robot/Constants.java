@@ -45,7 +45,7 @@ public final class Constants {
         DrivetrainConstants.V_VOLT_SECONDS_PER_METER,
         DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER);
 
-    public static final int PID_X = 0;
+    public static final int PID_LOOPTYPE = 0;
     public static final int TIMEOUT_MS = 0;
     public static final double COUNTS_PER_REVOLUTION = 1024;
     public static final double METERS_PER_COUNT = (WHEEL_DIAMETER_METERS * Math.PI) / COUNTS_PER_REVOLUTION;
@@ -63,7 +63,7 @@ public final class Constants {
     public static final double D = 0;
     public static final double F = 0;
 
-    public static final int PID_X = 0;
+    public static final int PID_LOOPTYPE = 0;
     public static final int TIMEOUT_MS = 0;
 
     public static final double COUNTS_PER_REVOLUTION = 12;
