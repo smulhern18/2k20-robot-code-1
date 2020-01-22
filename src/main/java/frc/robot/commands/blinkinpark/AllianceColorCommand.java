@@ -10,6 +10,7 @@ import frc.robot.subsystems.BlinkinParkSubsystem.Song;
 
 public class AllianceColorCommand extends CommandBase{
     private BlinkinParkSubsystem blinkin;
+    private Alliance alliance;
 
     AllianceColorCommand(BlinkinParkSubsystem blinkin){
         this.blinkin = blinkin;
@@ -19,11 +20,18 @@ public class AllianceColorCommand extends CommandBase{
     // Called when the command is initially scheduled. 
     @Override
     public void initialize() {
+      if(alliance != null){
+        setColor();
+      }
     }
 
     @Override
     public void execute() {
-        
+      Alliance newAlliance = DriverStation.getInstance().getAlliance();
+      if (newAlliance != alliance) {
+        alliance = newAlliance;
+        setColor();
+      }
     }
 
     @Override
@@ -32,20 +40,15 @@ public class AllianceColorCommand extends CommandBase{
 
     private void setColor() {
         if (alliance == Alliance.Blue) {
-        blinkinPark.playSong(Song.LightChaseBlue);
+        blinkin.playSong(Song.LightChaseBlue);
         } else if (alliance == Alliance.Red) {
-        blinkinPark.playSong(Song.LightChaseRed);
+        blinkin.playSong(Song.LightChaseRed);
         } else {
-        blinkinPark.playSong(Song.LightChaseGray);
+        blinkin.playSong(Song.LightChaseGray);
         }
     }
   
 
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
