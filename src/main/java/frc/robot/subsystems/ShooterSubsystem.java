@@ -79,6 +79,14 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   /**
+   * Sees if motors are up to speed
+   * @return Whether error is within RPM_THRESHOLD
+   */
+  public boolean atTarget() {
+    return Math.abs(targetVelocity.getRPM() - currentVelocity.getRPM()) < ShooterConstants.RPM_THRESHOLD;
+  }
+
+  /**
    * Set speed controllers to Coast mode
    */
   private void setCoast() {

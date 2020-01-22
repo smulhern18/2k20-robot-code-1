@@ -67,6 +67,7 @@ public final class Constants {
     public static final int TIMEOUT_MS = 0;
 
     public static final double COUNTS_PER_REVOLUTION = 12;
+    public static final double RPM_THRESHOLD = 100;
 
   }
 }
