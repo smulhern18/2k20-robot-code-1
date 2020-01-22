@@ -5,7 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -14,10 +15,12 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import frc.robot.models.PairedTalonSRX;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.input.AttackThree;
+import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstants;
 
 
@@ -26,19 +29,14 @@ import frc.robot.Constants.DrivetrainConstants;
  */
 public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
 
-  /**
-   * Creates a new DrivetrainSubsystem.
-   */
-
-
-  private PairedTalonSRX leftPair;
-  private PairedTalonSRX rightPair;
+  private PairedTalonSRX leftPair, rightPair;
 
   private DifferentialDriveOdometry odometry;
 
   private AHRS navx;
 
-  private TrajectoryConfig trajectoryConfig;
+  private TrajectoryConfig forwardTrajectoryConfig, backwardTrajectoryConfig;
+
   private DifferentialDriveVoltageConstraint autoVoltageConstraint;
 
   /**
@@ -53,7 +51,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     leftPair = new PairedTalonSRX(DrivetrainConstants.LEFT_LEADER_CHANNEL, DrivetrainConstants.LEFT_FOLLOWER_CHANNEL);
     rightPair = new PairedTalonSRX(DrivetrainConstants.RIGHT_LEADER_CHANNEL, DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL);
 
-    navx = new AHRS(SPI.Port.kMXP);
+    navx = new AHRS(Port.kUSB);
 
     rightPair.setInverted(true);
 
@@ -63,7 +61,8 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     leftPair.setSensorPhase(true);
     rightPair.setSensorPhase(true);
 
-    resetEncoders();
+    leftPair.configPIDF(0, Constants.DrivetrainConstants.P_ENCODER_GAIN, 0, 0, 0);
+    rightPair.configPIDF(0, Constants.DrivetrainConstants.P_ENCODER_GAIN, 0, 0, 0);
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
 
@@ -71,15 +70,31 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
         new SimpleMotorFeedforward(DrivetrainConstants.S_VOLTS, DrivetrainConstants.V_VOLT_SECONDS_PER_METER, DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER),
         DrivetrainConstants.DRIVE_KINEMATICS,
         DrivetrainConstants.MAX_VOLTAGE);
-    trajectoryConfig = new TrajectoryConfig(
+
+    forwardTrajectoryConfig = createTrajectoryConfig(false);
+    backwardTrajectoryConfig = createTrajectoryConfig(true);
+
+    resetAll();
+
+    setDefaultCommand(new DefaultDriveCommand(this, leftStick, rightStick));
+  }
+
+  /**
+   * Creates a trajectory config
+   *
+   * @param reversed true if it drives backwards
+   * @return a new trajectory config
+   */
+  private TrajectoryConfig createTrajectoryConfig(boolean reversed) {
+    TrajectoryConfig config = new TrajectoryConfig(
         DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND,
         DrivetrainConstants.MAX_ACCELERATION_METERS_PER_SECOND_SQUARED);
-    trajectoryConfig.setKinematics(DrivetrainConstants.DRIVE_KINEMATICS);
-    trajectoryConfig.addConstraint(autoVoltageConstraint);
-
-
-    this.setDefaultCommand(new DefaultDriveCommand(this, leftStick, rightStick));
+    config.setKinematics(DrivetrainConstants.DRIVE_KINEMATICS);
+    config.addConstraint(autoVoltageConstraint);
+    config.setReversed(reversed);
+    return config;
   }
+
 
   /**
    * Drive with a specified mode
@@ -104,6 +119,16 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
   }
 
   /**
+   * Drives based on a voltage
+   *
+   * @param left  left voltage
+   * @param right right voltage
+   */
+  public void driveVolts(double left, double right) {
+    drive(left / RobotController.getBatteryVoltage(), right / RobotController.getBatteryVoltage());
+  }
+
+  /**
    * Set speed controllers to Coast mode
    */
   public void setCoast() {
@@ -122,16 +147,8 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
   @Override
   public void periodic() {
     odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
-  }
-
-  @Override
-  public String getName() { //returns the name of the subsytem
-    return "Drivetrain";
-  }
-
-  @Override
-  public String getSubsystem() { //returns the name of the subsytem for Sendable
-    return "Drivetrain";
+    SmartDashboard.putString("Odometry", odometry.getPoseMeters().toString());
+    SmartDashboard.putString("Velocity m/s", getWheelSpeeds().toString());
   }
 
   /**
@@ -140,7 +157,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
    * @return yaw in degrees
    */
   public double getYawDegrees() {
-    return navx.getYaw();
+    return -Math.IEEEremainder(navx.getAngle(), 360);
   }
 
   /**
@@ -154,8 +171,28 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
   /**
    * Sets yaw to 0
    */
-  public void resetNavX() {
+  public void   resetNavX() {
     navx.reset();
+  }
+
+  /**
+   * Converts meters/s to counts/100ms
+   *
+   * @param mps meters per second
+   * @return counts/100ms
+   */
+  public double metersPerSecondToCountsPerDeciSec(double mps) {
+    return mps * (1 / DrivetrainConstants.METERS_PER_COUNT) * (1.0 / 10.0);
+  }
+
+  /**
+   * Converts counts/100ms to meters/s
+   *
+   * @param countsPerDecisec counts/100ms
+   * @return meters per second
+   */
+  public double countsPerDeciSecToMetersPerSecond(double countsPerDecisec) {
+    return countsPerDecisec * 10 * DrivetrainConstants.METERS_PER_COUNT;
   }
 
   /**
@@ -167,6 +204,11 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     return DrivetrainConstants.METERS_PER_COUNT * leftPair.getSelectedSensorPosition();
   }
 
+  /**
+   * Gets right distance in meters
+   *
+   * @return the left distance in meters
+   */
   public double getRightDistance() {
     return DrivetrainConstants.METERS_PER_COUNT * rightPair.getSelectedSensorPosition();
   }
@@ -182,6 +224,7 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
 
   /**
    * Resets odometry to specified pose
+   *
    * @param pose pose to reset to
    */
   public void resetOdometry(Pose2d pose) {
@@ -189,16 +232,42 @@ public class DrivetrainSubsystem extends SubsystemBase { // drivetrain subsystem
     odometry.resetPosition(pose, Rotation2d.fromDegrees(getYawDegrees()));
   }
 
-  public double getTurnRate() {
-    return navx.getRate();
+  /**
+   * Resets NavX, Encoders, odometry, sets coast
+   */
+  public void resetAll() {
+    resetNavX();
+    resetEncoders();
+    resetOdometry(new Pose2d());
+    setCoast();
   }
 
+  /**
+   * (counts / 100 ms) * (meters / count) * (10 ms / 1 s) == (meters / second)
+   *
+   * @return Wheel speeds in meters / second
+   */
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(leftPair.getSelectedSensorVelocity(), rightPair.getSelectedSensorVelocity());
+    return new DifferentialDriveWheelSpeeds(
+        countsPerDeciSecToMetersPerSecond(leftPair.getSelectedSensorVelocity()),
+        countsPerDeciSecToMetersPerSecond(rightPair.getSelectedSensorVelocity()));
   }
 
-  public TrajectoryConfig getTrajectoryConfig() {
-    return trajectoryConfig;
+  /**
+   * Used for trajectories where the robot drives forwards
+   *
+   * @return forward trajectory config
+   */
+  public TrajectoryConfig getForwardTrajectoryConfig() {
+    return forwardTrajectoryConfig;
   }
 
+  /**
+   * Used for trajectories where the robot drives backwards
+   *
+   * @return backward trajectory config
+   */
+  public TrajectoryConfig getBackwardTrajectoryConfig() {
+    return backwardTrajectoryConfig;
+  }
 }
