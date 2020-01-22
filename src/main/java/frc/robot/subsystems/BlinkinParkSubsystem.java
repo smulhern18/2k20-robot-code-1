@@ -6,24 +6,24 @@ import edu.wpi.first.wpilibj.Spark;
 import frc.robot.Constants.LEDConstants;
 
 
-public class BlinkinParkSubsystem extends SubsystemBase{
+public class BlinkinParkSubsystem extends SubsystemBase {
 
     private Spark blink;
 
-    BlinkinParkSubsystem(){
+    BlinkinParkSubsystem() {
         blink = new Spark(LEDConstants.BLINKIN_PARK_CHANNEL);
     }
 
     public void playSong(Song song) {
         blink.set(song.getValue());
     }
-    
+
     public void stop() {
         blink.set(0);
     }
 
     @Override
-    public void periodic(){
+    public void periodic() {
 
     }
 
@@ -139,14 +139,15 @@ public class BlinkinParkSubsystem extends SubsystemBase{
         DarkGray(0.97),
         Black(0.99);
 
-    private double value;//current song
+        private double value;//current song
 
-    Song(double value) {
-        this.value = value;
+        Song(double value) {
+            this.value = value;
+        }
+
+        public double getValue() {
+            return this.value;
+        }
+
     }
-
-    public double getValue() {
-        return this.value;
-    }
-
 }
