@@ -2,6 +2,7 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.input.AttackThree;
 import frc.robot.input.AttackThree.AttackThreeAxis;
@@ -16,7 +17,7 @@ public class DefaultDriveCommand extends CommandBase {
     private final AttackThree rightStick;
 
 
-    public DefaultDriveCommand(DrivetrainSubsystem drivetrain, AttackThree leftStick, AttackThree rightStick) { // Constructor
+    public DefaultDriveCommand(DrivetrainSubsystem drivetrain, AttackThree leftStick, AttackThree rightStick) {
         this.leftStick = leftStick;
         this.rightStick = rightStick;
         this.drivetrain = drivetrain;
@@ -36,9 +37,9 @@ public class DefaultDriveCommand extends CommandBase {
      */
     @Override
     public void execute() {
-        drivetrain.drive(
-            leftStick.getAxis(AttackThreeAxis.Y),
-            rightStick.getAxis(AttackThreeAxis.Y));
+        double left = leftStick.getAxis(AttackThreeAxis.Y);
+        double right = rightStick.getAxis(AttackThreeAxis.Y);
+        drivetrain.drive(left, right);
     }
 
     /**

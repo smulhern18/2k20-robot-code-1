@@ -9,18 +9,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.models.PairedTalonSRX;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.commands.shooter.ShootCommand;;
 
 /**
  * The shooter
  */
 public class ShooterSubsystem extends SubsystemBase {
-
-
   private PairedTalonSRX pair;
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
-
 
   /**
    * Creates a new ShooterSubsystem.
@@ -28,11 +24,9 @@ public class ShooterSubsystem extends SubsystemBase {
   public ShooterSubsystem() {
     pair = new PairedTalonSRX(ShooterConstants.LEADER_CHANNEL, ShooterConstants.FOLLOWER_CHANNEL);
     pair.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, ShooterConstants.PID_LOOPTYPE, ShooterConstants.TIMEOUT_MS);
-    pair.configPIDF(0, ShooterConstants.P, ShooterConstants.I, ShooterConstants.D, ShooterConstants.F);
+    pair.configPIDF(ShooterConstants.P, ShooterConstants.I, ShooterConstants.D, ShooterConstants.F);
 
     setCoast();
-
-    setDefaultCommand(new ShootCommand(this));
   }
 
   /**
@@ -80,6 +74,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   /**
    * Sees if motors are up to speed
+   *
    * @return Whether error is within RPM_THRESHOLD
    */
   public boolean atTarget() {

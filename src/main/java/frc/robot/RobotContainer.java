@@ -16,16 +16,17 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.util.Units;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.DriverStation;
+
+import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
+import frc.robot.commands.shooter.DefaultShootCommand;
 import frc.robot.models.Color;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.input.AttackThree;
 import frc.robot.subsystems.DrivetrainSubsystem;
-
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -37,29 +38,16 @@ public class RobotContainer {
   private AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
   private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
-  private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem(leftStick, rightStick);
+  private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
   private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private Color color;
-
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
     configureButtonBindings();
-  }
-
-  /**
-   * Gets the color from the DS
-   */
-  public void readColor() {
-    String gameData = DriverStation.getInstance().getGameSpecificMessage();
-    if (gameData.length() > 0) {
-      color = Color.getColor(gameData.charAt(0));
-    } else {
-      color = Color.CORRUPT;
-    }
+    setDefaultCommands();
   }
 
   /**
@@ -69,6 +57,15 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+  }
+
+  /**
+   * Sets all the default commands of the susbsytems. Helps with abstraction to do it here.
+   * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
+   */
+  private void setDefaultCommands() {
+    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(drivetrainSubsystem, leftStick, rightStick));
+    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
   }
 
 
@@ -92,8 +89,20 @@ public class RobotContainer {
             new Pose2d(0, 0, new Rotation2d(0))),
         drivetrainSubsystem.getBackwardTrajectoryConfig());
 
-    Command grabCommand = new TrajectoryFollowerCommand(grabTrajectory, drivetrainSubsystem).andThen(() -> drivetrainSubsystem.drive(0, 0));
+    Command grabCommand = new TrajectoryFollowerCommand(grabTrajectory, drivetrainSubsystem);
     TrajectoryFollowerCommand returnCommand = new TrajectoryFollowerCommand(returnTrajectory, drivetrainSubsystem);
-    return grabCommand.andThen(returnCommand).andThen(() -> drivetrainSubsystem.drive(0, 0));
+    return grabCommand.andThen(returnCommand);
+  }
+
+  /**
+   * Gets the color from the DS
+   */
+  public void readColor() {
+    String gameData = DriverStation.getInstance().getGameSpecificMessage();
+    if (gameData.length() > 0) {
+      color = Color.getColor(gameData.charAt(0));
+    } else {
+      color = Color.CORRUPT;
+    }
   }
 }
