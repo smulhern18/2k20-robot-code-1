@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstants;
@@ -28,8 +27,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private DifferentialDriveOdometry odometry;
 
   private AHRS navx;
-
-  private TrajectoryConfig forwardTrajectoryConfig, backwardTrajectoryConfig;
 
   /**
    * Construct Drivetrain subsystem
@@ -74,9 +71,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     );
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
-
-    forwardTrajectoryConfig = createTrajectoryConfig(false);
-    backwardTrajectoryConfig = createTrajectoryConfig(true);
 
     resetAll();
   }
@@ -183,7 +177,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public void resetAll() {
     resetNavX();
     resetEncoders();
-    resetOdometry(new Pose2d());
+    resetOdometry(new Pose2d(0, 0, Rotation2d.fromDegrees(getYawDegrees())));
     setCoast();
   }
 
@@ -252,39 +246,5 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
   public Pose2d getPose() {
     return odometry.getPoseMeters();
-  }
-
-  /**
-   * Creates a trajectory config
-   *
-   * @param reversed true if it drives backwards
-   * @return a new trajectory config
-   */
-  private TrajectoryConfig createTrajectoryConfig(boolean reversed) {
-    TrajectoryConfig config = new TrajectoryConfig(
-        DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND,
-        DrivetrainConstants.MAX_ACCELERATION_METERS_PER_SECOND_SQUARED);
-    config.setKinematics(DrivetrainConstants.DRIVE_KINEMATICS);
-    config.addConstraint(DrivetrainConstants.AUTO_VOLTAGE_CONSTRAINT);
-    config.setReversed(reversed);
-    return config;
-  }
-
-  /**
-   * Used for trajectories where the robot drives forwards
-   *
-   * @return forward trajectory config
-   */
-  public TrajectoryConfig getForwardTrajectoryConfig() {
-    return forwardTrajectoryConfig;
-  }
-
-  /**
-   * Used for trajectories where the robot drives backwards
-   *
-   * @return backward trajectory config
-   */
-  public TrajectoryConfig getBackwardTrajectoryConfig() {
-    return backwardTrajectoryConfig;
   }
 }
