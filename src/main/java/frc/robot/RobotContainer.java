@@ -43,16 +43,13 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * Maps commands to buttons.
    */
   private void configureButtonBindings() {
   }
 
   /**
-   * Sets all the default commands of the susbsytems. Helps with abstraction to do it here.
+   * Sets all the default commands of the subsystems. Helps with abstraction to do it here.
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
@@ -62,11 +59,10 @@ public class RobotContainer {
 
 
   /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
+   * Determines the appropriate auto command.
+   * @return the auto command
    */
-  public Command getAutonomousCommand() {
+  public Command getAutoCommand() {
     drivetrainSubsystem.resetAll();
     return new TestAutoCommand(drivetrainSubsystem);
   }
