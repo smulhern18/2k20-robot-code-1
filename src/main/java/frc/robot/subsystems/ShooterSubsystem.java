@@ -125,7 +125,7 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     public void setRPM(double value) {
       this.rpm = value;
-      cpd = value * ShooterConstants.COUNTS_PER_REVOLUTION * 10.0 * (1.0 / 60.0);
+      cpd = value * ShooterConstants.COUNTS_PER_REVOLUTION * (1.0 / 10.0) * (1.0 / 60.0);
     }
 
     /**
@@ -144,7 +144,7 @@ public class ShooterSubsystem extends SubsystemBase {
      */
     public void setCPD(double value) {
       this.cpd = value;
-      rpm = value * 60.0 * (1 / ShooterConstants.COUNTS_PER_REVOLUTION) * (1.0 / 10.0);
+      rpm = value * 60.0 * (1 / ShooterConstants.COUNTS_PER_REVOLUTION) * 10.0;
     }
 
     /**
