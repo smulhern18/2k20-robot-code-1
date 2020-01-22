@@ -3,12 +3,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import frc.robot.models.PairedTalonSRX;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.models.PairedTalonSRX;
 
 /**
  * The shooter
@@ -22,9 +20,18 @@ public class ShooterSubsystem extends SubsystemBase {
    * Creates a new ShooterSubsystem.
    */
   public ShooterSubsystem() {
-    pair = new PairedTalonSRX(ShooterConstants.LEADER_CHANNEL, ShooterConstants.FOLLOWER_CHANNEL);
-    pair.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, ShooterConstants.PID_LOOPTYPE, ShooterConstants.TIMEOUT_MS);
-    pair.configPIDF(ShooterConstants.P, ShooterConstants.I, ShooterConstants.D, ShooterConstants.F);
+    pair = new PairedTalonSRX(
+        ShooterConstants.LEADER_CHANNEL,
+        ShooterConstants.FOLLOWER_CHANNEL);
+    pair.configSelectedFeedbackSensor(
+        FeedbackDevice.QuadEncoder,
+        ShooterConstants.PID_LOOPTYPE,
+        ShooterConstants.TIMEOUT_MS);
+    pair.configPIDF(
+        ShooterConstants.P,
+        ShooterConstants.I,
+        ShooterConstants.D,
+        ShooterConstants.F);
 
     setCoast();
   }
@@ -32,7 +39,7 @@ public class ShooterSubsystem extends SubsystemBase {
   /**
    * Changes the target rotational velocity of the shooter
    *
-   * @param rpm
+   * @param rpm rpm to set target velocity to
    */
   public void setTargetRPM(double rpm) {
     targetVelocity.setRPM(rpm);
@@ -134,7 +141,7 @@ public class ShooterSubsystem extends SubsystemBase {
     /**
      * Gets Counts per decisec (100ms)
      *
-     * @return
+     * @return counts per 100 ms velocity
      */
     public double getCPD() {
       return cpd;
@@ -143,7 +150,7 @@ public class ShooterSubsystem extends SubsystemBase {
     /**
      * Sets velocity in Counts per decisec (100ms)
      *
-     * @param value
+     * @param value Counts per 100 ms
      */
     public void setCPD(double value) {
       this.cpd = value;

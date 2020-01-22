@@ -13,7 +13,7 @@ import frc.robot.input.AttackThree.AttackThreeAxis;
 public class DefaultDriveCommand extends CommandBase {
     private final DrivetrainSubsystem drivetrain;
 
-    private final AttackThree leftStick; //REMINDER subject to change channel number
+    private final AttackThree leftStick;
     private final AttackThree rightStick;
 
 
@@ -22,13 +22,7 @@ public class DefaultDriveCommand extends CommandBase {
         this.rightStick = rightStick;
         this.drivetrain = drivetrain;
 
-        // Command dependent on having a drive train.
         addRequirements(drivetrain);
-    }
-
-    // Called when the command is initially scheduled. 
-    @Override
-    public void initialize() {
     }
 
     /**
@@ -48,11 +42,5 @@ public class DefaultDriveCommand extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         drivetrain.drive(0, 0);
-    }
-
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }
