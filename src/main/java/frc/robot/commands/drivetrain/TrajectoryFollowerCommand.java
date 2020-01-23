@@ -10,19 +10,27 @@ import frc.robot.subsystems.DrivetrainSubsystem;
  * Trajectory following class
  */
 public class TrajectoryFollowerCommand extends RamseteCommand {
+  private DrivetrainSubsystem drivetrainSubsystem;
+
   /**
    * Creates a Ramsete command that follows the given trajectory
    *
    * @param trajectory trajectory to follow
-   * @param drivetrain Drivetrain subsystem
+   * @param drivetrainSubsystem Drivetrain subsystem
    */
-  public TrajectoryFollowerCommand(Trajectory trajectory, DrivetrainSubsystem drivetrain) {
+  public TrajectoryFollowerCommand(Trajectory trajectory, DrivetrainSubsystem drivetrainSubsystem) {
     super(trajectory,
-        drivetrain::getPose,
+        drivetrainSubsystem::getPose,
         new RamseteController(DrivetrainConstants.RAMSETE_B, DrivetrainConstants.RAMSETE_ZETA),
         DrivetrainConstants.DRIVE_KINEMATICS,
-        drivetrain::tankDriveVelocity,
-        drivetrain);
-    andThen(() -> drivetrain.drive(0, 0));
+        drivetrainSubsystem::tankDriveVelocity,
+        drivetrainSubsystem);
+    this.drivetrainSubsystem = drivetrainSubsystem;
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    super.end(interrupted);
+    drivetrainSubsystem.drive(0, 0);
   }
 }

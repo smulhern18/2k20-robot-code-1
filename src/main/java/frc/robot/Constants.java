@@ -91,4 +91,14 @@ public final class Constants {
     public static final double RPM_THRESHOLD = 100;
 
   }
+
+  public static class VisionConstants {
+    public static final int LED_CANNEL = 3;
+    public static final boolean LED_ON = true;
+    public static final boolean LED_OFF = false;
+    public static final String TABLE = "Vision";
+    public static final String FOUND_ENTRY = "found";
+    public static final String DISTANCE_ENTRY = "distance";
+    public static final String ANGLE_ENTRY = "angle";
+  }
 }
