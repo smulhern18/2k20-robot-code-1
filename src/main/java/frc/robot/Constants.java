@@ -97,8 +97,9 @@ public final class Constants {
     public static final boolean LED_ON = true;
     public static final boolean LED_OFF = false;
     public static final String TABLE = "Vision";
-    public static final String FOUND_ENTRY = "found";
-    public static final String DISTANCE_ENTRY = "distance";
-    public static final String ANGLE_ENTRY = "angle";
+    public static final String DATA_ENTRY = "data";
+    public static final String FOUND = "found";
+    public static final String DISTANCE = "distance";
+    public static final String ANGLE = "angle";
   }
 }

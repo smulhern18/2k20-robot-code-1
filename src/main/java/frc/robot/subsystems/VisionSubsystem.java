@@ -12,7 +12,9 @@ import frc.robot.Constants.VisionConstants;
  */
 public class VisionSubsystem extends SubsystemBase {
   private Solenoid lightRing;
-  private NetworkTableEntry foundEntry, distanceEntry, angleEntry;
+  private NetworkTableEntry dataEntry;
+  private boolean found = false;
+  private double distance = 0, angle = 0;
 
   /**
    * Connects to light ring, NetworkTables
@@ -20,13 +22,12 @@ public class VisionSubsystem extends SubsystemBase {
   public VisionSubsystem() {
     lightRing = new Solenoid(VisionConstants.LED_CANNEL);
     NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.TABLE);
-    foundEntry = table.getEntry(VisionConstants.FOUND_ENTRY);
-    distanceEntry = table.getEntry(VisionConstants.DISTANCE_ENTRY);
-    angleEntry = table.getEntry(VisionConstants.ANGLE_ENTRY);
+    dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
   }
 
   /**
    * Sets ring light on or off
+   *
    * @param status LED_ON or LED_OFF
    */
   public void setLightRing(boolean status) {
@@ -35,25 +36,32 @@ public class VisionSubsystem extends SubsystemBase {
 
   /**
    * Gets whether the target is detected
+   *
    * @return state of detection
    */
   public boolean getTargetFound() {
-    return foundEntry.getBoolean(false);
+    return found;
   }
 
   /**
    * Gets the distance to the target
+   *
    * @return distance to the target in inches
    */
   public double getDistanceToTarget() {
-    return getTargetFound() ? distanceEntry.getDouble(0) : 0;
+    return getTargetFound() ? distance : 0;
   }
 
   /**
    * Gets angle to the target
+   *
    * @return angle to the target in (radians?) TODO: check units
    */
   public double getAngleToTarget() {
-    return getTargetFound() ? angleEntry.getDouble(0) : 0;
+    return getTargetFound() ? angle : 0;
+  }
+
+  private void parseJson() {
+
   }
 }
