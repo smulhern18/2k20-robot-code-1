@@ -17,7 +17,7 @@ public abstract class Trajectories {
    * @return a new trajectory config
    */
   private static TrajectoryConfig createTrajectoryConfig(boolean reversed) {
-    TrajectoryConfig config = new TrajectoryConfig(
+    final TrajectoryConfig config = new TrajectoryConfig(
         DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND,
         DrivetrainConstants.MAX_ACCELERATION_METERS_PER_SECOND_SQUARED);
     config.setKinematics(DrivetrainConstants.DRIVE_KINEMATICS);
