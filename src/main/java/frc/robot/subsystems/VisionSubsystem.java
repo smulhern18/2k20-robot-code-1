@@ -1,11 +1,15 @@
 package frc.robot.subsystems;
 
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Controls all vision related devices
@@ -15,6 +19,7 @@ public class VisionSubsystem extends SubsystemBase {
   private NetworkTableEntry dataEntry;
   private boolean found = false;
   private double distance = 0, angle = 0;
+  JSONParser parser;
 
   /**
    * Connects to light ring, NetworkTables
@@ -23,6 +28,8 @@ public class VisionSubsystem extends SubsystemBase {
     lightRing = new Solenoid(VisionConstants.LED_CANNEL);
     NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.TABLE);
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
+
+    parser = new JSONParser();
   }
 
   /**
@@ -62,6 +69,13 @@ public class VisionSubsystem extends SubsystemBase {
   }
 
   private void parseJson() {
+    try {
+      Object obj = parser.parse(dataEntry.getString("{\"found\": 0, \"distance\": 0, \"angle\": 0}"));
+      JSONArray data = (JSONArray) obj;
+      // TODO: see what is in `data`
 
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
   }
 }
