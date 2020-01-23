@@ -7,9 +7,11 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
+
 import org.json.simple.parser.ParseException;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  * Controls all vision related devices
@@ -71,11 +73,15 @@ public class VisionSubsystem extends SubsystemBase {
   private void parseJson() {
     try {
       Object obj = parser.parse(dataEntry.getString("{\"found\": 0, \"distance\": 0, \"angle\": 0}"));
-      JSONArray data = (JSONArray) obj;
-      // TODO: see what is in `data`
+      JSONObject data = (JSONObject) obj;
+      SmartDashboard.putString("found", data.get(VisionConstants.FOUND).toString());
+      SmartDashboard.putString("distance", data.get(VisionConstants.DISTANCE).toString());
+      SmartDashboard.putString("angle", data.get(VisionConstants.ANGLE).toString());
 
     } catch (ParseException e) {
       e.printStackTrace();
     }
+
+    
   }
 }
