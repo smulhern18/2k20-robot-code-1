@@ -11,18 +11,18 @@ import frc.robot.input.AttackThree.AttackThreeAxis;
  * Default Drive Command
  */
 public class DefaultDriveCommand extends CommandBase {
-    private final DrivetrainSubsystem drivetrain;
+    private final DrivetrainSubsystem drivetrainSubsystem;
 
     private final AttackThree leftStick;
     private final AttackThree rightStick;
 
 
-    public DefaultDriveCommand(DrivetrainSubsystem drivetrain, AttackThree leftStick, AttackThree rightStick) {
+    public DefaultDriveCommand(AttackThree leftStick, AttackThree rightStick, DrivetrainSubsystem drivetrainSubsystem) {
         this.leftStick = leftStick;
         this.rightStick = rightStick;
-        this.drivetrain = drivetrain;
+        this.drivetrainSubsystem = drivetrainSubsystem;
 
-        addRequirements(drivetrain);
+        addRequirements(drivetrainSubsystem);
     }
 
     /**
@@ -33,7 +33,7 @@ public class DefaultDriveCommand extends CommandBase {
     public void execute() {
         double left = leftStick.getAxis(AttackThreeAxis.Y);
         double right = rightStick.getAxis(AttackThreeAxis.Y);
-        drivetrain.drive(left, right);
+        drivetrainSubsystem.drive(left, right);
     }
 
     /**
@@ -41,6 +41,6 @@ public class DefaultDriveCommand extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        drivetrain.drive(0, 0);
+        drivetrainSubsystem.drive(0, 0);
     }
 }
