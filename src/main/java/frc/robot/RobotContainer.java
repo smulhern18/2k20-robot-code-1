@@ -31,7 +31,7 @@ public class RobotContainer {
   private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
   private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+//  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private VisionSubsystem visionSubsystem = new VisionSubsystem();
   private Color color = Color.CORRUPT;
 
@@ -54,8 +54,8 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
-    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
+//    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
+//    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
     visionSubsystem.setDefaultCommand(new DefaultVisionCommand(visionSubsystem));
   }
 
@@ -68,6 +68,8 @@ public class RobotContainer {
     drivetrainSubsystem.resetAll();
     return new TestAutoCommand(drivetrainSubsystem);
   }
+
+
 
   /**
    * Gets the color from the DS

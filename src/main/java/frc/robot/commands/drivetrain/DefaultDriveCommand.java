@@ -25,6 +25,11 @@ public class DefaultDriveCommand extends CommandBase {
         addRequirements(drivetrainSubsystem);
     }
 
+    @Override
+    public void initialize() {
+        drivetrainSubsystem.setCoast();
+    }
+
     /**
      * Called every time the scheduler runs while the command is scheduled.
      * Takes the joystick values and makes the robot move accordingly.

@@ -20,7 +20,7 @@ public class VisionSubsystem extends SubsystemBase {
   private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
   private boolean found = false;
-  private double distance = 0, angle = 0;
+  private double distance = 0, angle = 0, fps = 0;
   JSONParser parser;
 
   /**
@@ -72,16 +72,24 @@ public class VisionSubsystem extends SubsystemBase {
 
   private void parseJson() {
     try {
-      Object obj = parser.parse(dataEntry.getString("{\"found\": 0, \"distance\": 0, \"angle\": 0}"));
+      Object obj = parser.parse(dataEntry.getString("{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}"));
       JSONObject data = (JSONObject) obj;
-      SmartDashboard.putString("found", data.get(VisionConstants.FOUND).toString());
-      SmartDashboard.putString("distance", data.get(VisionConstants.DISTANCE).toString());
-      SmartDashboard.putString("angle", data.get(VisionConstants.ANGLE).toString());
+      found = (long)data.get(VisionConstants.FOUND) == 1;
+      distance = Double.parseDouble(data.get(VisionConstants.DISTANCE).toString());
+      angle = Double.parseDouble(data.get(VisionConstants.ANGLE).toString());
+      fps = Double.parseDouble(data.get(VisionConstants.FPS).toString());
+      SmartDashboard.putBoolean("found", found);
+      SmartDashboard.putNumber("distance", distance);
+      SmartDashboard.putNumber("angle", angle);
+      SmartDashboard.putNumber("fps", fps);
 
     } catch (ParseException e) {
       e.printStackTrace();
     }
+  }
 
-    
+  @Override
+  public void periodic() {
+    parseJson();
   }
 }

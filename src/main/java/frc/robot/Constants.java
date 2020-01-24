@@ -44,7 +44,7 @@ public final class Constants {
         DrivetrainConstants.V_VOLT_SECONDS_PER_METER,
         DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER);
 
-    public static final double P = 2;
+    public static final double P = 4;
     public static final double I = 0;
     public static final double D = 0;
     public static final double F = 0;
@@ -101,5 +101,6 @@ public final class Constants {
     public static final String FOUND = "found";
     public static final String DISTANCE = "distance";
     public static final String ANGLE = "angle";
+    public static final String FPS = "fps";
   }
 }
