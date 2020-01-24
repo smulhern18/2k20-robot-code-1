@@ -28,6 +28,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   private AHRS navx;
 
+  private double leftAcceleration = 0, rightAcceleration = 0;
+
   /**
    * Construct Drivetrain subsystem
    * Configures sensors too
@@ -106,8 +108,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
   public void tankDriveVelocity(double leftVelocity, double rightVelocity) {
     //TODO: investigate acceleration units
-    double leftAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / Constants.LOOP_TIME_MS;
-    double rightAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / Constants.LOOP_TIME_MS;
+    leftAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / Constants.LOOP_TIME_MS;
+    rightAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / Constants.LOOP_TIME_MS;
 
     double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftAcceleration);
     double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightAcceleration);
@@ -145,6 +147,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
     SmartDashboard.putString("Odometry", odometry.getPoseMeters().toString());
     SmartDashboard.putString("Velocity m/s", getWheelSpeeds().toString());
+    SmartDashboard.putString("Acceleration (unknown units)", "Left: " + leftAcceleration + ", Right: " + rightAcceleration);
   }
 
   /**
