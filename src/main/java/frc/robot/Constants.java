@@ -81,10 +81,10 @@ public final class Constants {
     public static final int LEADER_CHANNEL = 0;
     public static final int FOLLOWER_CHANNEL = 1;
 
-    public static final double P = 1.0;
+    public static final double P = 0;
     public static final double I = 0;
     public static final double D = 0;
-    public static final double F = 0;
+    public static final double F = 1.0;
 
     public static final int PID_LOOPTYPE = 0;
     public static final int TIMEOUT_MS = 20;
