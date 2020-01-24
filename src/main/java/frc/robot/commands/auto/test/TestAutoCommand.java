@@ -6,18 +6,12 @@ import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 /**
- * Simple auto that makes a quarter circle, then goes back
+ * Simple auto that follows a "tight" S-shape
  */
 public class TestAutoCommand extends SequentialCommandGroup {
   public TestAutoCommand(DrivetrainSubsystem drivetrainSubsystem) {
     addCommands(
         new InstantCommand(drivetrainSubsystem::setBrake, drivetrainSubsystem),
-//        new TrajectoryFollowerCommand(
-//            TestTrajectories.FORWARD,
-//            drivetrainSubsystem),
-//        new TrajectoryFollowerCommand(
-//            TestTrajectories.BACKWARD,
-//            drivetrainSubsystem));
         new TrajectoryFollowerCommand(TestTrajectories.S, drivetrainSubsystem));
   }
 }
