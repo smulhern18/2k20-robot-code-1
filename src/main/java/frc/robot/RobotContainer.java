@@ -7,25 +7,18 @@
 
 package frc.robot;
 
-import java.util.List;
-
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.util.Units;
-import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.models.Color;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.input.AttackThree;
-import frc.robot.subsystems.DrivetrainSubsystem;
-
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.commands.auto.test.TestAutoCommand;
+import frc.robot.commands.drivetrain.DefaultDriveCommand;
+import frc.robot.commands.shooter.DefaultShootCommand;
+import frc.robot.commands.vision.DefaultVisionCommand;
+import frc.robot.input.AttackThree;
+import frc.robot.models.Color;
+import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -37,18 +30,46 @@ public class RobotContainer {
   private AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
   private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
-  private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem(leftStick, rightStick);
-  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  private Color color;
-
+  private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+//  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  private VisionSubsystem visionSubsystem = new VisionSubsystem();
+  private Color color = Color.CORRUPT;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
     configureButtonBindings();
+    setDefaultCommands();
   }
+
+  /**
+   * Maps commands to buttons.
+   */
+  private void configureButtonBindings() {
+  }
+
+  /**
+   * Sets all the default commands of the subsystems. Helps with abstraction to do it here.
+   * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
+   */
+  private void setDefaultCommands() {
+//    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
+//    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
+    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(visionSubsystem));
+  }
+
+  /**
+   * Determines the appropriate auto command.
+   *
+   * @return the auto command
+   */
+  public Command getAutoCommand() {
+    drivetrainSubsystem.resetAll();
+    return new TestAutoCommand(drivetrainSubsystem);
+  }
+
+
 
   /**
    * Gets the color from the DS
@@ -60,40 +81,5 @@ public class RobotContainer {
     } else {
       color = Color.CORRUPT;
     }
-  }
-
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {
-  }
-
-
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    drivetrainSubsystem.resetAll();
-    System.out.println(Units.degreesToRadians(45));
-    Trajectory grabTrajectory = TrajectoryGenerator.generateTrajectory(
-        List.of(
-            new Pose2d(0, 0, new Rotation2d(0)),
-            new Pose2d(1, 0, new Rotation2d(Units.degreesToRadians(45)))),
-        drivetrainSubsystem.getForwardTrajectoryConfig());
-
-    Trajectory returnTrajectory = TrajectoryGenerator.generateTrajectory(
-        List.of(
-            new Pose2d(1, 0, new Rotation2d(Units.degreesToRadians(45))),
-            new Pose2d(0, 0, new Rotation2d(0))),
-        drivetrainSubsystem.getBackwardTrajectoryConfig());
-
-    Command grabCommand = new TrajectoryFollowerCommand(grabTrajectory, drivetrainSubsystem).andThen(() -> drivetrainSubsystem.drive(0, 0));
-    TrajectoryFollowerCommand returnCommand = new TrajectoryFollowerCommand(returnTrajectory, drivetrainSubsystem);
-    return grabCommand.andThen(returnCommand).andThen(() -> drivetrainSubsystem.drive(0, 0));
   }
 }

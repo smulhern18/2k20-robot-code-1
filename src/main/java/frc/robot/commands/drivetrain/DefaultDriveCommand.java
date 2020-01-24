@@ -2,6 +2,7 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
+import edu.wpi.first.wpiutil.math.MathUtil;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.input.AttackThree;
 import frc.robot.input.AttackThree.AttackThreeAxis;
@@ -10,24 +11,23 @@ import frc.robot.input.AttackThree.AttackThreeAxis;
  * Default Drive Command
  */
 public class DefaultDriveCommand extends CommandBase {
-    private final DrivetrainSubsystem drivetrain;
+    private final DrivetrainSubsystem drivetrainSubsystem;
 
-    private final AttackThree leftStick; //REMINDER subject to change channel number
+    private final AttackThree leftStick;
     private final AttackThree rightStick;
 
 
-    public DefaultDriveCommand(DrivetrainSubsystem drivetrain, AttackThree leftStick, AttackThree rightStick) { // Constructor
+    public DefaultDriveCommand(AttackThree leftStick, AttackThree rightStick, DrivetrainSubsystem drivetrainSubsystem) {
         this.leftStick = leftStick;
         this.rightStick = rightStick;
-        this.drivetrain = drivetrain;
+        this.drivetrainSubsystem = drivetrainSubsystem;
 
-        // Command dependent on having a drive train.
-        addRequirements(drivetrain);
+        addRequirements(drivetrainSubsystem);
     }
 
-    // Called when the command is initially scheduled. 
     @Override
     public void initialize() {
+        drivetrainSubsystem.setCoast();
     }
 
     /**
@@ -36,9 +36,11 @@ public class DefaultDriveCommand extends CommandBase {
      */
     @Override
     public void execute() {
-        drivetrain.drive(
-            leftStick.getAxis(AttackThreeAxis.Y),
-            rightStick.getAxis(AttackThreeAxis.Y));
+        double left = leftStick.getAxis(AttackThreeAxis.Y);
+        left *= Math.abs(left); // squared to provide threshold
+        double right = rightStick.getAxis(AttackThreeAxis.Y);
+        right *= Math.abs(right); // squared to provide threshold
+        drivetrainSubsystem.drive(left, right);
     }
 
     /**
@@ -46,12 +48,6 @@ public class DefaultDriveCommand extends CommandBase {
      */
     @Override
     public void end(boolean interrupted) {
-        drivetrain.drive(0, 0);
-    }
-
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        return false;
+        drivetrainSubsystem.drive(0, 0);
     }
 }

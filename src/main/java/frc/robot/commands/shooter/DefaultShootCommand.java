@@ -8,16 +8,17 @@ import frc.robot.subsystems.ShooterSubsystem;
 /**
  * Reads velocity from Shuffleboard, runs shooter at that speed
  */
-public class ShootCommand extends CommandBase {
+public class DefaultShootCommand extends CommandBase {
 
   private final ShooterSubsystem shooterSubsystem;
   private final String SETPOINT = "Shooter setpoint RPM";
 
   /**
    * Puts 0 rpm to shuffleboard
+   *
    * @param shooterSubsystem the shooter subsystem
    */
-  public ShootCommand(ShooterSubsystem shooterSubsystem) {
+  public DefaultShootCommand(ShooterSubsystem shooterSubsystem) {
     addRequirements(shooterSubsystem);
     this.shooterSubsystem = shooterSubsystem;
     SmartDashboard.putNumber(SETPOINT, shooterSubsystem.targetVelocity.getRPM());
@@ -34,11 +35,11 @@ public class ShootCommand extends CommandBase {
 
   /**
    * Stops shooter wheel
+   *
    * @param interrupted unused
    */
   @Override
   public void end(boolean interrupted) {
     shooterSubsystem.stop();
   }
-
 }
