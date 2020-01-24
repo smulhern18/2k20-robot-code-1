@@ -29,8 +29,15 @@ public class TrajectoryFollowerCommand extends RamseteCommand {
   }
 
   @Override
+  public void initialize() {
+    super.initialize();
+    drivetrainSubsystem.setBrake();
+  }
+
+  @Override
   public void end(boolean interrupted) {
     super.end(interrupted);
     drivetrainSubsystem.drive(0, 0);
+    drivetrainSubsystem.setCoast();
   }
 }

@@ -108,8 +108,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
    */
   public void tankDriveVelocity(double leftVelocity, double rightVelocity) {
     //TODO: investigate acceleration units
-    double leftAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / Constants.LOOP_TIME_S;
-    double rightAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / Constants.LOOP_TIME_S;
+    leftAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / (Constants.LOOP_TIME_S);
+    rightAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / (Constants.LOOP_TIME_S);
 
     double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftAcceleration);
     double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightAcceleration);
@@ -147,7 +147,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
     SmartDashboard.putString("Odometry", odometry.getPoseMeters().toString());
     SmartDashboard.putString("Velocity m/s", getWheelSpeeds().toString());
-    SmartDashboard.putString("Acceleration (unknown units)", "Left: " + leftAcceleration + ", Right: " + rightAcceleration);
+    SmartDashboard.putString("Acceleration m/s^2", "Left: " + leftAcceleration + ", Right: " + rightAcceleration);
   }
 
   /**

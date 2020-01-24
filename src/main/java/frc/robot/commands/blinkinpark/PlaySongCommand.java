@@ -1,38 +1,43 @@
 package frc.robot.commands.blinkinpark;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BlinkinParkSubsystem;
-import frc.robot.subsystems.BlinkinParkSubsystem.Song;
+import frc.robot.subsystems.AbrahamBlinkinSubsystem;
+import frc.robot.subsystems.AbrahamBlinkinSubsystem.Hat;
 
-public class PlaySongCommand extends CommandBase{
+public class PlaySongCommand extends CommandBase {
 
-    private Song song;
-    private BlinkinParkSubsystem blinkinPark;
+  private Hat hat;
+  private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;
 
-    public PlaySongCommand(Song song, BlinkinParkSubsystem blinkinPark){//to get time out use withOut Function
-        this.song = song;
-        this.blinkinPark = blinkinPark;
-        addRequirements(blinkinPark);
-    }
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-        blinkinPark.playSong(song);
-    }
+  /**
+   * Plays song for inde
+   *
+   * @param hat                     hat to wear
+   * @param abrahamBlinkinSubsystem the Abraham Blinkin
+   */
+  public PlaySongCommand(Hat hat, AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {//to get time out use withOut Function
+    this.hat = hat;
+    this.abrahamBlinkinSubsystem = abrahamBlinkinSubsystem;
+    addRequirements(abrahamBlinkinSubsystem);
+  }
 
-    // Called every time the scheduler runs while the command is scheduled.
-    @Override
-    public void execute() {
-    }
+  /**
+   * Runs command, but with a timeout
+   *
+   * @param hat                     hat to wear
+   * @param timeoutSeconds          length of time to run command in seconds
+   * @param abrahamBlinkinSubsystem the Abraham Blinkin
+   */
+  public PlaySongCommand(Hat hat, double timeoutSeconds, AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {
+    this(hat, abrahamBlinkinSubsystem);
+    withTimeout(timeoutSeconds);
+  }
 
-    // Called once the command ends or is interrupted.
-    @Override
-    public void end(boolean interrupted) {
-    }
-
-    // Returns true when the command should end.
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
+  /**
+   * Wears the hat
+   */
+  @Override
+  public void initialize() {
+    abrahamBlinkinSubsystem.wearHat(hat);
+  }
 }

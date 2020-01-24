@@ -11,13 +11,12 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
-import frc.robot.commands.drivetrain.DefaultDriveCommand;
-import frc.robot.commands.shooter.DefaultShootCommand;
+import frc.robot.commands.blinkinpark.AllianceColorCommand;
 import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.models.Color;
+import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 /**
@@ -33,6 +32,7 @@ public class RobotContainer {
   private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
 //  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private VisionSubsystem visionSubsystem = new VisionSubsystem();
+  private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
   private Color color = Color.CORRUPT;
 
   /**
@@ -57,6 +57,7 @@ public class RobotContainer {
 //    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
 //    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
     visionSubsystem.setDefaultCommand(new DefaultVisionCommand(visionSubsystem));
+    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(abrahamBlinkinSubsystem));
   }
 
   /**
@@ -68,8 +69,6 @@ public class RobotContainer {
     drivetrainSubsystem.resetAll();
     return new TestAutoCommand(drivetrainSubsystem);
   }
-
-
 
   /**
    * Gets the color from the DS

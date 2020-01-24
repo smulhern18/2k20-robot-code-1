@@ -11,7 +11,6 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class TestAutoCommand extends SequentialCommandGroup {
   public TestAutoCommand(DrivetrainSubsystem drivetrainSubsystem) {
     addCommands(
-        new InstantCommand(drivetrainSubsystem::setBrake, drivetrainSubsystem),
         new TrajectoryFollowerCommand(TestTrajectories.S, drivetrainSubsystem));
   }
 }
