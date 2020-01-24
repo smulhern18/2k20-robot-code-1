@@ -104,4 +104,8 @@ public final class Constants {
     public static final String ANGLE = "angle";
     public static final String FPS = "fps";
   }
+  public static final class LEDConstants{
+    public static final int BLINKIN_PARK_CHANNEL = 3;
+
+  }
 }
