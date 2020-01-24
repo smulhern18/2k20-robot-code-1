@@ -3,7 +3,7 @@ package frc.robot.models;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import frc.robot.Constants;
+import frc.robot.Constants.DrivetrainConstants;
 
 /**
  * Group of Talons
@@ -25,8 +25,6 @@ public class PairedTalonSRX extends WPI_TalonSRX {
         follower.configFactoryDefault();
         follower.follow(this);
         follower.setInverted(InvertType.FollowMaster);
-
-        configClosedLoopPeakOutput(Constants.DrivetrainConstants.SLOT_ID, 1.0);
     }
 
     /**
@@ -47,9 +45,9 @@ public class PairedTalonSRX extends WPI_TalonSRX {
      * @param F feed forward value
      */
     public void configPIDF(double P, double I, double D, double F) {
-        config_kP(Constants.DrivetrainConstants.SLOT_ID, P);
-        config_kI(Constants.DrivetrainConstants.SLOT_ID, I);
-        config_kD(Constants.DrivetrainConstants.SLOT_ID, D);
-        config_kF(Constants.DrivetrainConstants.SLOT_ID, F);
+        config_kP(DrivetrainConstants.SLOT_ID, P);
+        config_kI(DrivetrainConstants.SLOT_ID, I);
+        config_kD(DrivetrainConstants.SLOT_ID, D);
+        config_kF(DrivetrainConstants.SLOT_ID, F);
     }
 }

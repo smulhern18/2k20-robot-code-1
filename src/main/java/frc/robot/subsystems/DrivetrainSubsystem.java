@@ -105,8 +105,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @param rightVelocity right velocity
    */
   public void tankDriveVelocity(double leftVelocity, double rightVelocity) {
-    double leftAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / 20.0;
-    double rightAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / 20.0;
+    //TODO: investigate acceleration units
+    double leftAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / Constants.LOOP_TIME_MS;
+    double rightAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / Constants.LOOP_TIME_MS;
 
     double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftAcceleration);
     double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightAcceleration);
