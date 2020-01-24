@@ -23,6 +23,7 @@ public final class Constants {
 
   public static final double MAX_BATTERY_VOLTAGE = 12.0;
   public static final double LOOP_TIME_MS = 20.0;
+  public static final double LOOP_TIME_S = 0.02;
 
   /**
    * Constants for the drivetrain subsystem
