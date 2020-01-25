@@ -38,6 +38,6 @@ public class PlaySongCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    abrahamBlinkinSubsystem.wearHat(hat);
+    abrahamBlinkinSubsystem.changeHat(hat);
   }
 }

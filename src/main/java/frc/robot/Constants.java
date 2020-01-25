@@ -9,6 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 
 /**
@@ -23,6 +25,11 @@ public final class Constants {
 
   public static final double MAX_BATTERY_VOLTAGE = 12.0;
   public static final double LOOP_TIME_S = .2;
+
+  public static final class SubsystemConstants {
+    public static final String TAB_NAME = "Gompei";
+    public static final ShuffleboardTab TAB = Shuffleboard.getTab(TAB_NAME);
+  }
 
   /**
    * Constants for the drivetrain subsystem
@@ -71,6 +78,11 @@ public final class Constants {
     public static final int SLOT_ID = 0;
     public static final int PID_LOOPTYPE = 0;
     public static final int TIMEOUT_MS = 20;
+
+    public static final String ODOMETRY_ENTRY = "Odometry";
+    public static final String VELOCITY_ENTRY = "Velocity";
+    public static final String ACCELERATION_ENTRY = "Acceleration";
+
   }
 
   /**
@@ -91,6 +103,7 @@ public final class Constants {
     public static final double COUNTS_PER_REVOLUTION = 12;
     public static final double RPM_THRESHOLD = 100;
 
+    public static final String VELOCITY_ENTRY = "Shooter Velocity";
   }
 
   public static class VisionConstants {
@@ -99,12 +112,17 @@ public final class Constants {
     public static final boolean LED_OFF = false;
     public static final String TABLE = "Vision";
     public static final String DATA_ENTRY = "data";
-    public static final String FOUND = "found";
-    public static final String DISTANCE = "distance";
-    public static final String ANGLE = "angle";
-    public static final String FPS = "fps";
+    public static final String FOUND_ENTRY = "Target Found";
+    public static final String DISTANCE_ENTRY = "Target Distance";
+    public static final String ANGLE_ENTRY = "Target Angle";
+    public static final String FPS_ENTRY = "Target FPS";
+    public static final String FOUND_KEY = "found";
+    public static final String DISTANCE_KEY = "distance";
+    public static final String ANGLE_KEY = "angle";
+    public static final String FPS_KEY = "fps";
   }
-  public static final class LEDConstants{
+
+  public static final class LEDConstants {
     public static final int BLINKIN_PARK_CHANNEL = 0;
 
   }

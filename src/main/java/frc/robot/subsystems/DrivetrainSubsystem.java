@@ -10,17 +10,16 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.models.GompeiSubsystemBase;
 import frc.robot.models.PairedTalonSRX;
 
 
 /**
  * The motors and sensors that the robot uses to drive.
  */
-public class DrivetrainSubsystem extends SubsystemBase {
+public class DrivetrainSubsystem extends GompeiSubsystemBase {
 
   private PairedTalonSRX leftPair, rightPair;
 
@@ -29,6 +28,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private AHRS navx;
 
   private double leftAcceleration = 0, rightAcceleration = 0;
+  private double lastLeftVelocity = 0, lastRightVelocity = 0;
 
   /**
    * Construct Drivetrain subsystem
@@ -75,6 +75,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
 
     resetAll();
+    createStringEntry(DrivetrainConstants.ODOMETRY_ENTRY, 1, 0, 4, 1, () -> odometry.getPoseMeters().toString());
+    createStringEntry(DrivetrainConstants.VELOCITY_ENTRY, 2, 0, 4, 1, () -> getWheelSpeeds().toString());
   }
 
   /**
@@ -107,12 +109,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * @param rightVelocity right velocity
    */
   public void tankDriveVelocity(double leftVelocity, double rightVelocity) {
-    //TODO: investigate acceleration units
-    leftAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / (Constants.LOOP_TIME_S);
-    rightAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / (Constants.LOOP_TIME_S);
+    double leftTargetAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / (Constants.LOOP_TIME_S);
+    double rightTargetAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / (Constants.LOOP_TIME_S);
 
-    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftAcceleration);
-    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightAcceleration);
+    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftTargetAcceleration);
+    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightTargetAcceleration);
 
     leftPair.set(
         ControlMode.Velocity,
@@ -143,11 +144,9 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
+  public void update() {
+    updateAcceleration();
     odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
-    SmartDashboard.putString("Odometry", odometry.getPoseMeters().toString());
-    SmartDashboard.putString("Velocity m/s", getWheelSpeeds().toString());
-    SmartDashboard.putString("Acceleration m/s^2", "Left: " + leftAcceleration + ", Right: " + rightAcceleration);
   }
 
   /**
@@ -232,6 +231,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
     return new DifferentialDriveWheelSpeeds(
         countsPerDeciSecToMetersPerSecond(leftPair.getSelectedSensorVelocity()),
         countsPerDeciSecToMetersPerSecond(rightPair.getSelectedSensorVelocity()));
+  }
+
+  private void updateAcceleration() {
+    leftAcceleration = (getWheelSpeeds().leftMetersPerSecond - lastLeftVelocity) / Constants.LOOP_TIME_S;
+    lastLeftVelocity = getWheelSpeeds().leftMetersPerSecond;
+    rightAcceleration = (getWheelSpeeds().rightMetersPerSecond - lastRightVelocity) / Constants.LOOP_TIME_S;
+    lastRightVelocity = getWheelSpeeds().rightMetersPerSecond;
   }
 
   /**

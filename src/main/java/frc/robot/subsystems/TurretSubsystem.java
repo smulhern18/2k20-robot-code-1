@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.models.GompeiSubsystemBase;
 
-public class TurretSubsystem extends SubsystemBase {
+public class TurretSubsystem extends GompeiSubsystemBase {
   /**
    * Creates a new TurretSubsystem.
    */
@@ -11,8 +11,7 @@ public class TurretSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+  public void update() {
 
+  }
 }
