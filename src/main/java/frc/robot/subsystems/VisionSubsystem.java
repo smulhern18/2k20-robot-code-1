@@ -11,6 +11,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.text.DecimalFormat;
+
 /**
  * Controls all vision related devices
  */
@@ -21,6 +23,8 @@ public class VisionSubsystem extends GompeiSubsystemBase {
   private int distance = 0, fps = 0;
   private double angle = 0.0d;
   JSONParser parser;
+  private DecimalFormat radianFormatter = new DecimalFormat("0.##### radians");
+  private DecimalFormat fpsFormatter = new DecimalFormat("0");
 
   /**
    * Connects to light ring, NetworkTables
@@ -31,9 +35,9 @@ public class VisionSubsystem extends GompeiSubsystemBase {
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
     parser = new JSONParser();
     createBooleanEntry(VisionConstants.FOUND_ENTRY, 0, 0, 1, 1, this::getTargetFound);
-    createIntegerEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, this::getFPS);
-    createIntegerEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, this::getDistanceToTarget);
-    createDoubleEntry(VisionConstants.ANGLE_ENTRY, 0, 3, 1, 1, this::getAngleToTarget);
+    createStringEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, () -> fpsFormatter.format(getFPS()));
+    createStringEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, () -> getDistanceToTarget() + " in");
+    createStringEntry(VisionConstants.ANGLE_ENTRY, 0, 3, 1, 1, () -> radianFormatter.format(getAngleToTarget()));
   }
 
   /**
