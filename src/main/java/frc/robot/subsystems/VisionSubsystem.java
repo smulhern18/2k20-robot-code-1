@@ -5,18 +5,16 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
-
-import org.json.simple.parser.ParseException;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.models.GompeiSubsystemBase;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  * Controls all vision related devices
  */
-public class VisionSubsystem extends SubsystemBase {
+public class VisionSubsystem extends GompeiSubsystemBase {
   private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
   private boolean found = false;
@@ -32,6 +30,10 @@ public class VisionSubsystem extends SubsystemBase {
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
 
     parser = new JSONParser();
+    createBooleanEntry(VisionConstants.FOUND_ENTRY, 0, 0, 1, 1, this::getTargetFound);
+    createDoubleEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, this::getFPS);
+    createDoubleEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, this::getDistanceToTarget);
+    createDoubleEntry(VisionConstants.ANGLE_ENTRY, 0, 3, 1, 1, this::getAngleToTarget);
   }
 
   /**
@@ -64,32 +66,31 @@ public class VisionSubsystem extends SubsystemBase {
   /**
    * Gets angle to the target
    *
-   * @return angle to the target in (radians?) TODO: check units
+   * @return angle to the target in radians
    */
   public double getAngleToTarget() {
     return getTargetFound() ? angle : 0;
+  }
+
+  public double getFPS() {
+    return getTargetFound() ? fps : 0;
   }
 
   private void parseJson() {
     try {
       Object obj = parser.parse(dataEntry.getString("{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}"));
       JSONObject data = (JSONObject) obj;
-      found = (long)data.get(VisionConstants.FOUND) == 1;
-      distance = Double.parseDouble(data.get(VisionConstants.DISTANCE).toString());
-      angle = Double.parseDouble(data.get(VisionConstants.ANGLE).toString());
-      fps = Double.parseDouble(data.get(VisionConstants.FPS).toString());
-      SmartDashboard.putBoolean("found", found);
-      SmartDashboard.putNumber("distance", distance);
-      SmartDashboard.putNumber("angle", angle);
-      SmartDashboard.putNumber("fps", fps);
-
+      found = (long) data.get(VisionConstants.FOUND_KEY) == 1;
+      distance = Double.parseDouble(data.get(VisionConstants.DISTANCE_KEY).toString());
+      angle = Double.parseDouble(data.get(VisionConstants.ANGLE_KEY).toString());
+      fps = Double.parseDouble(data.get(VisionConstants.FPS_KEY).toString());
     } catch (ParseException e) {
       e.printStackTrace();
     }
   }
 
   @Override
-  public void periodic() {
+  public void update() {
     parseJson();
   }
 }

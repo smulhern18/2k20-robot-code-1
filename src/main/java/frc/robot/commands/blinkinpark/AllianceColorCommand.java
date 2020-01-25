@@ -50,11 +50,11 @@ public class AllianceColorCommand extends CommandBase {
    */
   private void setColor() {
     if (alliance == Alliance.Blue) {
-      abrahamBlinkinSubsystem.wearHat(Hat.BPMOcean);
+      abrahamBlinkinSubsystem.changeHat(Hat.BPMOcean);
     } else if (alliance == Alliance.Red) {
-      abrahamBlinkinSubsystem.wearHat(Hat.BPMLava);
+      abrahamBlinkinSubsystem.changeHat(Hat.BPMLava);
     } else {
-      abrahamBlinkinSubsystem.wearHat(Hat.RainbowForest);
+      abrahamBlinkinSubsystem.changeHat(Hat.RainbowForest);
     }
   }
 }

@@ -1,8 +1,8 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.models.GompeiSubsystemBase;
 
-public class BallPathSubsystem extends SubsystemBase {
+public class BallPathSubsystem extends GompeiSubsystemBase {
   /**
    * Creates a new ExampleSubsystem.
    */
@@ -10,9 +10,9 @@ public class BallPathSubsystem extends SubsystemBase {
 
   }
 
+
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void update() {
+
   }
-  
 }

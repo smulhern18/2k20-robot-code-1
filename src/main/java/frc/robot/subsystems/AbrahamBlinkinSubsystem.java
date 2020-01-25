@@ -3,24 +3,42 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
+import frc.robot.models.GompeiSubsystemBase;
 
 
-public class AbrahamBlinkinSubsystem extends SubsystemBase {
+/**
+ * The LED controller
+ */
+public class AbrahamBlinkinSubsystem extends GompeiSubsystemBase {
 
   private Spark blink;
 
+  /**
+   * Constructs Abraham Blinkin
+   */
   public AbrahamBlinkinSubsystem() {
     blink = new Spark(LEDConstants.BLINKIN_PARK_CHANNEL);
   }
 
-  public void wearHat(Hat hat) {
+  /**
+   * Changes Blinkin's hat
+   * @param hat the hat Blinkin will wear
+   */
+  public void changeHat(Hat hat) {
     blink.set(hat.getValue());
   }
 
-  public void stop() {
-    blink.set(0);
+  /**
+   * Unused
+   */
+  @Override
+  public void update() {
+
   }
 
+  /**
+   * Every possible hat
+   */
   public enum Hat {
     RainbowRainbow(-0.99),
     RainbowParty(-0.97),
@@ -123,7 +141,7 @@ public class AbrahamBlinkinSubsystem extends SubsystemBase {
     DarkGray(0.97),
     Black(0.99);
 
-    private double value;//current hat
+    private double value;
 
     Hat(double value) {
       this.value = value;

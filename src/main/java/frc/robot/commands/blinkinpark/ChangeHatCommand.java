@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem.Hat;
 
-public class PlaySongCommand extends CommandBase {
+public class ChangeHatCommand extends CommandBase {
 
   private Hat hat;
   private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;
@@ -15,7 +15,7 @@ public class PlaySongCommand extends CommandBase {
    * @param hat                     hat to wear
    * @param abrahamBlinkinSubsystem the Abraham Blinkin
    */
-  public PlaySongCommand(Hat hat, AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {//to get time out use withOut Function
+  public ChangeHatCommand(Hat hat, AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {//to get time out use withOut Function
     this.hat = hat;
     this.abrahamBlinkinSubsystem = abrahamBlinkinSubsystem;
     addRequirements(abrahamBlinkinSubsystem);
@@ -28,7 +28,7 @@ public class PlaySongCommand extends CommandBase {
    * @param timeoutSeconds          length of time to run command in seconds
    * @param abrahamBlinkinSubsystem the Abraham Blinkin
    */
-  public PlaySongCommand(Hat hat, double timeoutSeconds, AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {
+  public ChangeHatCommand(Hat hat, double timeoutSeconds, AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {
     this(hat, abrahamBlinkinSubsystem);
     withTimeout(timeoutSeconds);
   }
@@ -38,6 +38,6 @@ public class PlaySongCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    abrahamBlinkinSubsystem.wearHat(hat);
+    abrahamBlinkinSubsystem.changeHat(hat);
   }
 }

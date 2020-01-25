@@ -3,15 +3,14 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.models.GompeiSubsystemBase;
 import frc.robot.models.PairedTalonSRX;
 
 /**
  * The shooter
  */
-public class ShooterSubsystem extends SubsystemBase {
+public class ShooterSubsystem extends GompeiSubsystemBase {
   private PairedTalonSRX pair;
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
@@ -34,6 +33,7 @@ public class ShooterSubsystem extends SubsystemBase {
         ShooterConstants.F);
 
     setCoast();
+    createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 1, 1, currentVelocity::toString);
   }
 
   /**
@@ -95,13 +95,11 @@ public class ShooterSubsystem extends SubsystemBase {
     pair.setNeutralMode(NeutralMode.Coast);
   }
 
-
   /**
-   * Puts current velocity of shooter wheel
+   *
    */
   @Override
-  public void periodic() {
-    SmartDashboard.putString("Shooter Velocity", currentVelocity.toString());
+  public void update() {
     currentVelocity.setCPD(pair.getSelectedSensorVelocity());
   }
 
