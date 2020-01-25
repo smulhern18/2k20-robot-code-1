@@ -3,8 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.models.GompeiSubsystemBase;
 import frc.robot.models.PairedTalonSRX;
@@ -35,7 +33,7 @@ public class ShooterSubsystem extends GompeiSubsystemBase {
         ShooterConstants.F);
 
     setCoast();
-    createStringEntry(ShooterConstants.VELOCITY_ENTRY, 3, 0, 1, 1, currentVelocity::toString);
+    createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 1, 1, currentVelocity::toString);
   }
 
   /**

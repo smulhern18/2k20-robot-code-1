@@ -77,6 +77,7 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
     resetAll();
     createStringEntry(DrivetrainConstants.ODOMETRY_ENTRY, 1, 0, 4, 1, () -> odometry.getPoseMeters().toString());
     createStringEntry(DrivetrainConstants.VELOCITY_ENTRY, 2, 0, 4, 1, () -> getWheelSpeeds().toString());
+    createStringEntry(DrivetrainConstants.ACCELERATION_ENTRY, 3, 0, 4, 1, this::getAccelerationString);
   }
 
   /**
@@ -238,6 +239,10 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
     lastLeftVelocity = getWheelSpeeds().leftMetersPerSecond;
     rightAcceleration = (getWheelSpeeds().rightMetersPerSecond - lastRightVelocity) / Constants.LOOP_TIME_S;
     lastRightVelocity = getWheelSpeeds().rightMetersPerSecond;
+  }
+
+  public String getAccelerationString() {
+    return String.format("Accelerations: (Left: %.2f m/s^2, Right: %.2f m/s^2)", leftAcceleration, rightAcceleration);
   }
 
   /**
