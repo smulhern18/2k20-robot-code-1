@@ -18,7 +18,8 @@ public class VisionSubsystem extends GompeiSubsystemBase {
   private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
   private boolean found = false;
-  private double distance = 0, angle = 0, fps = 0;
+  private int distance = 0, fps = 0;
+  private double angle = 0.0d;
   JSONParser parser;
 
   /**
@@ -28,11 +29,10 @@ public class VisionSubsystem extends GompeiSubsystemBase {
     lightRing = new Solenoid(VisionConstants.LED_CANNEL);
     NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.TABLE);
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
-
     parser = new JSONParser();
     createBooleanEntry(VisionConstants.FOUND_ENTRY, 0, 0, 1, 1, this::getTargetFound);
-    createDoubleEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, this::getFPS);
-    createDoubleEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, this::getDistanceToTarget);
+    createIntegerEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, this::getFPS);
+    createIntegerEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, this::getDistanceToTarget);
     createDoubleEntry(VisionConstants.ANGLE_ENTRY, 0, 3, 1, 1, this::getAngleToTarget);
   }
 
@@ -59,7 +59,7 @@ public class VisionSubsystem extends GompeiSubsystemBase {
    *
    * @return distance to the target in inches
    */
-  public double getDistanceToTarget() {
+  public int getDistanceToTarget() {
     return getTargetFound() ? distance : 0;
   }
 
@@ -72,7 +72,7 @@ public class VisionSubsystem extends GompeiSubsystemBase {
     return getTargetFound() ? angle : 0;
   }
 
-  public double getFPS() {
+  public int getFPS() {
     return getTargetFound() ? fps : 0;
   }
 
@@ -81,9 +81,9 @@ public class VisionSubsystem extends GompeiSubsystemBase {
       Object obj = parser.parse(dataEntry.getString("{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}"));
       JSONObject data = (JSONObject) obj;
       found = (long) data.get(VisionConstants.FOUND_KEY) == 1;
-      distance = Double.parseDouble(data.get(VisionConstants.DISTANCE_KEY).toString());
+      distance = Integer.parseInt(data.get(VisionConstants.DISTANCE_KEY).toString());
       angle = Double.parseDouble(data.get(VisionConstants.ANGLE_KEY).toString());
-      fps = Double.parseDouble(data.get(VisionConstants.FPS_KEY).toString());
+      fps = Integer.parseInt(data.get(VisionConstants.FPS_KEY).toString());
     } catch (ParseException e) {
       e.printStackTrace();
     }
