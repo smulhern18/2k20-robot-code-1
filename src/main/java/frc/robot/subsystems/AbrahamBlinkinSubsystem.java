@@ -1,9 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
-import frc.robot.models.GompeiSubsystemBase;
 
 
 /**
@@ -22,6 +20,7 @@ public class AbrahamBlinkinSubsystem extends GompeiSubsystemBase {
 
   /**
    * Changes Blinkin's hat
+   *
    * @param hat the hat Blinkin will wear
    */
   public void changeHat(Hat hat) {

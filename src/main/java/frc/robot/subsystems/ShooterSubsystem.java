@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.models.GompeiSubsystemBase;
 import frc.robot.models.PairedTalonSRX;
 
 /**
