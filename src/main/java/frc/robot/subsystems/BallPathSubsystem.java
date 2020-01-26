@@ -9,10 +9,4 @@ public class BallPathSubsystem extends GompeiSubsystemBase {
   public BallPathSubsystem() {
 
   }
-
-
-  @Override
-  public void update() {
-
-  }
 }

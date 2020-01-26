@@ -82,9 +82,12 @@ public class VisionSubsystem extends GompeiSubsystemBase {
     return getTargetFound() ? fps : 0;
   }
 
+  /**
+   * Reads the JSON from the Vision NetworkTable
+   */
   private void parseJson() {
     try {
-      Object obj = parser.parse(dataEntry.getString("{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}"));
+      Object obj = parser.parse(dataEntry.getString(VisionConstants.DEFAULT_JSON));
       JSONObject data = (JSONObject) obj;
       found = (long) data.get(VisionConstants.FOUND_KEY) == 1;
       distance = Integer.parseInt(data.get(VisionConstants.DISTANCE_KEY).toString());
@@ -96,7 +99,7 @@ public class VisionSubsystem extends GompeiSubsystemBase {
   }
 
   @Override
-  public void update() {
+  public void periodic() {
     parseJson();
   }
 }

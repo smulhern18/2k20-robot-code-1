@@ -9,9 +9,4 @@ public class TurretSubsystem extends GompeiSubsystemBase {
   public TurretSubsystem() {
 
   }
-
-  @Override
-  public void update() {
-
-  }
 }

@@ -110,6 +110,7 @@ public final class Constants {
     public static final int LED_CANNEL = 3;
     public static final boolean LED_ON = true;
     public static final boolean LED_OFF = false;
+    public static final String DEFAULT_JSON = "{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}";
     public static final String TABLE = "Vision";
     public static final String DATA_ENTRY = "data";
     public static final String FOUND_ENTRY = "Target Found";

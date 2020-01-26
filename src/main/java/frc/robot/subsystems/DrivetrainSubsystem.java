@@ -145,7 +145,7 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
   }
 
   @Override
-  public void update() {
+  public void periodic() {
     updateAcceleration();
     odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
   }

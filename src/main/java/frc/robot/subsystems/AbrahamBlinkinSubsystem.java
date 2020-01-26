@@ -29,14 +29,6 @@ public class AbrahamBlinkinSubsystem extends GompeiSubsystemBase {
   }
 
   /**
-   * Unused
-   */
-  @Override
-  public void update() {
-
-  }
-
-  /**
    * Every possible hat
    */
   public enum Hat {

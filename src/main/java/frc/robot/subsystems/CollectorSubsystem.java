@@ -10,9 +10,5 @@ public class CollectorSubsystem extends GompeiSubsystemBase {
 
   }
 
-  @Override
-  public void update() {
-
-  }
 
 }

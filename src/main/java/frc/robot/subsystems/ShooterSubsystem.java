@@ -99,7 +99,7 @@ public class ShooterSubsystem extends GompeiSubsystemBase {
    *
    */
   @Override
-  public void update() {
+  public void periodic() {
     currentVelocity.setCPD(pair.getSelectedSensorVelocity());
   }
 
