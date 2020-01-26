@@ -75,12 +75,13 @@ public class RobotContainer {
   /**
    * Gets the color from the DS
    */
-  public void readColor() {
+  public Color readColor() {
     String gameData = DriverStation.getInstance().getGameSpecificMessage();
     if (gameData.length() > 0) {
       color = Color.getColor(gameData.charAt(0));
     } else {
       color = Color.CORRUPT;
     }
+    return color;
   }
 }

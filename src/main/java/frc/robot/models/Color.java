@@ -8,8 +8,8 @@ package frc.robot.models;
 public enum Color {
 
   // Values
-  BLUE, GREEN, YELLOW, RED, CORRUPT;
-
+  BLUE("blue"), GREEN("green"), YELLOW("yellow"), RED("green"), CORRUPT("black");
+  public String value;
   /**
    * Convert the char from FMS to enum
    * @param value FMS data
@@ -28,5 +28,9 @@ public enum Color {
       default:
         return CORRUPT;
     }
+  }
+
+  Color(String s) {
+    value = s;
   }
 }

@@ -7,9 +7,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.models.Color;
+
+import java.util.Map;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +26,9 @@ public class Robot extends TimedRobot {
   private Command autoCommand;
 
   private RobotContainer robotContainer;
+  private SimpleWidget colorWidget;
+  private NetworkTableEntry colorWidgetEntry;
+  private boolean colorSet = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +39,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
+
+    colorWidget = Constants.SubsystemConstants.TAB.add("Color", false);
+    colorWidget.withPosition(0, 4);
+    colorWidget.withProperties(Map.of("colorWhenFalse", "black"));
+    colorWidgetEntry = colorWidget.getEntry();
   }
 
   /**
@@ -42,11 +55,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    Color color = robotContainer.readColor();
+    if (!colorSet && color != Color.CORRUPT) {
+      colorWidget.withProperties(Map.of("colorWhenTrue", color.value));
+      colorWidgetEntry.setBoolean(true);
+      colorSet = true;
+    }
   }
 
   /**
