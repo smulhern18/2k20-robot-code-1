@@ -9,13 +9,16 @@ import frc.robot.commands.auto.Trajectories;
 import java.util.List;
 
 public final class TrenchTrajectories extends Trajectories {
-    public static final Trajectory GRAB = TrajectoryGenerator.generateTrajectory(
-            List.of(new Pose2d(3.5,-0.75, new Rotation2d(0)),
-                    new Pose2d(9.75,-0.75, new Rotation2d(0))),
-            BACKWARD_CONFIG);
+  private static final Pose2d TRENCH_END_ONE = new Pose2d(9.75, -0.75, new Rotation2d(0));
+  public static final Trajectory GRAB = TrajectoryGenerator.generateTrajectory(
+      List.of(
+          new Pose2d(3.5, -0.75, new Rotation2d(0)),
+          TRENCH_END_ONE),
+      BACKWARD_CONFIG);
 
-    public static final Trajectory RETURN = TrajectoryGenerator.generateTrajectory(
-            List.of(new Pose2d(9.75,-0.75, new Rotation2d(0)),
-                    new Pose2d(3.5,-0.75, new Rotation2d(0))),
-            FORWARD_CONFIG);
+  public static final Trajectory RETURN = TrajectoryGenerator.generateTrajectory(
+      List.of(
+          TRENCH_END_ONE,
+          new Pose2d(3.5, -0.75, new Rotation2d(0))),
+      FORWARD_CONFIG);
 }
