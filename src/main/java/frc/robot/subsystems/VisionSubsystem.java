@@ -6,10 +6,11 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.VisionConstants;
-import frc.robot.models.GompeiSubsystemBase;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.text.DecimalFormat;
 
 /**
  * Controls all vision related devices
@@ -18,8 +19,13 @@ public class VisionSubsystem extends GompeiSubsystemBase {
   private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
   private boolean found = false;
-  private double distance = 0, angle = 0, fps = 0;
+  private int distance = 0, fps = 0;
+  private double angle = 0.0d;
   JSONParser parser;
+
+  private DecimalFormat fpsFormatter = new DecimalFormat("0");
+  private DecimalFormat distanceFormatter = new DecimalFormat("0 in");
+  private DecimalFormat radianFormatter = new DecimalFormat("0.##### radians");
 
   /**
    * Connects to light ring, NetworkTables
@@ -28,12 +34,11 @@ public class VisionSubsystem extends GompeiSubsystemBase {
     lightRing = new Solenoid(VisionConstants.LED_CANNEL);
     NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.TABLE);
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
-
     parser = new JSONParser();
     createBooleanEntry(VisionConstants.FOUND_ENTRY, 0, 0, 1, 1, this::getTargetFound);
-    createDoubleEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, this::getFPS);
-    createDoubleEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, this::getDistanceToTarget);
-    createDoubleEntry(VisionConstants.ANGLE_ENTRY, 0, 3, 1, 1, this::getAngleToTarget);
+    createStringEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, () -> fpsFormatter.format(getFPS()));
+    createStringEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, () -> distanceFormatter.format(getDistanceToTarget()));
+    createStringEntry(VisionConstants.ANGLE_ENTRY, 0, 3, 1, 1, () -> radianFormatter.format(getAngleToTarget()));
   }
 
   /**
@@ -59,7 +64,7 @@ public class VisionSubsystem extends GompeiSubsystemBase {
    *
    * @return distance to the target in inches
    */
-  public double getDistanceToTarget() {
+  public int getDistanceToTarget() {
     return getTargetFound() ? distance : 0;
   }
 
@@ -72,25 +77,28 @@ public class VisionSubsystem extends GompeiSubsystemBase {
     return getTargetFound() ? angle : 0;
   }
 
-  public double getFPS() {
+  public int getFPS() {
     return getTargetFound() ? fps : 0;
   }
 
+  /**
+   * Reads the JSON from the Vision NetworkTable
+   */
   private void parseJson() {
     try {
-      Object obj = parser.parse(dataEntry.getString("{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}"));
+      Object obj = parser.parse(dataEntry.getString(VisionConstants.DEFAULT_JSON));
       JSONObject data = (JSONObject) obj;
       found = (long) data.get(VisionConstants.FOUND_KEY) == 1;
-      distance = Double.parseDouble(data.get(VisionConstants.DISTANCE_KEY).toString());
+      distance = Integer.parseInt(data.get(VisionConstants.DISTANCE_KEY).toString());
       angle = Double.parseDouble(data.get(VisionConstants.ANGLE_KEY).toString());
-      fps = Double.parseDouble(data.get(VisionConstants.FPS_KEY).toString());
+      fps = Integer.parseInt(data.get(VisionConstants.FPS_KEY).toString());
     } catch (ParseException e) {
       e.printStackTrace();
     }
   }
 
   @Override
-  public void update() {
+  public void periodic() {
     parseJson();
   }
 }

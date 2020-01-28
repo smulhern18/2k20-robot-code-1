@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.models.GompeiSubsystemBase;
 import frc.robot.models.PairedTalonSRX;
 
 
@@ -145,7 +144,7 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
   }
 
   @Override
-  public void update() {
+  public void periodic() {
     updateAcceleration();
     odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
   }
