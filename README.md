@@ -1,5 +1,7 @@
 # 190's Infinite Recharge Robot Code
 
+![Java CI](https://github.com/Team-190/2k20-robot-code/workflows/Java%20CI/badge.svg)
+
 This repository is the code for FRC Team 190's robot code. We will try to keep the README updated with cool features.
 
 ## Current Features
