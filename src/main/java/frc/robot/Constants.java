@@ -60,7 +60,7 @@ public final class Constants {
     public static final double TRACKWIDTH_METERS = 0.6889; // horizontal distance between wheels
     public static final DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(TRACKWIDTH_METERS);
     public static final double WHEEL_DIAMETER_METERS = 0.1524;
-    public static final double COUNTS_PER_REVOLUTION = 1024;
+    public static final double COUNTS_PER_REVOLUTION = 2048;
     public static final double METERS_PER_COUNT = (WHEEL_DIAMETER_METERS * Math.PI) / COUNTS_PER_REVOLUTION;
 
     public static final double MAX_SPEED_METERS_PER_SECOND = 2.7432;
