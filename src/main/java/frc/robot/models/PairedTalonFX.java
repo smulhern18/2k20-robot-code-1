@@ -29,7 +29,7 @@ public class PairedTalonFX extends WPI_TalonFX {
     follower.setInverted(InvertType.FollowMaster);
 
     configSelectedFeedbackSensor(
-        FeedbackDevice.CTRE_MagEncoder_Relative,
+        FeedbackDevice.IntegratedSensor,
         DrivetrainConstants.PID_LOOPTYPE,
         DrivetrainConstants.TIMEOUT_MS);
     configPIDF(
