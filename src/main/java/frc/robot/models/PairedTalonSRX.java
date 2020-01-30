@@ -44,10 +44,10 @@ public class PairedTalonSRX extends WPI_TalonSRX {
      * @param D derivative value
      * @param F feed forward value
      */
-    public void configPIDF(double P, double I, double D, double F) {
-        config_kP(DrivetrainConstants.SLOT_ID, P);
-        config_kI(DrivetrainConstants.SLOT_ID, I);
-        config_kD(DrivetrainConstants.SLOT_ID, D);
-        config_kF(DrivetrainConstants.SLOT_ID, F);
+    public void configPIDF(int SLOT_ID, double P, double I, double D, double F) {
+        config_kP(SLOT_ID, P);
+        config_kI(SLOT_ID, I);
+        config_kD(SLOT_ID, D);
+        config_kF(SLOT_ID, F);
     }
 }

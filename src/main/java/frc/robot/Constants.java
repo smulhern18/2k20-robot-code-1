@@ -98,6 +98,7 @@ public final class Constants {
     public static final double F = 1.0;
 
     public static final int PID_LOOPTYPE = 0;
+    public static final int SLOT_ID = 0;
     public static final int TIMEOUT_MS = 20;
 
     public static final double COUNTS_PER_REVOLUTION = 12;
@@ -107,7 +108,7 @@ public final class Constants {
   }
 
   public static class VisionConstants {
-    public static final int LED_CANNEL = 3;
+    public static final int LED_CHANNEL = 3;
     public static final boolean LED_ON = true;
     public static final boolean LED_OFF = false;
     public static final String DEFAULT_JSON = "{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}";
@@ -129,5 +130,23 @@ public final class Constants {
 
   public static class TurretConstants {
     public static final int TURRET_MOTOR_CHANNEL = 2;
+    public static final int TIMEOUT_MS = 20;
+    public static final int PID_LOOPTYPE = 0;
+    public static final int SLOT_ID = 0;
+    public static final double P = 1.0;
+    public static final double I = 0; //undetermined
+    public static final double D = 0;
+    public static final double F = 0;
+
+    public static final String POT_ENTRY = "Potentiometer Value";
+    public static final String POSITION_ENTRY = "Position/Angle";
+
+    public static final double START_POINT = 0;
+    public static final double END_POINT = 2048;//SET WITH REAL NUMBER
+    public static final double POT_SPROCKET_CIRCUMFERENCE = 5;//inches fill in real numbers
+    public static final double TURRET_SPROCKET_CIRCUMFERENCE = 50;//inches fill in real numbers
+    public static final double MAX_POT_ROTATIONS = 10;
+
+    public static final double ERROR_TOLERANCE = 0.50;//set to real value
   }
 }
