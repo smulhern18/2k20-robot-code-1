@@ -123,8 +123,11 @@ public final class Constants {
     public static final String FPS_KEY = "fps";
   }
 
-  public static final class LEDConstants {
+  public static class LEDConstants {
     public static final int BLINKIN_PARK_CHANNEL = 0;
+  }
 
+  public static class TurretConstants {
+    public static final int TURRET_MOTOR_CHANNEL = 2;
   }
 }
