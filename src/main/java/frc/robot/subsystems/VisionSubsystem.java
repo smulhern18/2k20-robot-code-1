@@ -31,7 +31,7 @@ public class VisionSubsystem extends GompeiSubsystemBase {
    * Connects to light ring, NetworkTables
    */
   public VisionSubsystem() {
-    lightRing = new Solenoid(VisionConstants.LED_CANNEL);
+    lightRing = new Solenoid(VisionConstants.LED_CHANNEL);
     NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.TABLE);
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
     parser = new JSONParser();
