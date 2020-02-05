@@ -9,7 +9,7 @@ import frc.robot.commands.auto.Trajectories;
 import java.util.List;
 
 public final class TwoBallTrajectories extends Trajectories {
-    private static final Pose2d TWO_SHOOT_START = new Pose2d(6.145, -3.061, new Rotation2d(Math.toRadians(0.00)));
+    private static final Pose2d TWO_SHOOT_START = new Pose2d(6.145, -3.061, new Rotation2d(Math.toRadians(-90.00)));
     public static final Trajectory TWO_GRAB = TrajectoryGenerator.generateTrajectory(
         List.of(
             new Pose2d(3.584, -2.418, new Rotation2d(Math.toRadians(0.00))),
@@ -20,7 +20,7 @@ public final class TwoBallTrajectories extends Trajectories {
     public static final Trajectory TWO_SHOOT = TrajectoryGenerator.generateTrajectory(
         List.of(
             TWO_SHOOT_START,
-            new Pose2d(6.145, -2.418, new Rotation2d(Math.toRadians(0.00)))
+            new Pose2d(6.145, -2.418, new Rotation2d(Math.toRadians(-90.00)))
         ),
         BACKWARD_CONFIG);   
 }
