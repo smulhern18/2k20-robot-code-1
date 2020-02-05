@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SerialPort.Port;
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import frc.robot.Constants;
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.models.PairedTalonSRX;
+import frc.robot.models.PairedTalonFX;
 
 
 /**
@@ -20,7 +19,7 @@ import frc.robot.models.PairedTalonSRX;
  */
 public class DrivetrainSubsystem extends GompeiSubsystemBase {
 
-  private PairedTalonSRX leftPair, rightPair;
+  private PairedTalonFX leftPair, rightPair;
 
   private DifferentialDriveOdometry odometry;
 
@@ -35,29 +34,22 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
    */
   public DrivetrainSubsystem() {
 
-    leftPair = new PairedTalonSRX(
+    leftPair = new PairedTalonFX(
         DrivetrainConstants.LEFT_LEADER_CHANNEL,
         DrivetrainConstants.LEFT_FOLLOWER_CHANNEL);
-    rightPair = new PairedTalonSRX(
+    rightPair = new PairedTalonFX(
         DrivetrainConstants.RIGHT_LEADER_CHANNEL,
         DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL);
 
-    navx = new AHRS(Port.kUSB);
+    navx = new AHRS(Port.kMXP);
 
+    leftPair.setInverted(false);
     rightPair.setInverted(true);
 
-    leftPair.configSelectedFeedbackSensor(
-        FeedbackDevice.QuadEncoder,
-        DrivetrainConstants.PID_LOOPTYPE,
-        DrivetrainConstants.TIMEOUT_MS);
-    rightPair.configSelectedFeedbackSensor(
-        FeedbackDevice.QuadEncoder,
-        DrivetrainConstants.PID_LOOPTYPE,
-        DrivetrainConstants.TIMEOUT_MS);
-
-    leftPair.setSensorPhase(true);
+    leftPair.setSensorPhase(false);
     rightPair.setSensorPhase(true);
 
+<<<<<<< HEAD
     leftPair.configPIDF(
         DrivetrainConstants.SLOT_ID,
         DrivetrainConstants.P,
@@ -72,6 +64,8 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
         DrivetrainConstants.D,
         DrivetrainConstants.F
     );
+=======
+>>>>>>> 81f8055e2790f43e5dc7dffa34a6b48743114e30
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
 
@@ -148,7 +142,11 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
   @Override
   public void periodic() {
     updateAcceleration();
-    odometry.update(Rotation2d.fromDegrees(getYawDegrees()), getLeftDistance(), getRightDistance());
+    odometry.update(
+        Rotation2d.fromDegrees(getYawDegrees()),
+        leftPair.getDistanceMeters(),
+        rightPair.getDistanceMeters()
+    );
   }
 
   /**
@@ -197,49 +195,21 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
   }
 
   /**
-   * Converts counts/100ms to meters/s
-   *
-   * @param countsPerDecisec counts/100ms
-   * @return meters per second
-   */
-  public double countsPerDeciSecToMetersPerSecond(double countsPerDecisec) {
-    return countsPerDecisec * 10 * DrivetrainConstants.METERS_PER_COUNT;
-  }
-
-  /**
-   * Gets left distance in meters
-   *
-   * @return the left distance in meters
-   */
-  public double getLeftDistance() {
-    return DrivetrainConstants.METERS_PER_COUNT * leftPair.getSelectedSensorPosition();
-  }
-
-  /**
-   * Gets right distance in meters
-   *
-   * @return the left distance in meters
-   */
-  public double getRightDistance() {
-    return DrivetrainConstants.METERS_PER_COUNT * rightPair.getSelectedSensorPosition();
-  }
-
-  /**
    * (counts / 100 ms) * (meters / count) * (10 ms / 1 s) == (meters / second)
    *
    * @return Wheel speeds in meters / second
    */
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(
-        countsPerDeciSecToMetersPerSecond(leftPair.getSelectedSensorVelocity()),
-        countsPerDeciSecToMetersPerSecond(rightPair.getSelectedSensorVelocity()));
+        leftPair.getVelocityMetersPerSecond(),
+        rightPair.getVelocityMetersPerSecond());
   }
 
   private void updateAcceleration() {
-    leftAcceleration = (getWheelSpeeds().leftMetersPerSecond - lastLeftVelocity) / Constants.LOOP_TIME_S;
-    lastLeftVelocity = getWheelSpeeds().leftMetersPerSecond;
-    rightAcceleration = (getWheelSpeeds().rightMetersPerSecond - lastRightVelocity) / Constants.LOOP_TIME_S;
-    lastRightVelocity = getWheelSpeeds().rightMetersPerSecond;
+    leftAcceleration = (leftPair.getVelocityMetersPerSecond() - lastLeftVelocity) / Constants.LOOP_TIME_S;
+    lastLeftVelocity = leftPair.getVelocityMetersPerSecond();
+    rightAcceleration = (rightPair.getVelocityMetersPerSecond() - lastRightVelocity) / Constants.LOOP_TIME_S;
+    lastRightVelocity = rightPair.getVelocityMetersPerSecond();
   }
 
   public String getAccelerationString() {
