@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.crazy;
+package frc.robot.commands.auto.normal.crazy;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;

@@ -10,9 +10,9 @@ import frc.robot.models.PairedTalonSRX;
  * The shooter
  */
 public class ShooterSubsystem extends GompeiSubsystemBase {
-  private PairedTalonSRX pair;
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
+  private PairedTalonSRX pair;
 
   /**
    * Creates a new ShooterSubsystem.

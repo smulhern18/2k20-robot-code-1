@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.trench;
+package frc.robot.commands.auto.normal.trench;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;

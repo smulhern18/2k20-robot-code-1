@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.rendezvous;
+package frc.robot.commands.auto.normal.rendezvous;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -11,9 +11,6 @@ import java.util.List;
 public class RendezvousTrajectories extends Trajectories {
   private static final Pose2d RENDEZVOUS_START = new Pose2d(3.50, -4.96, new Rotation2d(0.0));
   private static final Pose2d BEAM_RIDE_GRAB_THREE_END = new Pose2d(5.60, -3.50, new Rotation2d(1.95));
-  private static final Pose2d ZIGZAG_END_ONE = new Pose2d(6.39, -4.13, new Rotation2d(0.37));
-  private static final Pose2d ZIGZAG_END_TWO = new Pose2d(6.18, -3.72, new Rotation2d(0.43));
-
   public final static Trajectory BEAM_RIDE_GRAB_THREE = TrajectoryGenerator.generateTrajectory(
       List.of(
           RENDEZVOUS_START,
@@ -23,7 +20,6 @@ public class RendezvousTrajectories extends Trajectories {
       ),
       BACKWARD_CONFIG
   );
-
   public final static Trajectory BEAM_RIDE_GRAB_TWO = TrajectoryGenerator.generateTrajectory(
       List.of(
           BEAM_RIDE_GRAB_THREE_END,
@@ -32,7 +28,7 @@ public class RendezvousTrajectories extends Trajectories {
           new Pose2d(5.73, -1.56, new Rotation2d(Math.toRadians(-71.55)))),
       BACKWARD_CONFIG
   );
-
+  private static final Pose2d ZIGZAG_END_ONE = new Pose2d(6.39, -4.13, new Rotation2d(0.37));
   public final static Trajectory ZIGZAG_GRAB_TWO_FRONT = TrajectoryGenerator.generateTrajectory(
       List.of(
           RENDEZVOUS_START,
@@ -40,7 +36,7 @@ public class RendezvousTrajectories extends Trajectories {
       ),
       BACKWARD_CONFIG
   );
-
+  private static final Pose2d ZIGZAG_END_TWO = new Pose2d(6.18, -3.72, new Rotation2d(0.43));
   public final static Trajectory ZIGZAG_GRAB_ONE_FRONT = TrajectoryGenerator.generateTrajectory(
       List.of(
           ZIGZAG_END_ONE,

@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.thief;
+package frc.robot.commands.auto.thief.trench;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -9,7 +9,7 @@ import frc.robot.commands.auto.Trajectories;
 
 import java.util.List;
 
-public class ThiefTrajectories extends Trajectories {
+public class TrenchThiefTrajectories extends Trajectories {
   private static final Pose2d STEAL_END = new Pose2d(10, -7.5, new Rotation2d(0));
   public static final Trajectory STEAL_FIVE = TrajectoryGenerator.generateTrajectory(
       List.of(

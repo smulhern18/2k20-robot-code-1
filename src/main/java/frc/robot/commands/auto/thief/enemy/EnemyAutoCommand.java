@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.enemy;
+package frc.robot.commands.auto.thief.enemy;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;

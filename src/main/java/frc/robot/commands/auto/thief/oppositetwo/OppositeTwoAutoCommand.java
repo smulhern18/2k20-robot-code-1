@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.oppositeTwo;
+package frc.robot.commands.auto.thief.oppositetwo;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
