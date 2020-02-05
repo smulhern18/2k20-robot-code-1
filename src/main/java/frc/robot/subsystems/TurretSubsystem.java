@@ -6,6 +6,8 @@ import frc.robot.Constants.TurretConstants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import javax.naming.ldap.Control;
+
 
 public class TurretSubsystem extends GompeiSubsystemBase {
   /**
@@ -18,15 +20,19 @@ public class TurretSubsystem extends GompeiSubsystemBase {
   private double actualPosition;
 
   public TurretSubsystem(WPI_TalonSRX turretMotor) {
+
     turretMotor = new WPI_TalonSRX(TurretConstants.TURRET_MOTOR_CHANNEL);
+
     turretMotor.configSelectedFeedbackSensor(
             FeedbackDevice.Analog,
             TurretConstants.PID_LOOPTYPE,
             TurretConstants.TIMEOUT_MS);
+
     turretMotor.config_kP(TurretConstants.SLOT_ID, TurretConstants.P);
     turretMotor.config_kI(TurretConstants.SLOT_ID, TurretConstants.I);
     turretMotor.config_kD(TurretConstants.SLOT_ID, TurretConstants.D);
     turretMotor.config_kF(TurretConstants.SLOT_ID, TurretConstants.F);
+
     createDoubleEntry(TurretConstants.POT_ENTRY, 7, 0, 1, 1, () -> potValue);
     createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, () -> actualPosition);
   }
@@ -49,9 +55,10 @@ public class TurretSubsystem extends GompeiSubsystemBase {
   public void periodic(){
     potValue = turretMotor.getSelectedSensorPosition();
     actualPosition = convertPotToTarget(potValue);
+    rotateToPosition(targetPosition);
   }
 
-  public void setPosition(double targetPosition){
+  public void rotateToPosition(double targetPosition){
     turretMotor.set(ControlMode.Position, convertTargetToPot(targetPosition));
   }
 
@@ -60,6 +67,9 @@ public class TurretSubsystem extends GompeiSubsystemBase {
     return Math.abs(thisError) <= TurretConstants.ERROR_TOLERANCE;
   }
 
+  public void manualRotateTurret(double speed) { // for manual control of turret
+    turretMotor.set(ControlMode.PercentOutput, speed);
+  }
 
 
 }
