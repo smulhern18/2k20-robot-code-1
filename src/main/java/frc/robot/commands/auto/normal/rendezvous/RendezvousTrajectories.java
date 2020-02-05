@@ -4,13 +4,14 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.commands.auto.Trajectories;
 
 import java.util.List;
 
 public class RendezvousTrajectories extends Trajectories {
   private static final Pose2d RENDEZVOUS_START = new Pose2d(3.50, -4.96, new Rotation2d(0.0));
-  private static final Pose2d BEAM_RIDE_GRAB_THREE_END = new Pose2d(5.60, -3.50, new Rotation2d(1.95));
+  private static final Pose2d BEAM_RIDE_GRAB_THREE_END = new Pose2d(5.81, -3.818, new Rotation2d(1.95));
   public final static Trajectory BEAM_RIDE_GRAB_THREE = TrajectoryGenerator.generateTrajectory(
       List.of(
           RENDEZVOUS_START,
@@ -23,7 +24,6 @@ public class RendezvousTrajectories extends Trajectories {
   public final static Trajectory BEAM_RIDE_GRAB_TWO = TrajectoryGenerator.generateTrajectory(
       List.of(
           BEAM_RIDE_GRAB_THREE_END,
-          new Pose2d(6.11, -3.47, new Rotation2d(0.81)),
           new Pose2d(6.31, -3.14, new Rotation2d(1.99)),
           new Pose2d(5.73, -1.56, new Rotation2d(Math.toRadians(-71.55)))),
       BACKWARD_CONFIG
