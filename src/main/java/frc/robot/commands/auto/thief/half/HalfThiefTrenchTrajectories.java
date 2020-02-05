@@ -30,7 +30,7 @@ public final class HalfThiefTrenchTrajectories extends Trajectories {
           UNDER_RENDEZ_START,
           new Pose2d(6.169, -4.756, new Rotation2d(Math.toRadians(113.43))),
           new Pose2d(5.882, -3.247, new Rotation2d(Units.degreesToRadians(65))),
-          new Pose2d(6.664, -2.744, new Rotation2d(Math.toRadians(Units.degreesToRadians(20))))
+          new Pose2d(6.664, -2.744, new Rotation2d(Units.degreesToRadians(20)))
       ),
       BACKWARD_CONFIG);
 
