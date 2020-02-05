@@ -6,8 +6,8 @@
     # 'WPI_VictorSPX'
     # Note: The first motor on each side should always be a Talon SRX/FX, as the
     # VictorSPX does not support encoder connections
-    "rightControllerTypes": ["WPI_TalonSRX", "WPI_TalonSRX"],
-    "leftControllerTypes": ["WPI_TalonSRX", "WPI_TalonSRX"],
+    "rightControllerTypes": ["WPI_TalonFX", "WPI_TalonFX"],
+    "leftControllerTypes": ["WPI_TalonFX", "WPI_TalonFX"],
     # Ports for the left-side motors
     "leftMotorPorts": [8, 6],
     # Ports for the right-side motors
