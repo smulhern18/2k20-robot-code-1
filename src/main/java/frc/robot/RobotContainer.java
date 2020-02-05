@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,11 +15,14 @@ import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.blinkinpark.AllianceColorCommand;
 import frc.robot.commands.vision.DefaultVisionCommand;
+import frc.robot.commands.drivetrain.DefaultDriveCommand;
+import frc.robot.commands.shooter.DefaultShootCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.models.Color;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -31,10 +35,11 @@ public class RobotContainer {
   private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
   private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  //  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private VisionSubsystem visionSubsystem = new VisionSubsystem();
   private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
   private Color color = Color.CORRUPT;
+  private NetworkTableEntry targetRPMEntry;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -43,6 +48,8 @@ public class RobotContainer {
     Shuffleboard.selectTab(Constants.SubsystemConstants.TAB_NAME);
     configureButtonBindings();
     setDefaultCommands();
+
+
   }
 
   /**
@@ -56,8 +63,8 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-//    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
-//    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
+    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
+    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
     visionSubsystem.setDefaultCommand(new DefaultVisionCommand(visionSubsystem));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(abrahamBlinkinSubsystem));
   }

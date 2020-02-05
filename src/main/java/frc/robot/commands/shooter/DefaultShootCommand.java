@@ -20,7 +20,6 @@ public class DefaultShootCommand extends CommandBase {
   public DefaultShootCommand(ShooterSubsystem shooterSubsystem) {
     addRequirements(shooterSubsystem);
     this.shooterSubsystem = shooterSubsystem;
-    SmartDashboard.putNumber(SETPOINT, shooterSubsystem.targetVelocity.getRPM());
   }
 
   /**
@@ -28,8 +27,10 @@ public class DefaultShootCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    shooterSubsystem.setTargetRPM(SmartDashboard.getNumber(SETPOINT, 0));
+//    shooterSubsystem.setTargetRPM(SmartDashboard.getNumber(SETPOINT, 0));
+    shooterSubsystem.setTargetRPM(shooterSubsystem.targetRPMEntry.getDouble(0));
     shooterSubsystem.shoot();
+
   }
 
   /**
