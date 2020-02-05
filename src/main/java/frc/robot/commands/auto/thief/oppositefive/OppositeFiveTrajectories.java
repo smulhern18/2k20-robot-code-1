@@ -1,4 +1,4 @@
-package frc.robot.commands.auto.thief.opposite;
+package frc.robot.commands.auto.thief.oppositefive;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -8,7 +8,7 @@ import frc.robot.commands.auto.Trajectories;
 
 import java.util.List;
 
-public final class OppositeTrajectories extends Trajectories {
+public final class OppositeFiveTrajectories extends Trajectories {
   public static final Trajectory OPPOSITE = TrajectoryGenerator.generateTrajectory(
       List.of(
           new Pose2d(4.277, -7.421, new Rotation2d(Math.toRadians(0.00))),
