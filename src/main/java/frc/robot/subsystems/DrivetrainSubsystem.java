@@ -50,14 +50,12 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
     rightPair.setSensorPhase(true);
 
     leftPair.configPIDF(
-        DrivetrainConstants.SLOT_ID,
         DrivetrainConstants.P,
         DrivetrainConstants.I,
         DrivetrainConstants.D,
         DrivetrainConstants.F
     );
     rightPair.configPIDF(
-        DrivetrainConstants.SLOT_ID,
         DrivetrainConstants.P,
         DrivetrainConstants.I,
         DrivetrainConstants.D,
