@@ -16,13 +16,12 @@ import java.text.DecimalFormat;
  * Controls all vision related devices
  */
 public class VisionSubsystem extends GompeiSubsystemBase {
+  JSONParser parser;
   private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
   private boolean found = false;
   private int distance = 0, fps = 0;
   private double angle = 0.0d;
-  JSONParser parser;
-
   private DecimalFormat fpsFormatter = new DecimalFormat("0");
   private DecimalFormat distanceFormatter = new DecimalFormat("0 in");
   private DecimalFormat radianFormatter = new DecimalFormat("0.##### radians");

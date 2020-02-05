@@ -15,6 +15,8 @@ import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.blinkinpark.AllianceColorCommand;
 import frc.robot.commands.vision.DefaultVisionCommand;
+import frc.robot.commands.drivetrain.DefaultDriveCommand;
+import frc.robot.commands.shooter.DefaultShootCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.models.Color;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
@@ -61,8 +63,8 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-//    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
-//    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
+    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
+    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
     visionSubsystem.setDefaultCommand(new DefaultVisionCommand(visionSubsystem));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(abrahamBlinkinSubsystem));
   }

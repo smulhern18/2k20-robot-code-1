@@ -15,7 +15,7 @@ public class TrajectoryFollowerCommand extends RamseteCommand {
   /**
    * Creates a Ramsete command that follows the given trajectory
    *
-   * @param trajectory trajectory to follow
+   * @param trajectory          trajectory to follow
    * @param drivetrainSubsystem Drivetrain subsystem
    */
   public TrajectoryFollowerCommand(Trajectory trajectory, DrivetrainSubsystem drivetrainSubsystem) {
