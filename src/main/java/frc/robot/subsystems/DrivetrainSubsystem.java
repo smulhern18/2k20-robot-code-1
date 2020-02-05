@@ -49,7 +49,6 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
     leftPair.setSensorPhase(false);
     rightPair.setSensorPhase(true);
 
-<<<<<<< HEAD
     leftPair.configPIDF(
         DrivetrainConstants.SLOT_ID,
         DrivetrainConstants.P,
@@ -64,8 +63,6 @@ public class DrivetrainSubsystem extends GompeiSubsystemBase {
         DrivetrainConstants.D,
         DrivetrainConstants.F
     );
-=======
->>>>>>> 81f8055e2790f43e5dc7dffa34a6b48743114e30
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
 
