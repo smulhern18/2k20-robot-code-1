@@ -13,7 +13,7 @@ public final class TwoBallTrajectories extends Trajectories {
   public static final Trajectory TWO_GRAB = TrajectoryGenerator.generateTrajectory(
       List.of(
           new Pose2d(3.584, -2.418, new Rotation2d(Math.toRadians(0.00))),
-          new Pose2d(6.084, -2.736, new Rotation2d(Units.degreesToRadians(-68)))
+          new Pose2d(6.164, -2.896, new Rotation2d(Units.degreesToRadians(-68)))
       ),
       BACKWARD_CONFIG);
 }
