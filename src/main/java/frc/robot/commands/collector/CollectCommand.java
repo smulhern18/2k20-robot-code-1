@@ -2,7 +2,7 @@ package frc.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class CollectCommand extends CommandBase{
+public class CollectCommand extends CommandBase {
 
   public CollectCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
