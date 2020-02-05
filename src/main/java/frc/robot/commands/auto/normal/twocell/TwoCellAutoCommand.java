@@ -7,7 +7,7 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 public class TwoCellAutoCommand extends SequentialCommandGroup {
   public TwoCellAutoCommand(DrivetrainSubsystem drivetrain) {
     addCommands(
-        new TrajectoryFollowerCommand(TwoBallTrajectories.TWO_GRAB, drivetrain),
-        new TrajectoryFollowerCommand(TwoBallTrajectories.TWO_SHOOT, drivetrain));
+        new TrajectoryFollowerCommand(TwoBallTrajectories.TWO_GRAB, drivetrain)
+    );
   }
 }
