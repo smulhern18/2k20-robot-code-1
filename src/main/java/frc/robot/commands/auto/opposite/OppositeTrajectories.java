@@ -11,11 +11,11 @@ import java.util.List;
 public final class OppositeTrajectories extends Trajectories {
     public static final Trajectory OPPOSITE = TrajectoryGenerator.generateTrajectory(
         List.of(
-            new Pose2d(3.658, -5.600, new Rotation2d(Math.toRadians(0.00))),
-            new Pose2d(9.224, -5.485, new Rotation2d(Math.toRadians(27.94))),
+            new Pose2d(4.277, -7.421, new Rotation2d(Math.toRadians(0.00))),
+            new Pose2d(6.256, -6.351, new Rotation2d(Math.toRadians(16.14))),
             new Pose2d(10.052, -4.805, new Rotation2d(Math.toRadians(72.73))),
             new Pose2d(9.706, -3.370, new Rotation2d(Math.toRadians(112.82))),
-            new Pose2d(6.005, -2.418, new Rotation2d(Math.toRadians(180.00)))
+            new Pose2d(5.600, -2.418, new Rotation2d(Math.toRadians(180.00)))
         ),
         FORWARD_CONFIG);   
 }

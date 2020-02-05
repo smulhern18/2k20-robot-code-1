@@ -12,7 +12,8 @@ public final class OppositeTwoTrajectories extends Trajectories {
     private static final Pose2d SHOOT_START = new Pose2d(9.978, -5.139, new Rotation2d(Math.toRadians(27.80)));
     public static final Trajectory OPPOSITE_TWO_GRAB = TrajectoryGenerator.generateTrajectory(
         List.of(
-            new Pose2d(3.609, -5.600, new Rotation2d(Math.toRadians(0.00))),
+            new Pose2d(4.277, -7.421, new Rotation2d(Math.toRadians(0.00))),
+            new Pose2d(6.082, -6.425, new Rotation2d(Math.toRadians(19.60))),
             SHOOT_START
         ),
         FORWARD_CONFIG);
