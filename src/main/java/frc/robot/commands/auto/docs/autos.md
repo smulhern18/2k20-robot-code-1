@@ -27,5 +27,8 @@
 #### rendezvous zig zag
 ![zigzag](zigzag.png)
 #### rendezvous beam ride
-![beam ride]()
-
+![beam ride](beamride.png)
+#### three cell
+![threecell](threecell.png)
+two cell
+![twocell]()
