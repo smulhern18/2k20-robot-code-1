@@ -14,15 +14,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.blinkinpark.AllianceColorCommand;
-import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.DefaultShootCommand;
+import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.models.Color;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
