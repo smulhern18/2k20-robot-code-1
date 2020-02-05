@@ -3,6 +3,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.models.PairedTalonSRX;
 
@@ -13,6 +16,7 @@ public class ShooterSubsystem extends GompeiSubsystemBase {
   private PairedTalonSRX pair;
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
+  public NetworkTableEntry targetRPMEntry;
 
   /**
    * Creates a new ShooterSubsystem.
@@ -30,6 +34,8 @@ public class ShooterSubsystem extends GompeiSubsystemBase {
         ShooterConstants.I,
         ShooterConstants.D,
         ShooterConstants.F);
+    targetRPMEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.TARGET_ENTRY, 0).getEntry();
+
 
     setCoast();
     createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 1, 1, currentVelocity::toString);

@@ -104,6 +104,7 @@ public final class Constants {
     public static final double RPM_THRESHOLD = 100;
 
     public static final String VELOCITY_ENTRY = "Shooter Velocity";
+    public static final String TARGET_ENTRY = "Shooter Target RPM";
   }
 
   public static class VisionConstants {
