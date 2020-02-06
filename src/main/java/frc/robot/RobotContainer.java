@@ -33,11 +33,12 @@ public class RobotContainer {
 
   private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
   private BallPathSubsystem ballPathSubsystem = new BallPathSubsystem();
-  private ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+  private TrenchableSubsystem trenchableSubsystem = new TrenchableSubsystem();
+  private ClimberSubsystem climberSubsystem = new ClimberSubsystem(trenchableSubsystem.getState());
   private CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
   private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
   private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  private TrenchableSubsystem trenchableSubsystem = new TrenchableSubsystem();
+
   private TurretSubsystem turretSubsystem = new TurretSubsystem();
   private VisionSubsystem visionSubsystem = new VisionSubsystem();
 
