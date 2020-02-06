@@ -13,7 +13,8 @@ public class ExtendClimb extends CommandBase {
 
   /**
    * Requires climber and trenchable subsystem.
-   * @param climberSubsystem the climber subsystem
+   *
+   * @param climberSubsystem    the climber subsystem
    * @param trenchableSubsystem the trenchable subsystem
    */
   public ExtendClimb(ClimberSubsystem climberSubsystem, TrenchableSubsystem trenchableSubsystem) {
@@ -56,6 +57,7 @@ public class ExtendClimb extends CommandBase {
 
   /**
    * Sees if climb is extended
+   *
    * @return true if climber is fully extended
    */
   @Override
@@ -65,6 +67,7 @@ public class ExtendClimb extends CommandBase {
 
   /**
    * Turns off extending motor as a fail-safe
+   *
    * @param interrupted unused
    */
   @Override

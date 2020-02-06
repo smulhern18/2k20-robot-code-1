@@ -11,6 +11,7 @@ public class RetractClimb extends CommandBase {
 
   /**
    * Requires climber subsystem
+   *
    * @param climberSubsystem the climber subsystem
    */
   public RetractClimb(ClimberSubsystem climberSubsystem) {
@@ -39,6 +40,7 @@ public class RetractClimb extends CommandBase {
 
   /**
    * Finished if fully retracted
+   *
    * @return true if fully retracted
    */
   @Override
@@ -48,6 +50,7 @@ public class RetractClimb extends CommandBase {
 
   /**
    * Turns off climber retracting/extending as a fail-safe
+   *
    * @param interrupted
    */
   @Override

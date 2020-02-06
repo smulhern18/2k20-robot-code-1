@@ -15,7 +15,7 @@ public class TrenchableSubsystem extends BeefSubsystemBase {
    */
   public TrenchableSubsystem() {
     trenchablifier = new DoubleSolenoid(TrenchableConstants.TRENCHABLE_PORT, TrenchableConstants.UNTRENCHABLE_PORT);
-    state = trenchablifier.get() == DoubleSolenoid.Value.kForward ? TrenchableState.TRENCHABLE: TrenchableState.UNTRENCHABLE;
+    state = trenchablifier.get() == DoubleSolenoid.Value.kForward ? TrenchableState.TRENCHABLE : TrenchableState.UNTRENCHABLE;
   }
 
   /**
@@ -36,6 +36,7 @@ public class TrenchableSubsystem extends BeefSubsystemBase {
 
   /**
    * Gets state of trenchability
+   *
    * @return state of subsystem
    */
   public TrenchableState getState() {
