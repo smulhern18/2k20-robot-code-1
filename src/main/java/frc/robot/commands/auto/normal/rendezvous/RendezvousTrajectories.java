@@ -25,7 +25,7 @@ public class RendezvousTrajectories extends Trajectories {
       List.of(
           BEAM_RIDE_GRAB_THREE_END,
           new Pose2d(6.31, -3.14, new Rotation2d(Units.degreesToRadians(114))),
-          new Pose2d(5.73, -1.56, new Rotation2d(Math.toRadians(-71.55)))),
+          new Pose2d(5.73, -1.56, new Rotation2d(Units.degreesToRadians(-71.55)))),
       BACKWARD_CONFIG
   );
   private static final Pose2d ZIGZAG_END_ONE = new Pose2d(6.39, -4.13, new Rotation2d(Units.degreesToRadians(21.2)));
