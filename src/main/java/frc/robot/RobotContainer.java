@@ -19,10 +19,7 @@ import frc.robot.commands.shooter.DefaultShootCommand;
 import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.models.Color;
-import frc.robot.subsystems.AbrahamBlinkinSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -34,10 +31,16 @@ public class RobotContainer {
   private AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
   private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
+  private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
+  private BallPathSubsystem ballPathSubsystem = new BallPathSubsystem();
+  private TrenchableSubsystem trenchableSubsystem = new TrenchableSubsystem();
+  private ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+  private CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
   private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
   private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  private TurretSubsystem turretSubsystem = new TurretSubsystem();
   private VisionSubsystem visionSubsystem = new VisionSubsystem();
-  private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
+
   private Color color = Color.CORRUPT;
   private NetworkTableEntry targetRPMEntry;
 
@@ -48,8 +51,6 @@ public class RobotContainer {
     Shuffleboard.selectTab(Constants.SubsystemConstants.TAB_NAME);
     configureButtonBindings();
     setDefaultCommands();
-
-
   }
 
   /**

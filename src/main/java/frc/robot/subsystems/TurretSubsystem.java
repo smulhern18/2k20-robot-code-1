@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-public class TurretSubsystem extends GompeiSubsystemBase {
+public class TurretSubsystem extends BeefSubsystemBase {
   /**
    * Creates a new TurretSubsystem.
    */

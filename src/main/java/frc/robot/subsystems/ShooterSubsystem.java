@@ -12,7 +12,7 @@ import frc.robot.models.PairedTalonSRX;
 /**
  * The shooter
  */
-public class ShooterSubsystem extends GompeiSubsystemBase {
+public class ShooterSubsystem extends BeefSubsystemBase {
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
   public NetworkTableEntry targetRPMEntry;

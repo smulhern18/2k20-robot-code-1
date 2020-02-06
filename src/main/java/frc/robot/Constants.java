@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -111,7 +112,7 @@ public final class Constants {
   }
 
   public static class VisionConstants {
-    public static final int LED_CANNEL = 3;
+    public static final int LED_PORT = 3;
     public static final boolean LED_ON = true;
     public static final boolean LED_OFF = false;
     public static final String DEFAULT_JSON = "{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}";
@@ -129,6 +130,33 @@ public final class Constants {
 
   public static final class LEDConstants {
     public static final int BLINKIN_PARK_CHANNEL = 0;
+
+  }
+
+  public static final class ClimberConstants {
+    //TODO: Configure DIO ports
+    public static final int TOP_SWITCH_PORT = 0;
+    public static final int BOTTOM_SWITCH_PORT = 1;
+    public static final int TENTIOMETER_SWITCH_PORT = 2;
+    public static final int SLAP_SWITCH_PORT = 3;
+    public static final int CLIMB_MOTOR_CHANNEL = 4; //TODO: configure
+    public static final int SLAPPER_PORT = 3;
+    public static final int RATCHET_PORT = 4;
+    public static final boolean UNSLAP = true;
+    public static final boolean SLAP = false;
+    public static final double CLIMB_OFF = 0.0;
+    public static final double CLIMB_EXTEND = 0.3;
+    public static final double CLIMB_RETRACT = 0.9;
+    public static final boolean RATCHET_OFF = false;
+    public static final boolean RATCHET_ON = true;
+    public static final int TRAVERSE_MOTOR_PORT = 5;
+  }
+
+  public static final class TrenchableConstants {
+    public static final int TRENCHABLE_PORT = 0;
+    public static final int UNTRENCHABLE_PORT = 1;
+    public static final DoubleSolenoid.Value TRENCHABLE = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value UNTRENCHABLE = DoubleSolenoid.Value.kReverse;
 
   }
 }
