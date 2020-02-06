@@ -18,7 +18,7 @@ public class TurretSubsystem extends GompeiSubsystemBase {
   private double targetPosition;
   private double actualPosition;
 
-  public TurretSubsystem(WPI_TalonSRX turretMotor) {
+  public TurretSubsystem() {
 
     turretMotor = new WPI_TalonSRX(TurretConstants.TURRET_MOTOR_CHANNEL);
 
@@ -36,16 +36,16 @@ public class TurretSubsystem extends GompeiSubsystemBase {
     createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, () -> actualPosition);
   }
 
-  private void setTargetPosition(double targetPosition){
+  public void setTargetPosition(double targetPosition){
     this.targetPosition = targetPosition;
   }
 
-  private double convertTargetToPot(double heading){
+  private double convertTargetToPot(double heading){ // will have to adjust with real pot values (whole range won't be utiilized)
     return ((((heading / 360.0) * TurretConstants.TURRET_SPROCKET_CIRCUMFERENCE) / TurretConstants.POT_SPROCKET_CIRCUMFERENCE)
             / TurretConstants.MAX_POT_ROTATIONS) * TurretConstants.END_POINT;
   }
 
-  private double convertPotToTarget(double potValue){
+  private double convertPotToTarget(double potValue){ // will have to adjust with real pot values (whole range won't be utiilized)
     return (((potValue / TurretConstants.END_POINT) * TurretConstants.MAX_POT_ROTATIONS) * TurretConstants.POT_SPROCKET_CIRCUMFERENCE /
             TurretConstants.TURRET_SPROCKET_CIRCUMFERENCE) * 360.0;
   }
