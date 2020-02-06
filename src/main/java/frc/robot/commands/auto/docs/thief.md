@@ -1,7 +1,5 @@
 # Thief autos
 
-## enemy
-
 ## half thief trench
 ![half](images/thief/half.png)
 ## opposite five
