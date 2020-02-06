@@ -7,7 +7,7 @@ import frc.robot.Constants.LEDConstants;
 /**
  * The LED controller
  */
-public class AbrahamBlinkinSubsystem extends GompeiSubsystemBase {
+public class AbrahamBlinkinSubsystem extends BeefSubsystemBase {
 
   private Spark blink;
 

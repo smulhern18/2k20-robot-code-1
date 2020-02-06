@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.ClimberConstants;
 
-public class ClimberSubsystem extends GompeiSubsystemBase {
+public class ClimberSubsystem extends BeefSubsystemBase {
   private DigitalInput topLimitSwitch, bottomLimitSwitch, tentiometerLimitSwitch, slapSwitch;
   private WPI_TalonFX climbMotor;
   private Solenoid slapper, ratchet;

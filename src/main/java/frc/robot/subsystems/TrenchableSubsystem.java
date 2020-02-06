@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Constants.TrenchableConstants;
 
-public class TrenchableSubsystem extends GompeiSubsystemBase {
+public class TrenchableSubsystem extends BeefSubsystemBase {
   private TrenchableState state;
   private DoubleSolenoid trenchablifier;
   public TrenchableSubsystem() {

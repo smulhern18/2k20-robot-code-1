@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-public class CollectorSubsystem extends GompeiSubsystemBase {
+public class CollectorSubsystem extends BeefSubsystemBase {
   /**
    * Creates a new CollectorSubsystem.
    */

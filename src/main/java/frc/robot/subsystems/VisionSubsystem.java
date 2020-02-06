@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 /**
  * Controls all vision related devices
  */
-public class VisionSubsystem extends GompeiSubsystemBase {
+public class VisionSubsystem extends BeefSubsystemBase {
   JSONParser parser;
   private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
