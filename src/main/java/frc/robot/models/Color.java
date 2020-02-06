@@ -10,8 +10,14 @@ public enum Color {
   // Values
   BLUE("blue"), GREEN("green"), YELLOW("yellow"), RED("green"), CORRUPT("black");
   public String value;
+
+  Color(String s) {
+    value = s;
+  }
+
   /**
    * Convert the char from FMS to enum
+   *
    * @param value FMS data
    * @return corresponding enum
    */
@@ -28,9 +34,5 @@ public enum Color {
       default:
         return CORRUPT;
     }
-  }
-
-  Color(String s) {
-    value = s;
   }
 }

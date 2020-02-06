@@ -4,6 +4,10 @@
 
 This repository is the code for FRC Team 190's robot code. We will try to keep the README updated with cool features.
 
+## Auto
+Link to auto path pictures: 
+# [autos](src/main/java/frc/robot/commands/auto/docs/autos.md)
+
 ## Current Features
  - Vision
  - Trajectory Following
