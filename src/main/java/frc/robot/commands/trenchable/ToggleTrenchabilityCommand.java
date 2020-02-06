@@ -11,6 +11,7 @@ public class ToggleTrenchabilityCommand extends CommandBase {
 
   /**
    * Requires trenchable subsystem
+   *
    * @param trenchableSubsystem the trenchable subsystem
    */
   public ToggleTrenchabilityCommand(TrenchableSubsystem trenchableSubsystem) {
@@ -32,6 +33,7 @@ public class ToggleTrenchabilityCommand extends CommandBase {
 
   /**
    * Instant command
+   *
    * @return true
    */
   @Override

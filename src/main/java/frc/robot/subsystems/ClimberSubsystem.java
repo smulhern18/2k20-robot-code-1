@@ -32,6 +32,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   /**
    * Returns the current state of the Climber. Used in the state machines.
+   *
    * @return climber state
    */
   public ClimbState getState() {
@@ -40,6 +41,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   /**
    * Sets the state of the climber. Should only be used when starting climb.
+   *
    * @param state ClimbState object that is the current state of the Climber
    */
   public void setState(ClimbState state) {
@@ -48,6 +50,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   /**
    * Sets the ratcheting on or off
+   *
    * @param value state of ratchet
    */
   public void setRatchet(boolean value) {
@@ -110,6 +113,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   /**
    * Sets direction of traversal
+   *
    * @param direction direction of traversal
    */
   public void setTraverseDirection(TraverseDirection direction) {
@@ -136,6 +140,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     RIGHT(-.75);
 
     private double value;
+
     private TraverseDirection(double value) {
       this.value = value;
     }

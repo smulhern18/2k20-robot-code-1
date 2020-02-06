@@ -11,6 +11,7 @@ public class ToggleSlapCommand extends InstantCommand {
 
   /**
    * Requires climber subsystem
+   *
    * @param climberSubsystem the climber subsyste,
    */
   public ToggleSlapCommand(ClimberSubsystem climberSubsystem) {
