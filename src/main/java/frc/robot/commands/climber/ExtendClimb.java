@@ -15,6 +15,11 @@ public class ExtendClimb extends CommandBase {
   }
 
   @Override
+  public void initialize() {
+    climberSubsystem.setState(trenchableSubsystem.getState() == TrenchableSubsystem.TrenchableState.TRENCHABLE ? ClimberSubsystem.ClimbState.TRENCHABLE : ClimberSubsystem.ClimbState.UNTRENCHABLE);
+  }
+
+  @Override
   public void execute() {
     switch (climberSubsystem.getState()) {
       case TRENCHABLE:

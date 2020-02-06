@@ -13,7 +13,7 @@ public class ClimberSubsystem extends GompeiSubsystemBase {
   private ClimbState state;
   private WPI_TalonSRX traverseMotor;
 
-  public ClimberSubsystem(TrenchableSubsystem.TrenchableState state) {
+  public ClimberSubsystem() {
     topLimitSwitch = new DigitalInput(ClimberConstants.TOP_SWITCH_PORT);
     bottomLimitSwitch = new DigitalInput(ClimberConstants.BOTTOM_SWITCH_PORT);
     tentiometerLimitSwitch = new DigitalInput(ClimberConstants.TENTIOMETER_SWITCH_PORT);
@@ -21,13 +21,17 @@ public class ClimberSubsystem extends GompeiSubsystemBase {
     climbMotor = new WPI_TalonFX(ClimberConstants.CLIMB_MOTOR_CHANNEL);
     slapper = new Solenoid(ClimberConstants.SLAPPER_PORT);
     ratchet = new Solenoid(ClimberConstants.RATCHET_PORT);
-    this.state = state == TrenchableSubsystem.TrenchableState.TRENCHABLE ? ClimbState.TRENCHABLE : ClimbState.UNTRENCHABLE;
+    this.state = ClimbState.UNTRENCHABLE;
 
     traverseMotor = new WPI_TalonSRX(ClimberConstants.TRAVERSE_MOTOR_PORT);
   }
 
   public ClimbState getState() {
     return state;
+  }
+
+  public void setState(ClimbState state) {
+    this.state = state;
   }
 
   public void setRatchet(boolean value) {
