@@ -1,14 +1,6 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import frc.robot.Constants.TurretConstants;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-
-
-public class TurretSubsystem extends GompeiSubsystemBase {
+public class TurretSubsystem extends BeefSubsystemBase {
   /**
    * Creates a new TurretSubsystem.
    */

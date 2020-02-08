@@ -17,7 +17,7 @@ import frc.robot.models.PairedTalonFX;
 /**
  * The motors and sensors that the robot uses to drive.
  */
-public class DrivetrainSubsystem extends GompeiSubsystemBase {
+public class DrivetrainSubsystem extends BeefSubsystemBase {
 
   private PairedTalonFX leftPair, rightPair;
 
