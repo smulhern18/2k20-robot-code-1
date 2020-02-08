@@ -186,5 +186,13 @@ public final class Constants {
     public static final int COLLECTOR_MOTOR_CHANNEL = 6;//TODO: configure
   }
 
+  public static final class BallpathConstants {
+    public static final int KICKER_MOTOR_CHANNEL = 7;//TODO: configure
+    public static final int INDEXER_MOTOR_CHANNEL = 8;//TODO: configure
+    public static final int PATH_MOTOR_CHANNEL = 9;//TODO: configure
+    public static final String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
+    public static final String PRELOAD_ENTRY = "Preloaded Balls";
+  }
+
 
 }
