@@ -20,9 +20,9 @@ public class TurretSubsystem extends BeefSubsystemBase {
     turretMotor = new WPI_TalonSRX(TurretConstants.TURRET_MOTOR_CHANNEL);
 
     turretMotor.configSelectedFeedbackSensor(
-            FeedbackDevice.Analog,
-            TurretConstants.PID_LOOPTYPE,
-            TurretConstants.TIMEOUT_MS);
+        FeedbackDevice.Analog,
+        TurretConstants.PID_LOOPTYPE,
+        TurretConstants.TIMEOUT_MS);
 
     turretMotor.config_kP(TurretConstants.SLOT_ID, TurretConstants.P);
     turretMotor.config_kI(TurretConstants.SLOT_ID, TurretConstants.I);
@@ -37,24 +37,24 @@ public class TurretSubsystem extends BeefSubsystemBase {
     this.targetPosition = targetPosition;
   }
 
-  private double convertTargetToPot(double heading){ // will have to adjust with real pot values (whole range won't be utiilized)
+  private double convertTargetToPot(double heading) { // will have to adjust with real pot values (whole range won't be utiilized)
     return ((((heading / 360.0) * TurretConstants.TURRET_SPROCKET_CIRCUMFERENCE) / TurretConstants.POT_SPROCKET_CIRCUMFERENCE)
-            / TurretConstants.MAX_POT_ROTATIONS) * TurretConstants.END_POINT;
+        / TurretConstants.MAX_POT_ROTATIONS) * TurretConstants.END_POINT;
   }
 
-  private double convertPotToTarget(double potValue){ // will have to adjust with real pot values (whole range won't be utiilized)
+  private double convertPotToTarget(double potValue) { // will have to adjust with real pot values (whole range won't be utiilized)
     return (((potValue / TurretConstants.END_POINT) * TurretConstants.MAX_POT_ROTATIONS) * TurretConstants.POT_SPROCKET_CIRCUMFERENCE /
-            TurretConstants.TURRET_SPROCKET_CIRCUMFERENCE) * 360.0;
+        TurretConstants.TURRET_SPROCKET_CIRCUMFERENCE) * 360.0;
   }
 
   @Override
-  public void periodic(){
+  public void periodic() {
     potValue = turretMotor.getSelectedSensorPosition();
     actualPosition = convertPotToTarget(potValue);
     rotateToPosition(targetPosition);
   }
 
-  public void rotateToPosition(double targetPosition){
+  public void rotateToPosition(double targetPosition) {
     turretMotor.set(ControlMode.Position, convertTargetToPot(targetPosition));
   }
 

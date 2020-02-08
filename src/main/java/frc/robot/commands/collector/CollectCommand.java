@@ -7,6 +7,7 @@ import frc.robot.subsystems.CollectorSubsystem;
 public class CollectCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
+
   public CollectCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
     this.collectorSubsystem = collectorSubsystem;
   }
