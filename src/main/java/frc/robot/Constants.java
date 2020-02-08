@@ -93,8 +93,8 @@ public final class Constants {
    * Constants for the shooter subsystem
    */
   public static class ShooterConstants {
-    public static final int LEADER_CHANNEL = 0;
-    public static final int FOLLOWER_CHANNEL = 1;
+    public static final int LEADER_CHANNEL = 0;//TODO: configure
+    public static final int FOLLOWER_CHANNEL = 1;//TODO: configure
 
     public static final double P = 0;
     public static final double I = 0;
@@ -134,7 +134,7 @@ public final class Constants {
   }
 
   public static class TurretConstants {
-    public static final int TURRET_MOTOR_CHANNEL = 2;
+    public static final int TURRET_MOTOR_CHANNEL = 2;//TODO: configure
     public static final int TIMEOUT_MS = 20;
     public static final int PID_LOOPTYPE = 0;
     public static final int SLOT_ID = 0;
@@ -181,4 +181,10 @@ public final class Constants {
     public static final DoubleSolenoid.Value UNTRENCHABLE = DoubleSolenoid.Value.kReverse;
 
   }
+
+  public static final class CollectorConstants {
+    public static final int COLLECTOR_MOTOR_CHANNEL = 6;//TODO: configure
+  }
+
+
 }
