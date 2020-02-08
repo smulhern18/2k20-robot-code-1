@@ -1,5 +1,10 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import frc.robot.Constants.TurretConstants;
+
 public class TurretSubsystem extends BeefSubsystemBase {
   /**
    * Creates a new TurretSubsystem.
@@ -28,7 +33,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
     createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, () -> actualPosition);
   }
 
-  public void setTargetPosition(double targetPosition){
+  public void setTargetPosition(double targetPosition) {
     this.targetPosition = targetPosition;
   }
 
