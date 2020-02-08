@@ -1,32 +1,49 @@
 package frc.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BallPathSubsystem;
+import frc.robot.subsystems.CollectorSubsystem;
 
 public class CollectCommand extends CommandBase {
+  private CollectorSubsystem collectorSubsystem;
+  private BallPathSubsystem ballPathSubsystem;
 
-  public CollectCommand() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements();
+  public CollectCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
+    this.collectorSubsystem = collectorSubsystem;
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    switch (collectorSubsystem.getState()) {
+      case UNDEPLOYED:
+        collectorSubsystem.deploy();
+        collectorSubsystem.intake();
+        collectorSubsystem.setState(CollectorSubsystem.CollectorState.DEPLOYED);
+        break;
+      case DEPLOYED:
+        collectorSubsystem.undeploy();
+        collectorSubsystem.exhaust();
+        collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
+        break;
+      default:
+        System.out.println("UNEXPECTED COLLECTOR STATE!");
+        break;
+    }
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    switch (collectorSubsystem.getState()) {
+      case DEPLOYED:
+        //TODO: sees if there are five
+        //ballPathSubsystem.
+        return false;
+      case UNDEPLOYED:
+        return true;
+      default:
+        System.out.println("UNEXPECTED COLLECTOR STATE isFinished");
+        break;
+    }
+    return true;
   }
 }

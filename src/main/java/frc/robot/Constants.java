@@ -93,8 +93,8 @@ public final class Constants {
    * Constants for the shooter subsystem
    */
   public static class ShooterConstants {
-    public static final int LEADER_CHANNEL = 0;
-    public static final int FOLLOWER_CHANNEL = 1;
+    public static final int LEADER_CHANNEL = 0;//TODO: configure
+    public static final int FOLLOWER_CHANNEL = 1;//TODO: configure
 
     public static final double P = 0;
     public static final double I = 0;
@@ -110,6 +110,10 @@ public final class Constants {
 
     public static final String VELOCITY_ENTRY = "Shooter Velocity";
     public static final String TARGET_ENTRY = "Shooter Target RPM";
+    public static final String CONFIG_P_ENTRY = "Config P";
+    public static final String CONFIG_I_ENTRY = "Config I";
+    public static final String CONFIG_D_ENTRY = "Config D";
+    public static final String CONFIG_F_ENTRY = "Config F";
   }
 
   public static class VisionConstants {
@@ -134,7 +138,7 @@ public final class Constants {
   }
 
   public static class TurretConstants {
-    public static final int TURRET_MOTOR_CHANNEL = 2;
+    public static final int TURRET_MOTOR_CHANNEL = 2;//TODO: configure
     public static final int TIMEOUT_MS = 20;
     public static final int PID_LOOPTYPE = 0;
     public static final int SLOT_ID = 0;
@@ -181,4 +185,25 @@ public final class Constants {
     public static final DoubleSolenoid.Value UNTRENCHABLE = DoubleSolenoid.Value.kReverse;
 
   }
+
+  public static final class CollectorConstants {
+    public static final int COLLECTOR_MOTOR_CHANNEL = 6;//TODO: configure
+    public static final int DEPLOY_COLLECTOR_SOLENOID_CHANNEL = 7;
+  }
+
+  public static final class BallpathConstants {
+    public static final int KICKER_MOTOR_CHANNEL = 7;//TODO: configure
+    public static final int INDEXER_MOTOR_CHANNEL = 8;//TODO: configure
+    public static final int FIRST_STAGE_MOTOR_CHANNEL = 9;//TODO: configure
+    public static final String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
+    public static final int FIRST_STAGE_BANNER_CHANNEL = 2;//TODO: configure
+    public static final int INDEXER1_BANNER_CHANNEL = 3;//TODO: configure
+    public static final int INDEXER2_BANNER_CHANNEL = 4;//TODO: configure
+    public static final int INDEXER3_BANNER_CHANNEL = 5;//TODO: configure
+    public static final int INDEXER4_BANNER_CHANNEL = 6;//TODO: configure
+    public static final int INDEXER5_BANNER_CHANNEL = 7;//TODO: configure
+    public static final int KICKER_BANNER_CHANNEL = 8;//TODO: configure
+  }
+
+
 }
