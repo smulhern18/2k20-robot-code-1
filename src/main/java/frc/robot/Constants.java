@@ -184,6 +184,7 @@ public final class Constants {
 
   public static final class CollectorConstants {
     public static final int COLLECTOR_MOTOR_CHANNEL = 6;//TODO: configure
+    public static final int DEPLOY_COLLECTOR_SOLENOID_CHANNEL = 7;
   }
 
   public static final class BallpathConstants {
