@@ -49,6 +49,18 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
     leftPair.setSensorPhase(false);
     rightPair.setSensorPhase(true);
 
+    leftPair.configPIDF(
+        DrivetrainConstants.P,
+        DrivetrainConstants.I,
+        DrivetrainConstants.D,
+        DrivetrainConstants.F
+    );
+    rightPair.configPIDF(
+        DrivetrainConstants.P,
+        DrivetrainConstants.I,
+        DrivetrainConstants.D,
+        DrivetrainConstants.F
+    );
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
 

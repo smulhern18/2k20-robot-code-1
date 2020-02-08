@@ -30,6 +30,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         ShooterConstants.PID_LOOPTYPE,
         ShooterConstants.TIMEOUT_MS);
     pair.configPIDF(
+        ShooterConstants.SLOT_ID,
         ShooterConstants.P,
         ShooterConstants.I,
         ShooterConstants.D,
