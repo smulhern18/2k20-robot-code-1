@@ -13,9 +13,11 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
+import frc.robot.commands.ballpath.DefaultShiftCellCommand;
 import frc.robot.commands.blinkinpark.AllianceColorCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.DefaultShootCommand;
+import frc.robot.commands.shooter.ShooterShuffleBoardCommand;
 import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.models.Color;
@@ -65,9 +67,10 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
-    shooterSubsystem.setDefaultCommand(new DefaultShootCommand(shooterSubsystem));
+    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(shooterSubsystem)); //TODO: change back after PID is tuned
     visionSubsystem.setDefaultCommand(new DefaultVisionCommand(visionSubsystem));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(abrahamBlinkinSubsystem));
+    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(ballPathSubsystem));
   }
 
   /**

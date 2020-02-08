@@ -22,7 +22,7 @@ public class CollectCommand extends CommandBase {
         break;
       case DEPLOYED:
         collectorSubsystem.undeploy();
-        collectorSubsystem.exhaust();
+        collectorSubsystem.stopIntake();
         collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
         break;
       default:
@@ -35,9 +35,7 @@ public class CollectCommand extends CommandBase {
   public boolean isFinished() {
     switch (collectorSubsystem.getState()) {
       case DEPLOYED:
-        //TODO: sees if there are five
-        //ballPathSubsystem.
-        return false;
+        return ballPathSubsystem.isLoaded();
       case UNDEPLOYED:
         return true;
       default:
@@ -45,5 +43,23 @@ public class CollectCommand extends CommandBase {
         break;
     }
     return true;
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    switch (collectorSubsystem.getState()) {
+      case DEPLOYED:
+        if (!interrupted) {
+          collectorSubsystem.stopIntake();
+          collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
+        }
+        break;
+      case UNDEPLOYED:
+        // nothing
+        break;
+      default:
+        System.out.println("UNEXPECTED COLLECTOR STATE isFinished");
+        break;
+    }
   }
 }

@@ -196,13 +196,12 @@ public final class Constants {
     public static final int INDEXER_MOTOR_CHANNEL = 8;//TODO: configure
     public static final int FIRST_STAGE_MOTOR_CHANNEL = 9;//TODO: configure
     public static final String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
-    public static final int FIRST_STAGE_BANNER_CHANNEL = 2;//TODO: configure
-    public static final int INDEXER1_BANNER_CHANNEL = 3;//TODO: configure
-    public static final int INDEXER2_BANNER_CHANNEL = 4;//TODO: configure
-    public static final int INDEXER3_BANNER_CHANNEL = 5;//TODO: configure
-    public static final int INDEXER4_BANNER_CHANNEL = 6;//TODO: configure
-    public static final int INDEXER5_BANNER_CHANNEL = 7;//TODO: configure
-    public static final int KICKER_BANNER_CHANNEL = 8;//TODO: configure
+    public static final int BELT_BANNER_SENSOR_PORT = 2;
+    public static final int INDEXER1_BANNER_PORT = 3;//TODO: configure
+    public static final int INDEXER2_BANNER_PORT = 4;//TODO: configure
+    public static final int INDEXER3_BANNER_PORT = 5;//TODO: configure
+    public static final int INDEXER4_BANNER_PORT = 6;//TODO: configure
+    public static final int INDEXER5_BANNER_PORT = 7;//TODO: configure
   }
 
 
