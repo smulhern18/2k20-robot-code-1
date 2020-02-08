@@ -110,6 +110,10 @@ public final class Constants {
 
     public static final String VELOCITY_ENTRY = "Shooter Velocity";
     public static final String TARGET_ENTRY = "Shooter Target RPM";
+    public static final String CONFIG_P_ENTRY = "Config P";
+    public static final String CONFIG_I_ENTRY = "Config I";
+    public static final String CONFIG_D_ENTRY = "Config D";
+    public static final String CONFIG_F_ENTRY = "Config F";
   }
 
   public static class VisionConstants {

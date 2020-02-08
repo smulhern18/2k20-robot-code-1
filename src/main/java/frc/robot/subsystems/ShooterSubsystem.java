@@ -15,7 +15,6 @@ import frc.robot.models.PairedTalonSRX;
 public class ShooterSubsystem extends BeefSubsystemBase {
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
-  public NetworkTableEntry targetRPMEntry;
   private PairedTalonSRX pair;
 
   /**
@@ -35,11 +34,13 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         ShooterConstants.I,
         ShooterConstants.D,
         ShooterConstants.F);
-    targetRPMEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.TARGET_ENTRY, 0).getEntry();
-
 
     setCoast();
     createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 1, 1, currentVelocity::toString);
+  }
+
+  public PairedTalonSRX getPairMotor(){
+    return pair;
   }
 
   /**

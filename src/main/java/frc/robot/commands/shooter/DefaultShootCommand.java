@@ -27,7 +27,6 @@ public class DefaultShootCommand extends CommandBase {
   @Override
   public void execute() {
 //    shooterSubsystem.setTargetRPM(SmartDashboard.getNumber(SETPOINT, 0));
-    shooterSubsystem.setTargetRPM(shooterSubsystem.targetRPMEntry.getDouble(0));
     shooterSubsystem.shoot();
 
   }
