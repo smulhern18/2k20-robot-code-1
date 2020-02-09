@@ -1,6 +1,7 @@
 package frc.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.CollectorSubsystem;
 
@@ -12,9 +13,9 @@ public class StopCollectingCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
 
-  public StopCollectingCommand() {
-    this.collectorSubsystem = CollectorSubsystem.getInstance();
-    this.ballPathSubsystem = BallPathSubsystem.getInstance();
+  public StopCollectingCommand(RobotContainer robotContainer) {
+    this.collectorSubsystem = robotContainer.collectorSubsystem;
+    this.ballPathSubsystem = robotContainer.ballPathSubsystem;
     addRequirements(collectorSubsystem, ballPathSubsystem);
   }
 

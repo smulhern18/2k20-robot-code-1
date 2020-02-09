@@ -27,18 +27,18 @@ import frc.robot.subsystems.*;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
-  private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
+  public AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
+  public AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
-  private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = AbrahamBlinkinSubsystem.getInstance();
-  private BallPathSubsystem ballPathSubsystem = BallPathSubsystem.getInstance();
-  private ClimberSubsystem climberSubsystem = ClimberSubsystem.getInstance();
-  private CollectorSubsystem collectorSubsystem = CollectorSubsystem.getInstance();
-  private DrivetrainSubsystem drivetrainSubsystem = DrivetrainSubsystem.getInstance();
-  private ShooterSubsystem shooterSubsystem = ShooterSubsystem.getInstance();
-  private TrenchableSubsystem trenchableSubsystem = TrenchableSubsystem.getInstance();
-  private TurretSubsystem turretSubsystem = TurretSubsystem.getInstance();
-  private VisionSubsystem visionSubsystem = VisionSubsystem.getInstance();
+  public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
+  public BallPathSubsystem ballPathSubsystem = new BallPathSubsystem();
+  public ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+  public CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
+  public DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+  public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  public TrenchableSubsystem trenchableSubsystem = new TrenchableSubsystem();
+  public TurretSubsystem turretSubsystem = new TurretSubsystem();
+  public VisionSubsystem visionSubsystem = new VisionSubsystem();
 
   private Color color = Color.CORRUPT;
 
@@ -62,10 +62,10 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick));
-    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand()); //TODO: remove after tuned
-    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand());
-    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand());
+    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
+    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
+    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
+    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
   }
 
   /**
@@ -75,7 +75,7 @@ public class RobotContainer {
    */
   public Command getAutoCommand() {
     drivetrainSubsystem.resetAll();
-    return new TestAutoCommand();
+    return new TestAutoCommand(this);
   }
 
   /**

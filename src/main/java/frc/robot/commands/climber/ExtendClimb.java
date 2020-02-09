@@ -1,6 +1,7 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.TrenchableSubsystem;
 
@@ -14,9 +15,9 @@ public class ExtendClimb extends CommandBase {
   /**
    * Requires climber and trenchable subsystem.
    */
-  public ExtendClimb() {
-    this.climberSubsystem = ClimberSubsystem.getInstance();
-    this.trenchableSubsystem = TrenchableSubsystem.getInstance();
+  public ExtendClimb(RobotContainer robotContainer) {
+    this.climberSubsystem = robotContainer.climberSubsystem;
+    this.trenchableSubsystem = robotContainer.trenchableSubsystem;
     addRequirements(climberSubsystem, trenchableSubsystem);
   }
 

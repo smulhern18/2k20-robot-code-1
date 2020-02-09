@@ -1,6 +1,7 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
@@ -10,11 +11,11 @@ public class AutoAimTurretCommand extends CommandBase {
   private final VisionSubsystem visionSubsystem;
   private final DrivetrainSubsystem drivetrainSubsystem;//need for odometry
 
-  public AutoAimTurretCommand() {
-    this.turretSubsystem = TurretSubsystem.getInstance();
-    this.visionSubsystem = VisionSubsystem.getInstance();
+  public AutoAimTurretCommand(RobotContainer robotContainer) {
+    this.turretSubsystem = robotContainer.turretSubsystem;
+    this.visionSubsystem = robotContainer.visionSubsystem;
     //drivetrain not required because it's only being used to read from NavX
-    this.drivetrainSubsystem = DrivetrainSubsystem.getInstance();
+    this.drivetrainSubsystem = robotContainer.drivetrainSubsystem;
     addRequirements(turretSubsystem, visionSubsystem);
   }
 

@@ -3,6 +3,7 @@ package frc.robot.commands.blinkinpark;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem.Hat;
 
@@ -16,8 +17,8 @@ public class AllianceColorCommand extends CommandBase {
   /**
    * Requires the blinkin
    */
-  public AllianceColorCommand() {
-    this.abrahamBlinkinSubsystem = AbrahamBlinkinSubsystem.getInstance();
+  public AllianceColorCommand(RobotContainer robotContainer) {
+    this.abrahamBlinkinSubsystem = robotContainer.abrahamBlinkinSubsystem;
     addRequirements(abrahamBlinkinSubsystem);
   }
 

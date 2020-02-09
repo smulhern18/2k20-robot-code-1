@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ShooterShuffleBoardCommand extends CommandBase {
@@ -14,8 +16,8 @@ public class ShooterShuffleBoardCommand extends CommandBase {
   private double newP, newI, newD, newF;
 
 
-  public ShooterShuffleBoardCommand() {
-    this.shooterSubsystem = ShooterSubsystem.getInstance();
+  public ShooterShuffleBoardCommand(RobotContainer robotContainer) {
+    this.shooterSubsystem = robotContainer.shooterSubsystem;
     PEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_P_ENTRY, ShooterConstants.P).getEntry();
     IEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_I_ENTRY, ShooterConstants.I).getEntry();
     FEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_D_ENTRY, ShooterConstants.D).getEntry();

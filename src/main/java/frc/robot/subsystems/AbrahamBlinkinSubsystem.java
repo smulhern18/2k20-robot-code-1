@@ -8,20 +8,13 @@ import frc.robot.Constants.LEDConstants;
  * The LED controller
  */
 public class AbrahamBlinkinSubsystem extends BeefSubsystemBase {
-  private static AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = null;
   private Spark blink;
 
   /**
    * Constructs Abraham Blinkin
    */
-  private AbrahamBlinkinSubsystem() {
+  public AbrahamBlinkinSubsystem() {
     blink = new Spark(LEDConstants.BLINKIN_PARK_CHANNEL);
-  }
-
-  public static AbrahamBlinkinSubsystem getInstance() {
-    if (abrahamBlinkinSubsystem == null)
-      abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
-    return abrahamBlinkinSubsystem;
   }
 
   /**
