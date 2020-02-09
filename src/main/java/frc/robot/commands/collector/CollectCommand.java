@@ -17,7 +17,9 @@ public class CollectCommand extends CommandBase {
     this.ballPathSubsystem = ballPathSubsystem;
     addRequirements(collectorSubsystem, ballPathSubsystem);
   }
-
+  /**
+   * Alternates between the two states of trenchability
+   */
   @Override
   public void initialize() {
     switch (collectorSubsystem.getState()) {
@@ -37,6 +39,10 @@ public class CollectCommand extends CommandBase {
     }
   }
 
+  /** 
+   * Confirms that the next trenchability state has been reached
+   * @return boolean: true if the next state has been reached, else false 
+  */
   @Override
   public boolean isFinished() {
     switch (collectorSubsystem.getState()) {
@@ -51,6 +57,11 @@ public class CollectCommand extends CommandBase {
     return true;
   }
 
+  /**
+   * Terminates collector state-change process
+   * 
+   * @param interrupted true if state change was interrupted
+   */
   @Override
   public void end(boolean interrupted) {
     switch (collectorSubsystem.getState()) {
