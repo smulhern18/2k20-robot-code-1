@@ -30,15 +30,15 @@ public class RobotContainer {
   public AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
   public AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
-  public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
-  public BallPathSubsystem ballPathSubsystem = new BallPathSubsystem();
-  public ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  public CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
+  public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;// = new AbrahamBlinkinSubsystem();
+  public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
+  public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
+  public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
   public DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  public TrenchableSubsystem trenchableSubsystem = new TrenchableSubsystem();
-  public TurretSubsystem turretSubsystem = new TurretSubsystem();
-  public VisionSubsystem visionSubsystem = new VisionSubsystem();
+  public ShooterSubsystem shooterSubsystem;// = new ShooterSubsystem();
+  public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
+  public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
+  public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
 
   private Color color = Color.CORRUPT;
 
@@ -63,9 +63,9 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
-    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
-    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+//    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
+//    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
+//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
   }
 
   /**

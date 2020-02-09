@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RendezvousTrajectories extends Trajectories {
   private static final Pose2d RENDEZVOUS_START = new Pose2d(3.50, -4.96, new Rotation2d(0.0));
-  private static final Pose2d BEAM_RIDE_GRAB_THREE_END = new Pose2d(5.81, -3.818, new Rotation2d(Units.degreesToRadians(111)));
+  private static final Pose2d BEAM_RIDE_GRAB_THREE_END = new Pose2d(5.977, -4.04, new Rotation2d(Units.degreesToRadians(111)));
   public final static Trajectory BEAM_RIDE_GRAB_THREE = TrajectoryGenerator.generateTrajectory(
       List.of(
           RENDEZVOUS_START,
