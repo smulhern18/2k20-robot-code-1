@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -43,7 +42,6 @@ public class RobotContainer {
   private VisionSubsystem visionSubsystem = new VisionSubsystem();
 
   private Color color = Color.CORRUPT;
-  private NetworkTableEntry targetRPMEntry;
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.

@@ -5,6 +5,7 @@ import frc.robot.subsystems.TrenchableSubsystem;
 
 public class UntrenchCommand extends CommandBase {
   TrenchableSubsystem trenchableSubsystem;
+
   public UntrenchCommand(TrenchableSubsystem trenchableSubsystem) {
     this.trenchableSubsystem = trenchableSubsystem;
     addRequirements(trenchableSubsystem);

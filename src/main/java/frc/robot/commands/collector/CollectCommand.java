@@ -6,7 +6,7 @@ import frc.robot.subsystems.CollectorSubsystem;
 
 /**
  * Press once, collector deploys, intake wheels go
- *    once 5 balls are in robot, intake wheels stop, undeploys
+ * once 5 balls are in robot, intake wheels stop, undeploys
  */
 public class CollectCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
@@ -17,6 +17,7 @@ public class CollectCommand extends CommandBase {
     this.ballPathSubsystem = ballPathSubsystem;
     addRequirements(collectorSubsystem, ballPathSubsystem);
   }
+
   /**
    * Alternates between the two states of trenchability
    */
@@ -39,10 +40,11 @@ public class CollectCommand extends CommandBase {
     }
   }
 
-  /** 
+  /**
    * Confirms that the next trenchability state has been reached
-   * @return boolean: true if the next state has been reached, else false 
-  */
+   *
+   * @return boolean: true if the next state has been reached, else false
+   */
   @Override
   public boolean isFinished() {
     switch (collectorSubsystem.getState()) {
@@ -59,7 +61,7 @@ public class CollectCommand extends CommandBase {
 
   /**
    * Terminates collector state-change process
-   * 
+   *
    * @param interrupted true if state change was interrupted
    */
   @Override

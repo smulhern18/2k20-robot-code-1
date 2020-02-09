@@ -39,7 +39,7 @@ public class TrenchableSubsystem extends BeefSubsystemBase {
    * @return state of subsystem
    */
   public TrenchableState getState() {
-    return untrenchableSwitch.get() ? TrenchableState.UNTRENCHABLE: TrenchableState.TRENCHABLE;
+    return untrenchableSwitch.get() ? TrenchableState.UNTRENCHABLE : TrenchableState.TRENCHABLE;
   }
 
   /**
