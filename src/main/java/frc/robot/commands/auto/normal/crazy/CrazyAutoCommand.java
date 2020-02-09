@@ -7,7 +7,6 @@ import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.commands.shooter.AutoAimAndShootCommand;
 import frc.robot.commands.trenchable.TrenchCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
-import frc.robot.subsystems.*;
 
 public class CrazyAutoCommand extends SequentialCommandGroup {
   public CrazyAutoCommand() {

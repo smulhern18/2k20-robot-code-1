@@ -23,8 +23,8 @@ public class ChangeHatCommand extends CommandBase {
   /**
    * Runs command, but with a timeout
    *
-   * @param hat                     hat to wear
-   * @param timeoutSeconds          length of time to run command in seconds
+   * @param hat            hat to wear
+   * @param timeoutSeconds length of time to run command in seconds
    */
   public ChangeHatCommand(Hat hat, double timeoutSeconds) {
     this(hat);

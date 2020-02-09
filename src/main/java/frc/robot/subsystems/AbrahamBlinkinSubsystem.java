@@ -10,6 +10,7 @@ import frc.robot.Constants.LEDConstants;
 public class AbrahamBlinkinSubsystem extends BeefSubsystemBase {
   private static AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = null;
   private Spark blink;
+
   /**
    * Constructs Abraham Blinkin
    */
