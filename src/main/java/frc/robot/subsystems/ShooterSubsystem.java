@@ -3,9 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.models.PairedTalonSRX;
 
@@ -39,7 +36,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
     createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 1, 1, currentVelocity::toString);
   }
 
-  public PairedTalonSRX getPairMotor(){
+  public PairedTalonSRX getPairMotor() {
     return pair;
   }
 
@@ -86,12 +83,20 @@ public class ShooterSubsystem extends BeefSubsystemBase {
     shoot(ControlMode.PercentOutput, 0);
   }
 
+  public double inchesToRPM(double inches) {
+    return metersToRPM(inches * 0.0254);
+  }
+
+  public double metersToRPM(double meters) {
+    return meters; //TODO: tony math
+  }
+
   /**
    * Sees if motors are up to speed
    *
    * @return Whether error is within RPM_THRESHOLD
    */
-  public boolean atTarget() {
+  public boolean atTargetRPM() {
     return Math.abs(targetVelocity.getRPM() - currentVelocity.getRPM()) < ShooterConstants.RPM_THRESHOLD;
   }
 

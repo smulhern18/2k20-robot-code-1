@@ -10,7 +10,6 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * Creates a new TurretSubsystem.
    */
   private WPI_TalonSRX turretMotor;
-  private double currentPosition; //degrees
   private double potValue;
   private double targetPosition;
   private double actualPosition;

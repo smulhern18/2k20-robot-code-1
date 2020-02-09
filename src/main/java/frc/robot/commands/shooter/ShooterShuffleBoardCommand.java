@@ -21,6 +21,7 @@ public class ShooterShuffleBoardCommand extends CommandBase {
         FEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_D_ENTRY, ShooterConstants.D).getEntry();
         DEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_F_ENTRY, ShooterConstants.F).getEntry();
         targetRPMEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.TARGET_ENTRY, 0).getEntry();
+        addRequirements(shooterSubsystem);
     }
 
     @Override

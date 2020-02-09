@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Constants.TrenchableConstants;
 
@@ -7,15 +8,15 @@ import frc.robot.Constants.TrenchableConstants;
  * Controls the trenchability of the robot.
  */
 public class TrenchableSubsystem extends BeefSubsystemBase {
-  private TrenchableState state;
   private DoubleSolenoid trenchablifier;
+  private DigitalInput untrenchableSwitch;
 
   /**
    * Constructs trenchabilifier, sets state
    */
   public TrenchableSubsystem() {
     trenchablifier = new DoubleSolenoid(TrenchableConstants.TRENCHABLE_PORT, TrenchableConstants.UNTRENCHABLE_PORT);
-    state = trenchablifier.get() == DoubleSolenoid.Value.kForward ? TrenchableState.TRENCHABLE : TrenchableState.UNTRENCHABLE;
+    untrenchableSwitch = new DigitalInput(TrenchableConstants.UNTRENCHABLE_SWITCH_PORT);
   }
 
   /**
@@ -23,7 +24,6 @@ public class TrenchableSubsystem extends BeefSubsystemBase {
    */
   public void trench() {
     trenchablifier.set(TrenchableConstants.TRENCHABLE);
-    state = TrenchableState.TRENCHABLE;
   }
 
   /**
@@ -31,7 +31,6 @@ public class TrenchableSubsystem extends BeefSubsystemBase {
    */
   public void untrench() {
     trenchablifier.set(TrenchableConstants.UNTRENCHABLE);
-    state = TrenchableState.UNTRENCHABLE;
   }
 
   /**
@@ -40,7 +39,7 @@ public class TrenchableSubsystem extends BeefSubsystemBase {
    * @return state of subsystem
    */
   public TrenchableState getState() {
-    return state;
+    return untrenchableSwitch.get() ? TrenchableState.UNTRENCHABLE: TrenchableState.TRENCHABLE;
   }
 
   /**

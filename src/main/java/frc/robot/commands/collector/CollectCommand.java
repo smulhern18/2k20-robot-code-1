@@ -4,14 +4,22 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.CollectorSubsystem;
 
+/**
+ * Press once, collector deploys, intake wheels go
+ *    once 5 balls are in robot, intake wheels stop, undeploys
+ */
 public class CollectCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
 
   public CollectCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
     this.collectorSubsystem = collectorSubsystem;
+    this.ballPathSubsystem = ballPathSubsystem;
+    addRequirements(collectorSubsystem, ballPathSubsystem);
   }
-
+  /**
+   * Alternates between the two states of trenchability
+   */
   @Override
   public void initialize() {
     switch (collectorSubsystem.getState()) {
@@ -22,7 +30,7 @@ public class CollectCommand extends CommandBase {
         break;
       case DEPLOYED:
         collectorSubsystem.undeploy();
-        collectorSubsystem.exhaust();
+        collectorSubsystem.stopIntake();
         collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
         break;
       default:
@@ -31,13 +39,15 @@ public class CollectCommand extends CommandBase {
     }
   }
 
+  /** 
+   * Confirms that the next trenchability state has been reached
+   * @return boolean: true if the next state has been reached, else false 
+  */
   @Override
   public boolean isFinished() {
     switch (collectorSubsystem.getState()) {
       case DEPLOYED:
-        //TODO: sees if there are five
-        //ballPathSubsystem.
-        return false;
+        return ballPathSubsystem.isLoaded();
       case UNDEPLOYED:
         return true;
       default:
@@ -45,5 +55,28 @@ public class CollectCommand extends CommandBase {
         break;
     }
     return true;
+  }
+
+  /**
+   * Terminates collector state-change process
+   * 
+   * @param interrupted true if state change was interrupted
+   */
+  @Override
+  public void end(boolean interrupted) {
+    switch (collectorSubsystem.getState()) {
+      case DEPLOYED:
+        if (!interrupted) {
+          collectorSubsystem.stopIntake();
+          collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
+        }
+        break;
+      case UNDEPLOYED:
+        // nothing
+        break;
+      default:
+        System.out.println("UNEXPECTED COLLECTOR STATE isFinished");
+        break;
+    }
   }
 }

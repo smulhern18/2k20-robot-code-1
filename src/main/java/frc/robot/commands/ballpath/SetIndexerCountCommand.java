@@ -8,6 +8,7 @@ public class SetIndexerCountCommand extends CommandBase {
 
   public SetIndexerCountCommand(BallPathSubsystem ballPathSubsystem, int amountOfPreloadedBalls) {
     ballPathSubsystem.setPreloadedBalls(amountOfPreloadedBalls);
+    addRequirements(ballPathSubsystem);
   }
 }
 
