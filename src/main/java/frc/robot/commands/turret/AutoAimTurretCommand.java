@@ -10,7 +10,7 @@ public class AutoAimTurretCommand extends CommandBase {
   private final VisionSubsystem visionSubsystem;
   private final DrivetrainSubsystem drivetrainSubsystem;//need for odometry
 
-  AutoAimTurretCommand(TurretSubsystem turretSubsystem, VisionSubsystem visionSubsystem, DrivetrainSubsystem drivetrainSubsystem) {
+  public AutoAimTurretCommand(TurretSubsystem turretSubsystem, VisionSubsystem visionSubsystem, DrivetrainSubsystem drivetrainSubsystem) {
     this.turretSubsystem = turretSubsystem;
     this.visionSubsystem = visionSubsystem;
     //drivetrain not required because it's only being used to read from NavX
@@ -25,7 +25,11 @@ public class AutoAimTurretCommand extends CommandBase {
     } else {//currently unsure with where to point shooter with no vision
       turretSubsystem.setTargetPosition(-1.0 * drivetrainSubsystem.getYawDegrees());//check logic later with real turret
     }
+  }
 
+  @Override
+  public boolean isFinished() {
+    return turretSubsystem.inPosition();
   }
 
   @Override

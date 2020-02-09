@@ -183,6 +183,7 @@ public final class Constants {
     public static final int UNTRENCHABLE_PORT = 1;
     public static final DoubleSolenoid.Value TRENCHABLE = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value UNTRENCHABLE = DoubleSolenoid.Value.kReverse;
+    public static final int UNTRENCHABLE_SWITCH_PORT = 3; //TODO: configure
 
   }
 
@@ -191,7 +192,7 @@ public final class Constants {
     public static final int DEPLOY_COLLECTOR_SOLENOID_CHANNEL = 7;
   }
 
-  public static final class BallpathConstants {
+  public static final class BallPathConstants {
     public static final int KICKER_MOTOR_CHANNEL = 7;//TODO: configure
     public static final int INDEXER_MOTOR_CHANNEL = 8;//TODO: configure
     public static final int FIRST_STAGE_MOTOR_CHANNEL = 9;//TODO: configure

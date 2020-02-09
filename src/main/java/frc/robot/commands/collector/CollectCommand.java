@@ -4,12 +4,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.CollectorSubsystem;
 
+/**
+ * Press once, collector deploys, intake wheels go
+ *    once 5 balls are in robot, intake wheels stop, undeploys
+ */
 public class CollectCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
 
   public CollectCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
     this.collectorSubsystem = collectorSubsystem;
+    this.ballPathSubsystem = ballPathSubsystem;
     addRequirements(collectorSubsystem, ballPathSubsystem);
   }
   /**
