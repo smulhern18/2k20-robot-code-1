@@ -1,5 +1,6 @@
 package frc.robot.commands.turret;
 
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
@@ -26,9 +27,9 @@ public class AutoAimTurretCommand extends CommandBase {
   @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
-      turretSubsystem.setTargetPosition(visionSubsystem.getAngleToTarget());
+      turretSubsystem.rotateToPosition(Units.degreesToRadians(135)+ visionSubsystem.getAngleToTarget());//adjusts for middle offset
     } else {//currently unsure with where to point shooter with no vision
-      turretSubsystem.setTargetPosition(-1.0 * drivetrainSubsystem.getYawDegrees());//check logic later with real turret
+      turretSubsystem.setTargetPosition(-1.0 * drivetrainSubsystem.getYawDegrees());//TODO check with odomoetry for -180 to 180 or 0 to 360
     }
   }
 

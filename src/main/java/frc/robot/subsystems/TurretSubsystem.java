@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.Constants.TurretConstants;
 
 public class TurretSubsystem extends BeefSubsystemBase {
@@ -36,21 +37,18 @@ public class TurretSubsystem extends BeefSubsystemBase {
     this.targetPosition = targetPosition;
   }
 
-  private double convertTargetToPot(double heading) { // will have to adjust with real pot values (whole range won't be utiilized)
-    return ((((heading / 360.0) * TurretConstants.TURRET_SPROCKET_CIRCUMFERENCE) / TurretConstants.POT_SPROCKET_CIRCUMFERENCE)
-        / TurretConstants.MAX_POT_ROTATIONS) * TurretConstants.END_POINT;
+  private double convertTargetToPot(double heading) { //takes input in radians
+    return ((Units.radiansToDegrees(heading)  / TurretConstants.MAX_CAPABILITY_DEGREES) * (TurretConstants.END_POINT - TurretConstants.START_POINT) + TurretConstants.START_POINT);
   }
 
   private double convertPotToTarget(double potValue) { // will have to adjust with real pot values (whole range won't be utiilized)
-    return (((potValue / TurretConstants.END_POINT) * TurretConstants.MAX_POT_ROTATIONS) * TurretConstants.POT_SPROCKET_CIRCUMFERENCE /
-        TurretConstants.TURRET_SPROCKET_CIRCUMFERENCE) * 360.0;
+    return Units.degreesToRadians(((potValue - TurretConstants.START_POINT) / (TurretConstants.END_POINT - TurretConstants.START_POINT)) * TurretConstants.MAX_CAPABILITY_DEGREES);
   }
 
   @Override
   public void periodic() {
     potValue = turretMotor.getSelectedSensorPosition();
     actualPosition = convertPotToTarget(potValue);
-    rotateToPosition(targetPosition);
   }
 
   public void rotateToPosition(double targetPosition) {
