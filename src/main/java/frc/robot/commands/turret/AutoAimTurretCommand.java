@@ -28,8 +28,9 @@ public class AutoAimTurretCommand extends CommandBase {
     if (visionSubsystem.getTargetFound()) {
       turretSubsystem.setTargetPosition(visionSubsystem.getAngleToTarget());
     } else {//currently unsure with where to point shooter with no vision
-      turretSubsystem.setTargetPosition(-1.0 * drivetrainSubsystem.getYawDegrees());//check logic later with real turret
+      turretSubsystem.resetTargetWithDrivetrain(drivetrainSubsystem.getYawDegrees());
     }
+    turretSubsystem.rotateToTarget();
   }
 
   @Override
