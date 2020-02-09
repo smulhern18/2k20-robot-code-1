@@ -30,15 +30,15 @@ public class RobotContainer {
   private AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
   private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
 
-  private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
-  private BallPathSubsystem ballPathSubsystem = new BallPathSubsystem();
-  private ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  private CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
-  private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  private TrenchableSubsystem trenchableSubsystem = new TrenchableSubsystem();
-  private TurretSubsystem turretSubsystem = new TurretSubsystem();
-  private VisionSubsystem visionSubsystem = new VisionSubsystem();
+  private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = AbrahamBlinkinSubsystem.getInstance();
+  private BallPathSubsystem ballPathSubsystem = BallPathSubsystem.getInstance();
+  private ClimberSubsystem climberSubsystem = ClimberSubsystem.getInstance();
+  private CollectorSubsystem collectorSubsystem = CollectorSubsystem.getInstance();
+  private DrivetrainSubsystem drivetrainSubsystem = DrivetrainSubsystem.getInstance();
+  private ShooterSubsystem shooterSubsystem = ShooterSubsystem.getInstance();
+  private TrenchableSubsystem trenchableSubsystem = TrenchableSubsystem.getInstance();
+  private TurretSubsystem turretSubsystem = TurretSubsystem.getInstance();
+  private VisionSubsystem visionSubsystem = VisionSubsystem.getInstance();
 
   private Color color = Color.CORRUPT;
 
@@ -62,10 +62,10 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
-    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(shooterSubsystem)); //TODO: remove after tuned
-    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(abrahamBlinkinSubsystem));
-    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(ballPathSubsystem));
+    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick));
+    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand()); //TODO: remove after tuned
+    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand());
+    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand());
   }
 
   /**
@@ -75,7 +75,7 @@ public class RobotContainer {
    */
   public Command getAutoCommand() {
     drivetrainSubsystem.resetAll();
-    return new TestAutoCommand(drivetrainSubsystem);
+    return new TestAutoCommand();
   }
 
   /**

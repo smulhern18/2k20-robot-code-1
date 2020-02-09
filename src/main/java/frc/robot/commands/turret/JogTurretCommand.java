@@ -5,16 +5,21 @@ import frc.robot.subsystems.TurretSubsystem;
 
 public class JogTurretCommand extends CommandBase {
   private final TurretSubsystem turretSubsystem;
+  TurretSubsystem.TurretDirection direction;
 
-  JogTurretCommand(TurretSubsystem turretSubsytem) {
-    addRequirements(turretSubsytem);
-
-    this.turretSubsystem = turretSubsytem;
-
+  public JogTurretCommand(TurretSubsystem.TurretDirection direction) {
+    turretSubsystem = TurretSubsystem.getInstance();
+    this.direction = direction;
+    addRequirements(turretSubsystem);
   }
 
-//    @Override
-//    public void execute(){ //requires knowledge of how to use buttons
-//        turretSubsystem.manualRotateTurret();
-//    }
+  @Override
+  public void initialize() {
+    turretSubsystem.setDirection(direction);
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    turretSubsystem.setOff();
+  }
 }

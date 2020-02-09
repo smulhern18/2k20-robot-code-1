@@ -8,15 +8,22 @@ import frc.robot.Constants.TrenchableConstants;
  * Controls the trenchability of the robot.
  */
 public class TrenchableSubsystem extends BeefSubsystemBase {
+  private static TrenchableSubsystem trenchableSubsystem = null;
   private DoubleSolenoid trenchablifier;
   private DigitalInput untrenchableSwitch;
 
   /**
    * Constructs trenchabilifier, sets state
    */
-  public TrenchableSubsystem() {
+  private TrenchableSubsystem() {
     trenchablifier = new DoubleSolenoid(TrenchableConstants.TRENCHABLE_PORT, TrenchableConstants.UNTRENCHABLE_PORT);
     untrenchableSwitch = new DigitalInput(TrenchableConstants.UNTRENCHABLE_SWITCH_PORT);
+  }
+
+  public static TrenchableSubsystem getInstance() {
+    if (trenchableSubsystem == null)
+      trenchableSubsystem = new TrenchableSubsystem();
+    return trenchableSubsystem;
   }
 
   /**

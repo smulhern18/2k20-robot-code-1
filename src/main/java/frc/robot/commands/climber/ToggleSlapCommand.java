@@ -11,11 +11,9 @@ public class ToggleSlapCommand extends InstantCommand {
 
   /**
    * Requires climber subsystem
-   *
-   * @param climberSubsystem the climber subsyste,
    */
-  public ToggleSlapCommand(ClimberSubsystem climberSubsystem) {
-    this.climberSubsystem = climberSubsystem;
+  public ToggleSlapCommand() {
+    this.climberSubsystem = ClimberSubsystem.getInstance();
     addRequirements(climberSubsystem);
   }
 

@@ -11,9 +11,9 @@ public class ShootCommand extends CommandBase {
   ShooterSubsystem shooterSubsystem;
   BallPathSubsystem ballPathSubsystem;
 
-  public ShootCommand(ShooterSubsystem shooterSubsystem, BallPathSubsystem ballPathSubsystem) {
-    this.shooterSubsystem = shooterSubsystem;
-    this.ballPathSubsystem = ballPathSubsystem;
+  public ShootCommand() {
+    this.shooterSubsystem = ShooterSubsystem.getInstance();
+    this.ballPathSubsystem = BallPathSubsystem.getInstance();
     addRequirements(shooterSubsystem, ballPathSubsystem);
   }
 
@@ -23,6 +23,9 @@ public class ShootCommand extends CommandBase {
     shooterSubsystem.shoot();
   }
 
+  /**
+   * Only feed balls if at target RPM
+   */
   @Override
   public void execute() {
     if (shooterSubsystem.atTargetRPM()) {
@@ -33,6 +36,10 @@ public class ShootCommand extends CommandBase {
     shooterSubsystem.shoot();
   }
 
+  /**
+   * No balls (not any) detected in system
+   * @return
+   */
   @Override
   public boolean isFinished() {
     return !ballPathSubsystem.getAnyBannerSensor();

@@ -10,9 +10,7 @@ import java.util.function.Supplier;
 /**
  * Subsystem base with better Shuffleboard integration
  */
-public abstract class BeefSubsystemBase extends SubsystemBase {
-
-
+public class BeefSubsystemBase extends SubsystemBase {
   /**
    * Adds a String entry to Shuffleboard
    *

@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.ClimberConstants;
 
 public class ClimberSubsystem extends BeefSubsystemBase {
+  private static ClimberSubsystem climberSubsystem = null;
+
   // tentiometer is the limit switch that ensures that unspooling is going slow enough
   private DigitalInput topLimitSwitch, bottomLimitSwitch, tentiometerLimitSwitch, slapSwitch;
   private WPI_TalonFX climbMotor;
@@ -17,7 +19,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
   /**
    * Construct hardware objects, set initial state to untrenchable.
    */
-  public ClimberSubsystem() {
+  private ClimberSubsystem() {
     topLimitSwitch = new DigitalInput(ClimberConstants.TOP_SWITCH_PORT);
     bottomLimitSwitch = new DigitalInput(ClimberConstants.BOTTOM_SWITCH_PORT);
     tentiometerLimitSwitch = new DigitalInput(ClimberConstants.TENTIOMETER_SWITCH_PORT);
@@ -28,6 +30,12 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     this.state = ClimbState.UNTRENCHABLE;
 
     traverseMotor = new WPI_TalonSRX(ClimberConstants.TRAVERSE_MOTOR_PORT);
+  }
+
+  public static ClimberSubsystem getInstance() {
+    if (climberSubsystem == null)
+      climberSubsystem = new ClimberSubsystem();
+    return climberSubsystem;
   }
 
   /**

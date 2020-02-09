@@ -1,18 +1,39 @@
 package frc.robot.commands.auto.normal.crazy;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ballpath.SetIndexerCountCommand;
+import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.subsystems.BallPathSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.trenchable.TrenchCommand;
+import frc.robot.commands.trenchable.UntrenchCommand;
+import frc.robot.subsystems.*;
 
 public class CrazyAutoCommand extends SequentialCommandGroup {
-  public CrazyAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public CrazyAutoCommand() {
     addCommands(
-        new SetIndexerCountCommand(ballPathSubsystem, 3),
-        new TrajectoryFollowerCommand(CrazyTrajectories.START, drivetrain),
-        new TrajectoryFollowerCommand(CrazyTrajectories.FIRST_THREE, drivetrain),
-        new TrajectoryFollowerCommand(CrazyTrajectories.LAST_TWO, drivetrain),
-        new TrajectoryFollowerCommand(CrazyTrajectories.GRAB_TWO, drivetrain));
+        // grab first two balls, to make 5 in robot
+        new ParallelCommandGroup(
+            new UntrenchCommand(),
+            new CollectCommand().withTimeout(3),
+            new TrajectoryFollowerCommand(CrazyTrajectories.START)
+        ),
+        // shoot five balls
+        new AutoAimAndShootCommand(),
+        new TrenchCommand(),
+        // go under color wheel, grab three balls
+        new ParallelCommandGroup(
+            new TrajectoryFollowerCommand(CrazyTrajectories.FIRST_THREE),
+            new CollectCommand().withTimeout(3)
+        ),
+        new TrajectoryFollowerCommand(CrazyTrajectories.LAST_TWO),
+        // collect last two balls
+        new ParallelCommandGroup(
+            new TrajectoryFollowerCommand(CrazyTrajectories.GRAB_TWO),
+            new CollectCommand().withTimeout(2)
+        ),
+        // shoot five balls
+        new AutoAimAndShootCommand()
+    );
   }
 }

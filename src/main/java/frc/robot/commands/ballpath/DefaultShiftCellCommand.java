@@ -6,8 +6,8 @@ import frc.robot.subsystems.BallPathSubsystem;
 public class DefaultShiftCellCommand extends CommandBase {
   BallPathSubsystem ballPathSubsystem;
 
-  public DefaultShiftCellCommand(BallPathSubsystem ballPathSubsystem) {
-    this.ballPathSubsystem = ballPathSubsystem;
+  public DefaultShiftCellCommand() {
+    this.ballPathSubsystem = BallPathSubsystem.getInstance();
     addRequirements(ballPathSubsystem);
   }
 

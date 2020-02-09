@@ -150,10 +150,9 @@ public final class Constants {
     public static final String POT_ENTRY = "Potentiometer Value";
     public static final String POSITION_ENTRY = "Position/Angle";
 
-    public static final double START_POINT = 0;
-    public static final double END_POINT = 2048;//SET WITH REAL NUMBER
-    public static final double POT_SPROCKET_CIRCUMFERENCE = 5;//inches fill in real numbers
-    public static final double TURRET_SPROCKET_CIRCUMFERENCE = 50;//inches fill in real numbers
+    public static final double POT_MIN = 0;
+    public static final double POT_MAX = 2048; //TODO: configure
+    public static final double MAX_ROTATION_DEGREES = 270.0;
     public static final double MAX_POT_ROTATIONS = 10;
 
     public static final double ERROR_TOLERANCE = 0.50;//set to real value

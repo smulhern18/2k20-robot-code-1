@@ -13,13 +13,10 @@ public class ExtendClimb extends CommandBase {
 
   /**
    * Requires climber and trenchable subsystem.
-   *
-   * @param climberSubsystem    the climber subsystem
-   * @param trenchableSubsystem the trenchable subsystem
    */
-  public ExtendClimb(ClimberSubsystem climberSubsystem, TrenchableSubsystem trenchableSubsystem) {
-    this.climberSubsystem = climberSubsystem;
-    this.trenchableSubsystem = trenchableSubsystem;
+  public ExtendClimb() {
+    this.climberSubsystem = ClimberSubsystem.getInstance();
+    this.trenchableSubsystem = TrenchableSubsystem.getInstance();
     addRequirements(climberSubsystem, trenchableSubsystem);
   }
 
