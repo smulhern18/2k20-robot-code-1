@@ -26,14 +26,21 @@ public class TrajectoryFollowerCommand extends RamseteCommand {
         drivetrainSubsystem::tankDriveVelocity,
         drivetrainSubsystem);
     this.drivetrainSubsystem = drivetrainSubsystem;
+    addRequirements(drivetrainSubsystem);
   }
 
+  /**
+   * Starts preprogrammed trajectory code
+   */
   @Override
   public void initialize() {
     super.initialize();
     drivetrainSubsystem.setBrake();
   }
 
+  /**
+   * Terminates preprogrammed trajectory code
+   */
   @Override
   public void end(boolean interrupted) {
     super.end(interrupted);

@@ -8,8 +8,12 @@ public class DefaultShiftCellCommand extends CommandBase {
 
   public DefaultShiftCellCommand(BallPathSubsystem ballPathSubsystem) {
     this.ballPathSubsystem = ballPathSubsystem;
+    addRequirements(ballPathSubsystem);
   }
 
+  /** 
+   * Shifts the cells in the indexer
+  */
   @Override
   public void execute() {
     if (ballPathSubsystem.getBeltBannerSensor() || ballPathSubsystem.getIndexerState() == BallPathSubsystem.IndexerState.SHIFTING)
