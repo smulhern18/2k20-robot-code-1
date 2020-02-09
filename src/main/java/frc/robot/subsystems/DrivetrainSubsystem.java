@@ -18,7 +18,6 @@ import frc.robot.models.PairedTalonFX;
  * The motors and sensors that the robot uses to drive.
  */
 public class DrivetrainSubsystem extends BeefSubsystemBase {
-private static DrivetrainSubsystem drivetrainSubsystem = null;
 
   private PairedTalonFX leftPair, rightPair;
 
@@ -33,7 +32,7 @@ private static DrivetrainSubsystem drivetrainSubsystem = null;
    * Construct Drivetrain subsystem
    * Configures sensors too
    */
-  private DrivetrainSubsystem() {
+  public DrivetrainSubsystem() {
 
     leftPair = new PairedTalonFX(
         DrivetrainConstants.LEFT_LEADER_CHANNEL,
@@ -69,12 +68,6 @@ private static DrivetrainSubsystem drivetrainSubsystem = null;
     createStringEntry(DrivetrainConstants.ODOMETRY_ENTRY, 1, 0, 4, 1, () -> odometry.getPoseMeters().toString());
     createStringEntry(DrivetrainConstants.VELOCITY_ENTRY, 2, 0, 4, 1, () -> getWheelSpeeds().toString());
     createStringEntry(DrivetrainConstants.ACCELERATION_ENTRY, 3, 0, 4, 1, this::getAccelerationString);
-  }
-
-  public static DrivetrainSubsystem getInstance() {
-    if (drivetrainSubsystem == null)
-      drivetrainSubsystem = new DrivetrainSubsystem();
-    return drivetrainSubsystem;
   }
 
   /**

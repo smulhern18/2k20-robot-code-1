@@ -1,6 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -11,9 +12,9 @@ public class ShootCommand extends CommandBase {
   ShooterSubsystem shooterSubsystem;
   BallPathSubsystem ballPathSubsystem;
 
-  public ShootCommand() {
-    this.shooterSubsystem = ShooterSubsystem.getInstance();
-    this.ballPathSubsystem = BallPathSubsystem.getInstance();
+  public ShootCommand(RobotContainer robotContainer) {
+    this.shooterSubsystem = robotContainer.shooterSubsystem;
+    this.ballPathSubsystem = robotContainer.ballPathSubsystem;
     addRequirements(shooterSubsystem, ballPathSubsystem);
   }
 
@@ -38,6 +39,7 @@ public class ShootCommand extends CommandBase {
 
   /**
    * No balls (not any) detected in system
+   *
    * @return
    */
   @Override

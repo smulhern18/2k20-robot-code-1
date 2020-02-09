@@ -10,7 +10,6 @@ import frc.robot.models.PairedTalonSRX;
  * The shooter
  */
 public class ShooterSubsystem extends BeefSubsystemBase {
-  private static ShooterSubsystem shooterSubsystem = null;
 
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
@@ -19,7 +18,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
   /**
    * Creates a new ShooterSubsystem.
    */
-  private ShooterSubsystem() {
+  public ShooterSubsystem() {
     pair = new PairedTalonSRX(
         ShooterConstants.LEADER_CHANNEL,
         ShooterConstants.FOLLOWER_CHANNEL);
@@ -36,12 +35,6 @@ public class ShooterSubsystem extends BeefSubsystemBase {
 
     setCoast();
     createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 1, 1, currentVelocity::toString);
-  }
-
-  public static ShooterSubsystem getInstance() {
-    if (shooterSubsystem == null)
-      shooterSubsystem = new ShooterSubsystem();
-    return shooterSubsystem;
   }
 
   public PairedTalonSRX getPairMotor() {

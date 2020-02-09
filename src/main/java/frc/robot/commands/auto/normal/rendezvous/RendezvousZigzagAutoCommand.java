@@ -1,16 +1,16 @@
 package frc.robot.commands.auto.normal.rendezvous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.subsystems.BallPathSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class RendezvousZigzagAutoCommand extends SequentialCommandGroup {
-  public RendezvousZigzagAutoCommand() {
+  public RendezvousZigzagAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        new TrajectoryFollowerCommand(RendezvousTrajectories.ZIGZAG_GRAB_TWO_FRONT),
-        new TrajectoryFollowerCommand(RendezvousTrajectories.ZIGZAG_GRAB_ONE_FRONT),
-        new TrajectoryFollowerCommand(RendezvousTrajectories.ZIGZAG_GRAB_TWO_SIDE)
+        new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_GRAB_TWO_FRONT),
+        new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_GRAB_ONE_FRONT),
+        new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_GRAB_TWO_SIDE)
     );
   }
 }

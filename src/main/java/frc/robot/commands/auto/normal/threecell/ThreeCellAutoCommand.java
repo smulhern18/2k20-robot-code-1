@@ -1,14 +1,14 @@
 package frc.robot.commands.auto.normal.threecell;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.subsystems.BallPathSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class ThreeCellAutoCommand extends SequentialCommandGroup {
-  public ThreeCellAutoCommand() {
+  public ThreeCellAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        new TrajectoryFollowerCommand(ThreeCellTrajectories.THREE_CELL)
+        new TrajectoryFollowerCommand(robotContainer, ThreeCellTrajectories.THREE_CELL)
     );
   }
 }

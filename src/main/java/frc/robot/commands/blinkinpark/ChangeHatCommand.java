@@ -1,6 +1,7 @@
 package frc.robot.commands.blinkinpark;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem.Hat;
 
@@ -14,20 +15,20 @@ public class ChangeHatCommand extends CommandBase {
    *
    * @param hat hat to wear
    */
-  public ChangeHatCommand(Hat hat) {//to get time out use withOut Function
+  public ChangeHatCommand(RobotContainer robotContainer, Hat hat) {//to get time out use withOut Function
     this.hat = hat;
-    this.abrahamBlinkinSubsystem = AbrahamBlinkinSubsystem.getInstance();
+    this.abrahamBlinkinSubsystem = robotContainer.abrahamBlinkinSubsystem;
     addRequirements(abrahamBlinkinSubsystem);
   }
 
   /**
    * Runs command, but with a timeout
    *
-   * @param hat                     hat to wear
-   * @param timeoutSeconds          length of time to run command in seconds
+   * @param hat            hat to wear
+   * @param timeoutSeconds length of time to run command in seconds
    */
-  public ChangeHatCommand(Hat hat, double timeoutSeconds) {
-    this(hat);
+  public ChangeHatCommand(RobotContainer robotContainer, Hat hat, double timeoutSeconds) {
+    this(robotContainer, hat);
     withTimeout(timeoutSeconds);
   }
 

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 /**
@@ -15,16 +16,16 @@ public class TrajectoryFollowerCommand extends RamseteCommand {
   /**
    * Creates a Ramsete command that follows the given trajectory
    *
-   * @param trajectory          trajectory to follow
+   * @param trajectory trajectory to follow
    */
-  public TrajectoryFollowerCommand(Trajectory trajectory) {
+  public TrajectoryFollowerCommand(RobotContainer robotContainer, Trajectory trajectory) {
     super(trajectory,
-        DrivetrainSubsystem.getInstance()::getPose,
+        robotContainer.drivetrainSubsystem::getPose,
         new RamseteController(DrivetrainConstants.RAMSETE_B, DrivetrainConstants.RAMSETE_ZETA),
         DrivetrainConstants.DRIVE_KINEMATICS,
-        DrivetrainSubsystem.getInstance()::tankDriveVelocity,
-        DrivetrainSubsystem.getInstance());
-    this.drivetrainSubsystem = DrivetrainSubsystem.getInstance();
+        robotContainer.drivetrainSubsystem::tankDriveVelocity,
+        robotContainer.drivetrainSubsystem);
+    this.drivetrainSubsystem = robotContainer.drivetrainSubsystem;
     addRequirements(drivetrainSubsystem);
   }
 
