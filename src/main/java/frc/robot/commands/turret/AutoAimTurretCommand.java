@@ -19,6 +19,11 @@ public class AutoAimTurretCommand extends CommandBase {
   }
 
   @Override
+  public void initialize() {
+    visionSubsystem.setLightRing(true);
+  }
+
+  @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
       turretSubsystem.setTargetPosition(visionSubsystem.getAngleToTarget());
@@ -35,5 +40,6 @@ public class AutoAimTurretCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     turretSubsystem.setTargetPosition(0);
+    visionSubsystem.setLightRing(false);
   }
 }
