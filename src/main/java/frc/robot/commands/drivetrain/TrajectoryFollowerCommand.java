@@ -16,16 +16,15 @@ public class TrajectoryFollowerCommand extends RamseteCommand {
    * Creates a Ramsete command that follows the given trajectory
    *
    * @param trajectory          trajectory to follow
-   * @param drivetrainSubsystem Drivetrain subsystem
    */
-  public TrajectoryFollowerCommand(Trajectory trajectory, DrivetrainSubsystem drivetrainSubsystem) {
+  public TrajectoryFollowerCommand(Trajectory trajectory) {
     super(trajectory,
-        drivetrainSubsystem::getPose,
+        DrivetrainSubsystem.getInstance()::getPose,
         new RamseteController(DrivetrainConstants.RAMSETE_B, DrivetrainConstants.RAMSETE_ZETA),
         DrivetrainConstants.DRIVE_KINEMATICS,
-        drivetrainSubsystem::tankDriveVelocity,
-        drivetrainSubsystem);
-    this.drivetrainSubsystem = drivetrainSubsystem;
+        DrivetrainSubsystem.getInstance()::tankDriveVelocity,
+        DrivetrainSubsystem.getInstance());
+    this.drivetrainSubsystem = DrivetrainSubsystem.getInstance();
     addRequirements(drivetrainSubsystem);
   }
 

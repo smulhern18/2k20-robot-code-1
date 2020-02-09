@@ -13,12 +13,10 @@ public class ToggleTrenchabilityCommand extends CommandBase {
 
   /**
    * Requires trenchable subsystem
-   *
-   * @param trenchableSubsystem the trenchable subsystem
    */
-  public ToggleTrenchabilityCommand(TrenchableSubsystem trenchableSubsystem, ClimberSubsystem climberSubsystem) {
-    this.trenchableSubsystem = trenchableSubsystem;
-    this.climberSubsystem = climberSubsystem;
+  public ToggleTrenchabilityCommand() {
+    this.trenchableSubsystem = TrenchableSubsystem.getInstance();
+    this.climberSubsystem = ClimberSubsystem.getInstance();
   }
 
   /**
@@ -27,9 +25,9 @@ public class ToggleTrenchabilityCommand extends CommandBase {
   @Override
   public void initialize() {
     if (trenchableSubsystem.getState() == TrenchableSubsystem.TrenchableState.TRENCHABLE) {
-      new UntrenchCommand(trenchableSubsystem, climberSubsystem).schedule();
+      new UntrenchCommand().schedule();
     } else {
-      new TrenchCommand(trenchableSubsystem, climberSubsystem).schedule();
+      new TrenchCommand().schedule();
     }
   }
 

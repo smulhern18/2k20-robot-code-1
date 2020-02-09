@@ -15,10 +15,10 @@ public class DefaultDriveCommand extends CommandBase {
   private final AttackThree rightStick;
 
 
-  public DefaultDriveCommand(AttackThree leftStick, AttackThree rightStick, DrivetrainSubsystem drivetrainSubsystem) {
+  public DefaultDriveCommand(AttackThree leftStick, AttackThree rightStick) {
     this.leftStick = leftStick;
     this.rightStick = rightStick;
-    this.drivetrainSubsystem = drivetrainSubsystem;
+    this.drivetrainSubsystem = DrivetrainSubsystem.getInstance();
 
     addRequirements(drivetrainSubsystem);
   }

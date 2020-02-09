@@ -8,8 +8,8 @@ import frc.robot.subsystems.DrivetrainSubsystem;
  * Simple auto that follows a "tight" S-shape
  */
 public class TestAutoCommand extends SequentialCommandGroup {
-  public TestAutoCommand(DrivetrainSubsystem drivetrainSubsystem) {
+  public TestAutoCommand() {
     addCommands(
-        new TrajectoryFollowerCommand(TestTrajectories.S, drivetrainSubsystem));
+        new TrajectoryFollowerCommand(TestTrajectories.S));
   }
 }

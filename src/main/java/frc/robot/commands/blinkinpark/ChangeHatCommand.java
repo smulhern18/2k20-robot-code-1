@@ -12,12 +12,11 @@ public class ChangeHatCommand extends CommandBase {
   /**
    * Plays song for inde
    *
-   * @param hat                     hat to wear
-   * @param abrahamBlinkinSubsystem the Abraham Blinkin
+   * @param hat hat to wear
    */
-  public ChangeHatCommand(Hat hat, AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {//to get time out use withOut Function
+  public ChangeHatCommand(Hat hat) {//to get time out use withOut Function
     this.hat = hat;
-    this.abrahamBlinkinSubsystem = abrahamBlinkinSubsystem;
+    this.abrahamBlinkinSubsystem = AbrahamBlinkinSubsystem.getInstance();
     addRequirements(abrahamBlinkinSubsystem);
   }
 
@@ -26,10 +25,9 @@ public class ChangeHatCommand extends CommandBase {
    *
    * @param hat                     hat to wear
    * @param timeoutSeconds          length of time to run command in seconds
-   * @param abrahamBlinkinSubsystem the Abraham Blinkin
    */
-  public ChangeHatCommand(Hat hat, double timeoutSeconds, AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {
-    this(hat, abrahamBlinkinSubsystem);
+  public ChangeHatCommand(Hat hat, double timeoutSeconds) {
+    this(hat);
     withTimeout(timeoutSeconds);
   }
 

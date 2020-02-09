@@ -6,9 +6,9 @@ import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class OppositeFiveAutoCommand extends SequentialCommandGroup {
-  public OppositeFiveAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public OppositeFiveAutoCommand() {
     addCommands(
-        new TrajectoryFollowerCommand(OppositeFiveTrajectories.OPPOSITE, drivetrain)
+        new TrajectoryFollowerCommand(OppositeFiveTrajectories.OPPOSITE)
     );
   }
 }

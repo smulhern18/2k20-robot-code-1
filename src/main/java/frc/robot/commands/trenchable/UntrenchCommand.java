@@ -8,9 +8,9 @@ public class UntrenchCommand extends CommandBase {
   TrenchableSubsystem trenchableSubsystem;
   ClimberSubsystem climberSubsystem;
 
-  public UntrenchCommand(TrenchableSubsystem trenchableSubsystem, ClimberSubsystem climberSubsystem) {
-    this.trenchableSubsystem = trenchableSubsystem;
-    this.climberSubsystem = climberSubsystem;
+  public UntrenchCommand() {
+    this.trenchableSubsystem = TrenchableSubsystem.getInstance();
+    this.climberSubsystem = ClimberSubsystem.getInstance();
     addRequirements(trenchableSubsystem, climberSubsystem);
   }
 

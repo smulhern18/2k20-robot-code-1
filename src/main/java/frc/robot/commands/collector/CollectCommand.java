@@ -12,9 +12,9 @@ public class CollectCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
 
-  public CollectCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
-    this.collectorSubsystem = collectorSubsystem;
-    this.ballPathSubsystem = ballPathSubsystem;
+  public CollectCommand() {
+    this.collectorSubsystem = CollectorSubsystem.getInstance();
+    this.ballPathSubsystem = BallPathSubsystem.getInstance();
     addRequirements(collectorSubsystem, ballPathSubsystem);
   }
 

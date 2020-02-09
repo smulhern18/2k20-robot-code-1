@@ -6,16 +6,18 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.Constants.TurretConstants;
 
+/**
+ * Creates a new TurretSubsystem.
+ */
 public class TurretSubsystem extends BeefSubsystemBase {
-  /**
-   * Creates a new TurretSubsystem.
-   */
+  private static TurretSubsystem turretSubsystem = null;
+
   private WPI_TalonSRX turretMotor;
   private double potValue;
   private double targetPosition;
   private double actualPosition;
 
-  public TurretSubsystem() {
+  private TurretSubsystem() {
 
     turretMotor = new WPI_TalonSRX(TurretConstants.TURRET_MOTOR_CHANNEL);
 
@@ -31,6 +33,12 @@ public class TurretSubsystem extends BeefSubsystemBase {
 
     createDoubleEntry(TurretConstants.POT_ENTRY, 7, 0, 1, 1, () -> potValue);
     createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, () -> actualPosition);
+  }
+
+  public static TurretSubsystem getInstance() {
+    if (turretSubsystem == null)
+      turretSubsystem = new TurretSubsystem();
+    return turretSubsystem;
   }
 
   /**
@@ -82,7 +90,25 @@ public class TurretSubsystem extends BeefSubsystemBase {
     return Math.abs(thisError) <= TurretConstants.ERROR_TOLERANCE;
   }
 
-  public void manualRotateTurret(double speed) { // for manual control of turret
-    turretMotor.set(ControlMode.PercentOutput, speed);
+  public void setDirection(TurretDirection direction) {
+    turretMotor.set(direction.get());
+  }
+
+  public void setOff() {
+    turretMotor.set(0);
+  }
+
+  public enum TurretDirection {
+    LEFT(1),
+    RIGHT(1);
+    private double value;
+
+    TurretDirection(int value) {
+      this.value = value;
+    }
+
+    public double get() {
+      return value;
+    }
   }
 }

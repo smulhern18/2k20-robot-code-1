@@ -4,18 +4,26 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.CollectorConstants;
 
+/**
+ * Creates a new CollectorSubsystem.
+ */
 public class CollectorSubsystem extends BeefSubsystemBase {
-  /**
-   * Creates a new CollectorSubsystem.
-   */
+  private static CollectorSubsystem collectorSubsystem = null;
+
   private WPI_TalonSRX collectorMotor;
   private Solenoid collectorDeployPiston;
   private CollectorState state;
 
-  public CollectorSubsystem() {
+  private CollectorSubsystem() {
     collectorMotor = new WPI_TalonSRX(CollectorConstants.COLLECTOR_MOTOR_CHANNEL);
     collectorDeployPiston = new Solenoid(CollectorConstants.DEPLOY_COLLECTOR_SOLENOID_CHANNEL);
     state = CollectorState.UNDEPLOYED;
+  }
+
+  public static CollectorSubsystem getInstance() {
+    if (collectorSubsystem == null)
+      collectorSubsystem = new CollectorSubsystem();
+    return collectorSubsystem;
   }
 
   @Override

@@ -15,11 +15,9 @@ public class AllianceColorCommand extends CommandBase {
 
   /**
    * Requires the blinkin
-   *
-   * @param abrahamBlinkinSubsystem the Abraham Blinkin
    */
-  public AllianceColorCommand(AbrahamBlinkinSubsystem abrahamBlinkinSubsystem) {
-    this.abrahamBlinkinSubsystem = abrahamBlinkinSubsystem;
+  public AllianceColorCommand() {
+    this.abrahamBlinkinSubsystem = AbrahamBlinkinSubsystem.getInstance();
     addRequirements(abrahamBlinkinSubsystem);
   }
 

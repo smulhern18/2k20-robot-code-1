@@ -10,11 +10,11 @@ public class AutoAimTurretCommand extends CommandBase {
   private final VisionSubsystem visionSubsystem;
   private final DrivetrainSubsystem drivetrainSubsystem;//need for odometry
 
-  public AutoAimTurretCommand(TurretSubsystem turretSubsystem, VisionSubsystem visionSubsystem, DrivetrainSubsystem drivetrainSubsystem) {
-    this.turretSubsystem = turretSubsystem;
-    this.visionSubsystem = visionSubsystem;
+  public AutoAimTurretCommand() {
+    this.turretSubsystem = TurretSubsystem.getInstance();
+    this.visionSubsystem = VisionSubsystem.getInstance();
     //drivetrain not required because it's only being used to read from NavX
-    this.drivetrainSubsystem = drivetrainSubsystem;
+    this.drivetrainSubsystem = DrivetrainSubsystem.getInstance();
     addRequirements(turretSubsystem, visionSubsystem);
   }
 

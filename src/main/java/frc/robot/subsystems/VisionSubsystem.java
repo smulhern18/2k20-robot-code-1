@@ -16,7 +16,9 @@ import java.text.DecimalFormat;
  * Controls all vision related devices
  */
 public class VisionSubsystem extends BeefSubsystemBase {
-  JSONParser parser;
+  private static VisionSubsystem visionSubsystem = null;
+
+  private JSONParser parser;
   private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
   private boolean found = false;
@@ -29,7 +31,7 @@ public class VisionSubsystem extends BeefSubsystemBase {
   /**
    * Connects to light ring, NetworkTables
    */
-  public VisionSubsystem() {
+  private VisionSubsystem() {
     lightRing = new Solenoid(VisionConstants.LED_PORT);
     NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.TABLE);
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
@@ -39,6 +41,12 @@ public class VisionSubsystem extends BeefSubsystemBase {
     createStringEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, () -> fpsFormatter.format(getFPS()));
     createStringEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, () -> distanceFormatter.format(getDistanceToTarget()));
     createStringEntry(VisionConstants.ANGLE_ENTRY, 0, 3, 1, 1, () -> radianFormatter.format(getAngleToTarget()));
+  }
+
+  public static VisionSubsystem getInstance() {
+    if (visionSubsystem == null)
+      visionSubsystem = new VisionSubsystem();
+    return visionSubsystem;
   }
 
   /**

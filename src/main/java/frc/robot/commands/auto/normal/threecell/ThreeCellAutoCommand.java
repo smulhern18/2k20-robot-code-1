@@ -6,9 +6,9 @@ import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class ThreeCellAutoCommand extends SequentialCommandGroup {
-  public ThreeCellAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public ThreeCellAutoCommand() {
     addCommands(
-        new TrajectoryFollowerCommand(ThreeCellTrajectories.THREE_CELL, drivetrain)
+        new TrajectoryFollowerCommand(ThreeCellTrajectories.THREE_CELL)
     );
   }
 }

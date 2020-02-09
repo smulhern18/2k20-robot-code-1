@@ -6,10 +6,10 @@ import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class RendezvousBeamRideAutoCommand extends SequentialCommandGroup {
-  public RendezvousBeamRideAutoCommand(DrivetrainSubsystem drivetrainSubsystem, BallPathSubsystem ballPathSubsystem) {
+  public RendezvousBeamRideAutoCommand() {
     addCommands(
-        new TrajectoryFollowerCommand(RendezvousTrajectories.BEAM_RIDE_GRAB_THREE, drivetrainSubsystem),
-        new TrajectoryFollowerCommand(RendezvousTrajectories.BEAM_RIDE_GRAB_TWO, drivetrainSubsystem)
+        new TrajectoryFollowerCommand(RendezvousTrajectories.BEAM_RIDE_GRAB_THREE),
+        new TrajectoryFollowerCommand(RendezvousTrajectories.BEAM_RIDE_GRAB_TWO)
     );
   }
 }

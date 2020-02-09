@@ -11,11 +11,9 @@ public class RetractClimb extends CommandBase {
 
   /**
    * Requires climber subsystem
-   *
-   * @param climberSubsystem the climber subsystem
    */
-  public RetractClimb(ClimberSubsystem climberSubsystem) {
-    this.climberSubsystem = climberSubsystem;
+  public RetractClimb() {
+    this.climberSubsystem = ClimberSubsystem.getInstance();
     addRequirements(climberSubsystem);
   }
 

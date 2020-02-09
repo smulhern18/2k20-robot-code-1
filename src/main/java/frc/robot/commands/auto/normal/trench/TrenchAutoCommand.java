@@ -6,9 +6,9 @@ import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class TrenchAutoCommand extends SequentialCommandGroup {
-  public TrenchAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public TrenchAutoCommand() {
     addCommands(
-        new TrajectoryFollowerCommand(TrenchTrajectories.GRAB, drivetrain),
-        new TrajectoryFollowerCommand(TrenchTrajectories.RETURN, drivetrain));
+        new TrajectoryFollowerCommand(TrenchTrajectories.GRAB),
+        new TrajectoryFollowerCommand(TrenchTrajectories.RETURN));
   }
 }

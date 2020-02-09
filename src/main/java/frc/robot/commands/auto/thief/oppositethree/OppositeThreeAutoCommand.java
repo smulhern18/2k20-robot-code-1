@@ -6,10 +6,10 @@ import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class OppositeThreeAutoCommand extends SequentialCommandGroup {
-  public OppositeThreeAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public OppositeThreeAutoCommand() {
     addCommands(
-        new TrajectoryFollowerCommand(OppositeThreeTrajectories.OPPOSITE_THREE_GRAB, drivetrain),
-        new TrajectoryFollowerCommand(OppositeThreeTrajectories.OPPOSITE_THREE_SHOOT, drivetrain)
+        new TrajectoryFollowerCommand(OppositeThreeTrajectories.OPPOSITE_THREE_GRAB),
+        new TrajectoryFollowerCommand(OppositeThreeTrajectories.OPPOSITE_THREE_SHOOT)
     );
   }
 }

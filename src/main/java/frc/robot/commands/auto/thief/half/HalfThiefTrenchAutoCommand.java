@@ -6,10 +6,10 @@ import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class HalfThiefTrenchAutoCommand extends SequentialCommandGroup {
-  public HalfThiefTrenchAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public HalfThiefTrenchAutoCommand() {
     addCommands(
-        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.FIRST_TWO, drivetrain),
-        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.SHOOT_ONE, drivetrain),
-        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.UNDER_RENDEZ, drivetrain));
+        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.FIRST_TWO),
+        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.SHOOT_ONE),
+        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.UNDER_RENDEZ));
   }
 }

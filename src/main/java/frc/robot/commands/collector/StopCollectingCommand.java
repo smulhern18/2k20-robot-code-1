@@ -12,9 +12,9 @@ public class StopCollectingCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
 
-  public StopCollectingCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
-    this.collectorSubsystem = collectorSubsystem;
-    this.ballPathSubsystem = ballPathSubsystem;
+  public StopCollectingCommand() {
+    this.collectorSubsystem = CollectorSubsystem.getInstance();
+    this.ballPathSubsystem = BallPathSubsystem.getInstance();
     addRequirements(collectorSubsystem, ballPathSubsystem);
   }
 

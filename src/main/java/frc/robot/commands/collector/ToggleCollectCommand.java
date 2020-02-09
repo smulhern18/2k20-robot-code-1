@@ -8,16 +8,16 @@ public class ToggleCollectCommand extends CommandBase {
   CollectorSubsystem collectorSubsystem;
   BallPathSubsystem ballPathSubsystem;
 
-  public ToggleCollectCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
-    this.collectorSubsystem = collectorSubsystem;
-    this.ballPathSubsystem = ballPathSubsystem;
+  public ToggleCollectCommand() {
+    this.collectorSubsystem = CollectorSubsystem.getInstance();
+    this.ballPathSubsystem = BallPathSubsystem.getInstance();
   }
 
   @Override
   public void initialize() {
     if (collectorSubsystem.getState() == CollectorSubsystem.CollectorState.UNDEPLOYED)
-      new CollectCommand(collectorSubsystem, ballPathSubsystem).schedule();
+      new CollectCommand().schedule();
     else
-      new StopCollectingCommand(collectorSubsystem, ballPathSubsystem).schedule();
+      new StopCollectingCommand().schedule();
   }
 }

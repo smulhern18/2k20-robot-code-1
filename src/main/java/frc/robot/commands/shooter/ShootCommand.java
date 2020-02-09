@@ -11,9 +11,9 @@ public class ShootCommand extends CommandBase {
   ShooterSubsystem shooterSubsystem;
   BallPathSubsystem ballPathSubsystem;
 
-  public ShootCommand(ShooterSubsystem shooterSubsystem, BallPathSubsystem ballPathSubsystem) {
-    this.shooterSubsystem = shooterSubsystem;
-    this.ballPathSubsystem = ballPathSubsystem;
+  public ShootCommand() {
+    this.shooterSubsystem = ShooterSubsystem.getInstance();
+    this.ballPathSubsystem = BallPathSubsystem.getInstance();
     addRequirements(shooterSubsystem, ballPathSubsystem);
   }
 

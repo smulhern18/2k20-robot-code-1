@@ -14,8 +14,8 @@ public class ShooterShuffleBoardCommand extends CommandBase {
   private double newP, newI, newD, newF;
 
 
-  public ShooterShuffleBoardCommand(ShooterSubsystem shooterSubsystem) {
-    this.shooterSubsystem = shooterSubsystem;
+  public ShooterShuffleBoardCommand() {
+    this.shooterSubsystem = ShooterSubsystem.getInstance();
     PEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_P_ENTRY, ShooterConstants.P).getEntry();
     IEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_I_ENTRY, ShooterConstants.I).getEntry();
     FEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_D_ENTRY, ShooterConstants.D).getEntry();

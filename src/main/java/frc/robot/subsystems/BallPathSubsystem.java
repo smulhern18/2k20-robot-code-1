@@ -5,8 +5,9 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.BallPathConstants;
 
 public class BallPathSubsystem extends BeefSubsystemBase {
-  private WPI_TalonSRX kickerMotor, indexerMotor, beltMotor;
+  private static BallPathSubsystem ballPathSubsystem = null;
 
+  private WPI_TalonSRX kickerMotor, indexerMotor, beltMotor;
 
   private IndexerState indexerState;
   private DigitalInput goal;
@@ -16,7 +17,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
   /**
    * Creates a new ExampleSubsystem.
    */
-  public BallPathSubsystem() {
+  private BallPathSubsystem() {
 
     kickerMotor = new WPI_TalonSRX(BallPathConstants.KICKER_MOTOR_CHANNEL);
     indexerMotor = new WPI_TalonSRX(BallPathConstants.INDEXER_MOTOR_CHANNEL);
@@ -30,6 +31,12 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexer5BannerSensor = new DigitalInput(BallPathConstants.INDEXER5_BANNER_PORT);
 
     indexerState = IndexerState.UNSHIFTED;
+  }
+
+  public static BallPathSubsystem getInstance() {
+    if (ballPathSubsystem == null)
+      ballPathSubsystem = new BallPathSubsystem();
+    return ballPathSubsystem;
   }
 
   public void kick() {
