@@ -7,10 +7,10 @@ import frc.robot.commands.turret.AutoAimTurretCommand;
 import frc.robot.subsystems.*;
 
 public class AutoAimAndShootCommand extends SequentialCommandGroup {
-  public AutoAimAndShootCommand(ShooterSubsystem shooterSubsystem, BallPathSubsystem ballPathSubsystem, VisionSubsystem visionSubsystem, TrenchableSubsystem trenchableSubsystem, TurretSubsystem turretSubsystem, DrivetrainSubsystem drivetrainSubsystem) {
+  public AutoAimAndShootCommand(BallPathSubsystem ballPathSubsystem, ClimberSubsystem climberSubsystem, DrivetrainSubsystem drivetrainSubsystem, ShooterSubsystem shooterSubsystem, TrenchableSubsystem trenchableSubsystem, TurretSubsystem turretSubsystem, VisionSubsystem visionSubsystem) {
     addCommands(
         // untrench
-        new UntrenchCommand(trenchableSubsystem),
+        new UntrenchCommand(trenchableSubsystem, climberSubsystem),
         // aim turret
         new AutoAimTurretCommand(turretSubsystem, visionSubsystem, drivetrainSubsystem),
         // set RPM

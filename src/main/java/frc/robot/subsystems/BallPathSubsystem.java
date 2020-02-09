@@ -7,7 +7,6 @@ import frc.robot.Constants.BallPathConstants;
 public class BallPathSubsystem extends BeefSubsystemBase {
   private WPI_TalonSRX kickerMotor, indexerMotor, beltMotor;
 
-  private int amountOfBallsContained = 0;
 
   private IndexerState indexerState;
   private DigitalInput goal;
@@ -31,12 +30,6 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexer5BannerSensor = new DigitalInput(BallPathConstants.INDEXER5_BANNER_PORT);
 
     indexerState = IndexerState.UNSHIFTED;
-
-    createDoubleEntry(BallPathConstants.BALLS_CONTAINED_ENTRY, 9, 0, 1, 1, () -> amountOfBallsContained);
-  }
-
-  public void setPreloadedBalls(int amountOfPreloadedBalls) {
-    amountOfBallsContained = amountOfPreloadedBalls;
   }
 
   public void kick() {

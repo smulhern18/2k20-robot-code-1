@@ -8,11 +8,11 @@ import frc.robot.subsystems.CollectorSubsystem;
  * Press once, collector deploys, intake wheels go
  * once 5 balls are in robot, intake wheels stop, undeploys
  */
-public class CollectCommand extends CommandBase {
+public class StopCollectingCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
 
-  public CollectCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
+  public StopCollectingCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
     this.collectorSubsystem = collectorSubsystem;
     this.ballPathSubsystem = ballPathSubsystem;
     addRequirements(collectorSubsystem, ballPathSubsystem);
@@ -23,9 +23,10 @@ public class CollectCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    collectorSubsystem.deploy();
-    collectorSubsystem.intake();
-    collectorSubsystem.setState(CollectorSubsystem.CollectorState.DEPLOYED);
+    collectorSubsystem.undeploy();
+    collectorSubsystem.stopIntake();
+    collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
+    ballPathSubsystem.stopAll();
   }
 
   /**
@@ -35,19 +36,6 @@ public class CollectCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.isLoaded();
-  }
-
-  /**
-   * Terminates collector state-change process
-   *
-   * @param interrupted true if state change was interrupted
-   */
-  @Override
-  public void end(boolean interrupted) {
-    if (!interrupted) {
-      collectorSubsystem.stopIntake();
-      collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
-    }
+    return true;
   }
 }

@@ -23,6 +23,9 @@ public class ShootCommand extends CommandBase {
     shooterSubsystem.shoot();
   }
 
+  /**
+   * Only feed balls if at target RPM
+   */
   @Override
   public void execute() {
     if (shooterSubsystem.atTargetRPM()) {
@@ -33,6 +36,10 @@ public class ShootCommand extends CommandBase {
     shooterSubsystem.shoot();
   }
 
+  /**
+   * No balls (not any) detected in system
+   * @return
+   */
   @Override
   public boolean isFinished() {
     return !ballPathSubsystem.getAnyBannerSensor();
