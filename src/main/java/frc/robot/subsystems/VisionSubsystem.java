@@ -34,6 +34,7 @@ public class VisionSubsystem extends BeefSubsystemBase {
     NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.TABLE);
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
     parser = new JSONParser();
+    setLightRing(false);
     createBooleanEntry(VisionConstants.FOUND_ENTRY, 0, 0, 1, 1, this::getTargetFound);
     createStringEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, () -> fpsFormatter.format(getFPS()));
     createStringEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, () -> distanceFormatter.format(getDistanceToTarget()));

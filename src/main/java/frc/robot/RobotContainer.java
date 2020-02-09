@@ -16,7 +16,6 @@ import frc.robot.commands.ballpath.DefaultShiftCellCommand;
 import frc.robot.commands.blinkinpark.AllianceColorCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.ShooterShuffleBoardCommand;
-import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.models.Color;
 import frc.robot.subsystems.*;
@@ -65,7 +64,6 @@ public class RobotContainer {
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
     shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(shooterSubsystem)); //TODO: remove after tuned
-    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(visionSubsystem));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(abrahamBlinkinSubsystem));
     ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(ballPathSubsystem));
   }
