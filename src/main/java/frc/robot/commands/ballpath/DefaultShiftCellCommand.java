@@ -8,6 +8,7 @@ public class DefaultShiftCellCommand extends CommandBase {
 
   public DefaultShiftCellCommand(BallPathSubsystem ballPathSubsystem) {
     this.ballPathSubsystem = ballPathSubsystem;
+    addRequirements(ballPathSubsystem);
   }
 
   @Override

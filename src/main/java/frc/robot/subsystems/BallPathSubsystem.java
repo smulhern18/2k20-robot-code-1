@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
-import frc.robot.Constants.BallpathConstants;
+import frc.robot.Constants.BallPathConstants;
 
 public class BallPathSubsystem extends BeefSubsystemBase {
   private WPI_TalonSRX kickerMotor, indexerMotor, beltMotor;
@@ -19,20 +19,20 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    */
   public BallPathSubsystem() {
 
-    kickerMotor = new WPI_TalonSRX(BallpathConstants.KICKER_MOTOR_CHANNEL);
-    indexerMotor = new WPI_TalonSRX(BallpathConstants.INDEXER_MOTOR_CHANNEL);
-    beltMotor = new WPI_TalonSRX(BallpathConstants.FIRST_STAGE_MOTOR_CHANNEL);
+    kickerMotor = new WPI_TalonSRX(BallPathConstants.KICKER_MOTOR_CHANNEL);
+    indexerMotor = new WPI_TalonSRX(BallPathConstants.INDEXER_MOTOR_CHANNEL);
+    beltMotor = new WPI_TalonSRX(BallPathConstants.FIRST_STAGE_MOTOR_CHANNEL);
 
-    beltBannerSensor = new DigitalInput(BallpathConstants.BELT_BANNER_SENSOR_PORT);
-    indexer1BannerSensor = new DigitalInput(BallpathConstants.INDEXER1_BANNER_PORT);
-    indexer2BannerSensor = new DigitalInput(BallpathConstants.INDEXER2_BANNER_PORT);
-    indexer3BannerSensor = new DigitalInput(BallpathConstants.INDEXER3_BANNER_PORT);
-    indexer4BannerSensor = new DigitalInput(BallpathConstants.INDEXER4_BANNER_PORT);
-    indexer5BannerSensor = new DigitalInput(BallpathConstants.INDEXER5_BANNER_PORT);
+    beltBannerSensor = new DigitalInput(BallPathConstants.BELT_BANNER_SENSOR_PORT);
+    indexer1BannerSensor = new DigitalInput(BallPathConstants.INDEXER1_BANNER_PORT);
+    indexer2BannerSensor = new DigitalInput(BallPathConstants.INDEXER2_BANNER_PORT);
+    indexer3BannerSensor = new DigitalInput(BallPathConstants.INDEXER3_BANNER_PORT);
+    indexer4BannerSensor = new DigitalInput(BallPathConstants.INDEXER4_BANNER_PORT);
+    indexer5BannerSensor = new DigitalInput(BallPathConstants.INDEXER5_BANNER_PORT);
 
     indexerState = IndexerState.UNSHIFTED;
 
-    createDoubleEntry(BallpathConstants.BALLS_CONTAINED_ENTRY, 9, 0, 1, 1, () -> amountOfBallsContained);
+    createDoubleEntry(BallPathConstants.BALLS_CONTAINED_ENTRY, 9, 0, 1, 1, () -> amountOfBallsContained);
   }
 
   public void setPreloadedBalls(int amountOfPreloadedBalls) {
@@ -105,16 +105,27 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexerMotor.set(1);
   }
 
+  public void stopAll() {
+    stopBelt();
+    stopKick();
+    indexerMotor.set(0);
+  }
+
   public IndexerState getIndexerState() {
     return indexerState;
   }
 
   public boolean getBeltBannerSensor() {
-    return beltBannerSensor.get();
+    return !beltBannerSensor.get();
+  }
+
+  public boolean getAnyBannerSensor() {
+    return !beltBannerSensor.get() || !indexer1BannerSensor.get() || !indexer2BannerSensor.get() ||
+        !indexer3BannerSensor.get() || !indexer4BannerSensor.get() || !indexer5BannerSensor.get();
   }
 
   public boolean isLoaded() {
-    return indexer5BannerSensor.get();
+    return !indexer5BannerSensor.get();
   }
 
   public enum IndexerState {
