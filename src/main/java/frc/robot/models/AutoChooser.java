@@ -16,37 +16,29 @@ import frc.robot.commands.auto.thief.oppositethree.OppositeThreeAutoCommand;
 import frc.robot.commands.auto.thief.oppositetwo.OppositeTwoAutoCommand;
 import frc.robot.commands.auto.thief.trench.TrenchThiefAutoCommand;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-
 public class AutoChooser {
-  private SendableChooser<String> chooser;
+  private SendableChooser<Command> chooser;
   private final static String NORMAL = "Normal :", THIEF = "Thief: ";
-  HashMap<String, Command> entries;
 
   public AutoChooser(RobotContainer robotContainer) {
     chooser = new SendableChooser<>();
-    entries = new LinkedHashMap<>();
-    entries.put(NORMAL + "Crazy", new CrazyAutoCommand(robotContainer));
-    entries.put(NORMAL + "Trench", new TrenchAutoCommand(robotContainer));
-    entries.put(NORMAL + "Rendezvous Zigzag", new RendezvousZigzagAutoCommand(robotContainer));
-    entries.put(NORMAL + "Rendezvous Beam Ride", new RendezvousBeamRideAutoCommand(robotContainer));
-    entries.put(NORMAL + "Three Cell", new ThreeCellAutoCommand(robotContainer));
-    entries.put(NORMAL + "Two Cell", new TwoCellAutoCommand(robotContainer));
-    entries.put(THIEF + "Trench", new TrenchThiefAutoCommand(robotContainer));
-    entries.put(THIEF + "Half Thief Trench", new HalfThiefTrenchAutoCommand(robotContainer));
-    entries.put(THIEF + "Opposite Five", new OppositeFiveAutoCommand(robotContainer));
-    entries.put(THIEF + "Opposite Three", new OppositeThreeAutoCommand(robotContainer));
-    entries.put(THIEF + "Opposite Two", new OppositeTwoAutoCommand(robotContainer));
-    for (String name : entries.keySet()) {
-      chooser.addOption(name, name);
-    }
+    chooser.addOption(NORMAL + "Crazy", new CrazyAutoCommand(robotContainer));
+    chooser.addOption(NORMAL + "Trench", new TrenchAutoCommand(robotContainer));
+    chooser.addOption(NORMAL + "Rendezvous Zigzag", new RendezvousZigzagAutoCommand(robotContainer));
+    chooser.addOption(NORMAL + "Rendezvous Beam Ride", new RendezvousBeamRideAutoCommand(robotContainer));
+    chooser.addOption(NORMAL + "Three Cell", new ThreeCellAutoCommand(robotContainer));
+    chooser.addOption(NORMAL + "Two Cell", new TwoCellAutoCommand(robotContainer));
+    chooser.addOption(THIEF + "Trench", new TrenchThiefAutoCommand(robotContainer));
+    chooser.addOption(THIEF + "Half Thief Trench", new HalfThiefTrenchAutoCommand(robotContainer));
+    chooser.addOption(THIEF + "Opposite Five", new OppositeFiveAutoCommand(robotContainer));
+    chooser.addOption(THIEF + "Opposite Three", new OppositeThreeAutoCommand(robotContainer));
+    chooser.addOption(THIEF + "Opposite Two", new OppositeTwoAutoCommand(robotContainer));
     Constants.SubsystemConstants.DRIVER_TAB.add(chooser)
         .withPosition(2, 0)
         .withSize(2, 2);
   }
 
   public Command getCommand() {
-    return entries.get(chooser.getSelected());
+    return (Command)chooser.getSelected();
   }
 }
