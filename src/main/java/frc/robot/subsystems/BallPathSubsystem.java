@@ -117,7 +117,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
         !indexer3BannerSensor.get() || !indexer4BannerSensor.get() || !indexer5BannerSensor.get();
   }
 
-  public boolean isLoaded() {
+  public boolean hasFiveBalls() {
     return !indexer5BannerSensor.get();
   }
 

@@ -2,6 +2,8 @@ package frc.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.commands.blinkinpark.ChangeHatCommand;
+import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.CollectorSubsystem;
 
@@ -12,6 +14,7 @@ import frc.robot.subsystems.CollectorSubsystem;
 public class CollectCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
+  private RobotContainer robotContainer;
 
   public CollectCommand(RobotContainer robotContainer) {
     this.collectorSubsystem = robotContainer.collectorSubsystem;
@@ -36,7 +39,7 @@ public class CollectCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.isLoaded();
+    return ballPathSubsystem.hasFiveBalls();
   }
 
   /**
@@ -49,6 +52,7 @@ public class CollectCommand extends CommandBase {
     if (!interrupted) {
       collectorSubsystem.stopIntake();
       collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
+      new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowParty, 3).schedule();
     }
   }
 }
