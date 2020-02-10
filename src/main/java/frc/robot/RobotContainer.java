@@ -46,7 +46,8 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    Shuffleboard.selectTab(Constants.SubsystemConstants.TAB_NAME);
+    Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
+//    Shuffleboard.selectTab();
     configureButtonBindings();
     setDefaultCommands();
   }
@@ -62,7 +63,7 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
+//    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
 //    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));

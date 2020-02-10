@@ -3,9 +3,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.WidgetType;
 import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.models.PairedTalonSRX;
+
+import java.util.Map;
 
 /**
  * The shooter
@@ -35,7 +39,13 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         ShooterConstants.F);
 
     setCoast();
-    createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 1, 1, currentVelocity::toString);
+    createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 4, 1, currentVelocity::toString);
+    Constants.SubsystemConstants.DRIVER_TAB.add("Shooter bonus RPM", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("min", -500.0, "max", 500.0))
+        .withPosition(2, 2)
+        .withSize(3, 1)
+        .getEntry();
   }
 
   public PairedTalonSRX getPairMotor() {

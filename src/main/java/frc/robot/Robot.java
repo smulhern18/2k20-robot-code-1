@@ -40,9 +40,11 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
 
-    colorWidget = Constants.SubsystemConstants.TAB.add("Color", false);
-    colorWidget.withPosition(0, 4);
-    colorWidget.withProperties(Map.of("colorWhenFalse", "black"));
+    colorWidget = Constants.SubsystemConstants.DRIVER_TAB.add("Color", false)
+        .withPosition(0, 0)
+        .withProperties(Map.of("colorWhenFalse", "black"))
+        .withSize(2, 2);
+
     colorWidgetEntry = colorWidget.getEntry();
   }
 

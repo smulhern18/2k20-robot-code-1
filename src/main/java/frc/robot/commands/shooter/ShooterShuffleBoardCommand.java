@@ -17,11 +17,11 @@ public class ShooterShuffleBoardCommand extends CommandBase {
 
   public ShooterShuffleBoardCommand(RobotContainer robotContainer) {
     this.shooterSubsystem = robotContainer.shooterSubsystem;
-    PEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_P_ENTRY, ShooterConstants.P).getEntry();
-    IEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_I_ENTRY, ShooterConstants.I).getEntry();
-    FEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_D_ENTRY, ShooterConstants.D).getEntry();
-    DEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.CONFIG_F_ENTRY, ShooterConstants.F).getEntry();
-    targetRPMEntry = Shuffleboard.getTab(Constants.SubsystemConstants.TAB_NAME).add(ShooterConstants.TARGET_ENTRY, 0).getEntry();
+    PEntry = Shuffleboard.getTab(Constants.SubsystemConstants.DEBUG_TAB_NAME).add(ShooterConstants.CONFIG_P_ENTRY, ShooterConstants.P).getEntry();
+    IEntry = Shuffleboard.getTab(Constants.SubsystemConstants.DEBUG_TAB_NAME).add(ShooterConstants.CONFIG_I_ENTRY, ShooterConstants.I).getEntry();
+    FEntry = Shuffleboard.getTab(Constants.SubsystemConstants.DEBUG_TAB_NAME).add(ShooterConstants.CONFIG_D_ENTRY, ShooterConstants.D).getEntry();
+    DEntry = Shuffleboard.getTab(Constants.SubsystemConstants.DEBUG_TAB_NAME).add(ShooterConstants.CONFIG_F_ENTRY, ShooterConstants.F).getEntry();
+    targetRPMEntry = Shuffleboard.getTab(Constants.SubsystemConstants.DEBUG_TAB_NAME).add(ShooterConstants.TARGET_ENTRY, 0).getEntry();
     addRequirements(shooterSubsystem);
   }
 

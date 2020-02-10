@@ -22,7 +22,7 @@ public abstract class BeefSubsystemBase extends SubsystemBase {
    * @param supplier String supplier, called periodically
    */
   public void createStringEntry(String title, int x, int y, int width, int height, Supplier<String> supplier) {
-    var widget = SubsystemConstants.TAB.addString(title, supplier);
+    var widget = SubsystemConstants.DEBUG_TAB.addString(title, supplier);
     widget.withPosition(y, x).withSize(width, height);
   }
 
@@ -37,7 +37,7 @@ public abstract class BeefSubsystemBase extends SubsystemBase {
    * @param supplier Double supplier, called periodically
    */
   public void createDoubleEntry(String title, int x, int y, int width, int height, DoubleSupplier supplier) {
-    var widget = SubsystemConstants.TAB.addNumber(title, supplier);
+    var widget = SubsystemConstants.DEBUG_TAB.addNumber(title, supplier);
     widget.withPosition(y, x).withSize(width, height);
   }
 
@@ -52,7 +52,7 @@ public abstract class BeefSubsystemBase extends SubsystemBase {
    * @param supplier Boolean supplier, called periodically
    */
   public void createBooleanEntry(String title, int x, int y, int width, int height, BooleanSupplier supplier) {
-    var widget = SubsystemConstants.TAB.addBoolean(title, supplier);
+    var widget = SubsystemConstants.DEBUG_TAB.addBoolean(title, supplier);
     widget.withPosition(y, x).withSize(width, height);
   }
 }

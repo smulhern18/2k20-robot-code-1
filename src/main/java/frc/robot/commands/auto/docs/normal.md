@@ -2,6 +2,8 @@
 
 ## crazy
 ![crazy](images/normal/crazy.png)
+## trench
+![trench](images/normal/trench.png)
 ## rendezvous zig zag
 ![zigzag](images/normal/zigzag.png)
 ## rendezvous beam ride

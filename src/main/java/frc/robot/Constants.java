@@ -28,8 +28,10 @@ public final class Constants {
   public static final double LOOP_TIME_S = .2;
 
   public static final class SubsystemConstants {
-    public static final String TAB_NAME = "Gompei";
-    public static final ShuffleboardTab TAB = Shuffleboard.getTab(TAB_NAME);
+    public static final String DEBUG_TAB_NAME = "DEBUG";
+    public static final String DRIVER_TAB_NAME = "DRIVER";
+    public static final ShuffleboardTab DEBUG_TAB = Shuffleboard.getTab(DEBUG_TAB_NAME);
+    public static final ShuffleboardTab DRIVER_TAB = Shuffleboard.getTab(DRIVER_TAB_NAME);
   }
 
   /**
