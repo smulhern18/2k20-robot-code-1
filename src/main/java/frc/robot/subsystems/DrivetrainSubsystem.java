@@ -20,8 +20,7 @@ import frc.robot.models.PairedTalonFX;
  */
 public class DrivetrainSubsystem extends BeefSubsystemBase {
 
-//  private PairedTalonFX leftPair, rightPair;
-  private TalonFX leftPair, rightPair;
+  private PairedTalonFX leftPair, rightPair;
 
   private DifferentialDriveOdometry odometry;
 
@@ -36,15 +35,12 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    */
   public DrivetrainSubsystem() {
 
-//    leftPair = new PairedTalonFX(
-//        DrivetrainConstants.LEFT_LEADER_CHANNEL,
-//        DrivetrainConstants.LEFT_FOLLOWER_CHANNEL);
-//    rightPair = new PairedTalonFX(
-//        DrivetrainConstants.RIGHT_LEADER_CHANNEL,
-//        DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL);
-
-    leftPair = new TalonFX(DrivetrainConstants.LEFT_LEADER_CHANNEL);
-    rightPair = new TalonFX(DrivetrainConstants.RIGHT_LEADER_CHANNEL);
+    leftPair = new PairedTalonFX(
+        DrivetrainConstants.LEFT_LEADER_CHANNEL,
+        DrivetrainConstants.LEFT_FOLLOWER_CHANNEL);
+    rightPair = new PairedTalonFX(
+        DrivetrainConstants.RIGHT_LEADER_CHANNEL,
+        DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL);
 
     navx = new AHRS(Port.kMXP);
 
@@ -54,18 +50,18 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
     leftPair.setSensorPhase(false);
     rightPair.setSensorPhase(true);
 
-//    leftPair.configPIDF(
-//        DrivetrainConstants.P,
-//        DrivetrainConstants.I,
-//        DrivetrainConstants.D,
-//        DrivetrainConstants.F
-//    );
-//    rightPair.configPIDF(
-//        DrivetrainConstants.P,
-//        DrivetrainConstants.I,
-//        DrivetrainConstants.D,
-//        DrivetrainConstants.F
-//    );
+    leftPair.configPIDF(
+        DrivetrainConstants.P,
+        DrivetrainConstants.I,
+        DrivetrainConstants.D,
+        DrivetrainConstants.F
+    );
+    rightPair.configPIDF(
+        DrivetrainConstants.P,
+        DrivetrainConstants.I,
+        DrivetrainConstants.D,
+        DrivetrainConstants.F
+    );
 
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getYawDegrees()));
 
@@ -142,12 +138,11 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
   @Override
   public void periodic() {
     updateAcceleration();
-    // TODO: uncomment
-//    odometry.update(
-//        Rotation2d.fromDegrees(getYawDegrees()),
-//        leftPair.getDistanceMeters(),
-//        rightPair.getDistanceMeters()
-//    );
+    odometry.update(
+        Rotation2d.fromDegrees(getYawDegrees()),
+        leftPair.getDistanceMeters(),
+        rightPair.getDistanceMeters()
+    );
   }
 
   /**
@@ -201,17 +196,16 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * @return Wheel speeds in meters / second
    */
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-//    return new DifferentialDriveWheelSpeeds(
-//        leftPair.getVelocityMetersPerSecond(),
-//        rightPair.getVelocityMetersPerSecond());
-    return new DifferentialDriveWheelSpeeds(0, 0);
+    return new DifferentialDriveWheelSpeeds(
+        leftPair.getVelocityMetersPerSecond(),
+        rightPair.getVelocityMetersPerSecond());
   }
 
   private void updateAcceleration() {
-//    leftAcceleration = (leftPair.getVelocityMetersPerSecond() - lastLeftVelocity) / Constants.LOOP_TIME_S;
-//    lastLeftVelocity = leftPair.getVelocityMetersPerSecond();
-//    rightAcceleration = (rightPair.getVelocityMetersPerSecond() - lastRightVelocity) / Constants.LOOP_TIME_S;
-//    lastRightVelocity = rightPair.getVelocityMetersPerSecond();
+    leftAcceleration = (leftPair.getVelocityMetersPerSecond() - lastLeftVelocity) / Constants.LOOP_TIME_S;
+    lastLeftVelocity = leftPair.getVelocityMetersPerSecond();
+    rightAcceleration = (rightPair.getVelocityMetersPerSecond() - lastRightVelocity) / Constants.LOOP_TIME_S;
+    lastRightVelocity = rightPair.getVelocityMetersPerSecond();
   }
 
   public String getAccelerationString() {

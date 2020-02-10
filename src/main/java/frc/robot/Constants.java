@@ -39,10 +39,10 @@ public final class Constants {
     public static final int LEFT_JOYSTICK_CHANNEL = 0;
     public static final int RIGHT_JOYSTICK_CHANNEL = 1;
 
-    public static final int LEFT_LEADER_CHANNEL = 8;
-    public static final int LEFT_FOLLOWER_CHANNEL = 6;
-    public static final int RIGHT_LEADER_CHANNEL = 7;
-    public static final int RIGHT_FOLLOWER_CHANNEL = 5;
+    public static final int LEFT_LEADER_CHANNEL = 1;
+    public static final int LEFT_FOLLOWER_CHANNEL = 2;
+    public static final int RIGHT_LEADER_CHANNEL = 3;
+    public static final int RIGHT_FOLLOWER_CHANNEL = 4;
 
     // Many of these values found with the frc-characterization tool
     public static final double S_VOLTS = 1.34;
@@ -62,10 +62,10 @@ public final class Constants {
     public static final DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(TRACKWIDTH_METERS);
     public static final double WHEEL_DIAMETER_METERS = 0.1524;
     public static final double COUNTS_PER_MOTOR_REVOLUTION = 2048;
-    public static final double MOTOR_REVOLUTIONS_PER_WHEEL_REVOLUTION = (18.0 / 52.0) * (10.0 / 42.0);
-    public static final double METERS_PER_COUNT = (WHEEL_DIAMETER_METERS * Math.PI) *
-        (1 / COUNTS_PER_MOTOR_REVOLUTION) *
-        (1 / MOTOR_REVOLUTIONS_PER_WHEEL_REVOLUTION);
+    public static final double WHEEL_REVOLUTIONS_PER_MOTOR_REVOLUTIONS = (18.0 / 52.0) * (10.0 / 42.0);
+    public static final double METERS_PER_COUNT = (1 / COUNTS_PER_MOTOR_REVOLUTION) * // MOTOR ROTATIONS per count
+        WHEEL_REVOLUTIONS_PER_MOTOR_REVOLUTIONS *
+        (WHEEL_DIAMETER_METERS * Math.PI);
 
     public static final double MAX_SPEED_METERS_PER_SECOND = 2.7432;
     public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 2;
