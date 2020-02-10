@@ -106,6 +106,9 @@ public final class Constants {
     public static final int TIMEOUT_MS = 20;
 
     public static final double COUNTS_PER_REVOLUTION = 12;
+    public static final double WHEEL_DIAMETER = 4;
+    public static final double MOTOR_TO_WHEEL = 1.23;
+    public static final double ROTATIONS_PER_COUNT = (1 / COUNTS_PER_REVOLUTION) * MOTOR_TO_WHEEL;
     public static final double RPM_THRESHOLD = 100;
 
     public static final String VELOCITY_ENTRY = "Shooter Velocity";

@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.models.PairedTalonSRX;
 
@@ -116,6 +117,10 @@ public class ShooterSubsystem extends BeefSubsystemBase {
     currentVelocity.setCPD(pair.getSelectedSensorVelocity());
   }
 
+  public double getRotationsPerMinute() {
+    return pair.getSelectedSensorVelocity() * ShooterConstants.ROTATIONS_PER_COUNT * 10 * 60;
+  }
+
   /**
    * Class represents a velocity. Stores in both Rotations Per Minute and Counts Per 100 Milliseconds
    */
@@ -177,6 +182,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
     public String toString() {
       return String.format("Shooter velocity: (%f rpm), (%f cpd)", rpm, cpd);
     }
+
   }
 
 }
