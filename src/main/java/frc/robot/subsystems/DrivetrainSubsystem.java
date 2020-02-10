@@ -217,8 +217,8 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    *
    * @return yaw in degrees
    */
-  public double getYawDegrees() {
-    return -Math.IEEEremainder(navx.getAngle(), 360);
+  public double getYawDegrees() { // -180 to 180 degrees
+    return -Math.IEEEremainder(navx.getYaw(), 360);
   }
 
   /**
