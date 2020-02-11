@@ -11,15 +11,17 @@ import frc.robot.commands.trenchable.UntrenchCommand;
 public class TrenchThiefAutoCommand extends SequentialCommandGroup {
   public TrenchThiefAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        //
+        // steal five balls
         new ParallelCommandGroup(
             new CollectCommand(robotContainer).withTimeout(8),
             new TrajectoryFollowerCommand(robotContainer, TrenchThiefTrajectories.STEAL_FIVE)
         ),
+        // run away
         new ParallelCommandGroup(
             new UntrenchCommand(robotContainer),
             new TrajectoryFollowerCommand(robotContainer, TrenchThiefTrajectories.RETREAT)
         ),
+        // shoot five
         new AutoAimAndShootCommand(robotContainer)
     );
   }

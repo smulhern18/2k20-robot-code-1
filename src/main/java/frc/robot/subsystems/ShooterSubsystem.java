@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
@@ -18,6 +19,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
   private PairedTalonSRX pair;
+  private NetworkTableEntry bonusShooterRPMEntry;
 
   /**
    * Creates a new ShooterSubsystem.
@@ -39,7 +41,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
 
     setCoast();
     createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 4, 1, currentVelocity::toString);
-    Constants.SubsystemConstants.DRIVER_TAB.add("Shooter bonus RPM", 0)
+    bonusShooterRPMEntry = Constants.SubsystemConstants.DRIVER_TAB.add("Shooter bonus RPM", 0)
         .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("min", -500.0, "max", 500.0))
         .withPosition(2, 2)
@@ -57,7 +59,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    * @param rpm rpm to set target velocity to
    */
   public void setTargetRPM(double rpm) {
-    targetVelocity.setRPM(rpm);
+    targetVelocity.setRPM(rpm + bonusShooterRPMEntry.getDouble(0));
   }
 
   /**
@@ -124,10 +126,6 @@ public class ShooterSubsystem extends BeefSubsystemBase {
   @Override
   public void periodic() {
     currentVelocity.setCPD(pair.getSelectedSensorVelocity());
-  }
-
-  public double getRotationsPerMinute() {
-    return pair.getSelectedSensorVelocity() * ShooterConstants.ROTATIONS_PER_COUNT * 10 * 60;
   }
 
   /**
