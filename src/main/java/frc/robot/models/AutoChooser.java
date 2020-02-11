@@ -39,6 +39,6 @@ public class AutoChooser {
   }
 
   public Command getCommand() {
-    return (Command)chooser.getSelected();
+    return chooser.getSelected();
   }
 }
