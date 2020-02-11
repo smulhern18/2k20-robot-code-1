@@ -2,8 +2,6 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.commands.blinkinpark.ChangeHatCommand;
-import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -11,9 +9,9 @@ import frc.robot.subsystems.ShooterSubsystem;
  * Shoots at current target RPM.
  */
 public class ShootCommand extends CommandBase {
-  private RobotContainer robotContainer;
   ShooterSubsystem shooterSubsystem;
   BallPathSubsystem ballPathSubsystem;
+  private RobotContainer robotContainer;
 
   public ShootCommand(RobotContainer robotContainer) {
     this.shooterSubsystem = robotContainer.shooterSubsystem;

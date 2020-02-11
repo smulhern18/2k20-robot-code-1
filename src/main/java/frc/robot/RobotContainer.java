@@ -12,11 +12,8 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
-import frc.robot.commands.ballpath.DefaultShiftCellCommand;
-import frc.robot.commands.blinkinpark.AllianceColorCommand;
-import frc.robot.commands.drivetrain.DefaultDriveCommand;
-import frc.robot.commands.shooter.ShooterShuffleBoardCommand;
 import frc.robot.input.AttackThree;
+import frc.robot.models.AutoChooser;
 import frc.robot.models.Color;
 import frc.robot.subsystems.*;
 
@@ -40,6 +37,8 @@ public class RobotContainer {
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
   public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
 
+  private AutoChooser autoChooser;
+
   private Color color = Color.CORRUPT;
 
   /**
@@ -50,6 +49,8 @@ public class RobotContainer {
 //    Shuffleboard.selectTab();
     configureButtonBindings();
     setDefaultCommands();
+    // TODO: uncomment when subsystems exist
+//    autoChooser = new AutoChooser(this);
   }
 
   /**
@@ -76,6 +77,8 @@ public class RobotContainer {
    */
   public Command getAutoCommand() {
     drivetrainSubsystem.resetAll();
+    //TODO: uncomment for real robot
+//    return autoChooser.getSelected();
     return new TestAutoCommand(this);
   }
 
