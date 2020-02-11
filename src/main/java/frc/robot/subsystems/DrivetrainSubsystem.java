@@ -46,9 +46,6 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
     leftPair.setInverted(false);
     rightPair.setInverted(true);
 
-    leftPair.setSensorPhase(false);
-    rightPair.setSensorPhase(true);
-
     leftPair.configPIDF(
         DrivetrainConstants.P,
         DrivetrainConstants.I,
