@@ -9,34 +9,52 @@ package frc.robot.commands.colorwheel;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.ColorWheelConstants;
+import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class RotationalCommand extends CommandBase {
+  String prevColor;
+  int quarterRotations, rotations;
+  ColorWheelSubsystem colorWheelSubsystem;
+
   /**
    * Creates a new RotationalCommand.
    */
   public RotationalCommand(RobotContainer robotContainer) {
-    
-    // Use addRequirements() here to declare subsystem dependencies.
+    colorWheelSubsystem = robotContainer.colorWheelSubsystem;
+    addRequirements(colorWheelSubsystem);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    prevColor = "null";
+    quarterRotations = 0;
+    rotations = 0;
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(quarterRotations == 4) {
+      quarterRotations = 0;
+      rotations++;
+    }
+    detectColorChange();
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // stop spinning motor
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return rotations == 4; // limit when motor should stop
+  }
+
+  public void detectColorChange() {
+    if(! prevColor.equals(colorWheelSubsystem.colorString) && 
+                          colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_LIMIT) {
+      quarterRotations++;
+    }
   }
 }
