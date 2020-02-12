@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
+import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.models.AutoChooser;
 import frc.robot.models.Color;
@@ -69,6 +70,7 @@ public class RobotContainer {
 //    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
   }
 
   /**

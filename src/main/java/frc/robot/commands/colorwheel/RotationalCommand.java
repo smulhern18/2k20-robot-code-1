@@ -7,6 +7,7 @@
 
 package frc.robot.commands.colorwheel;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ColorWheelConstants;
@@ -30,6 +31,8 @@ public class RotationalCommand extends CommandBase {
     prevColor = "null";
     quarterRotations = 0;
     rotations = 0;
+
+    SmartDashboard.putBoolean("Rotation", false);
   }
 
   @Override
@@ -43,6 +46,7 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("Rotation", true);
     // stop spinning motor
   }
 
