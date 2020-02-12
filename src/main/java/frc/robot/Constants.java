@@ -214,10 +214,10 @@ public final class Constants {
 
   public static final class ColorWheelConstants {
     public static final Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
-    private static final Color BLUE_TARGET = ColorMatch.makeColor(0.143, 0.427, 0.429);
-    private static final Color GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
-    private static final Color RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
-    private static final Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
+    public static final Color BLUE_TARGET = ColorMatch.makeColor(0.143, 0.427, 0.429);
+    public static final Color GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
+    public static final Color RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
+    public static final Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
   }
 
 
