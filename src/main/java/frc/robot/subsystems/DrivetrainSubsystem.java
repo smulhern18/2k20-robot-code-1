@@ -43,8 +43,7 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
 
     navx = new AHRS(Port.kMXP);
 
-    leftPair.setInverted(false);
-    rightPair.setInverted(true);
+    leftPair.setInverted(true);
 
     leftPair.setSensorPhase(false);
     rightPair.setSensorPhase(true);

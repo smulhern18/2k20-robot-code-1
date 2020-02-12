@@ -7,19 +7,19 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.ColorSensorV3;
-
-import frc.robot.Constants.ColorWheelConstants;
 import com.revrobotics.ColorMatch;
-import edu.wpi.first.wpilibj.util.Color;
 import com.revrobotics.ColorMatchResult;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.Constants.ColorWheelConstants;
 
 public class ColorWheelSubsystem extends BeefSubsystemBase {
+
   ColorSensorV3 colorSensor;
   ColorMatch colorMatcher;
   public String colorString;
   public double confidence;
+
   /**
    * Creates a new ColorWheelSubsystem.
    */
@@ -40,9 +40,9 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
   public void periodic() {
     Color detectedColor = colorSensor.getColor();
 
-    /**
-     * Run the color match algorithm on our detected color
-     */
+
+//      Run the color match algorithm on our detected color
+
     ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
 
     if (match.color == ColorWheelConstants.BLUE_TARGET) {
