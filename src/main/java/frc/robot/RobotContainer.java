@@ -31,8 +31,8 @@ public class RobotContainer {
   public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
   public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
   public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
-  public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
-  public DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+  public ColorWheelSubsystem colorWheelSubsystem = new ColorWheelSubsystem();
+  public DrivetrainSubsystem drivetrainSubsystem;// = new DrivetrainSubsystem();
   public ShooterSubsystem shooterSubsystem;// = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();

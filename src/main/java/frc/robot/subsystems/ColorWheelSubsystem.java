@@ -25,21 +25,14 @@ public class ColorWheelSubsystem extends SubsystemBase {
   public ColorWheelSubsystem() {
     colorSensor = new ColorSensorV3(ColorWheelConstants.COLOR_SENSOR_PORT);
     colorMatcher = new ColorMatch();
+    colorMatcher.addColorMatch(ColorWheelConstants.BLUE_TARGET);
+    colorMatcher.addColorMatch(ColorWheelConstants.GREEN_TARGET);
+    colorMatcher.addColorMatch(ColorWheelConstants.RED_TARGET);
+    colorMatcher.addColorMatch(ColorWheelConstants.YELLOW_TARGET);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  public void robotInit() {
-    colorMatcher.addColorMatch(ColorWheelConstants.BLUE_TARGET);
-    colorMatcher.addColorMatch(ColorWheelConstants.GREEN_TARGET);
-    colorMatcher.addColorMatch(ColorWheelConstants.RED_TARGET);
-    colorMatcher.addColorMatch(ColorWheelConstants.YELLOW_TARGET);    
-  }
-
-  public void robotPeriodic() {
     /**
      * The method GetColor() returns a normalized color value from the sensor and can be
      * useful if outputting the color to an RGB LED or similar. To
@@ -81,4 +74,4 @@ public class ColorWheelSubsystem extends SubsystemBase {
     SmartDashboard.putString("Detected Color", colorString);
   }
 }
-}
+
