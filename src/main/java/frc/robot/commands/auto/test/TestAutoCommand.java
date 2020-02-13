@@ -10,6 +10,6 @@ import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 public class TestAutoCommand extends SequentialCommandGroup {
   public TestAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        new TrajectoryFollowerCommand(robotContainer, TestTrajectories.FORWARD));
+        new TrajectoryFollowerCommand(robotContainer, TestTrajectories.S));
   }
 }

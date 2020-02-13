@@ -43,7 +43,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
     double tmpTarget = actualPosition + (Units.radiansToDegrees(targetPosition) + TurretConstants.MAX_ROTATION_DEGREES / 2.0);
     if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES)
       this.targetPosition = tmpTarget;
-    // cannot turn turret that far else
+    // cannot turn turret that far otherwise
   }
 
   public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {

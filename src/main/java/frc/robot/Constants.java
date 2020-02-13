@@ -33,6 +33,13 @@ public final class Constants {
   public final static double MAX_BATTERY_VOLTAGE = 12.0;
   public final static double LOOP_TIME_S = .2;
 
+  public final static class InputConstants {
+    public final static int LEFT_JOYSTICK_CHANNEL = 0;
+    public final static int RIGHT_JOYSTICK_CHANNEL = 1;
+    public final static int BUTTON_BOX_LEFT_CHANNEL = 2;
+    public final static int BUTTON_BOX_RIGHT_CHANNEL = 3;
+  }
+
   public final static class SubsystemConstants {
     public final static String DEBUG_TAB_NAME = "DEBUG";
     public final static String DRIVER_TAB_NAME = "DRIVER";
@@ -44,9 +51,6 @@ public final class Constants {
    * Constants for the drivetrain subsystem
    */
   public final static class DrivetrainConstants {
-    public final static int LEFT_JOYSTICK_CHANNEL = 0;
-    public final static int RIGHT_JOYSTICK_CHANNEL = 1;
-
     public final static int LEFT_LEADER_CHANNEL = 1;
     public final static int LEFT_FOLLOWER_CHANNEL = 2;
     public final static int RIGHT_LEADER_CHANNEL = 3;
@@ -115,6 +119,8 @@ public final class Constants {
     public final static double MOTOR_TO_WHEEL = 1.23;
     public final static double ROTATIONS_PER_COUNT = (1 / COUNTS_PER_REVOLUTION) * MOTOR_TO_WHEEL;
     public final static double RPM_THRESHOLD = 100;
+
+    public final static double DEFAULT_RPM = 7200;
 
     public final static String VELOCITY_ENTRY = "Shooter Velocity";
     public final static String TARGET_ENTRY = "Shooter Target RPM";

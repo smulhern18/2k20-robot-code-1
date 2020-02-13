@@ -32,9 +32,15 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexerState = IndexerState.UNSHIFTED;
   }
 
+  public void runIndexer(double speed) {
+    indexerMotor.set(speed);
+  }
+
   public void kick() {
     kickerMotor.set(1);
   }
+
+  public void kickOut() {kickerMotor.set(-1);}
 
   public void stopKick() {
     kickerMotor.set(0);
@@ -42,6 +48,10 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
   public void runBelt() {
     beltMotor.set(1);
+  }
+
+  public void spitBelt() {
+    beltMotor.set(-1);
   }
 
   public void stopBelt() {
@@ -125,5 +135,10 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     UNSHIFTED,
     SHIFTING,
     SHIFTED
+  }
+
+  public enum BallPathDirection {
+    IN,
+    OUT
   }
 }

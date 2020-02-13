@@ -138,7 +138,8 @@ public class ClimberSubsystem extends BeefSubsystemBase {
    */
   public enum TraverseDirection {
     LEFT(.75),
-    RIGHT(-.75);
+    RIGHT(-.75),
+    OFF(0);
 
     private double value;
 

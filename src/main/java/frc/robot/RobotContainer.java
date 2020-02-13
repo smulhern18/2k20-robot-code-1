@@ -10,11 +10,21 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
-import frc.robot.commands.colorwheel.RotationalCommand;
+import frc.robot.commands.ballpath.RunBallPathCommand;
+import frc.robot.commands.ballpath.SpitInCommand;
+import frc.robot.commands.ballpath.SpitOutCommand;
+import frc.robot.commands.climber.ExtendClimb;
+import frc.robot.commands.climber.RetractClimb;
+import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
+import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.SetDefaultRPMCommand;
+import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
+import frc.robot.commands.turret.ResetTurretCommand;
 import frc.robot.input.AttackThree;
+import frc.robot.input.ButtonBoxLeft;
+import frc.robot.input.ButtonBoxRight;
 import frc.robot.models.AutoChooser;
 import frc.robot.models.Color;
 import frc.robot.subsystems.*;
@@ -26,8 +36,10 @@ import frc.robot.subsystems.*;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
-  public AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
+  public AttackThree leftStick = new AttackThree(Constants.InputConstants.LEFT_JOYSTICK_CHANNEL);
+  public AttackThree rightStick = new AttackThree(Constants.InputConstants.RIGHT_JOYSTICK_CHANNEL);
+  private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
+  private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
 
   public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;// = new AbrahamBlinkinSubsystem();
   public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
@@ -60,6 +72,37 @@ public class RobotContainer {
    * Maps commands to buttons.
    */
   private void configureButtonBindings() {
+    /* Driver sticks */
+    // Trench or untrench when pressed
+    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
+    // Auto aim turret, rev up shooter, empty robot of balls
+    rightStick.getButton(1).whenPressed(new AutoAimAndShootCommand(this));
+
+    /* Operator button box */
+
+    /* Climb buttons */
+    // Prepare climber by unslapping and extending
+    buttonBoxLeft.extend.whenPressed(new ExtendClimb(this));
+    // Toggle slapping onto coat hanger
+    buttonBoxLeft.slap.whenPressed(new ToggleTrenchabilityCommand(this));
+    // Climb by retracting elevator
+    buttonBoxLeft.retract.whenPressed(new RetractClimb(this));
+    // Traverse coat hanger left
+    buttonBoxLeft.traverseLeft.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.LEFT));
+    // Traverse coat hanger right
+    buttonBoxLeft.traverseRight.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.RIGHT));
+
+    /* Manual buttons */
+    // unused currently
+//    buttonBoxLeft.resetIndexer.whenPressed(new WaitCommand(1));
+    // Set shooter RPM to default speed
+    buttonBoxLeft.defaultShooterSpeed.whenPressed(new SetDefaultRPMCommand(this));
+    // Sets turret straight forward
+    buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
+    // Spin ball path and collector in reverse
+    buttonBoxLeft.spitOut.whileActiveContinuous(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.OUT));
+    // Spin ball path and collector in the correct direction
+    buttonBoxLeft.spitIn.whileActiveContinuous(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.IN));
   }
 
   /**
