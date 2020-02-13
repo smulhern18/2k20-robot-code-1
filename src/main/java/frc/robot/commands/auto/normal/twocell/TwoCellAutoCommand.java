@@ -7,6 +7,10 @@ import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.commands.shooter.AutoAimAndShootCommand;
 
+/**
+ * 5 ball auto
+ * grab two from own rendezvous
+ */
 public class TwoCellAutoCommand extends SequentialCommandGroup {
   public TwoCellAutoCommand(RobotContainer robotContainer) {
     addCommands(

@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class ButtonBoxLeft extends Joystick {
   public JoystickButton extend, slap, retract, traverseLeft, traverseRight,
-    resetIndexer, spitIn, spitOut, defaultShooterSpeed, resetTurret;
+      resetIndexer, spitIn, spitOut, defaultShooterSpeed, resetTurret;
 
   /**
    * Construct an instance of a joystick. The joystick index is the USB port on the drivers

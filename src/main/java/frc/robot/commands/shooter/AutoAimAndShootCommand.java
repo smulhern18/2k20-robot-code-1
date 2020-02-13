@@ -16,13 +16,13 @@ public class AutoAimAndShootCommand extends SequentialCommandGroup {
         // aim turret
         new AutoAimTurretCommand(robotContainer),
         // set RPM
-        new AutoSetRPMCommand(robotContainer),
+        new AutoSetShooterRPMCommand(robotContainer),
         // shoot when ready
         new ShootCommand(robotContainer),
-        //indicate when done
-        new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter, 3),
         // turn off shooter wheel
-        new InstantCommand(() -> robotContainer.shooterSubsystem.stop(), robotContainer.shooterSubsystem)
+        new InstantCommand(() -> robotContainer.shooterSubsystem.stop(), robotContainer.shooterSubsystem),
+        //indicate when done
+        new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter, 3)
     );
   }
 }

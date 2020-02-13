@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
 
 import com.revrobotics.ColorMatch;
@@ -13,12 +6,21 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants.ColorWheelConstants;
 
+/**
+ * The color wheel subsystem
+ * <p>
+ * input: color sensor
+ * <p>
+ * output: one motor for spinning
+ */
 public class ColorWheelSubsystem extends BeefSubsystemBase {
 
-  ColorSensorV3 colorSensor;
-  ColorMatch colorMatcher;
-  public String colorString;
-  public double confidence;
+  private ColorSensorV3 colorSensor;
+  private ColorMatch colorMatcher;
+  private Color detectedColor;
+  private ColorMatchResult match;
+  private String colorString;
+  private double confidence;
 
   /**
    * Creates a new ColorWheelSubsystem.
@@ -36,26 +38,28 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
     createDoubleEntry("Color Confidence", 4, 3, 1, 1, () -> confidence);
   }
 
-  @Override
-  public void periodic() {
-    Color detectedColor = colorSensor.getColor();
+  public String detectColor() {
+    detectedColor = colorSensor.getColor();
 
+    match = colorMatcher.matchClosestColor(detectedColor);
 
-//      Run the color match algorithm on our detected color
-
-    ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
-
-    if (match.color == ColorWheelConstants.BLUE_TARGET) {
+    if (ColorWheelConstants.BLUE_TARGET.equals(match.color)) {
       colorString = "Blue";
-    } else if (match.color == ColorWheelConstants.GREEN_TARGET) {
+    } else if (ColorWheelConstants.GREEN_TARGET.equals(match.color)) {
       colorString = "Green";
-    } else if (match.color == ColorWheelConstants.RED_TARGET) {
+    } else if (ColorWheelConstants.RED_TARGET.equals(match.color)) {
       colorString = "Red";
-    } else if (match.color == ColorWheelConstants.YELLOW_TARGET) {
+    } else if (ColorWheelConstants.YELLOW_TARGET.equals(match.color)) {
       colorString = "Yellow";
     } else {
       colorString = "Unknown";
     }
+
+    if (match.confidence >= ColorWheelConstants.CONFIDENCE_THRESHOLD) {
+      return colorString;
+    }
+    return ColorWheelConstants.UNKNOWN;
   }
+
 }
 

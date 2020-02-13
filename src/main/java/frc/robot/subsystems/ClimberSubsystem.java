@@ -6,6 +6,14 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.ClimberConstants;
 
+/**
+ * The climber subsystem
+ * This includes climber prep, slapping, climbing, and traversing.
+ * <p>
+ * input: three limit switches for determining lift location and speed, and a reed switch for determining slap state
+ * <p>
+ * output: a motor for climbing, a motor for traversing a winch cylinder, and a slapping cylinder
+ */
 public class ClimberSubsystem extends BeefSubsystemBase {
 
   // tentiometer is the limit switch that ensures that unspooling is going slow enough

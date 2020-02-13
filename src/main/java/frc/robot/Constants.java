@@ -7,15 +7,15 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.I2C.Port;
-import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
 
 /**
@@ -224,7 +224,8 @@ public final class Constants {
     public final static Color GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
     public final static Color RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
     public final static Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
-    public final static double CONFIDENCE_LIMIT = 0.5;
+    public final static double CONFIDENCE_THRESHOLD = 0.5;
+    public final static String UNKNOWN = "UNKNOWN";
   }
 
 

@@ -7,6 +7,9 @@ import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.commands.shooter.AutoAimAndShootCommand;
 
+/**
+ * Empty own trench, without hopping speed bump
+ */
 public class RendezvousZigzagAutoCommand extends SequentialCommandGroup {
   public RendezvousZigzagAutoCommand(RobotContainer robotContainer) {
     addCommands(

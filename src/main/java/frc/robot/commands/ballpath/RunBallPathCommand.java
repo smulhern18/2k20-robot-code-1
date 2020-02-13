@@ -1,13 +1,13 @@
 package frc.robot.commands.ballpath;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 
 public class RunBallPathCommand extends CommandBase {
   BallPathSubsystem ballPathSubsystem;
   BallPathSubsystem.BallPathDirection direction;
+
   public RunBallPathCommand(RobotContainer robotContainer, BallPathSubsystem.BallPathDirection direction) {
     ballPathSubsystem = robotContainer.ballPathSubsystem;
     this.direction = direction;

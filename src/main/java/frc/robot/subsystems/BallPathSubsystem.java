@@ -4,17 +4,24 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.BallPathConstants;
 
+/**
+ * The ball path subsystem
+ * <p>
+ * input: six banner sensors, which track the power cells as they move throughout the robot
+ * <p>
+ * output: the belt, index wheel, and kicker wheel motors
+ */
 public class BallPathSubsystem extends BeefSubsystemBase {
 
   private WPI_TalonSRX kickerMotor, indexerMotor, beltMotor;
 
   private IndexerState indexerState;
-  private DigitalInput goal;
+  private DigitalInput goal; // reference to the nex banner sensor which should be triggered in indexing process
 
   private DigitalInput beltBannerSensor, indexer1BannerSensor, indexer2BannerSensor, indexer3BannerSensor, indexer4BannerSensor, indexer5BannerSensor;
 
   /**
-   * Creates a new ExampleSubsystem.
+   * Constructs the sensor and motor objects
    */
   public BallPathSubsystem() {
 
@@ -48,7 +55,9 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     kickerMotor.set(1);
   }
 
-  public void kickOut() {kickerMotor.set(-1);}
+  public void kickOut() {
+    kickerMotor.set(-1);
+  }
 
   public void stopKick() {
     kickerMotor.set(0);
@@ -110,31 +119,51 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexerState = IndexerState.UNSHIFTED;
   }
 
+  /**
+   * Engages every motor to be in the shooter direction
+   */
   public void shoot() {
     kick();
     runBelt();
     indexIn();
   }
 
+  /**
+   * Stops all movement in the ball path
+   */
   public void stopAll() {
     stopBelt();
     stopKick();
     stopIndex();
   }
 
+  /**
+   * Gets the state of the indexing process
+   *
+   * @return the state of the indexer
+   */
   public IndexerState getIndexerState() {
     return indexerState;
   }
 
+  /**
+   * @return true if a new power cell is entering the robot
+   */
   public boolean getBeltBannerSensor() {
     return !beltBannerSensor.get();
   }
 
+  /**
+   * @return true if any banner sensor's beam is broken
+   */
   public boolean getAnyBannerSensor() {
     return !beltBannerSensor.get() || !indexer1BannerSensor.get() || !indexer2BannerSensor.get() ||
         !indexer3BannerSensor.get() || !indexer4BannerSensor.get() || !indexer5BannerSensor.get();
   }
 
+  /**
+   * @return true if the fifth banner sensor is triggered
+   */
   public boolean hasFiveBalls() {
     return !indexer5BannerSensor.get();
   }

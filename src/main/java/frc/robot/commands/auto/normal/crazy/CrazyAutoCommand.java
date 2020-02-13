@@ -9,6 +9,10 @@ import frc.robot.commands.shooter.AutoAimAndShootCommand;
 import frc.robot.commands.trenchable.TrenchCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
 
+/**
+ * 10 ball auto
+ * preload 3, empty own trench, grab two from own rendezvous
+ */
 public class CrazyAutoCommand extends SequentialCommandGroup {
   public CrazyAutoCommand(RobotContainer robotContainer) {
     addCommands(

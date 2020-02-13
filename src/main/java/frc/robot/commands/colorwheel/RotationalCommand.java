@@ -9,12 +9,11 @@ package frc.robot.commands.colorwheel;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.ColorWheelConstants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class RotationalCommand extends CommandBase {
-  String prevColor;
+  String previousColor, currentColor;
   int quarterRotations, rotations;
   ColorWheelSubsystem colorWheelSubsystem;
 
@@ -28,7 +27,7 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    prevColor = "null";
+    previousColor = "null";
     quarterRotations = 0;
     rotations = 0;
 
@@ -37,11 +36,11 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if (quarterRotations == 4) {
-      quarterRotations = 0;
-      rotations++;
+    currentColor = colorWheelSubsystem.detectColor();
+    if (!previousColor.equals(currentColor)) {
+      quarterRotations++;
     }
-    detectColorChange();
+    rotations = quarterRotations / 4;
   }
 
   @Override
@@ -53,12 +52,5 @@ public class RotationalCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     return rotations == 4; // limit when motor should stop
-  }
-
-  public void detectColorChange() {
-    if (!prevColor.equals(colorWheelSubsystem.colorString) &&
-        colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_LIMIT) {
-      quarterRotations++;
-    }
   }
 }

@@ -11,7 +11,6 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShootCommand extends CommandBase {
   ShooterSubsystem shooterSubsystem;
   BallPathSubsystem ballPathSubsystem;
-  private RobotContainer robotContainer;
 
   public ShootCommand(RobotContainer robotContainer) {
     this.shooterSubsystem = robotContainer.shooterSubsystem;

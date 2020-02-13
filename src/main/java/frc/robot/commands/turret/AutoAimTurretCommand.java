@@ -6,6 +6,9 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
+/**
+ * Aims turret approximately where the port should be, then locks on
+ */
 public class AutoAimTurretCommand extends CommandBase {
   private final TurretSubsystem turretSubsystem;
   private final VisionSubsystem visionSubsystem;
@@ -19,11 +22,17 @@ public class AutoAimTurretCommand extends CommandBase {
     addRequirements(turretSubsystem, visionSubsystem);
   }
 
+  /**
+   * Turn on vision
+   */
   @Override
   public void initialize() {
     visionSubsystem.setLightRing(true);
   }
 
+  /**
+   * Turrets to 0 drivetrain heading until it finds vision target
+   */
   @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
@@ -34,14 +43,23 @@ public class AutoAimTurretCommand extends CommandBase {
     turretSubsystem.rotateToTarget();
   }
 
+  /**
+   * Finishes when locked onto port
+   *
+   * @return true if finished
+   */
   @Override
   public boolean isFinished() {
-    return turretSubsystem.inPosition();
+    return turretSubsystem.inPosition() && visionSubsystem.getTargetFound();
   }
 
+  /**
+   * Turn off vision
+   *
+   * @param interrupted
+   */
   @Override
   public void end(boolean interrupted) {
-    turretSubsystem.setTargetPosition(0);
     visionSubsystem.setLightRing(false);
   }
 }

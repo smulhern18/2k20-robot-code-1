@@ -19,7 +19,7 @@ public class PairedTalonFX extends WPI_TalonFX {
    *
    * @param leaderDeviceNumber   CAN id of lead device
    * @param followerDeviceNumber CAN id of follower device
-   * @param invertEncoder whether encoder is inverted
+   * @param invertEncoder        whether encoder is inverted
    */
   public PairedTalonFX(int leaderDeviceNumber, int followerDeviceNumber, boolean invertEncoder) {
     super(leaderDeviceNumber);

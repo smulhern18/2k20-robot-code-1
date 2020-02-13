@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.auto.test.TestAutoCommand;
-import frc.robot.commands.ballpath.RunBallPathCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
 import frc.robot.commands.climber.ExtendClimb;
@@ -22,7 +21,7 @@ import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.AutoAimAndShootCommand;
 import frc.robot.commands.shooter.PrepShooterCommand;
-import frc.robot.commands.shooter.SetDefaultRPMCommand;
+import frc.robot.commands.shooter.PrepShooterDefaultRPMCommand;
 import frc.robot.commands.shooter.ShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
@@ -42,9 +41,6 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   public AttackThree leftStick = new AttackThree(Constants.InputConstants.LEFT_JOYSTICK_CHANNEL);
   public AttackThree rightStick = new AttackThree(Constants.InputConstants.RIGHT_JOYSTICK_CHANNEL);
-  private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
-  private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
-
   public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;// = new AbrahamBlinkinSubsystem();
   public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
   public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
@@ -55,17 +51,18 @@ public class RobotContainer {
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
   public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
-
+  private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
+  private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
 
   private Color color = Color.CORRUPT;
 
   /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
+   * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
     Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
-//    Shuffleboard.selectTab();
+//    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
     configureButtonBindings();
     setDefaultCommands();
     // TODO: uncomment when subsystems exist
@@ -100,7 +97,7 @@ public class RobotContainer {
     // unused currently
 //    buttonBoxLeft.resetIndexer.whenPressed(new WaitCommand(1));
     // Set shooter RPM to default speed
-    buttonBoxLeft.defaultShooterSpeed.whenPressed(new SetDefaultRPMCommand(this));
+    buttonBoxLeft.defaultShooterSpeed.whenPressed(new PrepShooterDefaultRPMCommand(this));
     // Sets turret straight forward
     buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
     // Spin ball path and collector in reverse
