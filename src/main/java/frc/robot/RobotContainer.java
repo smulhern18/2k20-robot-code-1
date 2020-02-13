@@ -104,9 +104,9 @@ public class RobotContainer {
     // Sets turret straight forward
     buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
     // Spin ball path and collector in reverse
-    buttonBoxLeft.spitOut.whileActiveContinuous(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.OUT));
+    buttonBoxLeft.spitOut.whileActiveContinuous(new SpitOutCommand(this));
     // Spin ball path and collector in the correct direction
-    buttonBoxLeft.spitIn.whileActiveContinuous(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.IN));
+    buttonBoxLeft.spitIn.whileActiveContinuous(new SpitInCommand(this));
 
     /* Main teleop buttons */
     // Untrench, aim, spin up shooter wheel

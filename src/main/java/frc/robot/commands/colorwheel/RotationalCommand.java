@@ -9,8 +9,8 @@ package frc.robot.commands.colorwheel;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.ColorWheelConstants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class RotationalCommand extends CommandBase {
@@ -37,7 +37,7 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if(quarterRotations == 4) {
+    if (quarterRotations == 4) {
       quarterRotations = 0;
       rotations++;
     }
@@ -47,7 +47,7 @@ public class RotationalCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     SmartDashboard.putBoolean("Rotation", true);
-    // stop spinning motor
+    //TODO: stop spinning motor
   }
 
   @Override
@@ -56,8 +56,8 @@ public class RotationalCommand extends CommandBase {
   }
 
   public void detectColorChange() {
-    if(! prevColor.equals(colorWheelSubsystem.colorString) && 
-                          colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_LIMIT) {
+    if (!prevColor.equals(colorWheelSubsystem.colorString) &&
+        colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_LIMIT) {
       quarterRotations++;
     }
   }

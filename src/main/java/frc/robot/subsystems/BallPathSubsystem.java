@@ -32,8 +32,16 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexerState = IndexerState.UNSHIFTED;
   }
 
-  public void runIndexer(double speed) {
-    indexerMotor.set(speed);
+  public void indexIn() {
+    indexerMotor.set(1);
+  }
+
+  public void indexOut() {
+    indexerMotor.set(-1);
+  }
+
+  public void stopIndex() {
+    indexerMotor.set(0);
   }
 
   public void kick() {
@@ -84,13 +92,13 @@ public class BallPathSubsystem extends BeefSubsystemBase {
         if (goal.get())
           indexerState = IndexerState.SHIFTED;
         else {
-          indexerMotor.set(1);
+          indexIn();
           runBelt();
         }
         break;
       case SHIFTED:
-        beltMotor.set(0);
-        indexerMotor.set(0);
+        stopBelt();
+        stopIndex();
         break;
       default:
         System.out.println("UNEXPECTED INDEXER STATE!");
@@ -105,13 +113,13 @@ public class BallPathSubsystem extends BeefSubsystemBase {
   public void shoot() {
     kick();
     runBelt();
-    indexerMotor.set(1);
+    indexIn();
   }
 
   public void stopAll() {
     stopBelt();
     stopKick();
-    indexerMotor.set(0);
+    stopIndex();
   }
 
   public IndexerState getIndexerState() {
