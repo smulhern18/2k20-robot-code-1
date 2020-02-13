@@ -8,6 +8,10 @@ import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.commands.shooter.AutoAimAndShootCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
 
+/**
+ * 8 ball auto
+ * empty own rendezvous by hopping speed bump
+ */
 public class RendezvousBeamRideAutoCommand extends SequentialCommandGroup {
   public RendezvousBeamRideAutoCommand(RobotContainer robotContainer) {
     addCommands(

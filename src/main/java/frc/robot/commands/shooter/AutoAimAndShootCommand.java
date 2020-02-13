@@ -1,5 +1,6 @@
 package frc.robot.commands.shooter;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.blinkinpark.ChangeHatCommand;
@@ -15,9 +16,11 @@ public class AutoAimAndShootCommand extends SequentialCommandGroup {
         // aim turret
         new AutoAimTurretCommand(robotContainer),
         // set RPM
-        new AutoSetRPMCommand(robotContainer),
+        new AutoSetShooterRPMCommand(robotContainer),
         // shoot when ready
         new ShootCommand(robotContainer),
+        // turn off shooter wheel
+        new InstantCommand(() -> robotContainer.shooterSubsystem.stop(), robotContainer.shooterSubsystem),
         //indicate when done
         new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter, 3)
     );

@@ -38,13 +38,13 @@ public class RendezvousTrajectories extends Trajectories {
       ),
       BACKWARD_CONFIG
   );
-  private final static Pose2d ZIGZAG_BACK_UP_END = new Pose2d(4.75, -4.33, new Rotation2d(Units.degreesToRadians(20)));
   public final static Trajectory ZIGZAG_BACK_UP = TrajectoryGenerator.generateTrajectory(
       List.of(
           ZIGZAG_END_ONE,
           new Pose2d(4.75, -4.33, new Rotation2d(Units.degreesToRadians(20)))),
       FORWARD_CONFIG
   );
+  private final static Pose2d ZIGZAG_BACK_UP_END = new Pose2d(4.75, -4.33, new Rotation2d(Units.degreesToRadians(20)));
   private final static Pose2d ZIGZAG_END_TWO = new Pose2d(6.18, -3.72, new Rotation2d(0.43));
   public final static Trajectory ZIGZAG_GRAB_ONE_FRONT = TrajectoryGenerator.generateTrajectory(
       List.of(

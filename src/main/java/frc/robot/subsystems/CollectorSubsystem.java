@@ -5,7 +5,11 @@ import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.CollectorConstants;
 
 /**
- * Creates a new CollectorSubsystem.
+ * The collector subsystem
+ * <p>
+ * input: none
+ * <p>
+ * output: a motor and a cylinder for deploying
  */
 public class CollectorSubsystem extends BeefSubsystemBase {
 
@@ -24,16 +28,25 @@ public class CollectorSubsystem extends BeefSubsystemBase {
 
   }
 
+  /**
+   * Extend outside frame perimeter
+   */
   public void deploy() {
     collectorDeployPiston.set(true);
     state = CollectorState.DEPLOYED;
   }
 
+  /**
+   * Get back inside frame perimeter
+   */
   public void undeploy() {
     collectorDeployPiston.set(false);
     state = CollectorState.UNDEPLOYED;
   }
 
+  /**
+   * bring balls in
+   */
   public void intake() {
     collectorMotor.set(1);
   }

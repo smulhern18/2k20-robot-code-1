@@ -7,6 +7,10 @@ import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.commands.shooter.AutoAimAndShootCommand;
 
+/**
+ * 8 ball auto
+ * Empty own trench
+ */
 public class TrenchAutoCommand extends SequentialCommandGroup {
   public TrenchAutoCommand(RobotContainer robotContainer) {
     addCommands(

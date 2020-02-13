@@ -36,15 +36,16 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
 
     leftPair = new PairedTalonFX(
         DrivetrainConstants.LEFT_LEADER_CHANNEL,
-        DrivetrainConstants.LEFT_FOLLOWER_CHANNEL);
+        DrivetrainConstants.LEFT_FOLLOWER_CHANNEL,
+        true);
     rightPair = new PairedTalonFX(
         DrivetrainConstants.RIGHT_LEADER_CHANNEL,
-        DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL);
+        DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL,
+        true);
 
     navx = new AHRS(Port.kMXP);
 
-    leftPair.setInverted(false);
-    rightPair.setInverted(true);
+    leftPair.setInverted(true);
 
     leftPair.configPIDF(
         DrivetrainConstants.P,
@@ -97,12 +98,14 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * @param rightVelocity right velocity
    */
   public void tankDriveVelocity(double leftVelocity, double rightVelocity) {
-    double leftTargetAcceleration = (leftVelocity - getWheelSpeeds().leftMetersPerSecond) / (Constants.LOOP_TIME_S);
-    double rightTargetAcceleration = (rightVelocity - getWheelSpeeds().rightMetersPerSecond) / (Constants.LOOP_TIME_S);
+    leftVelocity = -leftVelocity;
+    rightVelocity = -rightVelocity;
+    double leftTargetAcceleration = (-leftVelocity + getWheelSpeeds().leftMetersPerSecond) / (Constants.LOOP_TIME_S);
+    double rightTargetAcceleration = (-rightVelocity + getWheelSpeeds().rightMetersPerSecond) / (Constants.LOOP_TIME_S);
 
     double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftTargetAcceleration);
     double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightTargetAcceleration);
-
+//    System.out.println(leftVelocity+" "+rightVelocity);
     leftPair.set(
         ControlMode.Velocity,
         metersPerSecondToCountsPerDeciSec(leftVelocity),
@@ -214,7 +217,8 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * @return yaw in degrees
    */
   public double getYawDegrees() { // -180 to 180 degrees
-    return -Math.IEEEremainder(navx.getYaw(), 360);
+//    return navx.getYaw();
+    return -Math.IEEEremainder(navx.getAngle(), 360);
   }
 
   /**

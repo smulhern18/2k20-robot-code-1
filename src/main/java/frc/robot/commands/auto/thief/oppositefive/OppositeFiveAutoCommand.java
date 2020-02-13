@@ -7,6 +7,10 @@ import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.commands.shooter.AutoAimAndShootCommand;
 
+/**
+ * 5 ball auto
+ * empty opponent rendezvous
+ */
 public class OppositeFiveAutoCommand extends SequentialCommandGroup {
   public OppositeFiveAutoCommand(RobotContainer robotContainer) {
     addCommands(

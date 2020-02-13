@@ -16,6 +16,9 @@ import frc.robot.commands.auto.thief.oppositethree.OppositeThreeAutoCommand;
 import frc.robot.commands.auto.thief.oppositetwo.OppositeTwoAutoCommand;
 import frc.robot.commands.auto.thief.trench.TrenchThiefAutoCommand;
 
+/**
+ * SendableChooser for choosing autos
+ */
 public class AutoChooser extends SendableChooser<Command> {
   private final static String NORMAL = "Normal :", THIEF = "Thief: ";
 

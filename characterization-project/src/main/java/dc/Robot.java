@@ -71,12 +71,10 @@ public class Robot extends TimedRobot {
 
     leftMaster = new WPI_TalonFX(1);
     leftMaster.setInverted(false);
-    leftMaster.setSensorPhase(false);
     leftMaster.setNeutralMode(NeutralMode.Brake);
 
     rightMaster = new WPI_TalonFX(3);
-    rightMaster.setInverted(true);
-    rightMaster.setSensorPhase(false);
+    rightMaster.setInverted(false);
     rightMaster.setNeutralMode(NeutralMode.Brake);
 
     WPI_TalonFX leftSlave0 = new WPI_TalonFX(2);
@@ -131,9 +129,9 @@ public class Robot extends TimedRobot {
         PIDIDX, 10
     );
     rightEncoderPosition = ()
-        -> rightMaster.getSelectedSensorPosition(PIDIDX) * encoderConstant;
+        -> -rightMaster.getSelectedSensorPosition(PIDIDX) * encoderConstant;
     rightEncoderRate = ()
-        -> rightMaster.getSelectedSensorVelocity(PIDIDX) * encoderConstant *
+        -> -rightMaster.getSelectedSensorVelocity(PIDIDX) * encoderConstant *
                10;
 
     // Reset encoders
