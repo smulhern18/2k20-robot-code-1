@@ -101,7 +101,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
   }
 
   public double metersToRPM(double meters) {
-    return meters; //TODO: tony math
+    return meters; //TODO: line of best fit
   }
 
   /**
