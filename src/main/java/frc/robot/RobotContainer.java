@@ -17,9 +17,13 @@ import frc.robot.commands.ballpath.SpitOutCommand;
 import frc.robot.commands.climber.ExtendClimb;
 import frc.robot.commands.climber.RetractClimb;
 import frc.robot.commands.climber.TraverseCommand;
+import frc.robot.commands.collector.CollectCommand;
+import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.shooter.SetDefaultRPMCommand;
+import frc.robot.commands.shooter.ShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
 import frc.robot.input.AttackThree;
@@ -103,6 +107,24 @@ public class RobotContainer {
     buttonBoxLeft.spitOut.whileActiveContinuous(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.OUT));
     // Spin ball path and collector in the correct direction
     buttonBoxLeft.spitIn.whileActiveContinuous(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.IN));
+
+    /* Main teleop buttons */
+    // Untrench, aim, spin up shooter wheel
+    buttonBoxRight.autoTarget.whenPressed(new PrepShooterCommand(this));
+    // Collect 5 balls
+    buttonBoxRight.collect.whenPressed(new CollectCommand(this));
+    // shoot until empty
+    buttonBoxRight.shoot.whenPressed(new ShootCommand(this));
+    // toggle trenchability
+    buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
+
+    /* Color wheel*/
+    // do color wheel rotation control
+    buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
+    // do color wheel position control
+//    buttonBoxRight.positionControl.whe //TODO: write the command
+    //TODO: manual spin
+
   }
 
   /**
