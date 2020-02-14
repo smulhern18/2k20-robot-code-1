@@ -3,7 +3,7 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
-import frc.robot.commands.blinkinpark.ChangeHatCommand;
+import frc.robot.commands.abrahamblinkin.ChangeHatCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
 import frc.robot.commands.turret.AutoAimTurretCommand;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
