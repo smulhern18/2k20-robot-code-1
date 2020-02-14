@@ -98,6 +98,7 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * @param rightVelocity right velocity
    */
   public void tankDriveVelocity(double leftVelocity, double rightVelocity) {
+    //TODO: make a new variable
     leftVelocity = -leftVelocity;
     rightVelocity = -rightVelocity;
     double leftTargetAcceleration = (-leftVelocity + getWheelSpeeds().leftMetersPerSecond) / (Constants.LOOP_TIME_S);
@@ -105,7 +106,8 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
 
     double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftTargetAcceleration);
     double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightTargetAcceleration);
-//    System.out.println(leftVelocity+" "+rightVelocity);
+
+    //TODO: think about the division
     leftPair.set(
         ControlMode.Velocity,
         metersPerSecondToCountsPerDeciSec(leftVelocity),
@@ -147,7 +149,7 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
   /**
    * Sets encoders to 0
    */
-  public void resetEncoders() {
+  private void resetEncoders() {
     leftPair.setSelectedSensorPosition(0);
     rightPair.setSelectedSensorPosition(0);
   }
@@ -156,6 +158,7 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * Sets yaw to 0
    */
   public void resetNavX() {
+    //TODO: make sure this is correct 0
     navx.reset();
   }
 
@@ -164,7 +167,7 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    *
    * @param pose pose to reset to
    */
-  public void resetOdometry(Pose2d pose) {
+  private void resetOdometry(Pose2d pose) {
     resetEncoders();
     odometry.resetPosition(pose, Rotation2d.fromDegrees(getYawDegrees()));
   }
@@ -174,7 +177,6 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    */
   public void resetAll() {
     resetNavX();
-    resetEncoders();
     resetOdometry(new Pose2d(0, 0, Rotation2d.fromDegrees(getYawDegrees())));
     setCoast();
   }
@@ -217,7 +219,6 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * @return yaw in degrees
    */
   public double getYawDegrees() { // -180 to 180 degrees
-//    return navx.getYaw();
     return -Math.IEEEremainder(navx.getAngle(), 360);
   }
 

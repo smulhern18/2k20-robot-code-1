@@ -17,6 +17,7 @@ import frc.robot.Constants.ClimberConstants;
 public class ClimberSubsystem extends BeefSubsystemBase {
 
   // tentiometer is the limit switch that ensures that unspooling is going slow enough
+  //TODO: make tentiometer class
   private DigitalInput topLimitSwitch, bottomLimitSwitch, tentiometerLimitSwitch, slapSwitch;
   private WPI_TalonFX climbMotor;
   private Solenoid slapper, ratchet;
@@ -66,6 +67,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     ratchet.set(value);
   }
 
+  //TODO: make methods commands
   /**
    * Unslaps the climber (sets to vertical position)
    */
@@ -79,12 +81,12 @@ public class ClimberSubsystem extends BeefSubsystemBase {
    * Call this method periodically to extend
    */
   public void extendClimb() {
-    if (topLimitSwitch.get()) {
+    if (topLimitSwitch.get()) { // done extending
       climbMotor.set(ClimberConstants.CLIMB_OFF);
       state = ClimbState.EXTENDED;
-    } else if (!tentiometerLimitSwitch.get()) {
+    } else if (!tentiometerLimitSwitch.get()) { // catch up unspooling
       climbMotor.set(ClimberConstants.CLIMB_OFF);
-    } else {
+    } else { // unspool
       climbMotor.set(ClimberConstants.CLIMB_EXTEND);
     }
   }

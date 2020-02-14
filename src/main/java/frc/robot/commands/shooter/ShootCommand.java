@@ -13,6 +13,7 @@ public class ShootCommand extends CommandBase {
   BallPathSubsystem ballPathSubsystem;
 
   public ShootCommand(RobotContainer robotContainer) {
+
     this.shooterSubsystem = robotContainer.shooterSubsystem;
     this.ballPathSubsystem = robotContainer.ballPathSubsystem;
     addRequirements(shooterSubsystem, ballPathSubsystem);

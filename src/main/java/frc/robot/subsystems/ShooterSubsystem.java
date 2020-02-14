@@ -49,16 +49,13 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         .getEntry();
   }
 
-  public PairedTalonSRX getPairMotor() {
-    return pair;
-  }
-
   /**
    * Changes the target rotational velocity of the shooter
    *
    * @param rpm rpm to set target velocity to
    */
   public void setTargetRPM(double rpm) {
+    //TODO: make velocity conversions to static methods
     targetVelocity.setRPM(rpm + bonusShooterRPMEntry.getDouble(0));
   }
 
@@ -92,6 +89,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    * Stops shooter wheel from spinning, sets target to 0
    */
   public void stop() {
+    //TODO: just second line
     targetVelocity.setRPM(0);
     shoot(ControlMode.PercentOutput, 0);
   }

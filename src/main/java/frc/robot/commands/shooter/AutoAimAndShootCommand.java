@@ -20,8 +20,8 @@ public class AutoAimAndShootCommand extends SequentialCommandGroup {
         // shoot when ready
         new ShootCommand(robotContainer),
         // turn off shooter wheel
-        new InstantCommand(() -> robotContainer.shooterSubsystem.stop(), robotContainer.shooterSubsystem),
-        //indicate when done
+        new InstantCommand(robotContainer.shooterSubsystem::stop, robotContainer.shooterSubsystem),
+        // indicate when done
         new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter, 3)
     );
   }

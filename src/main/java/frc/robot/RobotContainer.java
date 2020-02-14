@@ -142,6 +142,7 @@ public class RobotContainer {
    * @return the auto command
    */
   public Command getAutoCommand() {
+    //TODO: add timeout EVERYWHERE
     drivetrainSubsystem.resetAll();
     //TODO: uncomment for real robot
 //    return autoChooser.getSelected();

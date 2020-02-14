@@ -13,8 +13,8 @@ public class TurretSubsystem extends BeefSubsystemBase {
 
   private WPI_TalonSRX turretMotor;
   private double potValue;
-  private double targetPosition;
-  private double actualPosition;
+  private double targetPosition; //angle in degrees
+  private double actualPosition; //angle in degrees
 
   public TurretSubsystem() {
 
@@ -41,18 +41,26 @@ public class TurretSubsystem extends BeefSubsystemBase {
    */
   public void setTargetPosition(double targetPosition) {
     double tmpTarget = actualPosition + (Units.radiansToDegrees(targetPosition) + TurretConstants.MAX_ROTATION_DEGREES / 2.0);
-    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES)
+    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
       this.targetPosition = tmpTarget;
+    } else {
+      this.targetPosition = actualPosition;
+    }
     // cannot turn turret that far otherwise
   }
 
   public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {
     double tmpTarget = -currentDrivetrainHeadingDegrees;
-    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES)
+    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
       this.targetPosition = tmpTarget;
+    } else {
+      targetPosition = actualPosition;
+    }
   }
 
   private double convertTargetToPot(double heading) {
+    //TODO: make static
+
     // convert radians (negative left, positive right) to percent of 270 turn needed
     // 270 / 2 is center
     double percent = (Units.radiansToDegrees(heading) + (TurretConstants.MAX_ROTATION_DEGREES / 2.0)) / TurretConstants.MAX_ROTATION_DEGREES;
@@ -60,12 +68,14 @@ public class TurretSubsystem extends BeefSubsystemBase {
   }
 
   private double convertPotToDegrees(double potValue) {
+    //TODO: make static
     double percent = (potValue - TurretConstants.POT_MIN) / (TurretConstants.POT_MAX - TurretConstants.POT_MIN);
     return percent * TurretConstants.MAX_ROTATION_DEGREES;
   }
 
   @Override
   public void periodic() {
+    //TODO: do not calculate it always, make a function
     potValue = turretMotor.getSelectedSensorPosition();
     actualPosition = convertPotToDegrees(potValue);
   }
@@ -80,6 +90,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
 
   public boolean inPosition() {
     double thisError = targetPosition - actualPosition;
+    //TODO: consider error getter in talon
     return Math.abs(thisError) <= TurretConstants.ERROR_TOLERANCE;
   }
 
@@ -92,8 +103,9 @@ public class TurretSubsystem extends BeefSubsystemBase {
   }
 
   public enum TurretDirection {
+    //TODO: cut button for turret manuals
     LEFT(1),
-    RIGHT(1);
+    RIGHT(-1);
     private double value;
 
     TurretDirection(int value) {

@@ -24,7 +24,8 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * Constructs the sensor and motor objects
    */
   public BallPathSubsystem() {
-
+    //TODO: move kicker to shooter subsystem
+    //TODO: two motors
     kickerMotor = new WPI_TalonSRX(BallPathConstants.KICKER_MOTOR_CHANNEL);
     indexerMotor = new WPI_TalonSRX(BallPathConstants.INDEXER_MOTOR_CHANNEL);
     beltMotor = new WPI_TalonSRX(BallPathConstants.FIRST_STAGE_MOTOR_CHANNEL);
@@ -83,6 +84,8 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     switch (indexerState) {
       case UNSHIFTED:
         // determine where to shift to
+        //TODO: swap orders/names to something more sensical
+        //TODO: if <5 balls, stop if any sensor after the necessary one is triggered
         if (indexer2BannerSensor.get()) {
           goal = indexer1BannerSensor;
         } else if (indexer3BannerSensor.get()) {
@@ -165,6 +168,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * @return true if the fifth banner sensor is triggered
    */
   public boolean hasFiveBalls() {
+    //TODO: make sure this is the last one
     return !indexer5BannerSensor.get();
   }
 
