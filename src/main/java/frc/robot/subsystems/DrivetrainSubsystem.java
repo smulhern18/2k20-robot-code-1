@@ -25,9 +25,6 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
 
   private AHRS navx;
 
-  private double leftAcceleration = 0, rightAcceleration = 0;
-  private double lastLeftVelocity = 0, lastRightVelocity = 0;
-
   /**
    * Construct Drivetrain subsystem
    * Configures sensors too
@@ -65,7 +62,6 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
     resetAll();
     createStringEntry(DrivetrainConstants.ODOMETRY_ENTRY, 1, 0, 4, 1, () -> odometry.getPoseMeters().toString());
     createStringEntry(DrivetrainConstants.VELOCITY_ENTRY, 2, 0, 4, 1, () -> getWheelSpeeds().toString());
-    createStringEntry(DrivetrainConstants.ACCELERATION_ENTRY, 3, 0, 4, 1, this::getAccelerationString);
   }
 
   /**
@@ -98,24 +94,23 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * @param rightVelocity right velocity
    */
   public void tankDriveVelocity(double leftVelocity, double rightVelocity) {
-    //TODO: make a new variable
-    leftVelocity = -leftVelocity;
-    rightVelocity = -rightVelocity;
-    double leftTargetAcceleration = (-leftVelocity + getWheelSpeeds().leftMetersPerSecond) / (Constants.LOOP_TIME_S);
-    double rightTargetAcceleration = (-rightVelocity + getWheelSpeeds().rightMetersPerSecond) / (Constants.LOOP_TIME_S);
+    double reversedLeftVelocity = -leftVelocity;
+    double reversedRightVelocity = -rightVelocity;
 
-    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftTargetAcceleration);
-    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightTargetAcceleration);
+    double leftTargetAcceleration = (leftVelocity + leftPair.getVelocityMetersPerSecond()) / (Constants.LOOP_TIME_S);
+    double rightTargetAcceleration = (rightVelocity + rightPair.getVelocityMetersPerSecond()) / (Constants.LOOP_TIME_S);
 
-    //TODO: think about the division
+    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(reversedLeftVelocity, leftTargetAcceleration);
+    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(reversedRightVelocity, rightTargetAcceleration);
+
     leftPair.set(
         ControlMode.Velocity,
-        metersPerSecondToCountsPerDeciSec(leftVelocity),
+        metersPerSecondToCountsPerDeciSec(reversedLeftVelocity),
         DemandType.ArbitraryFeedForward,
         leftFeedForwardVolts / Constants.MAX_BATTERY_VOLTAGE);
     rightPair.set(
         ControlMode.Velocity,
-        metersPerSecondToCountsPerDeciSec(rightVelocity),
+        metersPerSecondToCountsPerDeciSec(reversedRightVelocity),
         DemandType.ArbitraryFeedForward,
         rightFeedForwardVolts / Constants.MAX_BATTERY_VOLTAGE);
   }
@@ -138,7 +133,6 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
 
   @Override
   public void periodic() {
-    updateAcceleration();
     odometry.update(
         Rotation2d.fromDegrees(getYawDegrees()),
         leftPair.getDistanceMeters(),
@@ -158,7 +152,6 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * Sets yaw to 0
    */
   public void resetNavX() {
-    //TODO: make sure this is correct 0
     navx.reset();
   }
 
@@ -202,16 +195,6 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
         rightPair.getVelocityMetersPerSecond());
   }
 
-  private void updateAcceleration() {
-    leftAcceleration = (leftPair.getVelocityMetersPerSecond() - lastLeftVelocity) / Constants.LOOP_TIME_S;
-    lastLeftVelocity = leftPair.getVelocityMetersPerSecond();
-    rightAcceleration = (rightPair.getVelocityMetersPerSecond() - lastRightVelocity) / Constants.LOOP_TIME_S;
-    lastRightVelocity = rightPair.getVelocityMetersPerSecond();
-  }
-
-  public String getAccelerationString() {
-    return String.format("Accelerations: (Left: %.2f m/s^2, Right: %.2f m/s^2)", leftAcceleration, rightAcceleration);
-  }
 
   /**
    * Gets the chassis's yaw (orientation of the robot)
