@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import frc.robot.Constants;
@@ -18,26 +19,26 @@ public class ShooterSubsystem extends BeefSubsystemBase {
 
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
-  private PairedTalonSRX pair;
+  private WPI_TalonSRX pair;
   private NetworkTableEntry bonusShooterRPMEntry;
 
   /**
    * Creates a new ShooterSubsystem.
    */
   public ShooterSubsystem() {
-    pair = new PairedTalonSRX(
-        ShooterConstants.LEADER_CHANNEL,
-        ShooterConstants.FOLLOWER_CHANNEL);
+    pair = new WPI_TalonSRX(
+        ShooterConstants.LEADER_CHANNEL);
+//        ShooterConstants.FOLLOWER_CHANNEL);
     pair.configSelectedFeedbackSensor(
         FeedbackDevice.QuadEncoder,
         ShooterConstants.PID_LOOPTYPE,
         ShooterConstants.TIMEOUT_MS);
-    pair.configPIDF(
-        ShooterConstants.SLOT_ID,
-        ShooterConstants.P,
-        ShooterConstants.I,
-        ShooterConstants.D,
-        ShooterConstants.F);
+//    pair.configPIDF(
+//        ShooterConstants.SLOT_ID,
+//        ShooterConstants.P,
+//        ShooterConstants.I,
+//        ShooterConstants.D,
+//        ShooterConstants.F);
 
     setCoast();
     createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 4, 1, currentVelocity::toString);
@@ -49,9 +50,9 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         .getEntry();
   }
 
-  public void configPIDF(double P, double I, double D, double F) {
-    pair.configPIDF(ShooterConstants.SLOT_ID, P, I, D, F);
-  }
+//  public void configPIDF(double P, double I, double D, double F) {
+//    pair.configPIDF(ShooterConstants.SLOT_ID, P, I, D, F);
+//  }
 
   /**
    * Changes the target rotational velocity of the shooter
