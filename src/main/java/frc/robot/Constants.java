@@ -102,8 +102,8 @@ public final class Constants {
    * Constants for the shooter subsystem
    */
   public static class ShooterConstants {
-    public final static int LEADER_CHANNEL = 0;// TODO: configure
-    public final static int FOLLOWER_CHANNEL = 1;// TODO: configure
+    public final static int LEADER_CHANNEL = 5;// TODO: configure
+    public final static int FOLLOWER_CHANNEL = 6;// TODO: configure
 
     public final static double P = 0;
     public final static double I = 0;
@@ -117,7 +117,6 @@ public final class Constants {
     public final static double COUNTS_PER_REVOLUTION = 12;
     public final static double WHEEL_DIAMETER = 4;
     public final static double MOTOR_TO_WHEEL = 1.23;
-    public final static double ROTATIONS_PER_COUNT = (1 / COUNTS_PER_REVOLUTION) * MOTOR_TO_WHEEL;
     public final static double RPM_THRESHOLD = 100;
 
     public final static double DEFAULT_RPM = 7200;
