@@ -1,25 +1,20 @@
 package frc.robot.commands.trenchable;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.TrenchableSubsystem;
 
 /**
  * Toggles trenchability in one command
  */
 public class ToggleTrenchabilityCommand extends CommandBase {
-  TrenchableSubsystem trenchableSubsystem;
-  ClimberSubsystem climberSubsystem;
+  RobotContainer robotContainer;
 
   /**
    * Requires trenchable subsystem
-   *
-   * @param trenchableSubsystem the trenchable subsystem
    */
-  public ToggleTrenchabilityCommand(TrenchableSubsystem trenchableSubsystem, ClimberSubsystem climberSubsystem) {
-    this.trenchableSubsystem = trenchableSubsystem;
-    this.climberSubsystem = climberSubsystem;
-    addRequirements(trenchableSubsystem);
+  public ToggleTrenchabilityCommand(RobotContainer robotContainer) {
+    this.robotContainer = robotContainer;
   }
 
   /**
@@ -27,12 +22,10 @@ public class ToggleTrenchabilityCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    if (trenchableSubsystem.getState() == TrenchableSubsystem.TrenchableState.TRENCHABLE) {
-      climberSubsystem.unslap();
-      trenchableSubsystem.untrench();
+    if (robotContainer.trenchableSubsystem.getState() == TrenchableSubsystem.TrenchableState.TRENCHABLE) {
+      new UntrenchCommand(robotContainer).schedule();
     } else {
-      climberSubsystem.slap();
-      trenchableSubsystem.trench();
+      new TrenchCommand(robotContainer).schedule();
     }
   }
 

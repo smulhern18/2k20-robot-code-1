@@ -1,16 +1,26 @@
 package frc.robot.commands.auto.normal.twocell;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ballpath.SetIndexerCountCommand;
+import frc.robot.RobotContainer;
+import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.subsystems.BallPathSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.shooter.AutoAimAndShootCommand;
 
+/**
+ * 5 ball auto
+ * grab two from own rendezvous
+ */
 public class TwoCellAutoCommand extends SequentialCommandGroup {
-  public TwoCellAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public TwoCellAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        new SetIndexerCountCommand(ballPathSubsystem, 3),
-        new TrajectoryFollowerCommand(TwoBallTrajectories.TWO_GRAB, drivetrain)
+        // collect two balls
+        new ParallelCommandGroup(
+            new CollectCommand(robotContainer),
+            new TrajectoryFollowerCommand(robotContainer, TwoBallTrajectories.TWO_GRAB)
+        ),
+        // shoot five balls
+        new AutoAimAndShootCommand(robotContainer)
     );
   }
 }

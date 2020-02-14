@@ -2,21 +2,27 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
+import frc.robot.commands.blinkinpark.ChangeHatCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
 import frc.robot.commands.turret.AutoAimTurretCommand;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 
 public class AutoAimAndShootCommand extends SequentialCommandGroup {
-  public AutoAimAndShootCommand(ShooterSubsystem shooterSubsystem, BallPathSubsystem ballPathSubsystem, VisionSubsystem visionSubsystem, TrenchableSubsystem trenchableSubsystem, TurretSubsystem turretSubsystem, DrivetrainSubsystem drivetrainSubsystem) {
+  public AutoAimAndShootCommand(RobotContainer robotContainer) {
     addCommands(
         // untrench
-        new UntrenchCommand(trenchableSubsystem),
+        new UntrenchCommand(robotContainer),
         // aim turret
-        new AutoAimTurretCommand(turretSubsystem, visionSubsystem, drivetrainSubsystem),
+        new AutoAimTurretCommand(robotContainer),
         // set RPM
-        new InstantCommand(() -> shooterSubsystem.setTargetRPM(shooterSubsystem.inchesToRPM(visionSubsystem.getDistanceToTarget())), shooterSubsystem),
+        new AutoSetShooterRPMCommand(robotContainer),
         // shoot when ready
-        new ShootCommand(shooterSubsystem, ballPathSubsystem)
+        new ShootCommand(robotContainer),
+        // turn off shooter wheel
+        new InstantCommand(robotContainer.shooterSubsystem::stop, robotContainer.shooterSubsystem),
+        // indicate when done
+        new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter, 3)
     );
   }
 }

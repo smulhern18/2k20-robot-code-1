@@ -4,10 +4,15 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.CollectorConstants;
 
+/**
+ * The collector subsystem
+ * <p>
+ * input: none
+ * <p>
+ * output: a motor and a cylinder for deploying
+ */
 public class CollectorSubsystem extends BeefSubsystemBase {
-  /**
-   * Creates a new CollectorSubsystem.
-   */
+
   private WPI_TalonSRX collectorMotor;
   private Solenoid collectorDeployPiston;
   private CollectorState state;
@@ -23,16 +28,25 @@ public class CollectorSubsystem extends BeefSubsystemBase {
 
   }
 
+  /**
+   * Extend outside frame perimeter
+   */
   public void deploy() {
     collectorDeployPiston.set(true);
     state = CollectorState.DEPLOYED;
   }
 
+  /**
+   * Get back inside frame perimeter
+   */
   public void undeploy() {
     collectorDeployPiston.set(false);
     state = CollectorState.UNDEPLOYED;
   }
 
+  /**
+   * bring balls in
+   */
   public void intake() {
     collectorMotor.set(1);
   }

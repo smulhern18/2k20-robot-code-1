@@ -1,6 +1,7 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.input.AttackThree;
 import frc.robot.input.AttackThree.AttackThreeAxis;
 import frc.robot.subsystems.DrivetrainSubsystem;
@@ -15,10 +16,10 @@ public class DefaultDriveCommand extends CommandBase {
   private final AttackThree rightStick;
 
 
-  public DefaultDriveCommand(AttackThree leftStick, AttackThree rightStick, DrivetrainSubsystem drivetrainSubsystem) {
-    this.leftStick = leftStick;
-    this.rightStick = rightStick;
-    this.drivetrainSubsystem = drivetrainSubsystem;
+  public DefaultDriveCommand(RobotContainer robotContainer) {
+    this.leftStick = robotContainer.leftStick;
+    this.rightStick = robotContainer.rightStick;
+    this.drivetrainSubsystem = robotContainer.drivetrainSubsystem;
 
     addRequirements(drivetrainSubsystem);
   }

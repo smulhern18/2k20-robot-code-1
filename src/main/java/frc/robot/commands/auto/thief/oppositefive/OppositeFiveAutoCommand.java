@@ -1,16 +1,28 @@
 package frc.robot.commands.auto.thief.oppositefive;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ballpath.SetIndexerCountCommand;
+import frc.robot.RobotContainer;
+import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.subsystems.BallPathSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.shooter.AutoAimAndShootCommand;
 
+/**
+ * 5 ball auto
+ * empty opponent rendezvous
+ */
 public class OppositeFiveAutoCommand extends SequentialCommandGroup {
-  public OppositeFiveAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public OppositeFiveAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        new SetIndexerCountCommand(ballPathSubsystem, 0),
-        new TrajectoryFollowerCommand(OppositeFiveTrajectories.OPPOSITE, drivetrain)
+        // Collect five balls from the enemy rendezvous
+        new ParallelCommandGroup(
+            new CollectCommand(robotContainer).withTimeout(9),
+            new TrajectoryFollowerCommand(robotContainer, OppositeFiveTrajectories.OPPOSITE)
+        ),
+        // spin in place
+        new TrajectoryFollowerCommand(robotContainer, OppositeFiveTrajectories.SPIN),
+        // shoot five
+        new AutoAimAndShootCommand(robotContainer)
     );
   }
 }

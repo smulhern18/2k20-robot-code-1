@@ -10,13 +10,26 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.auto.test.TestAutoCommand;
-import frc.robot.commands.ballpath.DefaultShiftCellCommand;
-import frc.robot.commands.blinkinpark.AllianceColorCommand;
+import frc.robot.commands.ballpath.SpitInCommand;
+import frc.robot.commands.ballpath.SpitOutCommand;
+import frc.robot.commands.climber.ExtendClimbCommand;
+import frc.robot.commands.climber.RetractClimbCommand;
+import frc.robot.commands.climber.ToggleSlapCommand;
+import frc.robot.commands.climber.TraverseCommand;
+import frc.robot.commands.collector.CollectCommand;
+import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
-import frc.robot.commands.shooter.ShooterShuffleBoardCommand;
+import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.PrepShooterCommand;
+import frc.robot.commands.shooter.PrepShooterDefaultRPMCommand;
+import frc.robot.commands.shooter.ShootCommand;
+import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
+import frc.robot.commands.turret.ResetTurretCommand;
 import frc.robot.input.AttackThree;
+import frc.robot.input.ButtonBoxLeft;
+import frc.robot.input.ButtonBoxRight;
+import frc.robot.models.AutoChooser;
 import frc.robot.models.Color;
 import frc.robot.subsystems.*;
 
@@ -27,34 +40,89 @@ import frc.robot.subsystems.*;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private AttackThree leftStick = new AttackThree(DrivetrainConstants.LEFT_JOYSTICK_CHANNEL);
-  private AttackThree rightStick = new AttackThree(DrivetrainConstants.RIGHT_JOYSTICK_CHANNEL);
-
-  private AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
-  private BallPathSubsystem ballPathSubsystem = new BallPathSubsystem();
-  private ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  private CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
-  private DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  private ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
-  private TrenchableSubsystem trenchableSubsystem = new TrenchableSubsystem();
-  private TurretSubsystem turretSubsystem = new TurretSubsystem();
-  private VisionSubsystem visionSubsystem = new VisionSubsystem();
+  public AttackThree leftStick = new AttackThree(Constants.InputConstants.LEFT_JOYSTICK_CHANNEL);
+  public AttackThree rightStick = new AttackThree(Constants.InputConstants.RIGHT_JOYSTICK_CHANNEL);
+  public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;// = new AbrahamBlinkinSubsystem();
+  public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
+  public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
+  public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
+  public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
+  public DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+  public ShooterSubsystem shooterSubsystem;// = new ShooterSubsystem();
+  public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
+  public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
+  public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
+  private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
+  private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
+  private AutoChooser autoChooser;
 
   private Color color = Color.CORRUPT;
 
   /**
-   * The container for the robot.  Contains subsystems, OI devices, and commands.
+   * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    Shuffleboard.selectTab(Constants.SubsystemConstants.TAB_NAME);
+    Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
+//    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
     configureButtonBindings();
     setDefaultCommands();
+    // TODO: uncomment when subsystems exist
+//    autoChooser = new AutoChooser(this);
   }
 
   /**
    * Maps commands to buttons.
    */
   private void configureButtonBindings() {
+    /* Driver sticks */
+    // Trench or untrench when pressed
+    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
+    // Auto aim turret, rev up shooter, empty robot of balls
+    rightStick.getButton(1).whenPressed(new AutoAimAndShootCommand(this));
+
+    /* Operator button box */
+
+    /* Climb buttons */
+    // Prepare climber by unslapping and extending
+    buttonBoxLeft.extend.whenPressed(new ExtendClimbCommand(this));
+    // Toggle slapping onto coat hanger
+    buttonBoxLeft.slap.whenPressed(new ToggleSlapCommand(this));
+    // Climb by retracting elevator
+    buttonBoxLeft.retract.whenPressed(new RetractClimbCommand(this));
+    // Traverse coat hanger left
+    buttonBoxLeft.traverseLeft.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.LEFT));
+    // Traverse coat hanger right
+    buttonBoxLeft.traverseRight.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.RIGHT));
+
+    /* Manual buttons */
+    // unused currently
+//    buttonBoxLeft.resetIndexer.whenPressed(new WaitCommand(1));
+    // Set shooter RPM to default speed
+    buttonBoxLeft.defaultShooterSpeed.whenPressed(new PrepShooterDefaultRPMCommand(this));
+    // Sets turret straight forward
+    buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
+    // Spin ball path and collector in reverse
+    buttonBoxLeft.spitOut.whileActiveContinuous(new SpitOutCommand(this));
+    // Spin ball path and collector in the correct direction
+    buttonBoxLeft.spitIn.whileActiveContinuous(new SpitInCommand(this));
+
+    /* Main teleop buttons */
+    // Untrench, aim, spin up shooter wheel
+    buttonBoxRight.autoTarget.whenPressed(new PrepShooterCommand(this));
+    // Collect 5 balls
+    buttonBoxRight.collect.whenPressed(new CollectCommand(this));
+    // shoot until empty
+    buttonBoxRight.shoot.whenPressed(new ShootCommand(this));
+    // toggle trenchability
+    buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
+
+    /* Color wheel*/
+    // do color wheel rotation control
+    buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
+    // do color wheel position control
+//    buttonBoxRight.positionControl.whe //TODO: write the command
+    //TODO: manual spin
+
   }
 
   /**
@@ -62,10 +130,11 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(leftStick, rightStick, drivetrainSubsystem));
-    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(shooterSubsystem)); //TODO: remove after tuned
-    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(abrahamBlinkinSubsystem));
-    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(ballPathSubsystem));
+    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
+//    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
+//    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
+//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+//    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
   }
 
   /**
@@ -74,8 +143,11 @@ public class RobotContainer {
    * @return the auto command
    */
   public Command getAutoCommand() {
+    //TODO: add timeout EVERYWHERE
     drivetrainSubsystem.resetAll();
-    return new TestAutoCommand(drivetrainSubsystem);
+    //TODO: uncomment for real robot
+//    return autoChooser.getSelected();
+    return new TestAutoCommand(this);
   }
 
   /**

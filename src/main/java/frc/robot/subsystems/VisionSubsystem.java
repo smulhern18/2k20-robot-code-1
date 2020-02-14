@@ -16,7 +16,8 @@ import java.text.DecimalFormat;
  * Controls all vision related devices
  */
 public class VisionSubsystem extends BeefSubsystemBase {
-  JSONParser parser;
+
+  private JSONParser parser;
   private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
   private boolean found = false;

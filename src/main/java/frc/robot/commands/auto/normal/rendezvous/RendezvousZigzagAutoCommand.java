@@ -1,18 +1,41 @@
 package frc.robot.commands.auto.normal.rendezvous;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ballpath.SetIndexerCountCommand;
+import frc.robot.RobotContainer;
+import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.subsystems.BallPathSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.shooter.AutoAimAndShootCommand;
 
+/**
+ * Empty own trench, without hopping speed bump
+ */
 public class RendezvousZigzagAutoCommand extends SequentialCommandGroup {
-  public RendezvousZigzagAutoCommand(DrivetrainSubsystem drivetrainSubsystem, BallPathSubsystem ballPathSubsystem) {
+  public RendezvousZigzagAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        new SetIndexerCountCommand(ballPathSubsystem, 3),
-        new TrajectoryFollowerCommand(RendezvousTrajectories.ZIGZAG_GRAB_TWO_FRONT, drivetrainSubsystem),
-        new TrajectoryFollowerCommand(RendezvousTrajectories.ZIGZAG_GRAB_ONE_FRONT, drivetrainSubsystem),
-        new TrajectoryFollowerCommand(RendezvousTrajectories.ZIGZAG_GRAB_TWO_SIDE, drivetrainSubsystem)
+        // collect two balls
+        new ParallelCommandGroup(
+            new CollectCommand(robotContainer).withTimeout(5),
+            new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_GRAB_TWO_FRONT)
+        ),
+        // back up
+        new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_BACK_UP),
+        // shoot five balls
+        new AutoAimAndShootCommand(robotContainer),
+        // grab one ball
+        new ParallelCommandGroup(
+            new CollectCommand(robotContainer).withTimeout(5),
+            new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_GRAB_ONE_FRONT)
+        ),
+        // zoom around pole
+        new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_BACK_UP_TWO),
+        // collect two balls
+        new ParallelCommandGroup(
+            new CollectCommand(robotContainer).withTimeout(5),
+            new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_GRAB_TWO_SIDE)
+        ),
+        // shoot two balls
+        new AutoAimAndShootCommand(robotContainer)
     );
   }
 }

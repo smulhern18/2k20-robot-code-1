@@ -5,10 +5,13 @@ import frc.robot.Constants.LEDConstants;
 
 
 /**
- * The LED controller
+ * The LED controller subsystem
+ * <p>
+ * input: no sensors, patterns triggered by completion of actions
+ * <p>
+ * output: RGB patterns
  */
 public class AbrahamBlinkinSubsystem extends BeefSubsystemBase {
-
   private Spark blink;
 
   /**

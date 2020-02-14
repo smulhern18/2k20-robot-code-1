@@ -1,6 +1,7 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
 
 /**
@@ -11,11 +12,9 @@ public class ToggleSlapCommand extends InstantCommand {
 
   /**
    * Requires climber subsystem
-   *
-   * @param climberSubsystem the climber subsyste,
    */
-  public ToggleSlapCommand(ClimberSubsystem climberSubsystem) {
-    this.climberSubsystem = climberSubsystem;
+  public ToggleSlapCommand(RobotContainer robotContainer) {
+    this.climberSubsystem = robotContainer.climberSubsystem;
     addRequirements(climberSubsystem);
   }
 
@@ -24,9 +23,10 @@ public class ToggleSlapCommand extends InstantCommand {
    */
   @Override
   public void initialize() {
-    if (climberSubsystem.getState() == ClimberSubsystem.ClimbState.SLAPPED)
+    if (climberSubsystem.isSlapped()) {
       climberSubsystem.unslap();
-    else
+    } else {
       climberSubsystem.slap();
+    }
   }
 }

@@ -1,6 +1,9 @@
 package frc.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
+import frc.robot.commands.blinkinpark.ChangeHatCommand;
+import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.CollectorSubsystem;
 
@@ -11,52 +14,32 @@ import frc.robot.subsystems.CollectorSubsystem;
 public class CollectCommand extends CommandBase {
   private CollectorSubsystem collectorSubsystem;
   private BallPathSubsystem ballPathSubsystem;
+  private RobotContainer robotContainer;
 
-  public CollectCommand(CollectorSubsystem collectorSubsystem, BallPathSubsystem ballPathSubsystem) {
-    this.collectorSubsystem = collectorSubsystem;
-    this.ballPathSubsystem = ballPathSubsystem;
-    addRequirements(collectorSubsystem, ballPathSubsystem);
+  public CollectCommand(RobotContainer robotContainer) {
+    this.collectorSubsystem = robotContainer.collectorSubsystem;
+    this.ballPathSubsystem = robotContainer.ballPathSubsystem;
+    // does not require ball path, as it is only used for sensors.
+    addRequirements(collectorSubsystem);
   }
 
   /**
-   * Alternates between the two states of trenchability
+   * Deploys intake and starts motors
    */
   @Override
   public void initialize() {
-    switch (collectorSubsystem.getState()) {
-      case UNDEPLOYED:
-        collectorSubsystem.deploy();
-        collectorSubsystem.intake();
-        collectorSubsystem.setState(CollectorSubsystem.CollectorState.DEPLOYED);
-        break;
-      case DEPLOYED:
-        collectorSubsystem.undeploy();
-        collectorSubsystem.stopIntake();
-        collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
-        break;
-      default:
-        System.out.println("UNEXPECTED COLLECTOR STATE!");
-        break;
-    }
+    collectorSubsystem.deploy();
+    collectorSubsystem.intake();
   }
 
   /**
-   * Confirms that the next trenchability state has been reached
+   * Confirms that five balls are in robot
    *
-   * @return boolean: true if the next state has been reached, else false
+   * @return boolean: true if five balls are in robot
    */
   @Override
   public boolean isFinished() {
-    switch (collectorSubsystem.getState()) {
-      case DEPLOYED:
-        return ballPathSubsystem.isLoaded();
-      case UNDEPLOYED:
-        return true;
-      default:
-        System.out.println("UNEXPECTED COLLECTOR STATE isFinished");
-        break;
-    }
-    return true;
+    return ballPathSubsystem.hasFiveBalls();
   }
 
   /**
@@ -66,19 +49,10 @@ public class CollectCommand extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    switch (collectorSubsystem.getState()) {
-      case DEPLOYED:
-        if (!interrupted) {
-          collectorSubsystem.stopIntake();
-          collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
-        }
-        break;
-      case UNDEPLOYED:
-        // nothing
-        break;
-      default:
-        System.out.println("UNEXPECTED COLLECTOR STATE isFinished");
-        break;
+    if (!interrupted) {
+      collectorSubsystem.stopIntake();
+      collectorSubsystem.undeploy();
+      new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowParty, 3).schedule();
     }
   }
 }

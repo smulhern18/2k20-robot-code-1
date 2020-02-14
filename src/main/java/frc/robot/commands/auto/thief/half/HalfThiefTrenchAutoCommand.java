@@ -1,17 +1,39 @@
 package frc.robot.commands.auto.thief.half;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ballpath.SetIndexerCountCommand;
+import frc.robot.RobotContainer;
+import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.subsystems.BallPathSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.trenchable.UntrenchCommand;
 
+/**
+ * 10 ball auto
+ * Steal two from opponent's trench, empty own rendezvous
+ */
 public class HalfThiefTrenchAutoCommand extends SequentialCommandGroup {
-  public HalfThiefTrenchAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public HalfThiefTrenchAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        new SetIndexerCountCommand(ballPathSubsystem, 3),
-        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.FIRST_TWO, drivetrain),
-        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.SHOOT_ONE, drivetrain),
-        new TrajectoryFollowerCommand(HalfThiefTrenchTrajectories.UNDER_RENDEZ, drivetrain));
+        // Collect two balls from enemy trench
+        new ParallelCommandGroup(
+            new CollectCommand(robotContainer).withTimeout(3),
+            new TrajectoryFollowerCommand(robotContainer, HalfThiefTrenchTrajectories.FIRST_TWO)
+        ),
+        // move to port and untrench
+        new ParallelCommandGroup(
+            new UntrenchCommand(robotContainer),
+            new TrajectoryFollowerCommand(robotContainer, HalfThiefTrenchTrajectories.SHOOT_ONE)
+        ),
+        // shoot 5 balls
+        new AutoAimAndShootCommand(robotContainer),
+        // Collect 5 balls
+        new ParallelCommandGroup(
+            new CollectCommand(robotContainer).withTimeout(8),
+            new TrajectoryFollowerCommand(robotContainer, HalfThiefTrenchTrajectories.UNDER_RENDEZ)
+        ),
+        // Shoot 5 balls
+        new AutoAimAndShootCommand(robotContainer)
+    );
   }
 }

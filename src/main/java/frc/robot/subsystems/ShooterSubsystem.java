@@ -3,16 +3,23 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.models.PairedTalonSRX;
+import frc.robot.models.speedcontrollers.PairedTalonSRX;
+
+import java.util.Map;
 
 /**
  * The shooter
  */
 public class ShooterSubsystem extends BeefSubsystemBase {
+
   public Velocity targetVelocity = new Velocity(),
       currentVelocity = new Velocity();
   private PairedTalonSRX pair;
+  private NetworkTableEntry bonusShooterRPMEntry;
 
   /**
    * Creates a new ShooterSubsystem.
@@ -33,11 +40,17 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         ShooterConstants.F);
 
     setCoast();
-    createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 1, 1, currentVelocity::toString);
+    createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 4, 1, currentVelocity::toString);
+    bonusShooterRPMEntry = Constants.SubsystemConstants.DRIVER_TAB.add("Shooter bonus RPM", 0)
+        .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("min", -500.0, "max", 500.0))
+        .withPosition(2, 2)
+        .withSize(3, 1)
+        .getEntry();
   }
 
-  public PairedTalonSRX getPairMotor() {
-    return pair;
+  public void configPIDF(double P, double I, double D, double F) {
+    pair.configPIDF(ShooterConstants.SLOT_ID, P, I, D, F);
   }
 
   /**
@@ -46,7 +59,8 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    * @param rpm rpm to set target velocity to
    */
   public void setTargetRPM(double rpm) {
-    targetVelocity.setRPM(rpm);
+    //TODO: make velocity conversions to static methods
+    targetVelocity.setRPM(rpm + bonusShooterRPMEntry.getDouble(0));
   }
 
   /**
@@ -79,6 +93,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    * Stops shooter wheel from spinning, sets target to 0
    */
   public void stop() {
+    //TODO: just second line
     targetVelocity.setRPM(0);
     shoot(ControlMode.PercentOutput, 0);
   }
@@ -88,7 +103,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
   }
 
   public double metersToRPM(double meters) {
-    return meters; //TODO: tony math
+    return meters; //TODO: line of best fit
   }
 
   /**
@@ -176,6 +191,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
     public String toString() {
       return String.format("Shooter velocity: (%f rpm), (%f cpd)", rpm, cpd);
     }
+
   }
 
 }

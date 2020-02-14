@@ -1,17 +1,28 @@
 package frc.robot.commands.auto.thief.oppositetwo;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.ballpath.SetIndexerCountCommand;
+import frc.robot.RobotContainer;
+import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.subsystems.BallPathSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
+import frc.robot.commands.shooter.AutoAimAndShootCommand;
 
+/**
+ * 2 or 5 ball auto
+ * steal 2 balls from opponent rendezvous
+ */
 public class OppositeTwoAutoCommand extends SequentialCommandGroup {
-  public OppositeTwoAutoCommand(DrivetrainSubsystem drivetrain, BallPathSubsystem ballPathSubsystem) {
+  public OppositeTwoAutoCommand(RobotContainer robotContainer) {
     addCommands(
-        new SetIndexerCountCommand(ballPathSubsystem, 0),
-        new TrajectoryFollowerCommand(OppositeTwoTrajectories.OPPOSITE_TWO_GRAB, drivetrain),
-        new TrajectoryFollowerCommand(OppositeTwoTrajectories.OPPOSITE_TWO_SHOOT, drivetrain)
+        // collect two balls
+        new ParallelCommandGroup(
+            new CollectCommand(robotContainer).withTimeout(10),
+            new TrajectoryFollowerCommand(robotContainer, OppositeTwoTrajectories.OPPOSITE_TWO_GRAB)
+        ),
+        // run away
+        new TrajectoryFollowerCommand(robotContainer, OppositeTwoTrajectories.OPPOSITE_TWO_SHOOT),
+        // shoot two or five
+        new AutoAimAndShootCommand(robotContainer)
     );
   }
 }

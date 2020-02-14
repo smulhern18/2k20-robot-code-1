@@ -1,6 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -11,9 +12,10 @@ public class ShootCommand extends CommandBase {
   ShooterSubsystem shooterSubsystem;
   BallPathSubsystem ballPathSubsystem;
 
-  public ShootCommand(ShooterSubsystem shooterSubsystem, BallPathSubsystem ballPathSubsystem) {
-    this.shooterSubsystem = shooterSubsystem;
-    this.ballPathSubsystem = ballPathSubsystem;
+  public ShootCommand(RobotContainer robotContainer) {
+
+    this.shooterSubsystem = robotContainer.shooterSubsystem;
+    this.ballPathSubsystem = robotContainer.ballPathSubsystem;
     addRequirements(shooterSubsystem, ballPathSubsystem);
   }
 
@@ -23,6 +25,9 @@ public class ShootCommand extends CommandBase {
     shooterSubsystem.shoot();
   }
 
+  /**
+   * Only feed balls if at target RPM
+   */
   @Override
   public void execute() {
     if (shooterSubsystem.atTargetRPM()) {
@@ -33,6 +38,11 @@ public class ShootCommand extends CommandBase {
     shooterSubsystem.shoot();
   }
 
+  /**
+   * No balls (not any) detected in system
+   *
+   * @return
+   */
   @Override
   public boolean isFinished() {
     return !ballPathSubsystem.getAnyBannerSensor();
