@@ -4,10 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 
-public class ShiftSecondToThird extends CommandBase {
+public class ShiftThirdToFourthCommand extends CommandBase{
     BallPathSubsystem ballPathSubsystem;
-    public ShiftSecondToThird(RobotContainer robotContainer){
+    public ShiftThirdToFourthCommand(RobotContainer robotContainer){
         this.ballPathSubsystem = robotContainer.ballPathSubsystem;
+        addRequirements(ballPathSubsystem);
     }
 
     @Override
@@ -18,7 +19,7 @@ public class ShiftSecondToThird extends CommandBase {
 
     @Override
     public boolean isFinished(){
-        return ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken() ||
+        return ballPathSubsystem.fourthCellBannerSensor.beamBroken() ||
                 ballPathSubsystem.fifthCellBannerSensor.beamBroken();
     }
 

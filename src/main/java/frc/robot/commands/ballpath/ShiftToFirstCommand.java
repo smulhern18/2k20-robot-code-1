@@ -4,10 +4,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 
-public class ShiftToFirst extends CommandBase {
+public class ShiftToFirstCommand extends CommandBase {
     BallPathSubsystem ballPathSubsystem;
-    public ShiftToFirst(RobotContainer robotContainer){
+    public ShiftToFirstCommand(RobotContainer robotContainer){
         this.ballPathSubsystem = robotContainer.ballPathSubsystem;
+        addRequirements(ballPathSubsystem);
     }
 
     @Override
