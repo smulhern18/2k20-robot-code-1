@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.BallPathConstants;
+import frc.robot.models.sensors.BannerSensor;
 
 /**
  * The ball path subsystem
@@ -16,9 +17,9 @@ public class BallPathSubsystem extends BeefSubsystemBase {
   private WPI_TalonSRX kickerMotor, indexerMotor, beltMotor;
 
   private IndexerState indexerState;
-  private DigitalInput goal; // reference to the nex banner sensor which should be triggered in indexing process
+  private BannerSensor goal; // reference to the nex banner sensor which should be triggered in indexing process
 
-  private DigitalInput beltBannerSensor, firstCellBannerSensor, secondCellBannerSensor, thirdCellBannerSensor, fourthCellBannerSensor, fifthCellBannerSensor;
+  private BannerSensor beltBannerSensor, firstCellBannerSensor, secondCellBannerSensor, thirdCellBannerSensor, fourthCellBannerSensor, fifthCellBannerSensor;
 
   /**
    * Constructs the sensor and motor objects
@@ -29,12 +30,12 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexerMotor = new WPI_TalonSRX(BallPathConstants.INDEXER_MOTOR_CHANNEL);
     beltMotor = new WPI_TalonSRX(BallPathConstants.FIRST_STAGE_MOTOR_CHANNEL);
 
-    beltBannerSensor = new DigitalInput(BallPathConstants.BELT_BANNER_SENSOR_PORT);
-    firstCellBannerSensor = new DigitalInput(BallPathConstants.FIRST_CELL_BANNER_PORT);
-    secondCellBannerSensor = new DigitalInput(BallPathConstants.SECOND_CELL_BANNER_PORT);
-    thirdCellBannerSensor = new DigitalInput(BallPathConstants.THIRD_CELL_BANNER_PORT);
-    fourthCellBannerSensor= new DigitalInput(BallPathConstants.FOURTH_CELL_BANNER_PORT);
-    fifthCellBannerSensor = new DigitalInput(BallPathConstants.FIFTH_CELL_BANNER_PORT);
+    beltBannerSensor = new BannerSensor(BallPathConstants.BELT_BANNER_SENSOR_PORT);
+    firstCellBannerSensor = new BannerSensor(BallPathConstants.FIRST_CELL_BANNER_PORT);
+    secondCellBannerSensor = new BannerSensor(BallPathConstants.SECOND_CELL_BANNER_PORT);
+    thirdCellBannerSensor = new BannerSensor(BallPathConstants.THIRD_CELL_BANNER_PORT);
+    fourthCellBannerSensor= new BannerSensor(BallPathConstants.FOURTH_CELL_BANNER_PORT);
+    fifthCellBannerSensor = new BannerSensor(BallPathConstants.FIFTH_CELL_BANNER_PORT);
 
     indexerState = IndexerState.UNSHIFTED;
   }
@@ -85,13 +86,13 @@ public class BallPathSubsystem extends BeefSubsystemBase {
         // determine where to shift to
         //TODO: swap orders/names to something more sensical
         //TODO: if <5 balls, stop if any sensor after the necessary one is triggered
-        if (fourthCellBannerSensor.get()) {
+        if (fourthCellBannerSensor.beamBroken()) {
           goal = fifthCellBannerSensor;
-        } else if (thirdCellBannerSensor.get()) {
+        } else if (thirdCellBannerSensor.beamBroken()) {
           goal = fourthCellBannerSensor;
-        } else if (secondCellBannerSensor.get()) {
+        } else if (secondCellBannerSensor.beamBroken()) {
           goal = thirdCellBannerSensor;
-        } else if (firstCellBannerSensor.get()) {
+        } else if (firstCellBannerSensor.beamBroken()) {
           goal = secondCellBannerSensor;
         } else {
           goal = firstCellBannerSensor;
@@ -100,7 +101,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
         break;
       case SHIFTING:
         // keep moving index wheel until next index is met
-        if (goal.get())
+        if (goal.beamBroken())
           indexerState = IndexerState.SHIFTED;
         else {
           indexIn();
@@ -152,15 +153,15 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * @return true if a new power cell is entering the robot
    */
   public boolean getBeltBannerSensor() {
-    return !beltBannerSensor.get();
+    return !beltBannerSensor.beamBroken();
   }
 
   /**
    * @return true if any banner sensor's beam is broken
    */
   public boolean getAnyBannerSensor() {
-    return !beltBannerSensor.get() || !firstCellBannerSensor.get() || !secondCellBannerSensor.get() ||
-        !thirdCellBannerSensor.get() || !fourthCellBannerSensor.get() || !fifthCellBannerSensor.get();
+    return !beltBannerSensor.beamBroken() || !firstCellBannerSensor.beamBroken() || !secondCellBannerSensor.beamBroken() ||
+        !thirdCellBannerSensor.beamBroken() || !fourthCellBannerSensor.beamBroken() || !fifthCellBannerSensor.beamBroken();
   }
 
   /**
@@ -168,7 +169,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    */
   public boolean hasFiveBalls() {
     //TODO: make sure this is the last one
-    return !fifthCellBannerSensor.get();
+    return !fifthCellBannerSensor.beamBroken();
   }
 
   public enum IndexerState {
