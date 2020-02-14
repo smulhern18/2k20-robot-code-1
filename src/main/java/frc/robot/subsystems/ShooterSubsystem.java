@@ -38,6 +38,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         ShooterConstants.D,
         ShooterConstants.F);
 
+
     setCoast();
     createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 4, 1, this::veloctityToString);
     bonusShooterRPMEntry = Constants.SubsystemConstants.DRIVER_TAB.add("Shooter bonus RPM", 0)
@@ -48,6 +49,10 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         .getEntry();
   }
 
+  public void set(double v) {
+    pair.set(ControlMode.PercentOutput, v);
+  }
+
   public void configPIDF(double P, double I, double D, double F) {
     pair.configPIDF(ShooterConstants.SLOT_ID, P, I, D, F);
   }
@@ -56,7 +61,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    * Shoot with a specified mode
    *
    * @param mode  A {@link ControlMode}
-   * @param value speed of the one motor pair [-1, 1]
+   * @param value value
    */
   private void shoot(ControlMode mode, double value) {
     pair.set(mode, value);
@@ -69,7 +74,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    */
   public void shoot(double velocityRPM) {
     double bonusRPM = bonusShooterRPMEntry.getDouble(0);
-    shoot(ControlMode.Velocity, bonusRPM + convertRPMToCPD(velocityRPM));
+    shoot(ControlMode.Velocity,  convertRPMToCPD(bonusRPM+velocityRPM));
   }
 
 
