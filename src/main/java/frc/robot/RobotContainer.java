@@ -13,8 +13,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
-import frc.robot.commands.climber.ExtendClimb;
-import frc.robot.commands.climber.RetractClimb;
+import frc.robot.commands.climber.ExtendClimbCommand;
+import frc.robot.commands.climber.RetractClimbCommand;
+import frc.robot.commands.climber.ToggleSlapCommand;
 import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.colorwheel.RotationalCommand;
@@ -83,11 +84,11 @@ public class RobotContainer {
 
     /* Climb buttons */
     // Prepare climber by unslapping and extending
-    buttonBoxLeft.extend.whenPressed(new ExtendClimb(this));
+    buttonBoxLeft.extend.whenPressed(new ExtendClimbCommand(this));
     // Toggle slapping onto coat hanger
-    buttonBoxLeft.slap.whenPressed(new ToggleTrenchabilityCommand(this));
+    buttonBoxLeft.slap.whenPressed(new ToggleSlapCommand(this));
     // Climb by retracting elevator
-    buttonBoxLeft.retract.whenPressed(new RetractClimb(this));
+    buttonBoxLeft.retract.whenPressed(new RetractClimbCommand(this));
     // Traverse coat hanger left
     buttonBoxLeft.traverseLeft.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.LEFT));
     // Traverse coat hanger right
