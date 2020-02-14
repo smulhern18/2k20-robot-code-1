@@ -211,11 +211,11 @@ public final class Constants {
     public final static int FIRST_STAGE_MOTOR_CHANNEL = 9;// TODO: configure
     public final static String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
     public final static int BELT_BANNER_SENSOR_PORT = 2;
-    public final static int INDEXER1_BANNER_PORT = 3;// TODO: configure
-    public final static int INDEXER2_BANNER_PORT = 4;// TODO: configure
-    public final static int INDEXER3_BANNER_PORT = 5;// TODO: configure
-    public final static int INDEXER4_BANNER_PORT = 6;// TODO: configure
-    public final static int INDEXER5_BANNER_PORT = 7;// TODO: configure
+    public final static int FIRST_CELL_BANNER_PORT = 3;// TODO: configure
+    public final static int SECOND_CELL_BANNER_PORT = 4;// TODO: configure
+    public final static int THIRD_CELL_BANNER_PORT = 5;// TODO: configure
+    public final static int FOURTH_CELL_BANNER_PORT = 6;// TODO: configure
+    public final static int FIFTH_CELL_BANNER_PORT = 7;// TODO: configure
   }
 
   public final static class ColorWheelConstants {
