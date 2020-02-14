@@ -61,7 +61,7 @@ public class RobotContainer {
   public RobotContainer() {
     Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
 //    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
-    configureButtonBindings();
+//    configureButtonBindings();
     setDefaultCommands();
     // TODO: uncomment when subsystems exist
 //    autoChooser = new AutoChooser(this);
@@ -73,9 +73,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     /* Driver sticks */
     // Trench or untrench when pressed
-    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
+//    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
     // Auto aim turret, rev up shooter, empty robot of balls
-    rightStick.getButton(1).whenPressed(new AutoAimAndShootCommand(this));
+//    rightStick.getButton(1).whenPressed(new AutoAimAndShootCommand(this));
 
     /* Operator button box */
 

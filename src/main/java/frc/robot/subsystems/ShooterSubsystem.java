@@ -17,26 +17,26 @@ import java.util.Map;
  */
 public class ShooterSubsystem extends BeefSubsystemBase {
 
-  private WPI_TalonSRX pair;
+  private PairedTalonSRX pair;
   private NetworkTableEntry bonusShooterRPMEntry;
 
   /**
    * Creates a new ShooterSubsystem.
    */
   public ShooterSubsystem() {
-    pair = new WPI_TalonSRX(
-        ShooterConstants.LEADER_CHANNEL);
-//        ShooterConstants.FOLLOWER_CHANNEL);
+    pair = new PairedTalonSRX(
+        ShooterConstants.LEADER_CHANNEL,
+        ShooterConstants.FOLLOWER_CHANNEL);
     pair.configSelectedFeedbackSensor(
         FeedbackDevice.QuadEncoder,
         ShooterConstants.PID_LOOPTYPE,
         ShooterConstants.TIMEOUT_MS);
-//    pair.configPIDF(
-//        ShooterConstants.SLOT_ID,
-//        ShooterConstants.P,
-//        ShooterConstants.I,
-//        ShooterConstants.D,
-//        ShooterConstants.F);
+    pair.configPIDF(
+        ShooterConstants.SLOT_ID,
+        ShooterConstants.P,
+        ShooterConstants.I,
+        ShooterConstants.D,
+        ShooterConstants.F);
 
     setCoast();
     createStringEntry(ShooterConstants.VELOCITY_ENTRY, 4, 0, 4, 1, this::veloctityToString);
@@ -48,9 +48,9 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         .getEntry();
   }
 
-//  public void configPIDF(double P, double I, double D, double F) {
-//    pair.configPIDF(ShooterConstants.SLOT_ID, P, I, D, F);
-//  }
+  public void configPIDF(double P, double I, double D, double F) {
+    pair.configPIDF(ShooterConstants.SLOT_ID, P, I, D, F);
+  }
 
   /**
    * Shoot with a specified mode
@@ -68,7 +68,8 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    * @param velocityRPM RPM velocity
    */
   public void shoot(double velocityRPM) {
-    shoot(ControlMode.Velocity, convertRPMToCPD(velocityRPM));
+    double bonusRPM = bonusShooterRPMEntry.getDouble(0);
+    shoot(ControlMode.Velocity, bonusRPM + convertRPMToCPD(velocityRPM));
   }
 
 
@@ -105,11 +106,11 @@ public class ShooterSubsystem extends BeefSubsystemBase {
 
 
   public static double convertRPMToCPD(double rpm) {
-    return rpm * ShooterConstants.COUNTS_PER_REVOLUTION * (1.0 / 10.0) * (1.0 / 60.0);
+    return rpm * ShooterConstants.COUNTS_PER_REVOLUTION * (1.0 / 10.0) * (1.0 / 60.0) * (1.0 / ShooterConstants.MOTOR_TO_WHEEL);
   }
 
   public static double convertCPDToRPM(double cpd) {
-    return cpd * 60.0 * (1 / ShooterConstants.COUNTS_PER_REVOLUTION) * 10.0;
+    return cpd * 60.0 * (1 / ShooterConstants.COUNTS_PER_REVOLUTION) * 10.0 * ShooterConstants.MOTOR_TO_WHEEL;
   }
 
   /**
