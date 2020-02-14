@@ -49,6 +49,10 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         .getEntry();
   }
 
+  public void configPIDF(double P, double I, double D, double F) {
+    pair.configPIDF(ShooterConstants.SLOT_ID, P, I, D, F);
+  }
+
   /**
    * Changes the target rotational velocity of the shooter
    *

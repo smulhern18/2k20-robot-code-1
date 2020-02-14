@@ -32,7 +32,7 @@ public class ShooterShuffleBoardCommand extends CommandBase {
     newD = PEntry.getDouble(ShooterConstants.P);
     newF = PEntry.getDouble(ShooterConstants.P);
     shooterSubsystem.setTargetRPM(targetRPMEntry.getDouble(0));
-    shooterSubsystem.getPairMotor().configPIDF(ShooterConstants.SLOT_ID, newP, newI, newD, newF);
+    shooterSubsystem.configPIDF(newP, newI, newD, newF);
   }
 
 
