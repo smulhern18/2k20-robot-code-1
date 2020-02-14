@@ -3,6 +3,7 @@ package frc.robot.commands.turret;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
@@ -14,6 +15,8 @@ public class AutoAimTurretCommand extends CommandBase {
   private final TurretSubsystem turretSubsystem;
   private final VisionSubsystem visionSubsystem;
   private final DrivetrainSubsystem drivetrainSubsystem;//need for odometry
+
+  private double targetPosition;
 
   public AutoAimTurretCommand(RobotContainer robotContainer) {
     this.turretSubsystem = robotContainer.turretSubsystem;
@@ -37,12 +40,12 @@ public class AutoAimTurretCommand extends CommandBase {
   @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
-      targetPosition = Units.degreesToRadians(Constants.TurretConstants.MAX_CAPABILITY_DEGREES / 2.0)+ visionSubsystem.getAngleToTarget();
+      targetPosition = Units.degreesToRadians(Constants.TurretConstants.MAX_ROTATION_DEGREES / 2.0)+ visionSubsystem.getAngleToTarget();
       turretSubsystem.rotateToPosition(targetPosition);//adjusts for middle offset
     } else {//currently unsure with where to point shooter with no vision
-      turretSubsystem.resetTargetWithDrivetrain(drivetrainSubsystem.getYawDegrees());
+      targetPosition = drivetrainSubsystem.getYawDegrees();
+      turretSubsystem.resetTargetWithDrivetrain(targetPosition);
     }
-    turretSubsystem.rotateToTarget();
   }
 
   /**
@@ -52,7 +55,7 @@ public class AutoAimTurretCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return turretSubsystem.inPosition() && visionSubsystem.getTargetFound();
+    return turretSubsystem.inPosition(targetPosition) && visionSubsystem.getTargetFound();
   }
 
   /**

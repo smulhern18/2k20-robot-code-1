@@ -31,41 +31,23 @@ public class TurretSubsystem extends BeefSubsystemBase {
     createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, this::getCurrentPositionDegrees);
   }
 
-  /**
-   * Set target position for turret. Does validity check in this function.
-   *
-   * @param targetPosition radians from vision. This is a change in radians, not an absolute position
-   */
-  public void setTargetPosition(double targetPosition) {
-    double tmpTarget = actualPosition + (Units.radiansToDegrees(targetPosition) + TurretConstants.MAX_ROTATION_DEGREES / 2.0);
-    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
-      this.targetPosition = tmpTarget;
-    } else {
-      this.targetPosition = actualPosition;
-    }
-    // cannot turn turret that far otherwise
-  }
-
   public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {
     double tmpTarget = -currentDrivetrainHeadingDegrees;
     if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
-      this.targetPosition = tmpTarget;
+      rotateToPosition(tmpTarget);
     } else {
-      targetPosition = actualPosition;
+      rotateToPosition(getCurrentPositionDegrees());
     }
   }
 
-  private double convertTargetToPot(double heading) {
-    //TODO: make static
-
+  private static double convertDegreesToPot(double heading) {
     // convert radians (negative left, positive right) to percent of 270 turn needed
     // 270 / 2 is center
     double percent = (Units.radiansToDegrees(heading) + (TurretConstants.MAX_ROTATION_DEGREES / 2.0)) / TurretConstants.MAX_ROTATION_DEGREES;
     return percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN;
   }
 
-  private double convertPotToDegrees(double potValue) {
-    //TODO: make static
+  private static double convertPotToDegrees(double potValue) {
     double percent = (potValue - TurretConstants.POT_MIN) / (TurretConstants.POT_MAX - TurretConstants.POT_MIN);
     return percent * TurretConstants.MAX_ROTATION_DEGREES;
   }
@@ -75,7 +57,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
   }
 
   public void rotateToPosition(double targetPosition) {
-    turretMotor.set(ControlMode.Position, convertTargetToPot(targetPosition));
+    turretMotor.set(ControlMode.Position, convertDegreesToPot(targetPosition));
   }
 
   public boolean inPosition(double targetPosition) {
@@ -88,7 +70,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
   }
 
   public double getCurrentPositionDegrees(){
-    return convertPotToTarget(turretMotor.getSelectedSensorPosition());
+    return convertPotToDegrees(turretMotor.getSelectedSensorPosition());
   }
 
   public void manualRotateTurret(double speed) { // for manual control of turret
