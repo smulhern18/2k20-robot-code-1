@@ -1,4 +1,4 @@
-package frc.robot.models;
+package frc.robot.models.speedcontrollers;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.InvertType;

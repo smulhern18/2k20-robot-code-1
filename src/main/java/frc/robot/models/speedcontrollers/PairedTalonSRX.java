@@ -1,4 +1,4 @@
-package frc.robot.models;
+package frc.robot.models.speedcontrollers;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
