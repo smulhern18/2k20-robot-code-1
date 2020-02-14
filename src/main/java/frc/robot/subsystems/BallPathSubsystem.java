@@ -79,15 +79,15 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * @return true if any banner sensor's beam is broken
    */
   public boolean getAnyBannerSensor() {
-    return !beltBannerSensor.beamBroken() || !firstCellBannerSensor.beamBroken() || !secondCellBannerSensor.beamBroken() ||
-        !thirdCellBannerSensor.beamBroken() || !fourthCellBannerSensor.beamBroken() || !fifthCellBannerSensor.beamBroken();
+    return beltBannerSensor.beamBroken() || firstCellBannerSensor.beamBroken() || secondCellBannerSensor.beamBroken() ||
+        thirdCellBannerSensor.beamBroken() || fourthCellBannerSensor.beamBroken() || fifthCellBannerSensor.beamBroken();
   }
 
   /**
    * @return true if the fifth banner sensor is triggered
    */
   public boolean hasFiveBalls() {
-    return !fifthCellBannerSensor.beamBroken();
+    return fifthCellBannerSensor.beamBroken();
   }
 
   public enum BallPathDirection {
