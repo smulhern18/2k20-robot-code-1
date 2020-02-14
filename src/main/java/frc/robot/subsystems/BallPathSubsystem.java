@@ -18,7 +18,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
   private IndexerState indexerState;
   private DigitalInput goal; // reference to the nex banner sensor which should be triggered in indexing process
 
-  private DigitalInput beltBannerSensor, indexer1BannerSensor, indexer2BannerSensor, indexer3BannerSensor, indexer4BannerSensor, indexer5BannerSensor;
+  public DigitalInput beltBannerSensor, indexer1BannerSensor, indexer2BannerSensor, indexer3BannerSensor, indexer4BannerSensor, indexer5BannerSensor;
 
   /**
    * Constructs the sensor and motor objects
