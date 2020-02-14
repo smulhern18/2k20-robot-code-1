@@ -7,7 +7,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import frc.robot.Constants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.models.PairedTalonSRX;
+import frc.robot.models.speedcontrollers.PairedTalonSRX;
 
 import java.util.Map;
 
