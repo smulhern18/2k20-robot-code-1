@@ -21,16 +21,12 @@ public class DefaultShiftCommand extends CommandBase {
                 new ManualExhaustCommand(robotContainer).withTimeout(3).schedule();
             }else if(ballPathSubsystem.fourthCellBannerSensor.beamBroken()){
                 new ShiftFourthToFifthCommand(robotContainer).withTimeout(3).schedule();
-
             }else if(ballPathSubsystem.thirdCellBannerSensor.beamBroken()){
                 new ShiftThirdToFourthCommand(robotContainer).withTimeout(3).schedule();
-
             }else if(ballPathSubsystem.secondCellBannerSensor.beamBroken()){
                 new ShiftSecondToThirdCommand(robotContainer).withTimeout(3).schedule();
-
             }else if(ballPathSubsystem.firstCellBannerSensor.beamBroken()){
                 new ShiftFirstToSecondCommand(robotContainer).withTimeout(3).schedule();
-
             }else{
                 new ShiftToFirstCommand(robotContainer).withTimeout(3).schedule();
             }

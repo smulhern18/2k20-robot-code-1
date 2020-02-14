@@ -24,7 +24,6 @@ public class ShiftFourthToFifthCommand extends CommandBase {
 
     @Override
     public void end(boolean interrupted){
-        ballPathSubsystem.stopBelt();
-        ballPathSubsystem.stopIndex();
+        ballPathSubsystem.stopAll();
     }
 }

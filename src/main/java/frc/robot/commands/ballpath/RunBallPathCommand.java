@@ -19,12 +19,10 @@ public class RunBallPathCommand extends CommandBase {
     switch (direction) {
       case IN:
         ballPathSubsystem.runBelt();
-        ballPathSubsystem.kick();
         ballPathSubsystem.indexIn();
         break;
       case OUT:
         ballPathSubsystem.spitBelt();
-        ballPathSubsystem.kickOut();
         ballPathSubsystem.indexOut();
         break;
       default:

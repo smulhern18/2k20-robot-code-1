@@ -14,10 +14,7 @@ import frc.robot.models.sensors.BannerSensor;
  */
 public class BallPathSubsystem extends BeefSubsystemBase {
 
-  private WPI_TalonSRX kickerMotor, indexerMotor, beltMotor;
-
-  private IndexerState indexerState;
-  private BannerSensor goal; // reference to the nex banner sensor which should be triggered in indexing process
+  private WPI_TalonSRX indexerMotor, beltMotor;
 
   public BannerSensor beltBannerSensor, firstCellBannerSensor, secondCellBannerSensor, thirdCellBannerSensor, fourthCellBannerSensor, fifthCellBannerSensor;
 
@@ -25,8 +22,6 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * Constructs the sensor and motor objects
    */
   public BallPathSubsystem() {
-    //TODO: move kicker to shooter subsystem
-    //TODO: two motors
     indexerMotor = new WPI_TalonSRX(BallPathConstants.INDEXER_MOTOR_CHANNEL);
     beltMotor = new WPI_TalonSRX(BallPathConstants.FIRST_STAGE_MOTOR_CHANNEL);
 
@@ -37,7 +32,6 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     fourthCellBannerSensor= new BannerSensor(BallPathConstants.FOURTH_CELL_BANNER_PORT);
     fifthCellBannerSensor = new BannerSensor(BallPathConstants.FIFTH_CELL_BANNER_PORT);
 
-    indexerState = IndexerState.UNSHIFTED;
   }
 
   public void indexIn() {
@@ -50,18 +44,6 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
   public void stopIndex() {
     indexerMotor.set(0);
-  }
-
-  public void kick() {
-    kickerMotor.set(1);
-  }
-
-  public void kickOut() {
-    kickerMotor.set(-1);
-  }
-
-  public void stopKick() {
-    kickerMotor.set(0);
   }
 
   public void runBelt() {
@@ -77,56 +59,9 @@ public class BallPathSubsystem extends BeefSubsystemBase {
   }
 
   /**
-   * Shifts until next banner sensor is triggered.
-   * Should not be used for shooting
-   */
-  public void shiftIndexer() {
-    switch (indexerState) {
-      case UNSHIFTED:
-        // determine where to shift to
-        //TODO: swap orders/names to something more sensical
-        //TODO: if <5 balls, stop if any sensor after the necessary one is triggered
-        if (fourthCellBannerSensor.beamBroken()) {
-          goal = fifthCellBannerSensor;
-        } else if (thirdCellBannerSensor.beamBroken()) {
-          goal = fourthCellBannerSensor;
-        } else if (secondCellBannerSensor.beamBroken()) {
-          goal = thirdCellBannerSensor;
-        } else if (firstCellBannerSensor.beamBroken()) {
-          goal = secondCellBannerSensor;
-        } else {
-          goal = firstCellBannerSensor;
-        }
-        indexerState = IndexerState.SHIFTING;
-        break;
-      case SHIFTING:
-        // keep moving index wheel until next index is met
-        if (goal.beamBroken())
-          indexerState = IndexerState.SHIFTED;
-        else {
-          indexIn();
-          runBelt();
-        }
-        break;
-      case SHIFTED:
-        stopBelt();
-        stopIndex();
-        break;
-      default:
-        System.out.println("UNEXPECTED INDEXER STATE!");
-        break;
-    }
-  }
-
-  public void resetState() {
-    indexerState = IndexerState.UNSHIFTED;
-  }
-
-  /**
    * Engages every motor to be in the shooter direction
    */
   public void shoot() {
-    kick();
     runBelt();
     indexIn();
   }
@@ -136,25 +71,9 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    */
   public void stopAll() {
     stopBelt();
-    stopKick();
     stopIndex();
   }
 
-  /**
-   * Gets the state of the indexing process
-   *
-   * @return the state of the indexer
-   */
-  public IndexerState getIndexerState() {
-    return indexerState;
-  }
-
-  /**
-   * @return true if a new power cell is entering the robot
-   */
-  public boolean getBeltBannerSensor() {
-    return !beltBannerSensor.beamBroken();
-  }
 
   /**
    * @return true if any banner sensor's beam is broken
@@ -168,14 +87,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * @return true if the fifth banner sensor is triggered
    */
   public boolean hasFiveBalls() {
-    //TODO: make sure this is the last one
     return !fifthCellBannerSensor.beamBroken();
-  }
-
-  public enum IndexerState {
-    UNSHIFTED,
-    SHIFTING,
-    SHIFTED
   }
 
   public enum BallPathDirection {
