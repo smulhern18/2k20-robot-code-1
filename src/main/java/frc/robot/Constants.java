@@ -105,10 +105,10 @@ public final class Constants {
     public final static int LEADER_CHANNEL = 5;// TODO: configure
     public final static int FOLLOWER_CHANNEL = 6;// TODO: configure
 
-    public final static double P = 0;
+    public final static double P = 1.4;
     public final static double I = 0;
     public final static double D = 0;
-    public final static double F = 1.0;
+    public final static double F = 2.8;
 
     public final static int PID_LOOPTYPE = 0;
     public final static int SLOT_ID = 0;
@@ -122,11 +122,6 @@ public final class Constants {
     public final static double DEFAULT_RPM = 7200;
 
     public final static String VELOCITY_ENTRY = "Shooter Velocity";
-    public final static String TARGET_ENTRY = "Shooter Target RPM";
-    public final static String CONFIG_P_ENTRY = "Config P";
-    public final static String CONFIG_I_ENTRY = "Config I";
-    public final static String CONFIG_D_ENTRY = "Config D";
-    public final static String CONFIG_F_ENTRY = "Config F";
   }
 
   public static class VisionConstants {
@@ -166,7 +161,6 @@ public final class Constants {
     public final static double POT_MIN = 0;
     public final static double POT_MAX = 2048; // TODO: configure
     public final static double MAX_ROTATION_DEGREES = 270.0;
-    public final static double MAX_POT_ROTATIONS = 10;
 
     public final static double ERROR_TOLERANCE = 0.50;// set to real value
   }

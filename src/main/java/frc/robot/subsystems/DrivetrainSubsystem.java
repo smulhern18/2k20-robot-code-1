@@ -151,7 +151,7 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
   /**
    * Sets yaw to 0
    */
-  public void resetNavX() {
+  private void resetNavX() {
     navx.reset();
   }
 
