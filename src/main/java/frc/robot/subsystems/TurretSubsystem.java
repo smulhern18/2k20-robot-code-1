@@ -11,9 +11,6 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * Creates a new TurretSubsystem.
    */
   private WPI_TalonSRX turretMotor;
-  private double potValue;
-  private double targetPosition;
-  private double actualPosition;
 
   public TurretSubsystem() {
 
@@ -29,12 +26,8 @@ public class TurretSubsystem extends BeefSubsystemBase {
     turretMotor.config_kD(TurretConstants.SLOT_ID, TurretConstants.D);
     turretMotor.config_kF(TurretConstants.SLOT_ID, TurretConstants.F);
 
-    createDoubleEntry(TurretConstants.POT_ENTRY, 7, 0, 1, 1, () -> potValue);
-    createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, () -> actualPosition);
-  }
-
-  public void setTargetPosition(double targetPosition) {
-    this.targetPosition = targetPosition;
+    createDoubleEntry(TurretConstants.POT_ENTRY, 7, 0, 1, 1, this::getCurrentPotPosition);
+    createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, this::getCurrentPositionDegrees);
   }
 
   private double convertTargetToPot(double heading) { //takes input in radians
@@ -47,17 +40,23 @@ public class TurretSubsystem extends BeefSubsystemBase {
 
   @Override
   public void periodic() {
-    potValue = turretMotor.getSelectedSensorPosition();
-    actualPosition = convertPotToTarget(potValue);
   }
 
   public void rotateToPosition(double targetPosition) {
     turretMotor.set(ControlMode.Position, convertTargetToPot(targetPosition));
   }
 
-  public boolean inPosition() {
-    double thisError = targetPosition - actualPosition;
+  public boolean inPosition(double targetPosition) {
+    double thisError = targetPosition - getCurrentPositionDegrees();
     return Math.abs(thisError) <= TurretConstants.ERROR_TOLERANCE;
+  }
+
+  public double getCurrentPotPosition(){
+    return turretMotor.getSelectedSensorPosition();
+  }
+
+  public double getCurrentPositionDegrees(){
+    return convertPotToTarget(turretMotor.getSelectedSensorPosition());
   }
 
   public void manualRotateTurret(double speed) { // for manual control of turret

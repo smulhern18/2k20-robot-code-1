@@ -12,6 +12,8 @@ public class AutoAimTurretCommand extends CommandBase {
   private final VisionSubsystem visionSubsystem;
   private final DrivetrainSubsystem drivetrainSubsystem;//need for odometry
 
+  private double targetPosition;
+
   public AutoAimTurretCommand(TurretSubsystem turretSubsystem, VisionSubsystem visionSubsystem, DrivetrainSubsystem drivetrainSubsystem) {
     this.turretSubsystem = turretSubsystem;
     this.visionSubsystem = visionSubsystem;
@@ -28,20 +30,22 @@ public class AutoAimTurretCommand extends CommandBase {
   @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
-      turretSubsystem.rotateToPosition(Units.degreesToRadians(Constants.TurretConstants.MAX_CAPABILITY_DEGREES / 2.0)+ visionSubsystem.getAngleToTarget());//adjusts for middle offset
+      targetPosition = Units.degreesToRadians(Constants.TurretConstants.MAX_CAPABILITY_DEGREES / 2.0)+ visionSubsystem.getAngleToTarget();
+      turretSubsystem.rotateToPosition(targetPosition);//adjusts for middle offset
     } else {//currently unsure with where to point shooter with no vision
-      turretSubsystem.setTargetPosition(-1.0 * drivetrainSubsystem.getYawDegrees());//TODO check with odomoetry for -180 to 180 or 0 to 360
+      targetPosition = -1.0 * drivetrainSubsystem.getYawDegrees();
+      turretSubsystem.rotateToPosition(targetPosition);//180 to -180
     }
   }
 
   @Override
   public boolean isFinished() {
-    return turretSubsystem.inPosition();
+    return turretSubsystem.inPosition(targetPosition);
   }
 
   @Override
   public void end(boolean interrupted) {
-    turretSubsystem.setTargetPosition(0);
+    turretSubsystem.rotateToPosition(turretSubsystem.getCurrentPositionDegrees());
     visionSubsystem.setLightRing(false);
   }
 }
