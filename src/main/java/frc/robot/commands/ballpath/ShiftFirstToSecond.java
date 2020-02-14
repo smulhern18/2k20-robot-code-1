@@ -12,11 +12,20 @@ public class ShiftFirstToSecond extends CommandBase {
 
     @Override
     public void execute(){
-
+        ballPathSubsystem.indexIn();
+        ballPathSubsystem.runBelt();
     }
 
     @Override
     public boolean isFinished(){
-        return true;
+        return ballPathSubsystem.secondCellBannerSensor.beamBroken() || ballPathSubsystem.thirdCellBannerSensor.beamBroken() ||
+                ballPathSubsystem.fourthCellBannerSensor.beamBroken() ||
+                ballPathSubsystem.fifthCellBannerSensor.beamBroken();
+    }
+
+    @Override
+    public void end(boolean interrupted){
+        ballPathSubsystem.stopBelt();
+        ballPathSubsystem.stopIndex();
     }
 }
