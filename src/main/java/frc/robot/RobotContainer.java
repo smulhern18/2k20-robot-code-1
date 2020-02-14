@@ -20,10 +20,7 @@ import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
-import frc.robot.commands.shooter.PrepShooterCommand;
-import frc.robot.commands.shooter.PrepShooterDefaultRPMCommand;
-import frc.robot.commands.shooter.ShootCommand;
+import frc.robot.commands.shooter.*;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
 import frc.robot.input.AttackThree;
@@ -98,7 +95,7 @@ public class RobotContainer {
     // unused currently
 //    buttonBoxLeft.resetIndexer.whenPressed(new WaitCommand(1));
     // Set shooter RPM to default speed
-    buttonBoxLeft.defaultShooterSpeed.whenPressed(new PrepShooterDefaultRPMCommand(this));
+    buttonBoxLeft.defaultShooterSpeed.whenPressed(new ManualShootCommand(this, Constants.ShooterConstants.DEFAULT_RPM));
     // Sets turret straight forward
     buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
     // Spin ball path and collector in reverse
@@ -112,7 +109,7 @@ public class RobotContainer {
     // Collect 5 balls
     buttonBoxRight.collect.whenPressed(new CollectCommand(this));
     // shoot until empty
-    buttonBoxRight.shoot.whenPressed(new ShootCommand(this));
+    buttonBoxRight.shoot.whenPressed(new AutoAimAndShootCommand(this));
     // toggle trenchability
     buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
 
