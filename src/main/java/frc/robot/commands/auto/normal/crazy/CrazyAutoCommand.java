@@ -18,7 +18,7 @@ public class CrazyAutoCommand extends SequentialCommandGroup {
     addCommands(
         // grab first two balls, to make 5 in robot
         new ParallelCommandGroup(
-            new UntrenchCommand(robotContainer),
+            new UntrenchCommand(robotContainer).withTimeout(3),
             new CollectCommand(robotContainer).withTimeout(3),
             new TrajectoryFollowerCommand(robotContainer, CrazyTrajectories.START)
         ),

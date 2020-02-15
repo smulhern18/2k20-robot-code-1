@@ -21,7 +21,7 @@ public class RendezvousZigzagAutoCommand extends SequentialCommandGroup {
         // back up
         new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.ZIGZAG_BACK_UP),
         // shoot five balls
-        new AutoAimAndShootCommand(robotContainer),
+        new AutoAimAndShootCommand(robotContainer).withTimeout(5),
         // grab one ball
         new ParallelCommandGroup(
             new CollectCommand(robotContainer).withTimeout(5),

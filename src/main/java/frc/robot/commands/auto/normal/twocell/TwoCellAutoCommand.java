@@ -16,7 +16,7 @@ public class TwoCellAutoCommand extends SequentialCommandGroup {
     addCommands(
         // collect two balls
         new ParallelCommandGroup(
-            new CollectCommand(robotContainer),
+            new CollectCommand(robotContainer).withTimeout(5),
             new TrajectoryFollowerCommand(robotContainer, TwoBallTrajectories.TWO_GRAB)
         ),
         // shoot five balls

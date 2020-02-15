@@ -15,7 +15,7 @@ public class ThreeCellAutoCommand extends SequentialCommandGroup {
   public ThreeCellAutoCommand(RobotContainer robotContainer) {
     addCommands(
         // shoot three balls
-        new AutoAimAndShootCommand(robotContainer),
+        new AutoAimAndShootCommand(robotContainer).withTimeout(5),
         // collect three balls
         new ParallelCommandGroup(
             new CollectCommand(robotContainer).withTimeout(10),
