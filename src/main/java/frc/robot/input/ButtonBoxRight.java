@@ -15,12 +15,12 @@ public class ButtonBoxRight extends Joystick {
    */
   public ButtonBoxRight(int port) {
     super(port);
-    autoTarget = new JoystickButton(this, 1);
-    collect = new JoystickButton(this, 2);
+    collect = new JoystickButton(this, 1);
+    autoTarget = new JoystickButton(this, 2);
     shoot = new JoystickButton(this, 3);
     trenchable = new JoystickButton(this, 4);
-    rotationControl = new JoystickButton(this, 5);
-    positionControl = new JoystickButton(this, 6);
-    manualColorWheelRotation = new JoystickButton(this, 7);
+    manualColorWheelRotation = new JoystickButton(this, 5);
+    rotationControl = new JoystickButton(this, 6);
+    positionControl = new JoystickButton(this, 7);
   }
 }
