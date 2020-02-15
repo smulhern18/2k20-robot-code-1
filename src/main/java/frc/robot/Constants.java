@@ -125,7 +125,7 @@ public final class Constants {
   }
 
   public static class VisionConstants {
-    public final static int LED_PORT = 3;
+    public final static int LED_PORT = 0;
     public final static boolean LED_ON = true;
     public final static boolean LED_OFF = false;
     public final static String DEFAULT_JSON = "{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}";

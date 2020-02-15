@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.ballpath.DefaultShiftCellCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
@@ -26,6 +27,7 @@ import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
+import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.input.ButtonBoxLeft;
 import frc.robot.input.ButtonBoxRight;
@@ -133,7 +135,8 @@ public class RobotContainer {
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
 //    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 3000));
-    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+//    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
   }
