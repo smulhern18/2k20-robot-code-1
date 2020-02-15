@@ -47,6 +47,7 @@ public class PairedTalonSRX extends WPI_TalonSRX {
    * @param F feed forward value
    */
   public void configPIDF(int SLOT_ID, double P, double I, double D, double F) {
+    selectProfileSlot(0, 0);
     config_kP(SLOT_ID, P);
     config_kI(SLOT_ID, I);
     config_kD(SLOT_ID, D);

@@ -20,7 +20,7 @@ public class ResetTurretCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    turretSubsystem.setTargetPosition(0);
+    turretSubsystem.rotateToPosition(0);
   }
 
   /**
@@ -28,7 +28,7 @@ public class ResetTurretCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    turretSubsystem.rotateToTarget();
+    turretSubsystem.rotateToPosition(0);
   }
 
   /**
@@ -38,6 +38,6 @@ public class ResetTurretCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return turretSubsystem.inPosition();
+    return turretSubsystem.inPosition(0);
   }
 }
