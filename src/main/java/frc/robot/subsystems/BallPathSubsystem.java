@@ -75,6 +75,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
   /**
    * Gets the amount of balls in the robot
+   *
    * @return int number of balls
    */
   public int getBallsInRobot() {
