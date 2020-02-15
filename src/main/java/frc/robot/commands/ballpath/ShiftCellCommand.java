@@ -5,11 +5,11 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.collector.ManualExhaustCommand;
 import frc.robot.subsystems.BallPathSubsystem;
 
-public class DefaultShiftCommand extends CommandBase {
+public class ShiftCellCommand extends CommandBase {
     private BallPathSubsystem ballPathSubsystem;
     private RobotContainer robotContainer;
 
-    public DefaultShiftCommand(RobotContainer robotContainer){
+    public ShiftCellCommand(RobotContainer robotContainer){
         this.ballPathSubsystem = robotContainer.ballPathSubsystem;
         this.robotContainer = robotContainer;
     }

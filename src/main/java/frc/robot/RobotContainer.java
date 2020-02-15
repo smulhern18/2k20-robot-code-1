@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.auto.test.TestAutoCommand;
-import frc.robot.commands.ballpath.DefaultShiftCommand;
+import frc.robot.commands.ballpath.ShiftCellCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
 import frc.robot.commands.climber.ExtendClimbCommand;
@@ -68,7 +68,7 @@ public class RobotContainer {
     Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
 //    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
     ballPathTrigger = new BallPathTrigger(this);
-    ballPathTrigger.whenActive(new DefaultShiftCommand(this));
+    ballPathTrigger.whenActive(new ShiftCellCommand(this));
     configureButtonBindings();
     setDefaultCommands();
     // TODO: uncomment when subsystems exist
