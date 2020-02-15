@@ -16,9 +16,9 @@ public class TrenchAutoCommand extends SequentialCommandGroup {
   public TrenchAutoCommand(RobotContainer robotContainer) {
     addCommands(
         // shoot 3 preload balls
-        new AutoAimAndShootCommand(robotContainer),
+        new AutoAimAndShootCommand(robotContainer).withTimeout(5),
         // trenchable
-        new TrenchCommand(robotContainer),
+        new TrenchCommand(robotContainer).withTimeout(3),
         // Collect five balls from enemy trench
         new ParallelCommandGroup(
             new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.GRAB),

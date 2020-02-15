@@ -17,15 +17,15 @@ public class RendezvousBeamRideAutoCommand extends SequentialCommandGroup {
     addCommands(
         // grab first two balls, to make five in robot
         new ParallelCommandGroup(
-            new UntrenchCommand(robotContainer),
+            new UntrenchCommand(robotContainer).withTimeout(3),
             new CollectCommand(robotContainer).withTimeout(5),
             new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.BEAM_RIDE_GRAB_THREE)
         ),
         // shoot 5 balls
-        new AutoAimAndShootCommand(robotContainer),
+        new AutoAimAndShootCommand(robotContainer).withTimeout(5),
         // pick up three balls
         new ParallelCommandGroup(
-            new UntrenchCommand(robotContainer),
+            new UntrenchCommand(robotContainer).withTimeout(3),
             new CollectCommand(robotContainer).withTimeout(5),
             new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.BEAM_RIDE_GRAB_TWO)
         ),

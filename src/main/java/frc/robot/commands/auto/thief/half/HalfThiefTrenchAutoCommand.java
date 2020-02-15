@@ -22,11 +22,11 @@ public class HalfThiefTrenchAutoCommand extends SequentialCommandGroup {
         ),
         // move to port and untrench
         new ParallelCommandGroup(
-            new UntrenchCommand(robotContainer),
+            new UntrenchCommand(robotContainer).withTimeout(3),
             new TrajectoryFollowerCommand(robotContainer, HalfThiefTrenchTrajectories.SHOOT_ONE)
         ),
         // shoot 5 balls
-        new AutoAimAndShootCommand(robotContainer),
+        new AutoAimAndShootCommand(robotContainer).withTimeout(5),
         // Collect 5 balls
         new ParallelCommandGroup(
             new CollectCommand(robotContainer).withTimeout(8),

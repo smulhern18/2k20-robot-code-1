@@ -22,7 +22,7 @@ public class TrenchThiefAutoCommand extends SequentialCommandGroup {
         ),
         // run away
         new ParallelCommandGroup(
-            new UntrenchCommand(robotContainer),
+            new UntrenchCommand(robotContainer).withTimeout(3),
             new TrajectoryFollowerCommand(robotContainer, TrenchThiefTrajectories.RETREAT)
         ),
         // shoot five
