@@ -39,7 +39,7 @@ public class CollectCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.hasFiveBalls();
+    return ballPathSubsystem.getBallsInRobot() == 5;
   }
 
   /**

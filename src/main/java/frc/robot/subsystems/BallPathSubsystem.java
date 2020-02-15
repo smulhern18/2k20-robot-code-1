@@ -74,18 +74,23 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
 
   /**
-   * @return true if any banner sensor's beam is broken
+   * Gets the amount of balls in the robot
+   * @return int number of balls
    */
-  public boolean getAnyBannerSensor() {
-    return beltBannerSensor.beamBroken() || firstCellBannerSensor.beamBroken() || secondCellBannerSensor.beamBroken() ||
-        thirdCellBannerSensor.beamBroken() || fourthCellBannerSensor.beamBroken() || fifthCellBannerSensor.beamBroken();
-  }
-
-  /**
-   * @return true if the fifth banner sensor is triggered
-   */
-  public boolean hasFiveBalls() {
-    return fifthCellBannerSensor.beamBroken();
+  public int getBallsInRobot() {
+    if (fifthCellBannerSensor.beamBroken()) {
+      return 5;
+    } else if (fourthCellBannerSensor.beamBroken()) {
+      return 4;
+    } else if (thirdCellBannerSensor.beamBroken()) {
+      return 3;
+    } else if (secondCellBannerSensor.beamBroken()) {
+      return 2;
+    } else if (firstCellBannerSensor.beamBroken()) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 
   public enum BallPathDirection {
