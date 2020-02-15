@@ -15,13 +15,16 @@ public class VisionShootCommand extends CommandBase {
     visionSubsystem = robotContainer.visionSubsystem;
     shooterSubsystem = robotContainer.shooterSubsystem;
     ballPathSubsystem = robotContainer.ballPathSubsystem;
-    addRequirements(shooterSubsystem);
+    addRequirements(shooterSubsystem, ballPathSubsystem);
   }
 
   @Override
   public void execute() {
     double targetRPM = shooterSubsystem.inchesToRPM(visionSubsystem.getDistanceToTarget());
     shooterSubsystem.shoot(targetRPM);
+    if (shooterSubsystem.atTargetRPM(targetRPM)) {
+
+    }
   }
 
   @Override
