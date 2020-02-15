@@ -31,15 +31,6 @@ public class TurretSubsystem extends BeefSubsystemBase {
     createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, this::getCurrentPositionDegrees);
   }
 
-  public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {
-    double tmpTarget = -currentDrivetrainHeadingDegrees;
-    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
-      rotateToPosition(tmpTarget);
-    } else {
-      rotateToPosition(getCurrentPositionDegrees());
-    }
-  }
-
   private static double convertDegreesToPot(double heading) {
     // convert radians (negative left, positive right) to percent of 270 turn needed
     // 270 / 2 is center
@@ -50,6 +41,15 @@ public class TurretSubsystem extends BeefSubsystemBase {
   private static double convertPotToDegrees(double potValue) {
     double percent = (potValue - TurretConstants.POT_MIN) / (TurretConstants.POT_MAX - TurretConstants.POT_MIN);
     return percent * TurretConstants.MAX_ROTATION_DEGREES;
+  }
+
+  public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {
+    double tmpTarget = -currentDrivetrainHeadingDegrees;
+    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
+      rotateToPosition(tmpTarget);
+    } else {
+      rotateToPosition(getCurrentPositionDegrees());
+    }
   }
 
   @Override
@@ -65,11 +65,11 @@ public class TurretSubsystem extends BeefSubsystemBase {
     return Math.abs(thisError) <= TurretConstants.ERROR_TOLERANCE;
   }
 
-  public double getCurrentPotPosition(){
+  public double getCurrentPotPosition() {
     return turretMotor.getSelectedSensorPosition();
   }
 
-  public double getCurrentPositionDegrees(){
+  public double getCurrentPositionDegrees() {
     return convertPotToDegrees(turretMotor.getSelectedSensorPosition());
   }
 

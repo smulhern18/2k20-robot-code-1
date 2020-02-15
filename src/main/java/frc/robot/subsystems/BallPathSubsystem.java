@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Constants.BallPathConstants;
 import frc.robot.models.sensors.BannerSensor;
 
@@ -14,9 +13,8 @@ import frc.robot.models.sensors.BannerSensor;
  */
 public class BallPathSubsystem extends BeefSubsystemBase {
 
-  private WPI_TalonSRX indexerMotor, beltMotor;
-
   public BannerSensor beltBannerSensor, firstCellBannerSensor, secondCellBannerSensor, thirdCellBannerSensor, fourthCellBannerSensor, fifthCellBannerSensor;
+  private WPI_TalonSRX indexerMotor, beltMotor;
 
   /**
    * Constructs the sensor and motor objects
@@ -29,7 +27,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     firstCellBannerSensor = new BannerSensor(BallPathConstants.FIRST_CELL_BANNER_PORT);
     secondCellBannerSensor = new BannerSensor(BallPathConstants.SECOND_CELL_BANNER_PORT);
     thirdCellBannerSensor = new BannerSensor(BallPathConstants.THIRD_CELL_BANNER_PORT);
-    fourthCellBannerSensor= new BannerSensor(BallPathConstants.FOURTH_CELL_BANNER_PORT);
+    fourthCellBannerSensor = new BannerSensor(BallPathConstants.FOURTH_CELL_BANNER_PORT);
     fifthCellBannerSensor = new BannerSensor(BallPathConstants.FIFTH_CELL_BANNER_PORT);
 
   }

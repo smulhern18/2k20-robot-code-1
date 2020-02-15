@@ -17,9 +17,9 @@ import frc.robot.models.sensors.Tensiometer;
  */
 public class ClimberSubsystem extends BeefSubsystemBase {
 
+  public Tensiometer tensiometer;
   // tentiometer is the limit switch that ensures that unspooling is going slow enough
   private DigitalInput topLimitSwitch, bottomLimitSwitch, slapSwitch;
-  public Tensiometer tensiometer;
   private WPI_TalonFX climbMotor;
   private Solenoid slapper, ratchet;
   private WPI_TalonSRX traverseMotor;

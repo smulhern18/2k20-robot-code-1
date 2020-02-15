@@ -10,6 +10,7 @@ public class AutoShootCommand extends CommandBase {
   private VisionSubsystem visionSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private BallPathSubsystem ballPathSubsystem;
+
   public AutoShootCommand(RobotContainer robotContainer) {
     visionSubsystem = robotContainer.visionSubsystem;
     shooterSubsystem = robotContainer.shooterSubsystem;

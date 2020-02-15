@@ -5,27 +5,28 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 
 public class ShiftToFirstCommand extends CommandBase {
-    BallPathSubsystem ballPathSubsystem;
-    public ShiftToFirstCommand(RobotContainer robotContainer){
-        this.ballPathSubsystem = robotContainer.ballPathSubsystem;
-        addRequirements(ballPathSubsystem);
-    }
+  BallPathSubsystem ballPathSubsystem;
 
-    @Override
-    public void execute(){
-        ballPathSubsystem.indexIn();
-        ballPathSubsystem.runBelt();
-    }
+  public ShiftToFirstCommand(RobotContainer robotContainer) {
+    this.ballPathSubsystem = robotContainer.ballPathSubsystem;
+    addRequirements(ballPathSubsystem);
+  }
 
-    @Override
-    public boolean isFinished(){
-        return ballPathSubsystem.firstCellBannerSensor.beamBroken() || ballPathSubsystem.secondCellBannerSensor.beamBroken() ||
-                ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken() ||
-                ballPathSubsystem.fifthCellBannerSensor.beamBroken();
-    }
+  @Override
+  public void execute() {
+    ballPathSubsystem.indexIn();
+    ballPathSubsystem.runBelt();
+  }
 
-    @Override
-    public void end(boolean interrupted){
-        ballPathSubsystem.stopAll();
-    }
+  @Override
+  public boolean isFinished() {
+    return ballPathSubsystem.firstCellBannerSensor.beamBroken() || ballPathSubsystem.secondCellBannerSensor.beamBroken() ||
+        ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken() ||
+        ballPathSubsystem.fifthCellBannerSensor.beamBroken();
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    ballPathSubsystem.stopAll();
+  }
 }

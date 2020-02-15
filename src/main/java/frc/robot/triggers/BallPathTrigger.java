@@ -5,14 +5,15 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 
 public class BallPathTrigger extends Trigger {
-    private BallPathSubsystem ballPathSubsystem;
-    public BallPathTrigger(RobotContainer robotContainer){
-        this.ballPathSubsystem = robotContainer.ballPathSubsystem;
+  private BallPathSubsystem ballPathSubsystem;
 
-    }
+  public BallPathTrigger(RobotContainer robotContainer) {
+    this.ballPathSubsystem = robotContainer.ballPathSubsystem;
 
-    @Override
-    public boolean get() {
-        return ballPathSubsystem.beltBannerSensor.beamBroken();
-    }
+  }
+
+  @Override
+  public boolean get() {
+    return ballPathSubsystem.beltBannerSensor.beamBroken();
+  }
 }

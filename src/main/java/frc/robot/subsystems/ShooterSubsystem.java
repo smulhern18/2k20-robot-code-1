@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import frc.robot.Constants;
@@ -49,6 +48,14 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         .getEntry();
   }
 
+  public static double convertRPMToCPD(double rpm) {
+    return rpm * ShooterConstants.COUNTS_PER_REVOLUTION * (1.0 / 10.0) * (1.0 / 60.0) * (1.0 / ShooterConstants.MOTOR_TO_WHEEL);
+  }
+
+  public static double convertCPDToRPM(double cpd) {
+    return cpd * 60.0 * (1 / ShooterConstants.COUNTS_PER_REVOLUTION) * 10.0 * ShooterConstants.MOTOR_TO_WHEEL;
+  }
+
   public void set(double v) {
     pair.set(ControlMode.PercentOutput, v);
   }
@@ -74,9 +81,8 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    */
   public void shoot(double velocityRPM) {
     double bonusRPM = bonusShooterRPMEntry.getDouble(0);
-    shoot(ControlMode.Velocity,  convertRPMToCPD(bonusRPM+velocityRPM));
+    shoot(ControlMode.Velocity, convertRPMToCPD(bonusRPM + velocityRPM));
   }
-
 
   /**
    * Stops shooter wheel from spinning, sets target to 0
@@ -107,15 +113,6 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    */
   private void setCoast() {
     pair.setNeutralMode(NeutralMode.Coast);
-  }
-
-
-  public static double convertRPMToCPD(double rpm) {
-    return rpm * ShooterConstants.COUNTS_PER_REVOLUTION * (1.0 / 10.0) * (1.0 / 60.0) * (1.0 / ShooterConstants.MOTOR_TO_WHEEL);
-  }
-
-  public static double convertCPDToRPM(double cpd) {
-    return cpd * 60.0 * (1 / ShooterConstants.COUNTS_PER_REVOLUTION) * 10.0 * ShooterConstants.MOTOR_TO_WHEEL;
   }
 
   /**
