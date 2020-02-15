@@ -67,8 +67,8 @@ public class RobotContainer {
   public RobotContainer() {
     Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
 //    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
-    ballPathTrigger = new BallPathTrigger(this);
-    ballPathTrigger.whenActive(new ShiftCellCommand(this));
+    //ballPathTrigger = new BallPathTrigger(this);
+    //ballPathTrigger.whenActive(new ShiftCellCommand(this));
     configureButtonBindings();
     setDefaultCommands();
     // TODO: uncomment when subsystems exist
