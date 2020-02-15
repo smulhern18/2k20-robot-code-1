@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.auto.test.TestAutoCommand;
+import frc.robot.commands.ballpath.ShiftCellCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
 import frc.robot.commands.climber.ExtendClimbCommand;
@@ -29,6 +30,7 @@ import frc.robot.input.ButtonBoxRight;
 import frc.robot.models.AutoChooser;
 import frc.robot.models.Color;
 import frc.robot.subsystems.*;
+import frc.robot.triggers.BallPathTrigger;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -52,6 +54,7 @@ public class RobotContainer {
   private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
   private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
+  private BallPathTrigger ballPathTrigger;
 
   private Color color = Color.CORRUPT;
 
@@ -61,6 +64,8 @@ public class RobotContainer {
   public RobotContainer() {
     Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
 //    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
+    //ballPathTrigger = new BallPathTrigger(this);
+    //ballPathTrigger.whenActive(new ShiftCellCommand(this));
 //    configureButtonBindings();
     setDefaultCommands();
     // TODO: uncomment when subsystems exist
@@ -71,6 +76,7 @@ public class RobotContainer {
    * Maps commands to buttons.
    */
   private void configureButtonBindings() {
+
     /* Driver sticks */
     // Trench or untrench when pressed
 //    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
@@ -130,7 +136,7 @@ public class RobotContainer {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
     shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 3000));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
-//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
   }
 
