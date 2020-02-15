@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import frc.robot.Constants;
@@ -17,12 +18,15 @@ import java.util.Map;
 public class ShooterSubsystem extends BeefSubsystemBase {
 
   private PairedTalonSRX pair;
+  private WPI_TalonSRX gooseneckMotor;
   private NetworkTableEntry bonusShooterRPMEntry;
 
   /**
    * Creates a new ShooterSubsystem.
    */
   public ShooterSubsystem() {
+    gooseneckMotor = new WPI_TalonSRX(ShooterConstants.GOOSENECK_CHANNEL);
+
     pair = new PairedTalonSRX(
         ShooterConstants.LEADER_CHANNEL,
         ShooterConstants.FOLLOWER_CHANNEL);
@@ -89,6 +93,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    */
   public void stop() {
     shoot(ControlMode.PercentOutput, 0);
+    stopGooseneck();
   }
 
   public double inchesToRPM(double inches) {
@@ -123,5 +128,17 @@ public class ShooterSubsystem extends BeefSubsystemBase {
   public String veloctityToString() {
     double cpd = pair.getSelectedSensorVelocity();
     return String.format("Shooter velocity: (%f rpm), (%f cpd)", convertCPDToRPM(cpd), cpd);
+  }
+
+  public void feedBallToShooter(){
+    gooseneckMotor.set(1);
+  }
+
+  public void stopGooseneck(){
+    gooseneckMotor.set(0);
+  }
+
+  public void spitOutOfGooseneck(){
+    gooseneckMotor.set(-1);
   }
 }

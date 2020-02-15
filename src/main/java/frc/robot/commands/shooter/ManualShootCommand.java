@@ -23,6 +23,9 @@ public class ManualShootCommand extends CommandBase {
   @Override
   public void execute() {
     shooterSubsystem.shoot(rpm);
+    if(shooterSubsystem.atTargetRPM(rpm)){
+      shooterSubsystem.feedBallToShooter();
+    }
   }
 
   @Override

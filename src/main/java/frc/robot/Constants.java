@@ -104,6 +104,7 @@ public final class Constants {
   public static class ShooterConstants {
     public final static int LEADER_CHANNEL = 5;// TODO: configure
     public final static int FOLLOWER_CHANNEL = 6;// TODO: configure
+    public final static int GOOSENECK_CHANNEL = 9;//TODO: configure
 
     public final static double P = 1.4;
     public final static double I = 0;
