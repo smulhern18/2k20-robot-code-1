@@ -1,6 +1,6 @@
 package frc.robot.commands.auto.normal.twocell;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
@@ -15,9 +15,9 @@ public class TwoCellAutoCommand extends SequentialCommandGroup {
   public TwoCellAutoCommand(RobotContainer robotContainer) {
     addCommands(
         // collect two balls
-        new ParallelCommandGroup(
-            new CollectCommand(robotContainer).withTimeout(5),
-            new TrajectoryFollowerCommand(robotContainer, TwoBallTrajectories.TWO_GRAB)
+        new ParallelDeadlineGroup(
+            new TrajectoryFollowerCommand(robotContainer, TwoBallTrajectories.TWO_GRAB),
+            new CollectCommand(robotContainer)
         ),
         // shoot five balls
         new VisionAimAndShootCommand(robotContainer)

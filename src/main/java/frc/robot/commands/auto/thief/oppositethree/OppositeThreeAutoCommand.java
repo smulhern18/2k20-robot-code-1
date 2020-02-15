@@ -1,10 +1,11 @@
 package frc.robot.commands.auto.thief.oppositethree;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
+import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.shooter.VisionAimAndShootCommand;
 
 /**
@@ -15,12 +16,15 @@ public class OppositeThreeAutoCommand extends SequentialCommandGroup {
   public OppositeThreeAutoCommand(RobotContainer robotContainer) {
     addCommands(
         // steal three balls
-        new ParallelCommandGroup(
-            new CollectCommand(robotContainer).withTimeout(10),
-            new TrajectoryFollowerCommand(robotContainer, OppositeThreeTrajectories.OPPOSITE_THREE_GRAB)
+        new ParallelDeadlineGroup(
+            new TrajectoryFollowerCommand(robotContainer, OppositeThreeTrajectories.OPPOSITE_THREE_GRAB),
+            new CollectCommand(robotContainer)
         ),
         // run away
-        new TrajectoryFollowerCommand(robotContainer, OppositeThreeTrajectories.OPPOSITE_THREE_SHOOT),
+        new ParallelDeadlineGroup(
+            new TrajectoryFollowerCommand(robotContainer, OppositeThreeTrajectories.OPPOSITE_THREE_SHOOT),
+            new PrepShooterCommand(robotContainer)
+        ),
         // shoot three
         new VisionAimAndShootCommand(robotContainer)
     );

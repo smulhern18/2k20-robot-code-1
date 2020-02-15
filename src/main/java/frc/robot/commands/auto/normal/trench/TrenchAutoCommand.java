@@ -1,6 +1,7 @@
 package frc.robot.commands.auto.normal.trench;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
@@ -20,9 +21,9 @@ public class TrenchAutoCommand extends SequentialCommandGroup {
         // trenchable
         new TrenchCommand(robotContainer).withTimeout(3),
         // Collect five balls from enemy trench
-        new ParallelCommandGroup(
+        new ParallelDeadlineGroup(
             new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.GRAB),
-            new CollectCommand(robotContainer).withTimeout(5)
+            new CollectCommand(robotContainer)
         ),
         // run away
         new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.RETURN),
