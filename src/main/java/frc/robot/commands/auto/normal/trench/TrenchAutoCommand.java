@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.TrenchCommand;
 
 /**
@@ -16,7 +16,7 @@ public class TrenchAutoCommand extends SequentialCommandGroup {
   public TrenchAutoCommand(RobotContainer robotContainer) {
     addCommands(
         // shoot 3 preload balls
-        new AutoAimAndShootCommand(robotContainer).withTimeout(5),
+        new VisionAimAndShootCommand(robotContainer).withTimeout(5),
         // trenchable
         new TrenchCommand(robotContainer).withTimeout(3),
         // Collect five balls from enemy trench
@@ -27,7 +27,7 @@ public class TrenchAutoCommand extends SequentialCommandGroup {
         // run away
         new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.RETURN),
         // shoot 5
-        new AutoAimAndShootCommand(robotContainer)
+        new VisionAimAndShootCommand(robotContainer)
     );
   }
 }

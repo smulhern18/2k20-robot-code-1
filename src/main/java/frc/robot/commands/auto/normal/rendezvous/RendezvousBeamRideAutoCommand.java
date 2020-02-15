@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
 
 /**
@@ -22,7 +22,7 @@ public class RendezvousBeamRideAutoCommand extends SequentialCommandGroup {
             new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.BEAM_RIDE_GRAB_THREE)
         ),
         // shoot 5 balls
-        new AutoAimAndShootCommand(robotContainer).withTimeout(5),
+        new VisionAimAndShootCommand(robotContainer).withTimeout(5),
         // pick up three balls
         new ParallelCommandGroup(
             new UntrenchCommand(robotContainer).withTimeout(3),
@@ -30,7 +30,7 @@ public class RendezvousBeamRideAutoCommand extends SequentialCommandGroup {
             new TrajectoryFollowerCommand(robotContainer, RendezvousTrajectories.BEAM_RIDE_GRAB_TWO)
         ),
         // shoot last three
-        new AutoAimAndShootCommand(robotContainer)
+        new VisionAimAndShootCommand(robotContainer)
     );
   }
 }

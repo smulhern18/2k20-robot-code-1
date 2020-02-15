@@ -20,7 +20,7 @@ import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.shooter.ManualShootCommand;
 import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
@@ -116,7 +116,7 @@ public class RobotContainer {
     // Collect 5 balls
     buttonBoxRight.collect.whenPressed(new CollectCommand(this));
     // shoot until empty
-    buttonBoxRight.shoot.whenPressed(new AutoAimAndShootCommand(this));
+    buttonBoxRight.shoot.whenPressed(new VisionAimAndShootCommand(this));
     // toggle trenchability
     buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
 

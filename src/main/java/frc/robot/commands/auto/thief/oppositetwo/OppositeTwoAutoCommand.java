@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.VisionAimAndShootCommand;
 
 /**
  * 2 or 5 ball auto
@@ -22,7 +22,7 @@ public class OppositeTwoAutoCommand extends SequentialCommandGroup {
         // run away
         new TrajectoryFollowerCommand(robotContainer, OppositeTwoTrajectories.OPPOSITE_TWO_SHOOT),
         // shoot two or five
-        new AutoAimAndShootCommand(robotContainer)
+        new VisionAimAndShootCommand(robotContainer)
     );
   }
 }

@@ -6,12 +6,12 @@ import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
-public class AutoShootCommand extends CommandBase {
+public class VisionShootCommand extends CommandBase {
   private VisionSubsystem visionSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private BallPathSubsystem ballPathSubsystem;
 
-  public AutoShootCommand(RobotContainer robotContainer) {
+  public VisionShootCommand(RobotContainer robotContainer) {
     visionSubsystem = robotContainer.visionSubsystem;
     shooterSubsystem = robotContainer.shooterSubsystem;
     ballPathSubsystem = robotContainer.ballPathSubsystem;

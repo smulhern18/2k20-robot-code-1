@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.TrenchCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
 
@@ -23,7 +23,7 @@ public class CrazyAutoCommand extends SequentialCommandGroup {
             new TrajectoryFollowerCommand(robotContainer, CrazyTrajectories.START)
         ),
         // shoot five balls
-        new AutoAimAndShootCommand(robotContainer),
+        new VisionAimAndShootCommand(robotContainer),
         new TrenchCommand(robotContainer),
         // go under color wheel, grab three balls
         new ParallelCommandGroup(
@@ -37,7 +37,7 @@ public class CrazyAutoCommand extends SequentialCommandGroup {
             new CollectCommand(robotContainer).withTimeout(2)
         ),
         // shoot five balls
-        new AutoAimAndShootCommand(robotContainer)
+        new VisionAimAndShootCommand(robotContainer)
     );
   }
 }

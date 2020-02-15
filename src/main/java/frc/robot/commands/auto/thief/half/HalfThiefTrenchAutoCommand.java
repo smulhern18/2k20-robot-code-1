@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
 
 /**
@@ -26,14 +26,14 @@ public class HalfThiefTrenchAutoCommand extends SequentialCommandGroup {
             new TrajectoryFollowerCommand(robotContainer, HalfThiefTrenchTrajectories.SHOOT_ONE)
         ),
         // shoot 5 balls
-        new AutoAimAndShootCommand(robotContainer).withTimeout(5),
+        new VisionAimAndShootCommand(robotContainer).withTimeout(5),
         // Collect 5 balls
         new ParallelCommandGroup(
             new CollectCommand(robotContainer).withTimeout(8),
             new TrajectoryFollowerCommand(robotContainer, HalfThiefTrenchTrajectories.UNDER_RENDEZ)
         ),
         // Shoot 5 balls
-        new AutoAimAndShootCommand(robotContainer)
+        new VisionAimAndShootCommand(robotContainer)
     );
   }
 }

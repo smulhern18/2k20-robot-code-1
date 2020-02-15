@@ -25,7 +25,7 @@ public class PrepShooterCommand extends SequentialCommandGroup {
             new ManualShootCommand(robotContainer, Constants.ShooterConstants.DEFAULT_RPM)
         ),
         // start up shooter wheel
-        new AutoShootCommand(robotContainer)
+        new VisionShootCommand(robotContainer)
     );
   }
 }

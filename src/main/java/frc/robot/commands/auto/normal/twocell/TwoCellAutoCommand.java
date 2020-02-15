@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
+import frc.robot.commands.shooter.VisionAimAndShootCommand;
 
 /**
  * 5 ball auto
@@ -20,7 +20,7 @@ public class TwoCellAutoCommand extends SequentialCommandGroup {
             new TrajectoryFollowerCommand(robotContainer, TwoBallTrajectories.TWO_GRAB)
         ),
         // shoot five balls
-        new AutoAimAndShootCommand(robotContainer)
+        new VisionAimAndShootCommand(robotContainer)
     );
   }
 }

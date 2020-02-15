@@ -11,8 +11,8 @@ import frc.robot.commands.turret.AutoAimTurretCommand;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.BallPathSubsystem;
 
-public class AutoAimAndShootCommand extends SequentialCommandGroup {
-  public AutoAimAndShootCommand(RobotContainer robotContainer) {
+public class VisionAimAndShootCommand extends SequentialCommandGroup {
+  public VisionAimAndShootCommand(RobotContainer robotContainer) {
     addCommands(
         // untrench
         new UntrenchCommand(robotContainer),
@@ -20,7 +20,7 @@ public class AutoAimAndShootCommand extends SequentialCommandGroup {
         new AutoAimTurretCommand(robotContainer),
         // set RPM and empty robot
         new ParallelDeadlineGroup(
-            new AutoShootCommand(robotContainer),
+            new VisionShootCommand(robotContainer),
             new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.IN)
         ),
         // turn off shooter wheel
