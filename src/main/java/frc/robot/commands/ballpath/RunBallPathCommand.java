@@ -18,12 +18,10 @@ public class RunBallPathCommand extends CommandBase {
   public void initialize() {
     switch (direction) {
       case IN:
-        ballPathSubsystem.runBelt();
-        ballPathSubsystem.indexIn();
+        ballPathSubsystem.runAll();
         break;
       case OUT:
-        ballPathSubsystem.spitBelt();
-        ballPathSubsystem.indexOut();
+        ballPathSubsystem.spitOutAll();
         break;
       default:
         System.out.println("UNEXPECTED DIRECTION IN BALLPATH!");

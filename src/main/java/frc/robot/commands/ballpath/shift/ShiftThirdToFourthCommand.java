@@ -14,8 +14,7 @@ public class ShiftThirdToFourthCommand extends CommandBase {
 
   @Override
   public void execute() {
-    ballPathSubsystem.indexIn();
-    ballPathSubsystem.runBelt();
+    ballPathSubsystem.runIndexer();
   }
 
   @Override

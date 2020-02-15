@@ -102,8 +102,8 @@ public final class Constants {
    * Constants for the shooter subsystem
    */
   public static class ShooterConstants {
-    public final static int LEADER_CHANNEL = 5;// TODO: configure
-    public final static int FOLLOWER_CHANNEL = 6;// TODO: configure
+    public final static int LEADER_CHANNEL = 5;
+    public final static int FOLLOWER_CHANNEL = 6;
 
     public final static double P = 1.4;
     public final static double I = 0;
@@ -199,7 +199,7 @@ public final class Constants {
   }
 
   public final static class BallPathConstants {
-    public final static int KICKER_MOTOR_CHANNEL = 7;// TODO: configure
+    public final static int GOOSENECK_CHANNEL = 9;//TODO: configure
     public final static int INDEXER_MOTOR_CHANNEL = 8;// TODO: configure
     public final static int FIRST_STAGE_MOTOR_CHANNEL = 9;// TODO: configure
     public final static String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";

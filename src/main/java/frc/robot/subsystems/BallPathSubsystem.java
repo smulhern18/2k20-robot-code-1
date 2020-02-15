@@ -14,14 +14,15 @@ import frc.robot.models.sensors.BannerSensor;
 public class BallPathSubsystem extends BeefSubsystemBase {
 
   public BannerSensor beltBannerSensor, firstCellBannerSensor, secondCellBannerSensor, thirdCellBannerSensor, fourthCellBannerSensor, fifthCellBannerSensor;
-  private WPI_TalonSRX indexerMotor, beltMotor;
+  private WPI_TalonSRX indexWheelMotor, beltMotor, gooseneckMotor;
 
   /**
    * Constructs the sensor and motor objects
    */
   public BallPathSubsystem() {
-    indexerMotor = new WPI_TalonSRX(BallPathConstants.INDEXER_MOTOR_CHANNEL);
+    indexWheelMotor = new WPI_TalonSRX(BallPathConstants.INDEXER_MOTOR_CHANNEL);
     beltMotor = new WPI_TalonSRX(BallPathConstants.FIRST_STAGE_MOTOR_CHANNEL);
+    gooseneckMotor = new WPI_TalonSRX(BallPathConstants.GOOSENECK_CHANNEL);
 
     beltBannerSensor = new BannerSensor(BallPathConstants.BELT_BANNER_SENSOR_PORT);
     firstCellBannerSensor = new BannerSensor(BallPathConstants.FIRST_CELL_BANNER_PORT);
@@ -32,36 +33,57 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
   }
 
-  public void indexIn() {
-    indexerMotor.set(1);
+  private void indexWheelIn() {
+    indexWheelMotor.set(1);
   }
 
-  public void indexOut() {
-    indexerMotor.set(-1);
+  private void indexWheelOut() {
+    indexWheelMotor.set(-1);
   }
 
-  public void stopIndex() {
-    indexerMotor.set(0);
+  private void stopIndexWheel() {
+    indexWheelMotor.set(0);
   }
 
-  public void runBelt() {
+  private void runBelt() {
     beltMotor.set(1);
   }
 
-  public void spitBelt() {
+  private void spitBelt() {
     beltMotor.set(-1);
   }
 
-  public void stopBelt() {
+  private void stopBelt() {
     beltMotor.set(0);
   }
 
-  /**
-   * Engages every motor to be in the shooter direction
-   */
-  public void shoot() {
+  private void runGooseneck() {
+    gooseneckMotor.set(1);
+  }
+
+  private void stopGooseneck() {
+    gooseneckMotor.set(0);
+  }
+
+  private void spitOutGooseneck() {
+    gooseneckMotor.set(-1);
+  }
+
+  public void runAll() {
     runBelt();
-    indexIn();
+    runGooseneck();
+    indexWheelIn();
+  }
+
+  public void spitOutAll() {
+    spitBelt();
+    spitOutGooseneck();
+    indexWheelOut();
+  }
+
+  public void runIndexer() {
+    indexWheelIn();
+    runBelt();
   }
 
   /**
@@ -69,9 +91,9 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    */
   public void stopAll() {
     stopBelt();
-    stopIndex();
+    stopIndexWheel();
+    stopGooseneck();
   }
-
 
   /**
    * Gets the amount of balls in the robot
