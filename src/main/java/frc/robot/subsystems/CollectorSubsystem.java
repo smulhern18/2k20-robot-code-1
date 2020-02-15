@@ -15,17 +15,10 @@ public class CollectorSubsystem extends BeefSubsystemBase {
 
   private WPI_TalonSRX collectorMotor;
   private Solenoid collectorDeployPiston;
-  private CollectorState state;
 
   public CollectorSubsystem() {
     collectorMotor = new WPI_TalonSRX(CollectorConstants.COLLECTOR_MOTOR_CHANNEL);
     collectorDeployPiston = new Solenoid(CollectorConstants.DEPLOY_COLLECTOR_SOLENOID_CHANNEL);
-    state = CollectorState.UNDEPLOYED;
-  }
-
-  @Override
-  public void periodic() {
-
   }
 
   /**
@@ -33,7 +26,6 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    */
   public void deploy() {
     collectorDeployPiston.set(true);
-    state = CollectorState.DEPLOYED;
   }
 
   /**
@@ -41,7 +33,6 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    */
   public void undeploy() {
     collectorDeployPiston.set(false);
-    state = CollectorState.UNDEPLOYED;
   }
 
   /**
@@ -60,11 +51,7 @@ public class CollectorSubsystem extends BeefSubsystemBase {
   }
 
   public CollectorState getState() {
-    return state;
-  }
-
-  public void setState(CollectorState state) {
-    this.state = state;
+    return collectorDeployPiston.get() ? CollectorState.DEPLOYED : CollectorState.UNDEPLOYED;
   }
 
   public enum CollectorState {
