@@ -21,10 +21,7 @@ import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
-import frc.robot.commands.shooter.AutoAimAndShootCommand;
-import frc.robot.commands.shooter.PrepShooterCommand;
-import frc.robot.commands.shooter.PrepShooterDefaultRPMCommand;
-import frc.robot.commands.shooter.ShootCommand;
+import frc.robot.commands.shooter.*;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
 import frc.robot.input.AttackThree;
@@ -50,7 +47,7 @@ public class RobotContainer {
   public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
   public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
   public DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  public ShooterSubsystem shooterSubsystem;// = new ShooterSubsystem();
+  public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
   public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
@@ -69,7 +66,7 @@ public class RobotContainer {
 //    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
     //ballPathTrigger = new BallPathTrigger(this);
     //ballPathTrigger.whenActive(new ShiftCellCommand(this));
-    configureButtonBindings();
+//    configureButtonBindings();
     setDefaultCommands();
     // TODO: uncomment when subsystems exist
 //    autoChooser = new AutoChooser(this);
@@ -82,9 +79,9 @@ public class RobotContainer {
 
     /* Driver sticks */
     // Trench or untrench when pressed
-    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
+//    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
     // Auto aim turret, rev up shooter, empty robot of balls
-    rightStick.getButton(1).whenPressed(new AutoAimAndShootCommand(this));
+//    rightStick.getButton(1).whenPressed(new AutoAimAndShootCommand(this));
 
     /* Operator button box */
 
@@ -104,7 +101,7 @@ public class RobotContainer {
     // unused currently
 //    buttonBoxLeft.resetIndexer.whenPressed(new WaitCommand(1));
     // Set shooter RPM to default speed
-    buttonBoxLeft.defaultShooterSpeed.whenPressed(new PrepShooterDefaultRPMCommand(this));
+    buttonBoxLeft.defaultShooterSpeed.whenPressed(new ManualShootCommand(this, Constants.ShooterConstants.DEFAULT_RPM));
     // Sets turret straight forward
     buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
     // Spin ball path and collector in reverse
@@ -118,7 +115,7 @@ public class RobotContainer {
     // Collect 5 balls
     buttonBoxRight.collect.whenPressed(new CollectCommand(this));
     // shoot until empty
-    buttonBoxRight.shoot.whenPressed(new ShootCommand(this));
+    buttonBoxRight.shoot.whenPressed(new AutoAimAndShootCommand(this));
     // toggle trenchability
     buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
 
@@ -137,7 +134,7 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-//    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
+    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 3000));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
