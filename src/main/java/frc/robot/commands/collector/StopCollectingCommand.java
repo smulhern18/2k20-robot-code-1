@@ -26,7 +26,6 @@ public class StopCollectingCommand extends CommandBase {
   public void initialize() {
     collectorSubsystem.undeploy();
     collectorSubsystem.stopIntake();
-    collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
     ballPathSubsystem.stopAll();
   }
 
