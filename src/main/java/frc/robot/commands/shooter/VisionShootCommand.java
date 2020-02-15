@@ -26,6 +26,6 @@ public class VisionShootCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.getAnyBannerSensor();
+    return ballPathSubsystem.getBallsInRobot() == 0;
   }
 }
