@@ -14,6 +14,6 @@ public class DefaultVisionCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    visionSubsystem.setLightRing(Relay.Value.kForward);
+    visionSubsystem.setLightRing(true);
   }
 }

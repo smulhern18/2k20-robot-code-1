@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 public class VisionSubsystem extends BeefSubsystemBase {
 
   private JSONParser parser;
-  private Relay lightRing;
+  private Solenoid lightRing;
   private NetworkTableEntry dataEntry;
   private boolean found = false;
   private int distance = 0, fps = 0;
@@ -32,11 +32,11 @@ public class VisionSubsystem extends BeefSubsystemBase {
    * Connects to light ring, NetworkTables
    */
   public VisionSubsystem() {
-    lightRing = new Relay(VisionConstants.LED_PORT);
+    lightRing = new Solenoid(VisionConstants.LED_PORT);
     NetworkTable table = NetworkTableInstance.getDefault().getTable(VisionConstants.TABLE);
     dataEntry = table.getEntry(VisionConstants.DATA_ENTRY);
     parser = new JSONParser();
-    setLightRing(Relay.Value.kOff);
+    setLightRing(false);
     createBooleanEntry(VisionConstants.FOUND_ENTRY, 0, 0, 1, 1, this::getTargetFound);
     createStringEntry(VisionConstants.FPS_ENTRY, 0, 1, 1, 1, () -> fpsFormatter.format(getFPS()));
     createStringEntry(VisionConstants.DISTANCE_ENTRY, 0, 2, 1, 1, () -> distanceFormatter.format(getDistanceToTarget()));
@@ -48,7 +48,7 @@ public class VisionSubsystem extends BeefSubsystemBase {
    *
    * @param value LED_ON or LED_OFF
    */
-  public void setLightRing(Relay.Value value) {
+  public void setLightRing(boolean value) {
     lightRing.set(value);
   }
 
