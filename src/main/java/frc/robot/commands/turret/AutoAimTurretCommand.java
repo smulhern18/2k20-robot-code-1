@@ -32,7 +32,7 @@ public class AutoAimTurretCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    visionSubsystem.setLightRing(Relay.Value.kOn);
+    visionSubsystem.setLightRing(Relay.Value.kForward);
   }
 
   /**
