@@ -105,10 +105,10 @@ public final class Constants {
     public final static int LEADER_CHANNEL = 5;
     public final static int FOLLOWER_CHANNEL = 6;
 
-    public final static double P = 1.4;
+    public final static double P = 1;
     public final static double I = 0;
     public final static double D = 0;
-    public final static double F = 2.8;
+    public final static double F = 6;
 
     public final static int PID_LOOPTYPE = 0;
     public final static int SLOT_ID = 0;
@@ -125,7 +125,7 @@ public final class Constants {
   }
 
   public static class VisionConstants {
-    public final static int LED_PORT = 3;
+    public final static int LED_PORT = 0;
     public final static boolean LED_ON = true;
     public final static boolean LED_OFF = false;
     public final static String DEFAULT_JSON = "{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}";

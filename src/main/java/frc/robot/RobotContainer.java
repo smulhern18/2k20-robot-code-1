@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.ballpath.DefaultShiftCellCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
@@ -26,6 +27,7 @@ import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
+import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.input.ButtonBoxLeft;
 import frc.robot.input.ButtonBoxRight;
@@ -48,10 +50,10 @@ public class RobotContainer {
   public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
   public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
   public DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  public ShooterSubsystem shooterSubsystem;// = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
-  public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
+  public VisionSubsystem visionSubsystem = new VisionSubsystem();
   private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
   private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
@@ -132,8 +134,9 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-//    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 3000));
-    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+//    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 4000));
+//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
   }
