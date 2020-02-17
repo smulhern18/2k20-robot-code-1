@@ -18,14 +18,14 @@ import java.util.Map;
  */
 public class ShooterSubsystem extends BeefSubsystemBase {
 
-  private PairedTalonSRX pair;
+  private InvertPairedTalonSRX pair;
   private NetworkTableEntry bonusShooterRPMEntry;
 
   /**
    * Creates a new ShooterSubsystem.
    */
   public ShooterSubsystem() {
-    pair = new PairedTalonSRX(
+    pair = new InvertPairedTalonSRX(
         ShooterConstants.LEADER_CHANNEL,
         ShooterConstants.FOLLOWER_CHANNEL);
     pair.configSelectedFeedbackSensor(
