@@ -14,7 +14,7 @@ import frc.robot.Constants.ColorWheelConstants;
 import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class RotationalCommand extends CommandBase {
-  String prevColor;
+  String previousColor, currentColor;
   int colorChanges, rotations;
   ColorWheelSubsystem colorWheelSubsystem;
   final int COLOR_CHANGES_PER_ROTATION = 8;
@@ -30,7 +30,7 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    prevColor = "null";
+    previousColor = "null";
     colorChanges = 0;
     rotations = 0;
 
@@ -39,17 +39,17 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if(colorChanges == COLOR_CHANGES_PER_ROTATION) {
-      colorChanges = 0;
-      rotations++;
+    currentColor = colorWheelSubsystem.detectColor();
+    if (!previousColor.equals(currentColor)) {
+      colorChanges++;
     }
-    detectColorChange();
+    rotations = colorChanges / COLOR_CHANGES_PER_ROTATION;
   }
 
   @Override
   public void end(boolean interrupted) {
     SmartDashboard.putBoolean("Rotation", true);
-    // stop spinning motor
+    //TODO: stop spinning motor
   }
 
   @Override
@@ -58,9 +58,8 @@ public class RotationalCommand extends CommandBase {
   }
 
   public void detectColorChange() {
-    
-    if((! prevColor.equals(colorWheelSubsystem.colorString)) && 
-                          (colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_LIMIT)) {
+    if((! previousColor.equals(colorWheelSubsystem.colorString)) && 
+                          (colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_THRESHOLD)) {
       colorChanges++;
     }
   }

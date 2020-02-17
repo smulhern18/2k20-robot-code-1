@@ -2,7 +2,7 @@ package frc.robot.commands.collector;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
-import frc.robot.commands.blinkinpark.ChangeHatCommand;
+import frc.robot.commands.abrahamblinkin.ChangeHatCommand;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.CollectorSubsystem;
@@ -19,27 +19,27 @@ public class CollectCommand extends CommandBase {
   public CollectCommand(RobotContainer robotContainer) {
     this.collectorSubsystem = robotContainer.collectorSubsystem;
     this.ballPathSubsystem = robotContainer.ballPathSubsystem;
-    addRequirements(collectorSubsystem, ballPathSubsystem);
+    // does not require ball path, as it is only used for sensors.
+    addRequirements(collectorSubsystem);
   }
 
   /**
-   * Alternates between the two states of trenchability
+   * Deploys intake and starts motors
    */
   @Override
   public void initialize() {
     collectorSubsystem.deploy();
     collectorSubsystem.intake();
-    collectorSubsystem.setState(CollectorSubsystem.CollectorState.DEPLOYED);
   }
 
   /**
-   * Confirms that the next trenchability state has been reached
+   * Confirms that five balls are in robot
    *
-   * @return boolean: true if the next state has been reached, else false
+   * @return boolean: true if five balls are in robot
    */
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.hasFiveBalls();
+    return ballPathSubsystem.getBallsInRobot() == 5;
   }
 
   /**
@@ -51,7 +51,7 @@ public class CollectCommand extends CommandBase {
   public void end(boolean interrupted) {
     if (!interrupted) {
       collectorSubsystem.stopIntake();
-      collectorSubsystem.setState(CollectorSubsystem.CollectorState.UNDEPLOYED);
+      collectorSubsystem.undeploy();
       new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowParty, 3).schedule();
     }
   }

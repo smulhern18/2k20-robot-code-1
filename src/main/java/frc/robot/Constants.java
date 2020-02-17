@@ -7,15 +7,15 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.I2C.Port;
-import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.util.Color;
 
 /**
@@ -33,6 +33,13 @@ public final class Constants {
   public final static double MAX_BATTERY_VOLTAGE = 12.0;
   public final static double LOOP_TIME_S = .2;
 
+  public final static class InputConstants {
+    public final static int LEFT_JOYSTICK_CHANNEL = 0;
+    public final static int RIGHT_JOYSTICK_CHANNEL = 1;
+    public final static int BUTTON_BOX_LEFT_CHANNEL = 2;
+    public final static int BUTTON_BOX_RIGHT_CHANNEL = 3;
+  }
+
   public final static class SubsystemConstants {
     public final static String DEBUG_TAB_NAME = "DEBUG";
     public final static String DRIVER_TAB_NAME = "DRIVER";
@@ -44,28 +51,25 @@ public final class Constants {
    * Constants for the drivetrain subsystem
    */
   public final static class DrivetrainConstants {
-    public final static int LEFT_JOYSTICK_CHANNEL = 0;
-    public final static int RIGHT_JOYSTICK_CHANNEL = 1;
-
     public final static int LEFT_LEADER_CHANNEL = 1;
     public final static int LEFT_FOLLOWER_CHANNEL = 2;
     public final static int RIGHT_LEADER_CHANNEL = 3;
     public final static int RIGHT_FOLLOWER_CHANNEL = 4;
 
     // Many of these values found with the frc-characterization tool
-    public final static double S_VOLTS = 1.34;
-    public final static double V_VOLT_SECONDS_PER_METER = 3.13;
-    public final static double A_VOLT_SECONDS_SQUARED_PER_METER = 0.926;
+    public final static double S_VOLTS = 1.67;
+    public final static double V_VOLT_SECONDS_PER_METER = 2.79;
+    public final static double A_VOLT_SECONDS_SQUARED_PER_METER = 0.106;
     public final static SimpleMotorFeedforward DRIVE_FEED_FORWARD = new SimpleMotorFeedforward(
         DrivetrainConstants.S_VOLTS, DrivetrainConstants.V_VOLT_SECONDS_PER_METER,
         DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER);
 
-    public final static double P = 4;
+    public final static double P = .15;
     public final static double I = 0;
     public final static double D = 0;
     public final static double F = 0;
 
-    public final static double TRACKWIDTH_METERS = 0.6889; // horizontal distance between wheels
+    public final static double TRACKWIDTH_METERS = 0.781987; // horizontal distance between wheels
     public final static DifferentialDriveKinematics DRIVE_KINEMATICS = new DifferentialDriveKinematics(
         TRACKWIDTH_METERS);
     public final static double WHEEL_DIAMETER_METERS = 0.1524;
@@ -98,13 +102,13 @@ public final class Constants {
    * Constants for the shooter subsystem
    */
   public static class ShooterConstants {
-    public final static int LEADER_CHANNEL = 0;// TODO: configure
-    public final static int FOLLOWER_CHANNEL = 1;// TODO: configure
+    public final static int LEADER_CHANNEL = 5;
+    public final static int FOLLOWER_CHANNEL = 6;
 
-    public final static double P = 0;
+    public final static double P = 1;
     public final static double I = 0;
     public final static double D = 0;
-    public final static double F = 1.0;
+    public final static double F = 6;
 
     public final static int PID_LOOPTYPE = 0;
     public final static int SLOT_ID = 0;
@@ -113,19 +117,15 @@ public final class Constants {
     public final static double COUNTS_PER_REVOLUTION = 12;
     public final static double WHEEL_DIAMETER = 4;
     public final static double MOTOR_TO_WHEEL = 1.23;
-    public final static double ROTATIONS_PER_COUNT = (1 / COUNTS_PER_REVOLUTION) * MOTOR_TO_WHEEL;
     public final static double RPM_THRESHOLD = 100;
 
+    public final static double DEFAULT_RPM = 7200;
+
     public final static String VELOCITY_ENTRY = "Shooter Velocity";
-    public final static String TARGET_ENTRY = "Shooter Target RPM";
-    public final static String CONFIG_P_ENTRY = "Config P";
-    public final static String CONFIG_I_ENTRY = "Config I";
-    public final static String CONFIG_D_ENTRY = "Config D";
-    public final static String CONFIG_F_ENTRY = "Config F";
   }
 
   public static class VisionConstants {
-    public final static int LED_PORT = 3;
+    public final static int LED_PORT = 0;
     public final static boolean LED_ON = true;
     public final static boolean LED_OFF = false;
     public final static String DEFAULT_JSON = "{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}";
@@ -161,7 +161,6 @@ public final class Constants {
     public final static double POT_MIN = 0;
     public final static double POT_MAX = 2048; // TODO: configure
     public final static double MAX_ROTATION_DEGREES = 270.0;
-    public final static double MAX_POT_ROTATIONS = 10;
 
     public final static double ERROR_TOLERANCE = 0.50;// set to real value
   }
@@ -200,16 +199,16 @@ public final class Constants {
   }
 
   public final static class BallPathConstants {
-    public final static int KICKER_MOTOR_CHANNEL = 7;// TODO: configure
+    public final static int GOOSENECK_CHANNEL = 9;//TODO: configure
     public final static int INDEXER_MOTOR_CHANNEL = 8;// TODO: configure
     public final static int FIRST_STAGE_MOTOR_CHANNEL = 9;// TODO: configure
     public final static String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
     public final static int BELT_BANNER_SENSOR_PORT = 2;
-    public final static int INDEXER1_BANNER_PORT = 3;// TODO: configure
-    public final static int INDEXER2_BANNER_PORT = 4;// TODO: configure
-    public final static int INDEXER3_BANNER_PORT = 5;// TODO: configure
-    public final static int INDEXER4_BANNER_PORT = 6;// TODO: configure
-    public final static int INDEXER5_BANNER_PORT = 7;// TODO: configure
+    public final static int FIRST_CELL_BANNER_PORT = 3;// TODO: configure
+    public final static int SECOND_CELL_BANNER_PORT = 4;// TODO: configure
+    public final static int THIRD_CELL_BANNER_PORT = 5;// TODO: configure
+    public final static int FOURTH_CELL_BANNER_PORT = 6;// TODO: configure
+    public final static int FIFTH_CELL_BANNER_PORT = 7;// TODO: configure
   }
 
   public final static class ColorWheelConstants {
@@ -218,7 +217,8 @@ public final class Constants {
     public final static Color GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
     public final static Color RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
     public final static Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
-    public final static double CONFIDENCE_LIMIT = 0.5;
+    public final static double CONFIDENCE_THRESHOLD = 0.5;
+    public final static String UNKNOWN = "UNKNOWN";
   }
 
 

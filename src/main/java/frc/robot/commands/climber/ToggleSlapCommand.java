@@ -23,9 +23,10 @@ public class ToggleSlapCommand extends InstantCommand {
    */
   @Override
   public void initialize() {
-    if (climberSubsystem.getState() == ClimberSubsystem.ClimbState.SLAPPED)
+    if (climberSubsystem.isSlapped()) {
       climberSubsystem.unslap();
-    else
+    } else {
       climberSubsystem.slap();
+    }
   }
 }

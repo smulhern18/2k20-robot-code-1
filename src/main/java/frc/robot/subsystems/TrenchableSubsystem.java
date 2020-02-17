@@ -45,7 +45,7 @@ public class TrenchableSubsystem extends BeefSubsystemBase {
   /**
    * Enum for the two possible states
    */
-  public static enum TrenchableState {
+  public enum TrenchableState {
     TRENCHABLE,
     UNTRENCHABLE
   }

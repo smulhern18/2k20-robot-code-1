@@ -12,9 +12,6 @@ import frc.robot.Constants.TurretConstants;
 public class TurretSubsystem extends BeefSubsystemBase {
 
   private WPI_TalonSRX turretMotor;
-  private double potValue;
-  private double targetPosition;
-  private double actualPosition;
 
   public TurretSubsystem() {
 
@@ -30,57 +27,54 @@ public class TurretSubsystem extends BeefSubsystemBase {
     turretMotor.config_kD(TurretConstants.SLOT_ID, TurretConstants.D);
     turretMotor.config_kF(TurretConstants.SLOT_ID, TurretConstants.F);
 
-    createDoubleEntry(TurretConstants.POT_ENTRY, 7, 0, 1, 1, () -> potValue);
-    createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, () -> actualPosition);
+    createDoubleEntry(TurretConstants.POT_ENTRY, 7, 0, 1, 1, this::getCurrentPotPosition);
+    createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, this::getCurrentPositionDegrees);
   }
 
-  /**
-   * Set target position for turret. Does validity check in this function.
-   *
-   * @param targetPosition radians from vision. This is a change in radians, not an absolute position
-   */
-  public void setTargetPosition(double targetPosition) {
-    double tmpTarget = actualPosition + (Units.radiansToDegrees(targetPosition) + TurretConstants.MAX_ROTATION_DEGREES / 2.0);
-    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES)
-      this.targetPosition = tmpTarget;
-    // cannot turn turret that far else
-  }
-
-  public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {
-    double tmpTarget = -currentDrivetrainHeadingDegrees;
-    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES)
-      this.targetPosition = tmpTarget;
-  }
-
-  private double convertTargetToPot(double heading) {
+  private static double convertDegreesToPot(double heading) {
     // convert radians (negative left, positive right) to percent of 270 turn needed
     // 270 / 2 is center
     double percent = (Units.radiansToDegrees(heading) + (TurretConstants.MAX_ROTATION_DEGREES / 2.0)) / TurretConstants.MAX_ROTATION_DEGREES;
     return percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN;
   }
 
-  private double convertPotToDegrees(double potValue) {
+  private static double convertPotToDegrees(double potValue) {
     double percent = (potValue - TurretConstants.POT_MIN) / (TurretConstants.POT_MAX - TurretConstants.POT_MIN);
     return percent * TurretConstants.MAX_ROTATION_DEGREES;
   }
 
-  @Override
-  public void periodic() {
-    potValue = turretMotor.getSelectedSensorPosition();
-    actualPosition = convertPotToDegrees(potValue);
+  public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {
+    double tmpTarget = -currentDrivetrainHeadingDegrees;
+    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
+      rotateToPosition(tmpTarget);
+    } else {
+      rotateToPosition(getCurrentPositionDegrees());
+    }
   }
 
-  public void rotateToTarget() {
-    rotateToPosition(targetPosition);
+  @Override
+  public void periodic() {
   }
 
   public void rotateToPosition(double targetPosition) {
-    turretMotor.set(ControlMode.Position, convertTargetToPot(targetPosition));
+    turretMotor.set(ControlMode.Position, convertDegreesToPot(targetPosition));
   }
 
-  public boolean inPosition() {
-    double thisError = targetPosition - actualPosition;
+  public boolean inPosition(double targetPosition) {
+    double thisError = targetPosition - getCurrentPositionDegrees();
     return Math.abs(thisError) <= TurretConstants.ERROR_TOLERANCE;
+  }
+
+  public double getCurrentPotPosition() {
+    return turretMotor.getSelectedSensorPosition();
+  }
+
+  public double getCurrentPositionDegrees() {
+    return convertPotToDegrees(turretMotor.getSelectedSensorPosition());
+  }
+
+  public void manualRotateTurret(double speed) { // for manual control of turret
+    turretMotor.set(ControlMode.PercentOutput, speed);
   }
 
   public void setDirection(TurretDirection direction) {
@@ -92,8 +86,9 @@ public class TurretSubsystem extends BeefSubsystemBase {
   }
 
   public enum TurretDirection {
+    //TODO: cut button for turret manuals
     LEFT(1),
-    RIGHT(1);
+    RIGHT(-1);
     private double value;
 
     TurretDirection(int value) {
