@@ -15,8 +15,10 @@ import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class RotationalCommand extends CommandBase {
   String prevColor;
-  int quarterRotations, rotations;
+  int colorChanges, rotations;
   ColorWheelSubsystem colorWheelSubsystem;
+  final int COLOR_CHANGES_PER_ROTATION = 8;
+  final int ROTATIONS_PER_STAGE = 4;
 
   /**
    * Creates a new RotationalCommand.
@@ -29,7 +31,7 @@ public class RotationalCommand extends CommandBase {
   @Override
   public void initialize() {
     prevColor = "null";
-    quarterRotations = 0;
+    colorChanges = 0;
     rotations = 0;
 
     SmartDashboard.putBoolean("Rotation", false);
@@ -37,8 +39,8 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public void execute() {
-    if(quarterRotations == 4) {
-      quarterRotations = 0;
+    if(colorChanges == COLOR_CHANGES_PER_ROTATION) {
+      colorChanges = 0;
       rotations++;
     }
     detectColorChange();
@@ -52,13 +54,14 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return rotations == 4; // limit when motor should stop
+    return rotations == ROTATIONS_PER_STAGE; // limit when motor should stop
   }
 
   public void detectColorChange() {
-    if(! prevColor.equals(colorWheelSubsystem.colorString) && 
-                          colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_LIMIT) {
-      quarterRotations++;
+    
+    if((! prevColor.equals(colorWheelSubsystem.colorString)) && 
+                          (colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_LIMIT)) {
+      colorChanges++;
     }
   }
 }
