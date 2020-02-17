@@ -71,11 +71,7 @@ public class RobotContainer {
 //    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
-<<<<<<< HEAD
       colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
-=======
-    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
->>>>>>> e9b387251901293e826045a480c730aa7f8de7b6
   }
 
   /**
