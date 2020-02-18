@@ -30,25 +30,32 @@ public class RotationalCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    previousColor = "null";
+    previousColor = ColorWheelConstants.UNKNOWN;
     colorChanges = 0;
     rotations = 0;
 
-    SmartDashboard.putBoolean("Rotation", false);
+    SmartDashboard.putString("hello", "nothing");
+    SmartDashboard.putNumber("num", 0);
   }
 
   @Override
   public void execute() {
     currentColor = colorWheelSubsystem.detectColor();
-    if (!previousColor.equals(currentColor)) {
+    if (!previousColor.equals(currentColor) && (currentColor != ColorWheelConstants.UNKNOWN)) {
       colorChanges++;
+      previousColor = currentColor;
+      SmartDashboard.putString("hello", currentColor);
+      SmartDashboard.putNumber("num", colorChanges);
+    }else{
+      SmartDashboard.putString("hello", "nothing");
+      SmartDashboard.putNumber("num", colorChanges);
     }
     rotations = colorChanges / COLOR_CHANGES_PER_ROTATION;
   }
 
   @Override
   public void end(boolean interrupted) {
-    SmartDashboard.putBoolean("Rotation", true);
+    SmartDashboard.putString("hello", "nothing");
     //TODO: stop spinning motor
   }
 

@@ -53,9 +53,9 @@ public class RobotContainer {
   public ShooterSubsystem shooterSubsystem;// = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
-  public VisionSubsystem visionSubsystem = new VisionSubsystem();
-  private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
-  private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
+  public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
+  private ButtonBoxLeft buttonBoxLeft;// = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
+  private ButtonBoxRight buttonBoxRight;// = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
 
   private Color color = Color.CORRUPT;
@@ -133,7 +133,7 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
+    //visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
   //  drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
