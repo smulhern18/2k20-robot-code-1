@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
@@ -21,6 +22,7 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
   private ColorMatchResult match;
   public String colorString;
   public double confidence;
+  private WPI_TalonSRX colorWheelMotor;
 
   /**
    * Creates a new ColorWheelSubsystem.
@@ -34,6 +36,9 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
     colorMatcher.addColorMatch(ColorWheelConstants.GREEN_TARGET);
     colorMatcher.addColorMatch(ColorWheelConstants.RED_TARGET);
     colorMatcher.addColorMatch(ColorWheelConstants.YELLOW_TARGET);
+
+    colorWheelMotor = new WPI_TalonSRX(ColorWheelConstants.COLOR_WHEEL_MOTOR_CHANNEL);
+
     createStringEntry("Detected Color", 4, 2, 1, 1, () -> colorString);
     createDoubleEntry("Color Confidence", 4, 3, 1, 1, () -> confidence);
   }
@@ -59,6 +64,14 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
       return colorString;
     }
     return ColorWheelConstants.UNKNOWN;
+  }
+
+  public void rotateWheel(){
+    colorWheelMotor.set(1);
+  }
+
+  public void stopWheel() {
+    colorWheelMotor.set(0);
   }
 
 }

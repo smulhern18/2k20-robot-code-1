@@ -17,8 +17,7 @@ public class RotationalCommand extends CommandBase {
   String previousColor, currentColor;
   int colorChanges, rotations;
   ColorWheelSubsystem colorWheelSubsystem;
-  final int COLOR_CHANGES_PER_ROTATION = 8;
-  final int ROTATIONS_PER_STAGE = 4;
+
 
   /**
    * Creates a new RotationalCommand.
@@ -34,8 +33,6 @@ public class RotationalCommand extends CommandBase {
     colorChanges = 0;
     rotations = 0;
 
-    SmartDashboard.putString("hello", "nothing");
-    SmartDashboard.putNumber("num", 0);
   }
 
   @Override
@@ -44,24 +41,19 @@ public class RotationalCommand extends CommandBase {
     if (!previousColor.equals(currentColor) && (currentColor != ColorWheelConstants.UNKNOWN)) {
       colorChanges++;
       previousColor = currentColor;
-      SmartDashboard.putString("hello", currentColor);
-      SmartDashboard.putNumber("num", colorChanges);
-    }else{
-      SmartDashboard.putString("hello", "nothing");
-      SmartDashboard.putNumber("num", colorChanges);
     }
-    rotations = colorChanges / COLOR_CHANGES_PER_ROTATION;
+    rotations = colorChanges / ColorWheelConstants.COLOR_CHANGES_PER_ROTATION;
+    colorWheelSubsystem.rotateWheel();
   }
 
   @Override
   public void end(boolean interrupted) {
-    SmartDashboard.putString("hello", "nothing");
-    //TODO: stop spinning motor
+    colorWheelSubsystem.stopWheel();
   }
 
   @Override
   public boolean isFinished() {
-    return rotations == ROTATIONS_PER_STAGE; // limit when motor should stop
+    return rotations == ColorWheelConstants.ROTATIONS_PER_STAGE; // limit when motor should stop
   }
 
   public void detectColorChange() {
