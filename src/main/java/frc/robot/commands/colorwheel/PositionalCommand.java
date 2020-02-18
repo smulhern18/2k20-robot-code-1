@@ -12,16 +12,16 @@ public class PositionalCommand extends CommandBase {
 	ColorWheelSubsystem colorWheelSubsystem;
 	RobotContainer robotContainer;
 
-	public PositionalCommand(RobotContainer robotContainer) {
+	public PositionalCommand(RobotContainer robotContainer, Color goalColor) {
 		this.colorWheelSubsystem = robotContainer.colorWheelSubsystem;
 		this.robotContainer = robotContainer;
+		this.goalColor = goalColor;
 		addRequirements(colorWheelSubsystem);
 	}
 
 	@Override
 	public void initialize(){
 		currentColor = ColorWheelConstants.UNKNOWN;
-		goalColor = robotContainer.readColor();
 	}
 
 	@Override

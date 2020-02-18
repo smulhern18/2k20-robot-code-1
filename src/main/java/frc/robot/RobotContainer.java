@@ -20,6 +20,7 @@ import frc.robot.commands.climber.RetractClimbCommand;
 import frc.robot.commands.climber.ToggleSlapCommand;
 import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
+import frc.robot.commands.colorwheel.PositionalCommand;
 import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.ManualShootCommand;
@@ -34,6 +35,7 @@ import frc.robot.input.ButtonBoxRight;
 import frc.robot.models.AutoChooser;
 import frc.robot.models.Color;
 import frc.robot.subsystems.*;
+import javafx.geometry.Pos;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -123,6 +125,7 @@ public class RobotContainer {
     // do color wheel rotation control
     buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
     // do color wheel position control
+    buttonBoxRight.positionControl.whenPressed(new PositionalCommand(this, readColor()));
 //    buttonBoxRight.positionControl.whe //TODO: write the command
     //TODO: manual spin
 
