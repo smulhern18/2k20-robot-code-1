@@ -35,7 +35,6 @@ import frc.robot.input.ButtonBoxRight;
 import frc.robot.models.AutoChooser;
 import frc.robot.models.Color;
 import frc.robot.subsystems.*;
-import javafx.geometry.Pos;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
