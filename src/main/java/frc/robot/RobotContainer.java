@@ -50,11 +50,11 @@ public class RobotContainer {
   public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
   public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
   public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
-  public DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+  public DrivetrainSubsystem drivetrainSubsystem;// = new DrivetrainSubsystem();
   public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
-  public VisionSubsystem visionSubsystem = new VisionSubsystem();
+  public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
   private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
   private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
@@ -134,10 +134,10 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
+//    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
     shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 4000));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
-    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
+//    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
   }
