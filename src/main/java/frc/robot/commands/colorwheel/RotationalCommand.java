@@ -19,7 +19,6 @@ public class RotationalCommand extends CommandBase {
   int colorChanges, rotations;
   ColorWheelSubsystem colorWheelSubsystem;
 
-
   /**
    * Creates a new RotationalCommand.
    */
@@ -47,19 +46,12 @@ public class RotationalCommand extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted) {
-    colorWheelSubsystem.stopWheel();
+  public boolean isFinished() {
+    return rotations == ColorWheelConstants.ROTATIONS_PER_STAGE;
   }
 
   @Override
-  public boolean isFinished() {
-    return rotations == ColorWheelConstants.ROTATIONS_PER_STAGE; // limit when motor should stop
-  }
-
-  public void detectColorChange() {
-    if((! previousColor.equals(colorWheelSubsystem.colorString)) && 
-                          (colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_THRESHOLD)) {
-      colorChanges++;
-    }
+  public void end(boolean interrupted) {
+    colorWheelSubsystem.stopWheel();
   }
 }
