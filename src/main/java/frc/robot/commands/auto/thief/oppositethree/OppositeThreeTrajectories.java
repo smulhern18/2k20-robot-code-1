@@ -18,12 +18,12 @@ public final class OppositeThreeTrajectories extends Trajectories {
           new Pose2d(9.248, -3.581, new Rotation2d(Units.degreesToRadians(0.00))),
           SHOOT_START
       ),
-      FORWARD_CONFIG);
+      BACKWARD_CONFIG);
 
   public static final Trajectory OPPOSITE_THREE_SHOOT = TrajectoryGenerator.generateTrajectory(
       List.of(
           SHOOT_START,
           new Pose2d(6.000, -2.416, new Rotation2d(Units.degreesToRadians(0.00)))
       ),
-      BACKWARD_CONFIG);
+      FORWARD_CONFIG);
 }

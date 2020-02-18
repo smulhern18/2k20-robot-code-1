@@ -16,5 +16,5 @@ public final class ThreeCellTrajectories extends Trajectories {
           new Pose2d(5.773, -3.816, new Rotation2d(Units.degreesToRadians(-67.73))),
           new Pose2d(6.058, -4.558, new Rotation2d(Units.degreesToRadians(-67.73)))
       ),
-      FORWARD_CONFIG);
+      BACKWARD_CONFIG);
 }

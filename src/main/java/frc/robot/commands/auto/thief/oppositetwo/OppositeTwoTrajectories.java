@@ -17,12 +17,12 @@ public final class OppositeTwoTrajectories extends Trajectories {
           new Pose2d(6.082, -6.425, new Rotation2d(Units.degreesToRadians(19.60))),
           SHOOT_START
       ),
-      FORWARD_CONFIG);
+      BACKWARD_CONFIG);
 
   public static final Trajectory OPPOSITE_TWO_SHOOT = TrajectoryGenerator.generateTrajectory(
       List.of(
           SHOOT_START,
           new Pose2d(5.971, -5.263, new Rotation2d(Units.degreesToRadians(0.00)))
       ),
-      BACKWARD_CONFIG);
+      FORWARD_CONFIG);
 }

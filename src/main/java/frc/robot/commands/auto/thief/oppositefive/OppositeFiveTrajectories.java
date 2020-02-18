@@ -25,6 +25,6 @@ public final class OppositeFiveTrajectories extends Trajectories {
           STEAL_END,
           new Pose2d(4.847, -3.033, new Rotation2d(0))
       ),
-      FORWARD_CONFIG
+      BACKWARD_CONFIG
   );
 }
