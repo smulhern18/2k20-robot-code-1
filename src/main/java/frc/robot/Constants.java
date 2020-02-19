@@ -217,9 +217,14 @@ public final class Constants {
     public final static Color GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
     public final static Color RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
     public final static Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
-    public final static double CONFIDENCE_THRESHOLD = 0.5;
+    public final static double CONFIDENCE_THRESHOLD = 0.90;
     public final static String UNKNOWN = "UNKNOWN";
+    public final static int COLOR_CHANGES_PER_ROTATION = 8;
+    public final static int ROTATIONS_PER_STAGE = 4;
+
+    public final static int COLOR_WHEEL_MOTOR_CHANNEL = 10;//TODO: Configure
   }
+
 
 
 }
