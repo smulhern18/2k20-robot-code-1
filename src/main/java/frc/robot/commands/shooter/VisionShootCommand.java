@@ -22,7 +22,7 @@ public class VisionShootCommand extends CommandBase {
   public void execute() {
     double targetRPM = shooterSubsystem.inchesToRPM(visionSubsystem.getDistanceToTarget());
     shooterSubsystem.shoot(targetRPM);
-    if(shooterSubsystem.atTargetRPM(targetRPM)){
+    if (shooterSubsystem.atTargetRPM(targetRPM)) {
       ballPathSubsystem.runAll();
     } else {
       ballPathSubsystem.stopAll();
@@ -35,7 +35,7 @@ public class VisionShootCommand extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted){
+  public void end(boolean interrupted) {
     shooterSubsystem.stop();
-  } 
+  }
 }
