@@ -38,6 +38,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         ShooterConstants.I,
         ShooterConstants.D,
         ShooterConstants.F);
+    pair.setInverted(true);
 
 
     setCoast();
