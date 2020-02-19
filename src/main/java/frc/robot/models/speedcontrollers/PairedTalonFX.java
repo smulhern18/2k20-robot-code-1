@@ -12,16 +12,14 @@ import frc.robot.Constants.DrivetrainConstants;
 public class PairedTalonFX extends WPI_TalonFX {
 
   private final WPI_TalonFX follower;
-  int direction;
 
   /**
    * Creates two Talons, one following the other
    *
    * @param leaderDeviceNumber   CAN id of lead device
    * @param followerDeviceNumber CAN id of follower device
-   * @param invertEncoder        whether encoder is inverted
    */
-  public PairedTalonFX(int leaderDeviceNumber, int followerDeviceNumber, boolean invertEncoder) {
+  public PairedTalonFX(int leaderDeviceNumber, int followerDeviceNumber) {
     super(leaderDeviceNumber);
     configFactoryDefault();
 
@@ -40,7 +38,6 @@ public class PairedTalonFX extends WPI_TalonFX {
         DrivetrainConstants.D,
         DrivetrainConstants.F
     );
-    direction = invertEncoder ? -1 : 1;
   }
 
   /**
@@ -75,7 +72,7 @@ public class PairedTalonFX extends WPI_TalonFX {
    * @return the distance in meters
    */
   public double getDistanceMeters() {
-    return direction * getSelectedSensorPosition() * DrivetrainConstants.METERS_PER_COUNT;
+    return getSelectedSensorPosition() * DrivetrainConstants.METERS_PER_COUNT;
   }
 
   /**
@@ -84,7 +81,7 @@ public class PairedTalonFX extends WPI_TalonFX {
    * @return velocity
    */
   public double getVelocityMetersPerSecond() {
-    return direction * getSelectedSensorVelocity() * DrivetrainConstants.METERS_PER_COUNT * 10;
+    return getSelectedSensorVelocity() * DrivetrainConstants.METERS_PER_COUNT * 10;
   }
 
 

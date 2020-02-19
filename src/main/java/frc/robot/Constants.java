@@ -51,10 +51,10 @@ public final class Constants {
    * Constants for the drivetrain subsystem
    */
   public final static class DrivetrainConstants {
-    public final static int LEFT_LEADER_CHANNEL = 1;
-    public final static int LEFT_FOLLOWER_CHANNEL = 2;
-    public final static int RIGHT_LEADER_CHANNEL = 3;
-    public final static int RIGHT_FOLLOWER_CHANNEL = 4;
+    public final static int LEFT_LEADER_CHANNEL = 3;
+    public final static int LEFT_FOLLOWER_CHANNEL = 4;
+    public final static int RIGHT_LEADER_CHANNEL = 1;
+    public final static int RIGHT_FOLLOWER_CHANNEL = 2;
 
     // Many of these values found with the frc-characterization tool
     public final static double S_VOLTS = 1.67;
