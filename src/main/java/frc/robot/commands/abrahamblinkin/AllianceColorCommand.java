@@ -27,9 +27,7 @@ public class AllianceColorCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    if (alliance != null) {
-      setColor();
-    }
+    setColor();
   }
 
   /**
@@ -40,8 +38,8 @@ public class AllianceColorCommand extends CommandBase {
     Alliance newAlliance = DriverStation.getInstance().getAlliance();
     if (newAlliance != alliance) {
       alliance = newAlliance;
-      setColor();
     }
+    setColor();
   }
 
   /**
@@ -51,7 +49,7 @@ public class AllianceColorCommand extends CommandBase {
     if (alliance == Alliance.Blue) {
       abrahamBlinkinSubsystem.changeHat(Hat.BPMOcean);
     } else if (alliance == Alliance.Red) {
-      abrahamBlinkinSubsystem.changeHat(Hat.BPMLava);
+      abrahamBlinkinSubsystem.changeHat(Hat.LightChaseRed);
     } else {
       abrahamBlinkinSubsystem.changeHat(Hat.RainbowForest);
     }

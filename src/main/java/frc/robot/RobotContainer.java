@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.abrahamblinkin.AllianceColorCommand;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.ballpath.DefaultShiftCellCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
@@ -45,7 +46,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   public AttackThree leftStick = new AttackThree(Constants.InputConstants.LEFT_JOYSTICK_CHANNEL);
   public AttackThree rightStick = new AttackThree(Constants.InputConstants.RIGHT_JOYSTICK_CHANNEL);
-  public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;// = new AbrahamBlinkinSubsystem();
+  public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
   public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
   public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
   public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
@@ -55,8 +56,8 @@ public class RobotContainer {
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
   public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
-  private ButtonBoxLeft buttonBoxLeft;// = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
-  private ButtonBoxRight buttonBoxRight;// = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
+  private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
+  private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
 
   private Color color = Color.CORRUPT;
@@ -135,11 +136,12 @@ public class RobotContainer {
    * For instance, by doing it this way, the Drive subsystem does not know about the joysticks.
    */
   private void setDefaultCommands() {
-    //visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
+//    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
+//    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 4000));
+//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+//    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
-  //  drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-//    shooterSubsystem.setDefaultCommand(new ShooterShuffleBoardCommand(this)); //TODO: remove after tuned
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
 //      colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));

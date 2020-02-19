@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.VisionConstants;
 import org.json.simple.JSONObject;
@@ -45,10 +46,10 @@ public class VisionSubsystem extends BeefSubsystemBase {
   /**
    * Sets ring light on or off
    *
-   * @param status LED_ON or LED_OFF
+   * @param value LED_ON or LED_OFF
    */
-  public void setLightRing(boolean status) {
-    lightRing.set(status);
+  public void setLightRing(boolean value) {
+    lightRing.set(value);
   }
 
   /**
