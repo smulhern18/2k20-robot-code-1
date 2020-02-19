@@ -11,12 +11,12 @@ import java.util.List;
 
 public class RendezvousTrajectories extends Trajectories {
   private final static Pose2d RENDEZVOUS_START = new Pose2d(0.00, 0.0, new Rotation2d(0.0));
-  private final static Pose2d BEAM_RIDE_GRAB_THREE_END = new Pose2d(2.477, 0.92, new Rotation2d(Units.degreesToRadians(111)));
+  private final static Pose2d BEAM_RIDE_GRAB_THREE_END = new Pose2d(-2.311, -1.141, new Rotation2d(Units.degreesToRadians(111)));
   public final static Trajectory BEAM_RIDE_GRAB_THREE = TrajectoryGenerator.generateTrajectory(
       List.of(
           RENDEZVOUS_START,
-          new Pose2d(1.500, -0.830, new Rotation2d(0)),
-          new Pose2d(2.810, -0.130, new Rotation2d(111)),
+          new Pose2d(-1.500, 0.830, new Rotation2d(0)),
+          new Pose2d(-2.810, 0.130, new Rotation2d(111)),
           BEAM_RIDE_GRAB_THREE_END
       ),
       BACKWARD_CONFIG
@@ -24,8 +24,8 @@ public class RendezvousTrajectories extends Trajectories {
   public final static Trajectory BEAM_RIDE_GRAB_TWO = TrajectoryGenerator.generateTrajectory(
       List.of(
           BEAM_RIDE_GRAB_THREE_END,
-          new Pose2d(2.810, -1.820, new Rotation2d(Units.degreesToRadians(114))),
-          new Pose2d(2.230, -3.400, new Rotation2d(Units.degreesToRadians(-71.55)))),
+          new Pose2d(-2.810, -1.820, new Rotation2d(Units.degreesToRadians(114))),
+          new Pose2d(-2.230, -3.400, new Rotation2d(Units.degreesToRadians(-71.55)))),
       BACKWARD_CONFIG
   );
 
