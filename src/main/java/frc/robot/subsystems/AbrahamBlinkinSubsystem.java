@@ -58,7 +58,6 @@ public class AbrahamBlinkinSubsystem extends BeefSubsystemBase {
     FireLarge(-0.57),
     TwinklesRainbow(-0.55),
     TwinklesParty(-0.53),
-    TwinklesOcean(-0.51),
     TwinklesLava(-0.49),
     TwinklesForest(-0.47),
     ColorWavesRainbow(-0.45),
