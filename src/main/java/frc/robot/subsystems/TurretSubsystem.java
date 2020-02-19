@@ -13,6 +13,9 @@ public class TurretSubsystem extends BeefSubsystemBase {
 
   private WPI_TalonSRX turretMotor;
 
+  /**
+   * Constructs a turret
+   */
   public TurretSubsystem() {
 
     turretMotor = new WPI_TalonSRX(TurretConstants.TURRET_MOTOR_CHANNEL);
@@ -31,6 +34,12 @@ public class TurretSubsystem extends BeefSubsystemBase {
     createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, this::getCurrentPositionDegrees);
   }
 
+  /**
+   * Converts pot units to degrees
+   *
+   * @param heading
+   * @return equivalent potentiometer values
+   */
   private static double convertDegreesToPot(double heading) {
     // convert radians (negative left, positive right) to percent of 270 turn needed
     // 270 / 2 is center
@@ -38,11 +47,22 @@ public class TurretSubsystem extends BeefSubsystemBase {
     return percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN;
   }
 
+  /**
+   * Converts pot units to degrees
+   *
+   * @param potValue
+   * @return equivalent degrees on the turret
+   */
   private static double convertPotToDegrees(double potValue) {
     double percent = (potValue - TurretConstants.POT_MIN) / (TurretConstants.POT_MAX - TurretConstants.POT_MIN);
     return percent * TurretConstants.MAX_ROTATION_DEGREES;
   }
 
+  /**
+   * Causes the Turret to follow the original orientation of the drive train (theoretically points in general position of power port)
+   *
+   * @param currentDrivetrainHeadingDegrees
+   */
   public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {
     double tmpTarget = -currentDrivetrainHeadingDegrees;
     if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
@@ -56,31 +76,65 @@ public class TurretSubsystem extends BeefSubsystemBase {
   public void periodic() {
   }
 
+  /**
+   * Rotates the turret to the target position
+   *
+   * @param targetPosition
+   */
   public void rotateToPosition(double targetPosition) {
     turretMotor.set(ControlMode.Position, convertDegreesToPot(targetPosition));
   }
 
+  /**
+   * Checks if the turret is in the correct position
+   *
+   * @param targetPosition
+   * @return if the turret is within threshold of the correct target position
+   */
   public boolean inPosition(double targetPosition) {
     double thisError = targetPosition - getCurrentPositionDegrees();
     return Math.abs(thisError) <= TurretConstants.ERROR_TOLERANCE;
   }
 
+  /**
+   * Gets the current position of the potentiometer
+   *
+   * @return the potentiometer value
+   */
   public double getCurrentPotPosition() {
     return turretMotor.getSelectedSensorPosition();
   }
 
+  /**
+   *Gets the current position of the potentiometer converted to degrees of the turret
+   *
+   * @return the position in degrees of the turret
+   */
   public double getCurrentPositionDegrees() {
     return convertPotToDegrees(turretMotor.getSelectedSensorPosition());
   }
 
+  /**
+   * Manually rotates the turret given a speed
+   *
+   * @param speed
+   */
   public void manualRotateTurret(double speed) { // for manual control of turret
     turretMotor.set(ControlMode.PercentOutput, speed);
   }
 
+  /**
+   * Sets the direction of the turret
+   *
+   * @param direction
+   */
   public void setDirection(TurretDirection direction) {
     turretMotor.set(direction.get());
   }
 
+  /**
+   * Stops movement of the turret
+   */
   public void setOff() {
     turretMotor.set(0);
   }
