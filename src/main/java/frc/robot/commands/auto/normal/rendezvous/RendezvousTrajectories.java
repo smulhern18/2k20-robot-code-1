@@ -10,7 +10,7 @@ import frc.robot.commands.auto.Trajectories;
 import java.util.List;
 
 public class RendezvousTrajectories extends Trajectories {
-  private final static Pose2d RENDEZVOUS_START = new Pose2d(3.50, -4.96, new Rotation2d(0.0));
+  private final static Pose2d RENDEZVOUS_START = new Pose2d(0.00, 0.0, new Rotation2d(0.0));
   private final static Pose2d BEAM_RIDE_GRAB_THREE_END = new Pose2d(2.477, 0.92, new Rotation2d(Units.degreesToRadians(111)));
   public final static Trajectory BEAM_RIDE_GRAB_THREE = TrajectoryGenerator.generateTrajectory(
       List.of(
