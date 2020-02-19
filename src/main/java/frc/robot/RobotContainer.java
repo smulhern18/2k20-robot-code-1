@@ -21,6 +21,7 @@ import frc.robot.commands.climber.RetractClimbCommand;
 import frc.robot.commands.climber.ToggleSlapCommand;
 import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
+import frc.robot.commands.colorwheel.PositionalCommand;
 import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.ManualShootCommand;
@@ -50,8 +51,8 @@ public class RobotContainer {
   public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
   public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
   public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
-  public DrivetrainSubsystem drivetrainSubsystem;// = new DrivetrainSubsystem();
-  public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+  public DrivetrainSubsystem drivetrainSubsystem; //= new DrivetrainSubsystem();
+  public ShooterSubsystem shooterSubsystem;// = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
   public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
@@ -124,6 +125,7 @@ public class RobotContainer {
     // do color wheel rotation control
     buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
     // do color wheel position control
+    buttonBoxRight.positionControl.whenPressed(new PositionalCommand(this, readColor()));
 //    buttonBoxRight.positionControl.whe //TODO: write the command
     //TODO: manual spin
 
@@ -135,11 +137,14 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
 //    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 4000));
+//    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 4000));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
 //    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
-    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
+//    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
+//    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
+//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
+//      colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
   }
 
   /**

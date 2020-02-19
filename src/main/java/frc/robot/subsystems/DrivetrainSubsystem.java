@@ -31,14 +31,12 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    */
   public DrivetrainSubsystem() {
 
-    leftPair = new PairedTalonFX(
-        DrivetrainConstants.LEFT_LEADER_CHANNEL,
-        DrivetrainConstants.LEFT_FOLLOWER_CHANNEL,
-        true);
     rightPair = new PairedTalonFX(
         DrivetrainConstants.RIGHT_LEADER_CHANNEL,
-        DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL,
-        true);
+        DrivetrainConstants.RIGHT_FOLLOWER_CHANNEL);
+    leftPair = new PairedTalonFX(
+        DrivetrainConstants.LEFT_LEADER_CHANNEL,
+        DrivetrainConstants.LEFT_FOLLOWER_CHANNEL);
 
     navx = new AHRS(Port.kMXP);
 
@@ -94,23 +92,20 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    * @param rightVelocity right velocity
    */
   public void tankDriveVelocity(double leftVelocity, double rightVelocity) {
-    double reversedLeftVelocity = -leftVelocity;
-    double reversedRightVelocity = -rightVelocity;
-
     double leftTargetAcceleration = (leftVelocity + leftPair.getVelocityMetersPerSecond()) / (Constants.LOOP_TIME_S);
     double rightTargetAcceleration = (rightVelocity + rightPair.getVelocityMetersPerSecond()) / (Constants.LOOP_TIME_S);
 
-    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(reversedLeftVelocity, leftTargetAcceleration);
-    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(reversedRightVelocity, rightTargetAcceleration);
+    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftTargetAcceleration);
+    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightTargetAcceleration);
 
     leftPair.set(
         ControlMode.Velocity,
-        metersPerSecondToCountsPerDeciSec(reversedLeftVelocity),
+        metersPerSecondToCountsPerDeciSec(leftVelocity),
         DemandType.ArbitraryFeedForward,
         leftFeedForwardVolts / Constants.MAX_BATTERY_VOLTAGE);
     rightPair.set(
         ControlMode.Velocity,
-        metersPerSecondToCountsPerDeciSec(reversedRightVelocity),
+        metersPerSecondToCountsPerDeciSec(rightVelocity),
         DemandType.ArbitraryFeedForward,
         rightFeedForwardVolts / Constants.MAX_BATTERY_VOLTAGE);
   }
