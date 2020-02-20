@@ -7,37 +7,52 @@ import frc.robot.models.Color;
 import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class PositionalCommand extends CommandBase {
-	String currentColor;
-	Color goalColor;
-	ColorWheelSubsystem colorWheelSubsystem;
-	RobotContainer robotContainer;
+  private String currentColor;
+  private ColorWheelSubsystem colorWheelSubsystem;
 
-	public PositionalCommand(RobotContainer robotContainer, Color goalColor) {
-		this.colorWheelSubsystem = robotContainer.colorWheelSubsystem;
-		this.robotContainer = robotContainer;
-		this.goalColor = goalColor;
-		addRequirements(colorWheelSubsystem);
-	}
+  /**
+   * Creates a new PositionalCommand
+   * @param robotContainer
+   */
+  public PositionalCommand(RobotContainer robotContainer) {
+    this.colorWheelSubsystem = robotContainer.colorWheelSubsystem;
+    addRequirements(colorWheelSubsystem);
+  }
 
-	@Override
-	public void initialize(){
-		currentColor = ColorWheelConstants.UNKNOWN;
-	}
+  /**
+   * Starts the current color at unknown
+   */
+  @Override
+  public void initialize() {
+    currentColor = ColorWheelConstants.UNKNOWN;
+  }
 
-	@Override
-	public void execute(){
-		currentColor = colorWheelSubsystem.detectColor();
-		colorWheelSubsystem.rotateWheel();
-	}
+  /**
+   * Updates the current Color and rotates the wheel
+   */
+  @Override
+  public void execute() {
+    currentColor = colorWheelSubsystem.detectColor();
+    colorWheelSubsystem.rotateWheel();
+  }
 
-	@Override
-	public boolean isFinished(){
-		return goalColor.value.equals("red") && currentColor.equals("blue") || goalColor.value.equals("blue") && currentColor.equals("red") ||
-				goalColor.value.equals("yellow") && currentColor.equals("green") || goalColor.value.equals("green") && currentColor.equals("yellow"); // based on compliment
-	}
+  /**
+   * Stops rotating when the complement of the current color is the goal color
+   * @return complement of the current color is equal to the goal color
+   */
+  @Override
+  public boolean isFinished() {
+    Color goalColor = RobotContainer.readColor();
+    return goalColor.value.equals("red") && currentColor.equals("blue") || goalColor.value.equals("blue") && currentColor.equals("red") ||
+        goalColor.value.equals("yellow") && currentColor.equals("green") || goalColor.value.equals("green") && currentColor.equals("yellow"); // based on compliment
+  }
 
-	@Override
-	public void end(boolean interrupted){
-		colorWheelSubsystem.stopWheel();
-	}
+  /**
+   * At the end the colorWheelSubsystem stops
+   * @param interrupted
+   */
+  @Override
+  public void end(boolean interrupted) {
+    colorWheelSubsystem.stopWheel();
+  }
 }

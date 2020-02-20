@@ -10,10 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.abrahamblinkin.AllianceColorCommand;
 import frc.robot.commands.auto.test.TestAutoCommand;
-import frc.robot.commands.ballpath.DefaultShiftCellCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
 import frc.robot.commands.climber.ExtendClimbCommand;
@@ -23,13 +20,11 @@ import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.colorwheel.PositionalCommand;
 import frc.robot.commands.colorwheel.RotationalCommand;
-import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.ManualShootCommand;
 import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
-import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.input.ButtonBoxLeft;
 import frc.robot.input.ButtonBoxRight;
@@ -60,8 +55,6 @@ public class RobotContainer {
   private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
 
-  private Color color = Color.CORRUPT;
-
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -72,6 +65,18 @@ public class RobotContainer {
     setDefaultCommands();
     // TODO: uncomment when subsystems exist
 //    autoChooser = new AutoChooser(this);
+  }
+
+  /**
+   * Gets the color from the DS
+   */
+  public static Color readColor() {
+    String gameData = DriverStation.getInstance().getGameSpecificMessage();
+    Color color = Color.CORRUPT;
+    if (gameData.length() > 0) {
+      color = Color.getColor(gameData.charAt(0));
+    }
+    return color;
   }
 
   /**
@@ -125,7 +130,7 @@ public class RobotContainer {
     // do color wheel rotation control
     buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
     // do color wheel position control
-    buttonBoxRight.positionControl.whenPressed(new PositionalCommand(this, readColor()));
+    buttonBoxRight.positionControl.whenPressed(new PositionalCommand(this));
 //    buttonBoxRight.positionControl.whe //TODO: write the command
     //TODO: manual spin
 
@@ -157,18 +162,5 @@ public class RobotContainer {
     //TODO: uncomment for real robot
 //    return autoChooser.getSelected();
     return new TestAutoCommand(this);
-  }
-
-  /**
-   * Gets the color from the DS
-   */
-  public Color readColor() {
-    String gameData = DriverStation.getInstance().getGameSpecificMessage();
-    if (gameData.length() > 0) {
-      color = Color.getColor(gameData.charAt(0));
-    } else {
-      color = Color.CORRUPT;
-    }
-    return color;
   }
 }

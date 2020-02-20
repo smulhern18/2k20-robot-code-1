@@ -1,6 +1,5 @@
 package frc.robot.commands.turret;
 
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -19,6 +18,10 @@ public class AutoAimTurretCommand extends CommandBase {
 
   private double targetPosition;
 
+  /**
+   * Creates a new AutoAimTurretCommand
+   * @param robotContainer
+   */
   public AutoAimTurretCommand(RobotContainer robotContainer) {
     this.turretSubsystem = robotContainer.turretSubsystem;
     this.visionSubsystem = robotContainer.visionSubsystem;
