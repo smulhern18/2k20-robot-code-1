@@ -10,20 +10,20 @@ import frc.robot.commands.auto.Trajectories;
 import java.util.List;
 
 public final class OppositeFiveTrajectories extends Trajectories {
-  private static Pose2d STEAL_END = new Pose2d(5.600, -2.418, new Rotation2d(Units.degreesToRadians(180.00)));
+  private static Pose2d STEAL_END = new Pose2d(-1.323, -5.003, new Rotation2d(Units.degreesToRadians(180.00)));
   public static final Trajectory OPPOSITE = TrajectoryGenerator.generateTrajectory(
       List.of(
-          new Pose2d(4.277, -7.421, new Rotation2d(Units.degreesToRadians(0.00))),
-          new Pose2d(6.256, -6.351, new Rotation2d(Units.degreesToRadians(16.14))),
-          new Pose2d(10.052, -4.805, new Rotation2d(Units.degreesToRadians(72.73))),
-          new Pose2d(9.706, -3.370, new Rotation2d(Units.degreesToRadians(112.82))),
+          new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0.00))),
+          new Pose2d(-1.979, -1.07, new Rotation2d(Units.degreesToRadians(16.14))),
+          new Pose2d(-5.775, -2.616, new Rotation2d(Units.degreesToRadians(72.73))),
+          new Pose2d(-5.429, -4.051, new Rotation2d(Units.degreesToRadians(112.82))),
           STEAL_END
       ),
       BACKWARD_CONFIG);
   public static final Trajectory SPIN = TrajectoryGenerator.generateTrajectory(
       List.of(
           STEAL_END,
-          new Pose2d(4.847, -3.033, new Rotation2d(0))
+          new Pose2d(-0.57, -4.388, new Rotation2d(0))
       ),
       BACKWARD_CONFIG
   );
