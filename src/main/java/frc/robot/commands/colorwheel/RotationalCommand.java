@@ -7,17 +7,15 @@
 
 package frc.robot.commands.colorwheel;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.ColorWheelConstants;
-import frc.robot.models.Color;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class RotationalCommand extends CommandBase {
-  String previousColor, currentColor;
-  int colorChanges, rotations;
-  ColorWheelSubsystem colorWheelSubsystem;
+  private String previousColor = ColorWheelConstants.UNKNOWN;
+  private int colorChanges = 0, rotations = 0;
+  private ColorWheelSubsystem colorWheelSubsystem;
 
   /**
    * Creates a new RotationalCommand.
@@ -28,16 +26,9 @@ public class RotationalCommand extends CommandBase {
   }
 
   @Override
-  public void initialize() {
-    previousColor = ColorWheelConstants.UNKNOWN;
-    colorChanges = 0;
-    rotations = 0;
-  }
-
-  @Override
   public void execute() {
-    currentColor = colorWheelSubsystem.detectColor();
-    if (!previousColor.equals(currentColor) && (currentColor != ColorWheelConstants.UNKNOWN)) {
+    String currentColor = colorWheelSubsystem.detectColor();
+    if (!previousColor.equals(currentColor) && (!currentColor.equals(ColorWheelConstants.UNKNOWN))) {
       colorChanges++;
       previousColor = currentColor;
     }

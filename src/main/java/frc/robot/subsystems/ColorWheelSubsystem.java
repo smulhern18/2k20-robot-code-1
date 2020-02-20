@@ -16,12 +16,10 @@ import frc.robot.Constants.ColorWheelConstants;
  */
 public class ColorWheelSubsystem extends BeefSubsystemBase {
 
+  private String colorString = "null";
+  private double confidence = 0;
   private ColorSensorV3 colorSensor;
   private ColorMatch colorMatcher;
-  private Color detectedColor;
-  private ColorMatchResult match;
-  public String colorString;
-  public double confidence;
   private WPI_TalonSRX colorWheelMotor;
 
   /**
@@ -30,8 +28,6 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
   public ColorWheelSubsystem() {
     colorSensor = new ColorSensorV3(ColorWheelConstants.COLOR_SENSOR_PORT);
     colorMatcher = new ColorMatch();
-    confidence = 0;
-    colorString = "null";
     colorMatcher.addColorMatch(ColorWheelConstants.BLUE_TARGET);
     colorMatcher.addColorMatch(ColorWheelConstants.GREEN_TARGET);
     colorMatcher.addColorMatch(ColorWheelConstants.RED_TARGET);
@@ -44,9 +40,9 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
   }
 
   public String detectColor() {
-    detectedColor = colorSensor.getColor();
+    Color detectedColor = colorSensor.getColor();
 
-    match = colorMatcher.matchClosestColor(detectedColor);
+    ColorMatchResult match = colorMatcher.matchClosestColor(detectedColor);
 
     if (ColorWheelConstants.BLUE_TARGET.equals(match.color)) {
       colorString = "Blue";
@@ -66,7 +62,7 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
     return ColorWheelConstants.UNKNOWN;
   }
 
-  public void rotateWheel(){
+  public void rotateWheel() {
     colorWheelMotor.set(1);
   }
 

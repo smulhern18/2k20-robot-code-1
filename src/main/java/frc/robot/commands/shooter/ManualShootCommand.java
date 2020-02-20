@@ -10,9 +10,9 @@ import frc.robot.subsystems.ShooterSubsystem;
  * Shoots at current target RPM.
  */
 public class ManualShootCommand extends CommandBase {
+  NetworkTableEntry rpmEntry;
   private ShooterSubsystem shooterSubsystem;
   private double rpm;
-  NetworkTableEntry rpmEntry;
 
   public ManualShootCommand(RobotContainer robotContainer, double rpm) {
     this.shooterSubsystem = robotContainer.shooterSubsystem;
