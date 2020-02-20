@@ -7,15 +7,15 @@
 
 package frc.robot.commands.colorwheel;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ColorWheelConstants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class RotationalCommand extends CommandBase {
-  String previousColor, currentColor;
-  int quarterRotations, rotations;
-  ColorWheelSubsystem colorWheelSubsystem;
+  private String previousColor = ColorWheelConstants.UNKNOWN;
+  private int colorChanges = 0, rotations = 0;
+  private ColorWheelSubsystem colorWheelSubsystem;
 
   /**
    * Creates a new RotationalCommand.
@@ -26,31 +26,23 @@ public class RotationalCommand extends CommandBase {
   }
 
   @Override
-  public void initialize() {
-    previousColor = "null";
-    quarterRotations = 0;
-    rotations = 0;
-
-    SmartDashboard.putBoolean("Rotation", false);
-  }
-
-  @Override
   public void execute() {
-    currentColor = colorWheelSubsystem.detectColor();
-    if (!previousColor.equals(currentColor)) {
-      quarterRotations++;
+    String currentColor = colorWheelSubsystem.detectColor();
+    if (!previousColor.equals(currentColor) && (!currentColor.equals(ColorWheelConstants.UNKNOWN))) {
+      colorChanges++;
+      previousColor = currentColor;
     }
-    rotations = quarterRotations / 4;
-  }
-
-  @Override
-  public void end(boolean interrupted) {
-    SmartDashboard.putBoolean("Rotation", true);
-    //TODO: stop spinning motor
+    rotations = colorChanges / ColorWheelConstants.COLOR_CHANGES_PER_ROTATION;
+    colorWheelSubsystem.rotateWheel();
   }
 
   @Override
   public boolean isFinished() {
-    return rotations == 4; // limit when motor should stop
+    return rotations == ColorWheelConstants.ROTATIONS_PER_STAGE;
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    colorWheelSubsystem.stopWheel();
   }
 }

@@ -45,10 +45,10 @@ public class VisionSubsystem extends BeefSubsystemBase {
   /**
    * Sets ring light on or off
    *
-   * @param status LED_ON or LED_OFF
+   * @param value LED_ON or LED_OFF
    */
-  public void setLightRing(boolean status) {
-    lightRing.set(status);
+  public void setLightRing(boolean value) {
+    lightRing.set(value);
   }
 
   /**

@@ -1,0 +1,7 @@
+Shooter - 2 srx
+Ball Path - 2 srx
+Climber - 1 srx, 1 fx
+Collector - 1 srx
+Color Wheel - 1 srx
+Drivetrain - 4 fx
+Turret - 1 srx

@@ -51,10 +51,10 @@ public final class Constants {
    * Constants for the drivetrain subsystem
    */
   public final static class DrivetrainConstants {
-    public final static int LEFT_LEADER_CHANNEL = 1;
-    public final static int LEFT_FOLLOWER_CHANNEL = 2;
-    public final static int RIGHT_LEADER_CHANNEL = 3;
-    public final static int RIGHT_FOLLOWER_CHANNEL = 4;
+    public final static int LEFT_LEADER_CHANNEL = 3;
+    public final static int LEFT_FOLLOWER_CHANNEL = 4;
+    public final static int RIGHT_LEADER_CHANNEL = 1;
+    public final static int RIGHT_FOLLOWER_CHANNEL = 2;
 
     // Many of these values found with the frc-characterization tool
     public final static double S_VOLTS = 1.67;
@@ -105,10 +105,10 @@ public final class Constants {
     public final static int LEADER_CHANNEL = 5;
     public final static int FOLLOWER_CHANNEL = 6;
 
-    public final static double P = 1.4;
+    public final static double P = 3;
     public final static double I = 0;
     public final static double D = 0;
-    public final static double F = 2.8;
+    public final static double F = 9.5;
 
     public final static int PID_LOOPTYPE = 0;
     public final static int SLOT_ID = 0;
@@ -125,7 +125,7 @@ public final class Constants {
   }
 
   public static class VisionConstants {
-    public final static int LED_PORT = 3;
+    public final static int LED_PORT = 0;
     public final static boolean LED_ON = true;
     public final static boolean LED_OFF = false;
     public final static String DEFAULT_JSON = "{\"found\": 0, \"distance\": 0, \"angle\": 0, \"fps\": 0}";
@@ -217,8 +217,12 @@ public final class Constants {
     public final static Color GREEN_TARGET = ColorMatch.makeColor(0.197, 0.561, 0.240);
     public final static Color RED_TARGET = ColorMatch.makeColor(0.561, 0.232, 0.114);
     public final static Color YELLOW_TARGET = ColorMatch.makeColor(0.361, 0.524, 0.113);
-    public final static double CONFIDENCE_THRESHOLD = 0.5;
+    public final static double CONFIDENCE_THRESHOLD = 0.90;
     public final static String UNKNOWN = "UNKNOWN";
+    public final static int COLOR_CHANGES_PER_ROTATION = 8;
+    public final static int ROTATIONS_PER_STAGE = 4;
+
+    public final static int COLOR_WHEEL_MOTOR_CHANNEL = 10;//TODO: Configure
   }
 
 
