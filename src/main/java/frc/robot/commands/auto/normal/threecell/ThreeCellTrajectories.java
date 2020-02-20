@@ -12,9 +12,9 @@ import java.util.List;
 public final class ThreeCellTrajectories extends Trajectories {
   public static final Trajectory THREE_CELL = TrajectoryGenerator.generateTrajectory(
       List.of(
-          new Pose2d(3.411, -3.581, new Rotation2d(Units.degreesToRadians(0.00))),
-          new Pose2d(5.773, -3.816, new Rotation2d(Units.degreesToRadians(-67.73))),
-          new Pose2d(6.058, -4.558, new Rotation2d(Units.degreesToRadians(-67.73)))
+          new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0.00))),
+          new Pose2d(-2.362, 0.234, new Rotation2d(Units.degreesToRadians(-67.73))),
+          new Pose2d(-2.647, -0.977, new Rotation2d(Units.degreesToRadians(-67.73)))
       ),
       BACKWARD_CONFIG);
 }
