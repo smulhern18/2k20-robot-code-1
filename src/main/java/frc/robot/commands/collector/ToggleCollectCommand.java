@@ -11,6 +11,9 @@ public class ToggleCollectCommand extends CommandBase {
     this.robotContainer = robotContainer;
   }
 
+  /**
+   * On initialize the robot will toggle its collection state
+   */
   @Override
   public void initialize() {
     if (robotContainer.collectorSubsystem.getState() == CollectorSubsystem.CollectorState.UNDEPLOYED)

@@ -25,6 +25,9 @@ public class RotationalCommand extends CommandBase {
     addRequirements(colorWheelSubsystem);
   }
 
+  /**
+   * checks whether a color is detected, and if it changes, increments the amount of times rotated
+   */
   @Override
   public void execute() {
     String currentColor = colorWheelSubsystem.detectColor();
@@ -36,11 +39,19 @@ public class RotationalCommand extends CommandBase {
     colorWheelSubsystem.rotateWheel();
   }
 
+  /**
+   * Finishes when completed all rotations
+   * @return rotations = needed rotations for stage
+   */
   @Override
   public boolean isFinished() {
     return rotations == ColorWheelConstants.ROTATIONS_PER_STAGE;
   }
 
+  /**
+   * Stops the wheel at the end
+   * @param interrupted
+   */
   @Override
   public void end(boolean interrupted) {
     colorWheelSubsystem.stopWheel();
