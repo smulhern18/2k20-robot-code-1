@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ColorWheelConstants;
+import frc.robot.models.Color;
 import frc.robot.subsystems.ColorWheelSubsystem;
 
 public class RotationalCommand extends CommandBase {
   String previousColor, currentColor;
   int colorChanges, rotations;
   ColorWheelSubsystem colorWheelSubsystem;
-
 
   /**
    * Creates a new RotationalCommand.
@@ -32,7 +32,6 @@ public class RotationalCommand extends CommandBase {
     previousColor = ColorWheelConstants.UNKNOWN;
     colorChanges = 0;
     rotations = 0;
-
   }
 
   @Override
@@ -47,19 +46,12 @@ public class RotationalCommand extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted) {
-    colorWheelSubsystem.stopWheel();
+  public boolean isFinished() {
+    return rotations == ColorWheelConstants.ROTATIONS_PER_STAGE;
   }
 
   @Override
-  public boolean isFinished() {
-    return rotations == ColorWheelConstants.ROTATIONS_PER_STAGE; // limit when motor should stop
-  }
-
-  public void detectColorChange() {
-    if((! previousColor.equals(colorWheelSubsystem.colorString)) && 
-                          (colorWheelSubsystem.confidence >= ColorWheelConstants.CONFIDENCE_THRESHOLD)) {
-      colorChanges++;
-    }
+  public void end(boolean interrupted) {
+    colorWheelSubsystem.stopWheel();
   }
 }

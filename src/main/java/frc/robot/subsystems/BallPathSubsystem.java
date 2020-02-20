@@ -9,7 +9,7 @@ import frc.robot.models.sensors.BannerSensor;
  * <p>
  * input: six banner sensors, which track the power cells as they move throughout the robot
  * <p>
- * output: the belt, index wheel, and kicker wheel motors
+ * output: the belt, index wheel, and gooseneck motor
  */
 public class BallPathSubsystem extends BeefSubsystemBase {
 
@@ -33,54 +33,90 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
   }
 
+  /**
+   *Moves the balls in the index wheel forward towards shooter
+   */
   private void indexWheelIn() {
     indexWheelMotor.set(1);
   }
 
+  /**
+   * Pushes the balls in the index wheel backward towards collector
+   */
   private void indexWheelOut() {
     indexWheelMotor.set(-1);
   }
 
+  /**
+   * Stops the movement of the index wheel
+   */
   private void stopIndexWheel() {
     indexWheelMotor.set(0);
   }
 
+  /**
+   * Pushes the balls in the belt towards the shooter
+   */
   private void runBelt() {
     beltMotor.set(1);
   }
 
+  /**
+   * Pushes the balls in the belt backwards towards the collector
+   */
   private void spitBelt() {
     beltMotor.set(-1);
   }
 
+  /**
+   * Stops the movement of the belt
+   */
   private void stopBelt() {
     beltMotor.set(0);
   }
 
+  /**
+   * Feeds balls to the shooter by running the gooseneck
+   */
   private void runGooseneck() {
     gooseneckMotor.set(1);
   }
 
+  /**
+   * Stops the gooseneck
+   */
   private void stopGooseneck() {
     gooseneckMotor.set(0);
   }
 
+  /**
+   * Runs the balls backwards towards the indexer wheel
+   */
   private void spitOutGooseneck() {
     gooseneckMotor.set(-1);
   }
 
+  /**
+   * Runs all the motors/ballpath forward towards the shooter
+   */
   public void runAll() {
     runBelt();
     runGooseneck();
     indexWheelIn();
   }
 
+  /**
+   * Runs the motors/ballpath backwards towards the collector
+   */
   public void spitOutAll() {
     spitBelt();
     spitOutGooseneck();
     indexWheelOut();
   }
 
+  /**
+   * Runs the entire indexer system(indexer & belt), not the gooseneck
+   */
   public void runIndexer() {
     indexWheelIn();
     runBelt();
