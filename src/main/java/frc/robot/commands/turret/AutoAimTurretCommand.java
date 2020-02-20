@@ -18,6 +18,10 @@ public class AutoAimTurretCommand extends CommandBase {
 
   private double targetPosition;
 
+  /**
+   * Creates a new AutoAimTurretCommand
+   * @param robotContainer
+   */
   public AutoAimTurretCommand(RobotContainer robotContainer) {
     this.turretSubsystem = robotContainer.turretSubsystem;
     this.visionSubsystem = robotContainer.visionSubsystem;

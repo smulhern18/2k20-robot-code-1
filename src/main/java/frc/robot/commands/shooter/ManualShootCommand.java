@@ -11,6 +11,11 @@ public class ManualShootCommand extends CommandBase {
   private ShooterSubsystem shooterSubsystem;
   private double rpm;
 
+  /**
+   * Creates a new ManualShootCommand
+   * @param robotContainer
+   * @param rpm
+   */
   public ManualShootCommand(RobotContainer robotContainer, double rpm) {
     this.shooterSubsystem = robotContainer.shooterSubsystem;
     this.rpm = rpm;
@@ -25,6 +30,10 @@ public class ManualShootCommand extends CommandBase {
     shooterSubsystem.shoot(rpm);
   }
 
+  /**
+   * At the end stops the shooter
+   * @param interrupted
+   */
   @Override
   public void end(boolean interrupted) {
     shooterSubsystem.stop();
