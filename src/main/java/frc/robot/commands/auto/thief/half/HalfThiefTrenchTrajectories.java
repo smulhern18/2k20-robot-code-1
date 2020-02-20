@@ -10,14 +10,14 @@ import frc.robot.commands.auto.Trajectories;
 import java.util.List;
 
 public final class HalfThiefTrenchTrajectories extends Trajectories {
-  private static final Pose2d SHOOT_ONE_START = new Pose2d(6.491, -7.501, new Rotation2d(Units.degreesToRadians(0.00)));
+  private static final Pose2d SHOOT_ONE_START = new Pose2d(-2.214, 0.08, new Rotation2d(Units.degreesToRadians(0.00)));
   public static final Trajectory FIRST_TWO = TrajectoryGenerator.generateTrajectory(
       List.of(
-          new Pose2d(3.856, -7.501, new Rotation2d(Units.degreesToRadians(0.00))),
+          new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0.00))),
           SHOOT_ONE_START
       ),
       BACKWARD_CONFIG);
-  private static final Pose2d UNDER_RENDEZ_START = new Pose2d(3.980, -4.137, new Rotation2d(Units.degreesToRadians(-23.63)));
+  private static final Pose2d UNDER_RENDEZ_START = new Pose2d(0.297, -3.284, new Rotation2d(Units.degreesToRadians(-23.63)));
   public static final Trajectory SHOOT_ONE = TrajectoryGenerator.generateTrajectory(
       List.of(
           SHOOT_ONE_START,
@@ -28,9 +28,9 @@ public final class HalfThiefTrenchTrajectories extends Trajectories {
   public static final Trajectory UNDER_RENDEZ = TrajectoryGenerator.generateTrajectory(
       List.of(
           UNDER_RENDEZ_START,
-          new Pose2d(6.169, -4.756, new Rotation2d(Units.degreesToRadians(113.43))),
-          new Pose2d(5.882, -3.247, new Rotation2d(Units.degreesToRadians(65))),
-          new Pose2d(6.664, -2.744, new Rotation2d(Units.degreesToRadians(20)))
+          new Pose2d(-1.892, -2.665, new Rotation2d(Units.degreesToRadians(113.43))),
+          new Pose2d(-1.605, -4.174, new Rotation2d(Units.degreesToRadians(65))),
+          new Pose2d(-2.354, -4.673, new Rotation2d(Units.degreesToRadians(20)))
       ),
       BACKWARD_CONFIG);
 

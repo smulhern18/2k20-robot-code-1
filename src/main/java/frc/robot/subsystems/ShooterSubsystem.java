@@ -49,18 +49,37 @@ public class ShooterSubsystem extends BeefSubsystemBase {
         .getEntry();
   }
 
+  /**
+   * @param rpm
+   * @return rpm converted to cpd
+   */
   public static double convertRPMToCPD(double rpm) {
     return rpm * ShooterConstants.COUNTS_PER_REVOLUTION * (1.0 / 10.0) * (1.0 / 60.0) * (1.0 / ShooterConstants.MOTOR_TO_WHEEL);
   }
 
+  /**
+   * @param cpd
+   * @return cpd converted to rpm
+   */
   public static double convertCPDToRPM(double cpd) {
     return cpd * 60.0 * (1 / ShooterConstants.COUNTS_PER_REVOLUTION) * 10.0 * ShooterConstants.MOTOR_TO_WHEEL;
   }
 
+  /**
+   * Sets the speed of the pair of motors
+   * @param v
+   */
   public void set(double v) {
     pair.set(ControlMode.PercentOutput, v);
   }
 
+  /**
+   * Configures PIDF of the paired talons
+   * @param P
+   * @param I
+   * @param D
+   * @param F
+   */
   public void configPIDF(double P, double I, double D, double F) {
     pair.configPIDF(ShooterConstants.SLOT_ID, P, I, D, F);
   }
@@ -93,11 +112,23 @@ public class ShooterSubsystem extends BeefSubsystemBase {
     shoot(ControlMode.PercentOutput, 0);
   }
 
-  public double inchesToRPM(double inches) {
+  /**
+   * Does conversion of inches to RPM
+   *
+   * @param inches
+   * @return RPM of the shooter necessary to reach the distance
+   */
+  public static double inchesToRPM(double inches) {
     return metersToRPM(inches * 0.0254);
   }
 
-  public double metersToRPM(double meters) {
+  /**
+   * Does conversion of meters to RPM
+   *
+   * @param meters
+   * @return RPM of the shooter necessary to reach the distance
+   */
+  public static double metersToRPM(double meters) {
     return meters; //TODO: line of best fit
   }
 

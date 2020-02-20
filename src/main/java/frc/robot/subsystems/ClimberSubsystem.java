@@ -75,18 +75,31 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     climbMotor.set(ClimberConstants.CLIMB_OFF);
   }
 
+  /**
+   * @return if the climber has hit the top
+   */
   public boolean atTop() {
     return topLimitSwitch.get();
   }
 
+  /**
+   *
+   * @return if the climber has hit the bottom
+   */
   public boolean atBottom() {
     return bottomLimitSwitch.get();
   }
 
+  /**
+   * starts unspooling and begins to extend the climber
+   */
   public void unspool() {
     climbMotor.set(ClimberConstants.CLIMB_EXTEND);
   }
 
+  /**
+   * starts spooling or begins to retract the climber
+   */
   public void spool() {
     climbMotor.set(ClimberConstants.CLIMB_RETRACT);
   }
