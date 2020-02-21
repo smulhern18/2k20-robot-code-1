@@ -12,11 +12,19 @@ public class ShiftToFirstCommand extends CommandBase {
     addRequirements(ballPathSubsystem);
   }
 
+  /**
+   * Runs the indexer
+   */
   @Override
   public void execute() {
     ballPathSubsystem.runIndexer();
   }
 
+  /**
+   * Stops when any banner sensor is triggered, either the intended one, or any past it
+   *
+   * @return if the lead ball has reached or passed its intended point
+   */
   @Override
   public boolean isFinished() {
     return ballPathSubsystem.firstCellBannerSensor.beamBroken() || ballPathSubsystem.secondCellBannerSensor.beamBroken() ||

@@ -42,18 +42,31 @@ public class CollectorSubsystem extends BeefSubsystemBase {
     collectorMotor.set(1);
   }
 
+  /**
+   * push balls out
+   */
   public void exhaust() {
     collectorMotor.set(-1);
   }
 
+  /**
+   * stop the collector
+   */
   public void stopIntake() {
     collectorMotor.set(0);
   }
 
+  /**
+   *
+   * @return whether the collector is deployed or not
+   */
   public CollectorState getState() {
     return collectorDeployPiston.get() ? CollectorState.DEPLOYED : CollectorState.UNDEPLOYED;
   }
 
+  /**
+   * States of the Collector
+   */
   public enum CollectorState {
     DEPLOYED,
     UNDEPLOYED
