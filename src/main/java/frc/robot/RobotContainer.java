@@ -25,6 +25,7 @@ import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
+import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.input.ButtonBoxLeft;
 import frc.robot.input.ButtonBoxRight;
@@ -41,16 +42,16 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   public AttackThree leftStick = new AttackThree(Constants.InputConstants.LEFT_JOYSTICK_CHANNEL);
   public AttackThree rightStick = new AttackThree(Constants.InputConstants.RIGHT_JOYSTICK_CHANNEL);
-  public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
+  public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;// = new AbrahamBlinkinSubsystem();
   public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
   public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
   public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
   public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
   public DrivetrainSubsystem drivetrainSubsystem; //= new DrivetrainSubsystem();
-  public ShooterSubsystem shooterSubsystem;// = new ShooterSubsystem();
+  public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
-  public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
+  public VisionSubsystem visionSubsystem = new VisionSubsystem();
   private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
   private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
@@ -142,9 +143,9 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
 //    drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-//    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 4000));
+    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 0));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
-//    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
+    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
