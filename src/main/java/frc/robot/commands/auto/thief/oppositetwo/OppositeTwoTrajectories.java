@@ -10,19 +10,19 @@ import frc.robot.commands.auto.Trajectories;
 import java.util.List;
 
 public final class OppositeTwoTrajectories extends Trajectories {
-  private static final Pose2d SHOOT_START = new Pose2d(9.978, -5.139, new Rotation2d(Units.degreesToRadians(27.80)));
+  private static final Pose2d SHOOT_START = new Pose2d(-5.701, -2.282, new Rotation2d(Units.degreesToRadians(27.80)));
   public static final Trajectory OPPOSITE_TWO_GRAB = TrajectoryGenerator.generateTrajectory(
       List.of(
-          new Pose2d(4.277, -7.421, new Rotation2d(Units.degreesToRadians(0.00))),
-          new Pose2d(6.082, -6.425, new Rotation2d(Units.degreesToRadians(19.60))),
+          new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0.00))),
+          new Pose2d(-1.805, -0.996, new Rotation2d(Units.degreesToRadians(19.60))),
           SHOOT_START
       ),
-      FORWARD_CONFIG);
+      BACKWARD_CONFIG);
 
   public static final Trajectory OPPOSITE_TWO_SHOOT = TrajectoryGenerator.generateTrajectory(
       List.of(
           SHOOT_START,
-          new Pose2d(5.971, -5.263, new Rotation2d(Units.degreesToRadians(0.00)))
+          new Pose2d(-1.694, -2.158, new Rotation2d(Units.degreesToRadians(0.00)))
       ),
-      BACKWARD_CONFIG);
+      FORWARD_CONFIG);
 }

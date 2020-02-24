@@ -10,10 +10,10 @@ import frc.robot.commands.auto.Trajectories;
 import java.util.List;
 
 public class TrenchThiefTrajectories extends Trajectories {
-  private static final Pose2d STEAL_END = new Pose2d(10, -7.5, new Rotation2d(0));
+  private static final Pose2d STEAL_END = new Pose2d(-5.671, -0.071, new Rotation2d(0));
   public static final Trajectory STEAL_FIVE = TrajectoryGenerator.generateTrajectory(
       List.of(
-          new Pose2d(4.277, -7.5, new Rotation2d(0)),
+          new Pose2d(0, 0, new Rotation2d(0)),
           STEAL_END
       ),
       BACKWARD_CONFIG
@@ -21,7 +21,7 @@ public class TrenchThiefTrajectories extends Trajectories {
   public static final Trajectory RETREAT = TrajectoryGenerator.generateTrajectory(
       List.of(
           STEAL_END,
-          new Pose2d(7.3, -5.75, new Rotation2d(Units.degreesToRadians(-35.0)))
+          new Pose2d(-3.032, -1.641, new Rotation2d(Units.degreesToRadians(-35.0)))
       ),
       FORWARD_CONFIG
   );
