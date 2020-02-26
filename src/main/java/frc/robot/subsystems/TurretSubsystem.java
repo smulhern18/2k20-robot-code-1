@@ -42,8 +42,16 @@ public class TurretSubsystem extends BeefSubsystemBase {
    */
   private static double convertDegreesToPot(double heading) {
     // convert radians (negative left, positive right) to percent of 270 turn needed
-    // 270 / 2 is center
-    double percent = (Units.radiansToDegrees(heading) + (TurretConstants.MAX_ROTATION_DEGREES / 2.0)) / TurretConstants.MAX_ROTATION_DEGREES;
+    //give number between -45 and 225
+    // Min on pot corresponds to MIN_ROTATION_DEGREES
+    // Max on pot corresponds to MAX_ROTATION_DEGREES
+    // middle is 90
+    // - 45 + 90 = 45
+    //45 / 270 = 1/6
+    //0 2048/6
+    //50 degrees + 45 / TOTAL_ROTATION_DEGREES
+
+    double percent = (Units.radiansToDegrees(heading)  - TurretConstants.MIN_ROTATION_DEGREES) / TurretConstants.TOTAL_ROTATION_DEGREES;
     return percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN;
   }
 
@@ -55,7 +63,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
    */
   private static double convertPotToDegrees(double potValue) {
     double percent = (potValue - TurretConstants.POT_MIN) / (TurretConstants.POT_MAX - TurretConstants.POT_MIN);
-    return percent * TurretConstants.MAX_ROTATION_DEGREES;
+    return (percent * TurretConstants.TOTAL_ROTATION_DEGREES) + TurretConstants.MIN_ROTATION_DEGREES;//adjust for any offcenter rotation
   }
 
   /**
@@ -65,7 +73,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
    */
   public void resetTargetWithDrivetrain(double currentDrivetrainHeadingDegrees) {
     double tmpTarget = -currentDrivetrainHeadingDegrees;
-    if (0 < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
+    if (TurretConstants.MIN_ROTATION_DEGREES < tmpTarget && tmpTarget < TurretConstants.MAX_ROTATION_DEGREES) {
       rotateToPosition(tmpTarget);
     } else {
       rotateToPosition(getCurrentPositionDegrees());
