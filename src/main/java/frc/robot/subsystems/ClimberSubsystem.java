@@ -17,35 +17,20 @@ import frc.robot.models.sensors.Tensiometer;
  */
 public class ClimberSubsystem extends BeefSubsystemBase {
 
-  public Tensiometer tensiometer;
-  // tentiometer is the limit switch that ensures that unspooling is going slow enough
-  private DigitalInput topLimitSwitch, bottomLimitSwitch, slapSwitch;
+  private DigitalInput bottomLimitSwitch;
   private WPI_TalonFX climbMotor;
-  private Solenoid slapper, ratchet;
+  public Solenoid slapper;
   private WPI_TalonSRX traverseMotor;
 
   /**
    * Construct hardware objects, set initial state to untrenchable.
    */
   public ClimberSubsystem() {
-    topLimitSwitch = new DigitalInput(ClimberConstants.TOP_SWITCH_PORT);
-    bottomLimitSwitch = new DigitalInput(ClimberConstants.BOTTOM_SWITCH_PORT);
-    tensiometer = new Tensiometer(ClimberConstants.TENTIOMETER_SWITCH_PORT);
-    slapSwitch = new DigitalInput(ClimberConstants.SLAP_SWITCH_PORT);
+    bottomLimitSwitch = new DigitalInput(ClimberConstants.BOTTOM_SWITCH_PORT);// indicates when you reach the top
     climbMotor = new WPI_TalonFX(ClimberConstants.CLIMB_MOTOR_CHANNEL);
     slapper = new Solenoid(ClimberConstants.SLAPPER_PORT);
-    ratchet = new Solenoid(ClimberConstants.RATCHET_PORT);
 
     traverseMotor = new WPI_TalonSRX(ClimberConstants.TRAVERSE_MOTOR_PORT);
-  }
-
-  /**
-   * Sets the ratcheting on or off
-   *
-   * @param value state of ratchet
-   */
-  public void setRatchet(boolean value) {
-    ratchet.set(value);
   }
 
   /**
@@ -53,19 +38,13 @@ public class ClimberSubsystem extends BeefSubsystemBase {
    */
   public void unslap() {
     slapper.set(ClimberConstants.UNSLAP);
-    setRatchet(ClimberConstants.RATCHET_OFF);
   }
 
   /**
    * Slaps climber
    */
   public void slap() {
-    setRatchet(ClimberConstants.RATCHET_ON);
     slapper.set(ClimberConstants.SLAP);
-  }
-
-  public boolean isSlapped() {
-    return slapSwitch.get();
   }
 
   /**
@@ -77,14 +56,6 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   /**
    * @return if the climber has hit the top
-   */
-  public boolean atTop() {
-    return topLimitSwitch.get();
-  }
-
-  /**
-   *
-   * @return if the climber has hit the bottom
    */
   public boolean atBottom() {
     return bottomLimitSwitch.get();

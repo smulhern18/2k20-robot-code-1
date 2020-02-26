@@ -18,6 +18,10 @@ public class AutoAimTurretCommand extends CommandBase {
 
   private double targetPosition;
 
+  /**
+   * Creates a new AutoAimTurretCommand
+   * @param robotContainer
+   */
   public AutoAimTurretCommand(RobotContainer robotContainer) {
     this.turretSubsystem = robotContainer.turretSubsystem;
     this.visionSubsystem = robotContainer.visionSubsystem;
@@ -40,7 +44,7 @@ public class AutoAimTurretCommand extends CommandBase {
   @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
-      targetPosition = Units.degreesToRadians(Constants.TurretConstants.MAX_ROTATION_DEGREES / 2.0) + visionSubsystem.getAngleToTarget();
+      targetPosition = Units.degreesToRadians(visionSubsystem.getAngleToTarget()) + Constants.TurretConstants.MIDDLE_ROTATION_DEGREES;
       turretSubsystem.rotateToPosition(targetPosition);//adjusts for middle offset
     } else {//currently unsure with where to point shooter with no vision
       targetPosition = drivetrainSubsystem.getYawDegrees();

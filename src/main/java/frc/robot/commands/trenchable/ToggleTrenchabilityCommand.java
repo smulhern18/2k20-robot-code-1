@@ -22,7 +22,7 @@ public class ToggleTrenchabilityCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    if (robotContainer.trenchableSubsystem.getState() == TrenchableSubsystem.TrenchableState.TRENCHABLE) {
+    if (robotContainer.trenchableSubsystem.trenchablifier.equals(TrenchableSubsystem.TrenchableState.TRENCHABLE)) {
       new UntrenchCommand(robotContainer).schedule();
     } else {
       new TrenchCommand(robotContainer).schedule();

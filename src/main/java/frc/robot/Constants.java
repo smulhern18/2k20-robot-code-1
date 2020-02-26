@@ -11,6 +11,7 @@ import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -160,27 +161,24 @@ public final class Constants {
 
     public final static double POT_MIN = 0;
     public final static double POT_MAX = 2048; // TODO: configure
-    public final static double MAX_ROTATION_DEGREES = 270.0;
+    public final static double TOTAL_ROTATION_DEGREES  = 270;
+    public final static double MIN_ROTATION_DEGREES = -45.0;
+    public final static double MAX_ROTATION_DEGREES = 225.0;
+    public final static double MIDDLE_ROTATION_DEGREES = (MAX_ROTATION_DEGREES + MIN_ROTATION_DEGREES)/2.0;
 
-    public final static double ERROR_TOLERANCE = 0.50;// set to real value
+    public final static double ERROR_TOLERANCE = 0.50;//TODO: set to real value
   }
 
   public final static class ClimberConstants {
     // TODO: Configure DIO ports
-    public final static int TOP_SWITCH_PORT = 0;
-    public final static int BOTTOM_SWITCH_PORT = 1;
-    public final static int TENTIOMETER_SWITCH_PORT = 2;
-    public final static int SLAP_SWITCH_PORT = 3;
+    public final static int BOTTOM_SWITCH_PORT = 0;
     public final static int CLIMB_MOTOR_CHANNEL = 4; // TODO: configure
     public final static int SLAPPER_PORT = 3;
-    public final static int RATCHET_PORT = 4;
     public final static boolean UNSLAP = true;
     public final static boolean SLAP = false;
     public final static double CLIMB_OFF = 0.0;
     public final static double CLIMB_EXTEND = 0.3;
     public final static double CLIMB_RETRACT = 0.9;
-    public final static boolean RATCHET_OFF = false;
-    public final static boolean RATCHET_ON = true;
     public final static int TRAVERSE_MOTOR_PORT = 5;
   }
 
@@ -189,7 +187,6 @@ public final class Constants {
     public final static int UNTRENCHABLE_PORT = 1;
     public final static DoubleSolenoid.Value TRENCHABLE = DoubleSolenoid.Value.kForward;
     public final static DoubleSolenoid.Value UNTRENCHABLE = DoubleSolenoid.Value.kReverse;
-    public final static int UNTRENCHABLE_SWITCH_PORT = 3; // TODO: configure
 
   }
 

@@ -11,6 +11,10 @@ public class TrenchCommand extends CommandBase {
   ClimberSubsystem climberSubsystem;
   RobotContainer robotContainer;
 
+  /**
+   * Creates a new Trench Command
+   * @param robotContainer
+   */
   public TrenchCommand(RobotContainer robotContainer) {
     this.trenchableSubsystem = robotContainer.trenchableSubsystem;
     this.climberSubsystem = robotContainer.climberSubsystem;
@@ -28,8 +32,12 @@ public class TrenchCommand extends CommandBase {
     climberSubsystem.slap();
   }
 
+  /**
+   * Decides when the command is finished
+   * @return if the subsystem is finished trenching
+   */
   @Override
   public boolean isFinished() {
-    return trenchableSubsystem.getState() == TrenchableSubsystem.TrenchableState.TRENCHABLE;
+    return trenchableSubsystem.trenchablifier.get().equals(TrenchableSubsystem.TrenchableState.TRENCHABLE);
   }
 }

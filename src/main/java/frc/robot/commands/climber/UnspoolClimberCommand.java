@@ -12,20 +12,27 @@ public class UnspoolClimberCommand extends CommandBase {
     addRequirements(climberSubsystem);
   }
 
+  /**
+   * Climb to the top until slack is created
+   */
   @Override
   public void execute() {
-    if (climberSubsystem.tensiometer.isTaut()) { // unspool
-      climberSubsystem.unspool();
-    } else { // catch up unspooling
-      climberSubsystem.climbOff();
-    }
+
   }
 
+  /**
+   * Ends when the climber reaches the top
+   * @return
+   */
   @Override
   public boolean isFinished() {
-    return climberSubsystem.atTop();
+    return true;
   }
 
+  /**
+   * Turns off the climber at the end
+   * @param interrupted
+   */
   @Override
   public void end(boolean interrupted) {
     climberSubsystem.climbOff();

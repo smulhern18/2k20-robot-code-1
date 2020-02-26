@@ -39,6 +39,10 @@ public class ColorWheelSubsystem extends BeefSubsystemBase {
     createDoubleEntry("Color Confidence", 4, 3, 1, 1, () -> confidence);
   }
 
+  /**
+   * Detects Color and checks it with the confidence threshold to determine whether to actually use
+   * @return the color string based on the detected color
+   */
   public String detectColor() {
     Color detectedColor = colorSensor.getColor();
 
