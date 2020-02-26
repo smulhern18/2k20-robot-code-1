@@ -46,7 +46,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
     // Min on pot corresponds to MIN_ROTATION_DEGREES
     // Max on pot corresponds to MAX_ROTATION_DEGREES
     // middle is 90
-    // - 45 + 90 = 45
+    // - 45 + 90 = 45 
     //45 / 270 = 1/6
     //0 2048/6
     //50 degrees + 45 / TOTAL_ROTATION_DEGREES
