@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
@@ -25,6 +26,7 @@ import frc.robot.commands.shooter.ManualShootCommand;
 import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
+import frc.robot.commands.turret.JogTurretCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
 import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
@@ -46,13 +48,13 @@ public class RobotContainer {
   public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem;// = new AbrahamBlinkinSubsystem();
   public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
   public ClimberSubsystem climberSubsystem;// = new ClimberSubsystem();
-  public CollectorSubsystem collectorSubsystem;// = new CollectorSubsystem();
+  public CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
   public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
   public DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-  public ShooterSubsystem shooterSubsystem ;//= new ShooterSubsystem();
+  public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
-  public TurretSubsystem turretSubsystem;// = new TurretSubsystem();
-  public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
+  public TurretSubsystem turretSubsystem = new TurretSubsystem();
+  public VisionSubsystem visionSubsystem = new VisionSubsystem();
   private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
   private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
@@ -63,7 +65,7 @@ public class RobotContainer {
   public RobotContainer() {
     Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
 //    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
-//    configureButtonBindings();
+    configureButtonBindings();
     setDefaultCommands();
     // TODO: uncomment when subsystems exist
 //    autoChooser = new AutoChooser(this);
@@ -85,6 +87,8 @@ public class RobotContainer {
    * Maps commands to buttons.
    */
   private void configureButtonBindings() {
+    rightStick.getButton(1).whenPressed(new InstantCommand(collectorSubsystem::deploy, collectorSubsystem));
+    leftStick.getButton(1).whenPressed(new InstantCommand(collectorSubsystem::undeploy, collectorSubsystem));
 
     /* Driver sticks */
     // Trench or untrench when pressed
@@ -96,43 +100,46 @@ public class RobotContainer {
 
     /* Climb buttons */
     // Prepare climber by unslapping and extending
-    buttonBoxLeft.extend.whenPressed(new ExtendClimbCommand(this));
-    // Toggle slapping onto coat hanger
-    buttonBoxLeft.slap.whenPressed(new ToggleSlapCommand(this));
-    // Climb by retracting elevator
-    buttonBoxLeft.retract.whenPressed(new RetractClimbCommand(this));
-    // Traverse coat hanger left
-    buttonBoxLeft.traverseLeft.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.LEFT));
-    // Traverse coat hanger right
-    buttonBoxLeft.traverseRight.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.RIGHT));
-
-    /* Manual buttons */
-    // unused currently
-//    buttonBoxLeft.resetIndexer.whenPressed(new WaitCommand(1));
-    // Set shooter RPM to default speed
-    buttonBoxLeft.defaultShooterSpeed.whenPressed(new ManualShootCommand(this, Constants.ShooterConstants.DEFAULT_RPM));
-    // Sets turret straight forward
-    buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
-    // Spin ball path and collector in reverse
-    buttonBoxLeft.spitOut.whileActiveContinuous(new SpitOutCommand(this));
-    // Spin ball path and collector in the correct direction
-    buttonBoxLeft.spitIn.whileActiveContinuous(new SpitInCommand(this));
-
-    /* Main teleop buttons */
-    // Untrench, aim, spin up shooter wheel
-    buttonBoxRight.autoTarget.whenPressed(new PrepShooterCommand(this));
-    // Collect 5 balls
-    buttonBoxRight.collect.whenPressed(new CollectCommand(this));
-    // shoot until empty
-    buttonBoxRight.shoot.whenPressed(new VisionAimAndShootCommand(this));
-    // toggle trenchability
-    buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
-
-    /* Color wheel*/
-    // do color wheel rotation control
-    buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
-    // do color wheel position control
-    buttonBoxRight.positionControl.whenPressed(new PositionalCommand(this));
+//    buttonBoxLeft.extend.whenPressed(new ExtendClimbCommand(this));
+//    // Toggle slapping onto coat hanger
+//    buttonBoxLeft.slap.whenPressed(new ToggleSlapCommand(this));
+//    // Climb by retracting elevator
+//    buttonBoxLeft.retract.whenPressed(new RetractClimbCommand(this));
+//    // Traverse coat hanger left
+//    buttonBoxLeft.traverseLeft.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.LEFT));
+//    // Traverse coat hanger right
+//    buttonBoxLeft.traverseRight.whileActiveContinuous(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.RIGHT));
+//
+//    /* Manual buttons */
+//    // unused currently
+////    buttonBoxLeft.resetIndexer.whenPressed(new WaitCommand(1));
+//    // Set shooter RPM to default speed
+//    buttonBoxLeft.defaultShooterSpeed.whenPressed(new ManualShootCommand(this, Constants.ShooterConstants.DEFAULT_RPM));
+//    // Sets turret straight forward
+//    buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
+    // manual turret left
+    buttonBoxLeft.jogTurretLeft.whenPressed(new JogTurretCommand(this, TurretSubsystem.TurretDirection.LEFT));
+    buttonBoxLeft.jogTurretRight.whenPressed(new JogTurretCommand(this, TurretSubsystem.TurretDirection.RIGHT));
+//    // Spin ball path and collector in reverse
+//    buttonBoxLeft.spitOut.whileActiveContinuous(new SpitOutCommand(this));
+//    // Spin ball path and collector in the correct direction
+//    buttonBoxLeft.spitIn.whileActiveContinuous(new SpitInCommand(this));
+//
+//    /* Main teleop buttons */
+//    // Untrench, aim, spin up shooter wheel
+//    buttonBoxRight.autoTarget.whenPressed(new PrepShooterCommand(this));
+//    // Collect 5 balls
+//    buttonBoxRight.collect.whenPressed(new CollectCommand(this));
+//    // shoot until empty
+//    buttonBoxRight.shoot.whenPressed(new VisionAimAndShootCommand(this));
+//    // toggle trenchability
+//    buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
+//
+//    /* Color wheel*/
+//    // do color wheel rotation control
+//    buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
+//    // do color wheel position control
+//    buttonBoxRight.positionControl.whenPressed(new PositionalCommand(this));
 //    buttonBoxRight.positionControl.whe //TODO: write the command
     //TODO: manual spin
 
@@ -146,7 +153,7 @@ public class RobotContainer {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
 //    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 0));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
-//    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
+    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));

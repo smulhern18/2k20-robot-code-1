@@ -25,14 +25,14 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    * Extend outside frame perimeter
    */
   public void deploy() {
-    collectorDeployPiston.set(true);
+    collectorDeployPiston.set(false);
   }
 
   /**
    * Get back inside frame perimeter
    */
   public void undeploy() {
-    collectorDeployPiston.set(false);
+    collectorDeployPiston.set(true);
   }
 
   /**
