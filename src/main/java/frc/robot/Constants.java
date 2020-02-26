@@ -160,9 +160,12 @@ public final class Constants {
 
     public final static double POT_MIN = 0;
     public final static double POT_MAX = 2048; // TODO: configure
-    public final static double MAX_ROTATION_DEGREES = 270.0;
+    public final static double TOTAL_ROTATION_DEGREES  = 270;
+    public final static double MIN_ROTATION_DEGREES = -45.0;
+    public final static double MAX_ROTATION_DEGREES = 225.0;
+    public final static double MIDDLE_ROTATION_DEGREES = (MAX_ROTATION_DEGREES + MIN_ROTATION_DEGREES)/2.0;
 
-    public final static double ERROR_TOLERANCE = 0.50;// set to real value
+    public final static double ERROR_TOLERANCE = 0.50;//TODO: set to real value
   }
 
   public final static class ClimberConstants {
