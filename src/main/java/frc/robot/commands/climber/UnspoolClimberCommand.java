@@ -17,11 +17,7 @@ public class UnspoolClimberCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    if (climberSubsystem.tensiometer.isTaut()) { // unspool
-      climberSubsystem.unspool();
-    } else { // catch up unspooling
-      climberSubsystem.climbOff();
-    }
+
   }
 
   /**
@@ -30,7 +26,7 @@ public class UnspoolClimberCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return climberSubsystem.atTop();
+    return true;
   }
 
   /**

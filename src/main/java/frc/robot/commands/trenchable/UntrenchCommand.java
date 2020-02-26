@@ -34,6 +34,6 @@ public class UntrenchCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return trenchableSubsystem.getState() == TrenchableSubsystem.TrenchableState.UNTRENCHABLE;
+    return trenchableSubsystem.trenchablifier.get().equals(TrenchableSubsystem.TrenchableState.UNTRENCHABLE);
   }
 }

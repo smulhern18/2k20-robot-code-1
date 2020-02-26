@@ -38,6 +38,6 @@ public class TrenchCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return trenchableSubsystem.getState() == TrenchableSubsystem.TrenchableState.TRENCHABLE;
+    return trenchableSubsystem.trenchablifier.get().equals(TrenchableSubsystem.TrenchableState.TRENCHABLE);
   }
 }
