@@ -51,10 +51,10 @@ public final class Constants {
    * Constants for the drivetrain subsystem
    */
   public final static class DrivetrainConstants {
-    public final static int LEFT_LEADER_CHANNEL = 3;
-    public final static int LEFT_FOLLOWER_CHANNEL = 4;
-    public final static int RIGHT_LEADER_CHANNEL = 1;
-    public final static int RIGHT_FOLLOWER_CHANNEL = 2;
+    public final static int LEFT_LEADER_CHANNEL = 1;
+    public final static int LEFT_FOLLOWER_CHANNEL = 2;
+    public final static int RIGHT_LEADER_CHANNEL = 3;
+    public final static int RIGHT_FOLLOWER_CHANNEL = 4;
 
     // Many of these values found with the frc-characterization tool
     public final static double S_VOLTS = 1.67;
@@ -146,7 +146,7 @@ public final class Constants {
   }
 
   public static class TurretConstants {
-    public final static int TURRET_MOTOR_CHANNEL = 2;// TODO: configure
+    public final static int TURRET_MOTOR_CHANNEL = 9;
     public final static int TIMEOUT_MS = 20;
     public final static int PID_LOOPTYPE = 0;
     public final static int SLOT_ID = 0;
@@ -194,14 +194,14 @@ public final class Constants {
   }
 
   public final static class CollectorConstants {
-    public final static int COLLECTOR_MOTOR_CHANNEL = 6;// TODO: configure
+    public final static int COLLECTOR_MOTOR_CHANNEL = 8;
     public final static int DEPLOY_COLLECTOR_SOLENOID_CHANNEL = 7;
   }
 
   public final static class BallPathConstants {
-    public final static int GOOSENECK_CHANNEL = 9;//TODO: configure
-    public final static int INDEXER_MOTOR_CHANNEL = 8;// TODO: configure
-    public final static int FIRST_STAGE_MOTOR_CHANNEL = 9;// TODO: configure
+    public final static int GOOSENECK_CHANNEL = 5;
+    public final static int INDEXER_MOTOR_CHANNEL = 8; // TODO: configure
+    public final static int FIRST_STAGE_MOTOR_CHANNEL = 7;
     public final static String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
     public final static int BELT_BANNER_SENSOR_PORT = 2;
     public final static int FIRST_CELL_BANNER_PORT = 3;// TODO: configure
@@ -222,7 +222,7 @@ public final class Constants {
     public final static int COLOR_CHANGES_PER_ROTATION = 8;
     public final static int ROTATIONS_PER_STAGE = 4;
 
-    public final static int COLOR_WHEEL_MOTOR_CHANNEL = 10;//TODO: Configure
+    public final static int COLOR_WHEEL_MOTOR_CHANNEL = 10;
   }
 
 
