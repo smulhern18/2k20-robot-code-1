@@ -69,20 +69,20 @@ public class Robot extends TimedRobot {
 
     stick = new Joystick(0);
 
-    leftMaster = new WPI_TalonFX(1);
-    leftMaster.setInverted(false);
+    leftMaster = new WPI_TalonFX(3);
+    leftMaster.setInverted(true);
     leftMaster.setNeutralMode(NeutralMode.Brake);
 
-    rightMaster = new WPI_TalonFX(3);
+    rightMaster = new WPI_TalonFX(1);
     rightMaster.setInverted(false);
     rightMaster.setNeutralMode(NeutralMode.Brake);
 
-    WPI_TalonFX leftSlave0 = new WPI_TalonFX(2);
+    WPI_TalonFX leftSlave0 = new WPI_TalonFX(4);
     leftSlave0.setInverted(InvertType.FollowMaster);
     leftSlave0.follow(leftMaster);
     leftSlave0.setNeutralMode(NeutralMode.Brake);
 
-    WPI_TalonFX rightSlave0 = new WPI_TalonFX(4);
+    WPI_TalonFX rightSlave0 = new WPI_TalonFX(2);
     rightSlave0.setInverted(InvertType.FollowMaster);
     rightSlave0.follow(rightMaster);
     rightSlave0.setNeutralMode(NeutralMode.Brake);
