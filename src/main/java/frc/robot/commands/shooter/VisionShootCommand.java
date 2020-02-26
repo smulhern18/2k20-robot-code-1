@@ -13,6 +13,7 @@ public class VisionShootCommand extends CommandBase {
   private VisionSubsystem visionSubsystem;
   private ShooterSubsystem shooterSubsystem;
   private BallPathSubsystem ballPathSubsystem;
+  private double targetRPM;
 
   /**
    * Creates a new VisionShootCommand
@@ -25,6 +26,11 @@ public class VisionShootCommand extends CommandBase {
     addRequirements(shooterSubsystem, ballPathSubsystem);
   }
 
+  @Override
+  public void initialize(){
+    targetRPM = shooterSubsystem.inchesToRPM(visionSubsystem.getDistanceToTarget());
+  }
+
   /**
    * Gets the distance to the target
    * Revs the shooter to the correct rpm
@@ -32,7 +38,6 @@ public class VisionShootCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    double targetRPM = shooterSubsystem.inchesToRPM(visionSubsystem.getDistanceToTarget());
     shooterSubsystem.shoot(targetRPM);
     if (shooterSubsystem.atTargetRPM(targetRPM)) {
       ballPathSubsystem.runAll();
