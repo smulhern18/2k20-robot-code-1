@@ -25,28 +25,28 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    * Extend outside frame perimeter
    */
   public void deploy() {
-    collectorDeployPiston.set(false);
+    collectorDeployPiston.set(true);
   }
 
   /**
    * Get back inside frame perimeter
    */
   public void undeploy() {
-    collectorDeployPiston.set(true);
+    collectorDeployPiston.set(false);
   }
 
   /**
    * bring balls in
    */
   public void intake() {
-    collectorMotor.set(1);
+    collectorMotor.set(-.3);
   }
 
   /**
    * push balls out
    */
   public void exhaust() {
-    collectorMotor.set(-1);
+    collectorMotor.set(.3);
   }
 
   /**

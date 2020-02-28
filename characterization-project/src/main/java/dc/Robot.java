@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
     stick = new Joystick(0);
 
     leftMaster = new WPI_TalonFX(3);
-    leftMaster.setInverted(true);
+    leftMaster.setInverted(false);
     leftMaster.setNeutralMode(NeutralMode.Brake);
 
     rightMaster = new WPI_TalonFX(1);

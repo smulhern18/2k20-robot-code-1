@@ -33,9 +33,6 @@ public class ManualIntakeCommand extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    if (!interrupted) {
-      collectorSubsystem.stopIntake();
-      collectorSubsystem.undeploy();
-    }
+    collectorSubsystem.stopIntake();
   }
 }

@@ -52,20 +52,20 @@ public final class Constants {
    * Constants for the drivetrain subsystem
    */
   public final static class DrivetrainConstants {
-    public final static int LEFT_LEADER_CHANNEL = 1;
-    public final static int LEFT_FOLLOWER_CHANNEL = 2;
-    public final static int RIGHT_LEADER_CHANNEL = 3;
-    public final static int RIGHT_FOLLOWER_CHANNEL = 4;
+    public final static int LEFT_LEADER_CHANNEL = 3;
+    public final static int LEFT_FOLLOWER_CHANNEL = 4;
+    public final static int RIGHT_LEADER_CHANNEL = 1;
+    public final static int RIGHT_FOLLOWER_CHANNEL = 2;
 
     // Many of these values found with the frc-characterization tool
-    public final static double S_VOLTS = 1.67;
+    public final static double S_VOLTS = .179;
     public final static double V_VOLT_SECONDS_PER_METER = 2.79;
-    public final static double A_VOLT_SECONDS_SQUARED_PER_METER = 0.106;
+    public final static double A_VOLT_SECONDS_SQUARED_PER_METER = 0.224;
     public final static SimpleMotorFeedforward DRIVE_FEED_FORWARD = new SimpleMotorFeedforward(
         DrivetrainConstants.S_VOLTS, DrivetrainConstants.V_VOLT_SECONDS_PER_METER,
         DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER);
 
-    public final static double P = .15;
+    public final static double P = 8.79;
     public final static double I = 0;
     public final static double D = 0;
     public final static double F = 0;
@@ -106,10 +106,12 @@ public final class Constants {
     public final static int LEADER_CHANNEL = 5;
     public final static int FOLLOWER_CHANNEL = 6;
 
-    public final static double P = 3;
+    public final static double P = 1;
     public final static double I = 0;
     public final static double D = 0;
-    public final static double F = 9.5;
+    public final static double F = 4.3;
+
+//    public final static SimpleMotorFeedforward FEED_FORWARD = new SimpleMotorFeedforward(1.42, .0604, .122);
 
     public final static int PID_LOOPTYPE = 0;
     public final static int SLOT_ID = 0;
@@ -196,7 +198,7 @@ public final class Constants {
   }
 
   public final static class BallPathConstants {
-    public final static int GOOSENECK_CHANNEL = 5;
+    public final static int GOOSENECK_CHANNEL = 10;
     public final static int INDEXER_MOTOR_CHANNEL = 8; // TODO: configure
     public final static int FIRST_STAGE_MOTOR_CHANNEL = 7;
     public final static String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
@@ -219,7 +221,7 @@ public final class Constants {
     public final static int COLOR_CHANGES_PER_ROTATION = 8;
     public final static int ROTATIONS_PER_STAGE = 4;
 
-    public final static int COLOR_WHEEL_MOTOR_CHANNEL = 10;
+    public final static int COLOR_WHEEL_MOTOR_CHANNEL = 11;
   }
 
 

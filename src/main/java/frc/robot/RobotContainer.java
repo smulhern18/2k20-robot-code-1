@@ -19,6 +19,8 @@ import frc.robot.commands.climber.RetractClimbCommand;
 import frc.robot.commands.climber.ToggleSlapCommand;
 import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
+import frc.robot.commands.collector.ManualExhaustCommand;
+import frc.robot.commands.collector.ManualIntakeCommand;
 import frc.robot.commands.colorwheel.PositionalCommand;
 import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
@@ -54,7 +56,7 @@ public class RobotContainer {
   public ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   public TrenchableSubsystem trenchableSubsystem;// = new TrenchableSubsystem();
   public TurretSubsystem turretSubsystem = new TurretSubsystem();
-  public VisionSubsystem visionSubsystem = new VisionSubsystem();
+  public VisionSubsystem visionSubsystem;// = new VisionSubsystem();
   private ButtonBoxLeft buttonBoxLeft = new ButtonBoxLeft(Constants.InputConstants.BUTTON_BOX_LEFT_CHANNEL);
   private ButtonBoxRight buttonBoxRight = new ButtonBoxRight(Constants.InputConstants.BUTTON_BOX_RIGHT_CHANNEL);
   private AutoChooser autoChooser;
@@ -118,12 +120,12 @@ public class RobotContainer {
 //    // Sets turret straight forward
 //    buttonBoxLeft.resetTurret.whenPressed(new ResetTurretCommand(this));
     // manual turret left
-    buttonBoxLeft.jogTurretLeft.whenPressed(new JogTurretCommand(this, TurretSubsystem.TurretDirection.LEFT));
-    buttonBoxLeft.jogTurretRight.whenPressed(new JogTurretCommand(this, TurretSubsystem.TurretDirection.RIGHT));
+    buttonBoxLeft.jogTurretLeft.whileActiveContinuous(new JogTurretCommand(this, TurretSubsystem.TurretDirection.LEFT));
+    buttonBoxLeft.jogTurretRight.whileActiveContinuous(new JogTurretCommand(this, TurretSubsystem.TurretDirection.RIGHT));
 //    // Spin ball path and collector in reverse
-//    buttonBoxLeft.spitOut.whileActiveContinuous(new SpitOutCommand(this));
+    buttonBoxLeft.spitOut.whileActiveOnce(new ManualExhaustCommand(this));
 //    // Spin ball path and collector in the correct direction
-//    buttonBoxLeft.spitIn.whileActiveContinuous(new SpitInCommand(this));
+    buttonBoxLeft.spitIn.whileActiveOnce(new ManualIntakeCommand(this));
 //
 //    /* Main teleop buttons */
 //    // Untrench, aim, spin up shooter wheel
@@ -151,9 +153,9 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-//    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 0));
+    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 0));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
-    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
+//    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
 //    colorWheelSubsystem.setDefaultCommand(new RotationalCommand(this));
 //    abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));

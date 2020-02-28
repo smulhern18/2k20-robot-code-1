@@ -149,11 +149,11 @@ public class TurretSubsystem extends BeefSubsystemBase {
 
   public enum TurretDirection {
     //TODO: cut button for turret manuals
-    LEFT(1),
-    RIGHT(-1);
+    LEFT(-.5),
+    RIGHT(.5);
     private double value;
 
-    TurretDirection(int value) {
+    TurretDirection(double value) {
       this.value = value;
     }
 
