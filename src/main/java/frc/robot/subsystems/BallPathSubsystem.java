@@ -105,6 +105,11 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexWheelIn();
   }
 
+  public void manualLoad() {
+    beltMotor.set(1);
+    indexWheelMotor.set(.25);
+  }
+
   /**
    * Runs the motors/ballpath backwards towards the collector
    */

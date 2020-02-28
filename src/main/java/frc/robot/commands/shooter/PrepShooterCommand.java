@@ -20,7 +20,7 @@ public class PrepShooterCommand extends SequentialCommandGroup {
         new UntrenchCommand(robotContainer),
         new VisionAimTurretCommand(robotContainer),
         // spin up to a fast speed
-        new ManualShootCommand(robotContainer, Constants.ShooterConstants.DEFAULT_RPM)
+        new RunShooterCommand(robotContainer, Constants.ShooterConstants.DEFAULT_RPM)
     );
   }
 }

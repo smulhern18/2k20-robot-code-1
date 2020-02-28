@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.models.sensors.Tensiometer;
@@ -19,7 +20,8 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   private DigitalInput bottomLimitSwitch;
   private WPI_TalonFX climbMotor;
-  public Solenoid slapper, trigger;
+  public DoubleSolenoid slapper;
+  private Solenoid trigger;
   private WPI_TalonSRX traverseMotor;
 
   /**
@@ -28,7 +30,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
   public ClimberSubsystem() {
     bottomLimitSwitch = new DigitalInput(ClimberConstants.BOTTOM_SWITCH_PORT);// indicates when you reach the top
     climbMotor = new WPI_TalonFX(ClimberConstants.CLIMB_MOTOR_CHANNEL);
-    slapper = new Solenoid(ClimberConstants.SLAPPER_PORT);
+    slapper = new DoubleSolenoid(ClimberConstants.SLAPPER_PORT, ClimberConstants.UNSLAPPER_PORT);
     trigger = new Solenoid(ClimberConstants.TRIGGER_PORT);
 
     traverseMotor = new WPI_TalonSRX(ClimberConstants.TRAVERSE_MOTOR_PORT);
@@ -38,14 +40,14 @@ public class ClimberSubsystem extends BeefSubsystemBase {
    * Unslaps the climber (sets to vertical position)
    */
   public void unslap() {
-    slapper.set(ClimberConstants.UNSLAP);
+    slapper.set(DoubleSolenoid.Value.kForward);
   }
 
   /**
    * Slaps climber
    */
   public void slap() {
-    slapper.set(ClimberConstants.SLAP);
+    slapper.set(DoubleSolenoid.Value.kReverse);
   }
 
   public void triggerClimb() {

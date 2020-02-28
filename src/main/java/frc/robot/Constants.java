@@ -174,20 +174,21 @@ public final class Constants {
   public final static class ClimberConstants {
     // TODO: Configure DIO ports
     public final static int BOTTOM_SWITCH_PORT = 0;
-    public final static int CLIMB_MOTOR_CHANNEL = 4; // TODO: configure
-    public final static int SLAPPER_PORT = 3; // TODO: configure
-    public final static int TRIGGER_PORT = 4;
+    public final static int CLIMB_MOTOR_CHANNEL = 4;
+    public final static int SLAPPER_PORT = 3;
+    public final static int TRIGGER_PORT = 5;
     public final static boolean UNSLAP = true;
-    public final static boolean SLAP = false;
+    public final static DoubleSolenoid.Value SLAP = DoubleSolenoid.Value.kForward;
     public final static double CLIMB_OFF = 0.0;
     public final static double CLIMB_EXTEND = 0.3;
     public final static double CLIMB_RETRACT = 0.9;
     public final static int TRAVERSE_MOTOR_PORT = 5;
+    public static final int UNSLAPPER_PORT = 2;
   }
 
   public final static class TrenchableConstants {
-    public final static int TRENCHABLE_PORT = 0;
-    public final static int UNTRENCHABLE_PORT = 1;
+    public final static int TRENCHABLE_PORT = 1;
+    public final static int UNTRENCHABLE_PORT = 6;
     public final static DoubleSolenoid.Value TRENCHABLE = DoubleSolenoid.Value.kForward;
     public final static DoubleSolenoid.Value UNTRENCHABLE = DoubleSolenoid.Value.kReverse;
 

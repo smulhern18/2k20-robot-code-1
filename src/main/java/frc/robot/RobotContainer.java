@@ -10,8 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.abrahamblinkin.AllianceColorCommand;
+import frc.robot.commands.auto.ShootThreeAutoCommand;
 import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
@@ -19,19 +19,13 @@ import frc.robot.commands.climber.ExtendClimbCommand;
 import frc.robot.commands.climber.RetractClimbCommand;
 import frc.robot.commands.climber.ToggleSlapCommand;
 import frc.robot.commands.climber.TraverseCommand;
-import frc.robot.commands.collector.CollectCommand;
-import frc.robot.commands.collector.ManualExhaustCommand;
-import frc.robot.commands.collector.ManualIntakeCommand;
-import frc.robot.commands.colorwheel.PositionalCommand;
-import frc.robot.commands.colorwheel.RotationalCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.ManualShootCommand;
+import frc.robot.commands.shooter.RunShooterCommand;
 import frc.robot.commands.shooter.PrepShooterCommand;
-import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.JogTurretCommand;
 import frc.robot.commands.turret.ResetTurretCommand;
-import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.input.ButtonBoxLeft;
 import frc.robot.input.ButtonBoxRight;
@@ -117,16 +111,16 @@ public class RobotContainer {
 //    // unused currently
 ////    buttonBoxLeft.resetIndexer.whenPressed(new WaitCommand(1));
 //    // Set shooter RPM to default speed
-    buttonBoxLeft.defaultShooterSpeed.whenPressed(new ManualShootCommand(this, Constants.ShooterConstants.DEFAULT_RPM));
+    buttonBoxLeft.defaultShooterSpeed.whenPressed(new RunShooterCommand(this, Constants.ShooterConstants.DEFAULT_RPM));
 //    // Sets turret straight forward
     buttonBoxRight.resetTurret.whenPressed(new ResetTurretCommand(this)); // TODO: locate button
     // manual turret left
     buttonBoxLeft.jogTurretLeft.whileActiveOnce(new JogTurretCommand(this, TurretSubsystem.TurretDirection.LEFT));
     buttonBoxLeft.jogTurretRight.whileActiveOnce(new JogTurretCommand(this, TurretSubsystem.TurretDirection.RIGHT));
 //    // Spin ball path and collector in reverse
-    buttonBoxLeft.spitOut.whileActiveOnce(new ManualExhaustCommand(this));
+    buttonBoxLeft.spitOut.whileActiveOnce(new SpitOutCommand(this));
 //    // Spin ball path and collector in the correct direction
-    buttonBoxLeft.spitIn.whileActiveOnce(new ManualIntakeCommand(this));
+    buttonBoxLeft.spitIn.whileActiveOnce(new SpitInCommand(this));
 //
 //    /* Main teleop buttons */
 //    // Untrench, aim, spin up shooter wheel
@@ -154,7 +148,7 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-    shooterSubsystem.setDefaultCommand(new ManualShootCommand(this, 0));
+    shooterSubsystem.setDefaultCommand(new RunShooterCommand(this, 0));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
 //    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
@@ -169,6 +163,6 @@ public class RobotContainer {
     drivetrainSubsystem.resetAll();
     //TODO: uncomment for real robot
 //    return autoChooser.getSelected();
-    return new TestAutoCommand(this);
+    return new ShootThreeAutoCommand(this);
   }
 }

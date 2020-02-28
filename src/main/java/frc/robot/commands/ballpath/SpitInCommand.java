@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.ManualIntakeCommand;
-import frc.robot.commands.shooter.ManualShootCommand;
+import frc.robot.commands.shooter.RunShooterCommand;
 import frc.robot.subsystems.BallPathSubsystem;
 
 /**
@@ -16,9 +16,7 @@ public class SpitInCommand extends ParallelCommandGroup {
         // rolls intake wheels
         new ManualIntakeCommand(robotContainer),
         // runs ball path in
-        new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.IN),
-        // flops balls out of shooter
-        new ManualShootCommand(robotContainer, Constants.ShooterConstants.DEFAULT_RPM)
+        new ManualLoadBallPathCommand(robotContainer)
     );
   }
 }

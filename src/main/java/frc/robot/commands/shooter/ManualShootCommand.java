@@ -1,47 +1,21 @@
 package frc.robot.commands.shooter;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
+import frc.robot.commands.ballpath.RunBallPathCommand;
+import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-/**
- * Shoots at current target RPM.
- */
-public class ManualShootCommand extends CommandBase {
-  NetworkTableEntry rpmEntry;
-  private ShooterSubsystem shooterSubsystem;
-  private double rpm;
-
-  /**
-   * Creates a new ManualShootCommand
-   * @param robotContainer
-   * @param rpm
-   */
-  public ManualShootCommand(RobotContainer robotContainer, double rpm) {
-    this.shooterSubsystem = robotContainer.shooterSubsystem;
-    this.rpm = rpm;
-    addRequirements(shooterSubsystem);
-    rpmEntry = Constants.SubsystemConstants.DEBUG_TAB.add("rpm", 0).getEntry();
-  }
-
-  /**
-   * Only feed balls if at target RPM
-   */
-  @Override
-  public void execute() {
-//    shooterSubsystem.shoot(rpm);
-    shooterSubsystem.shoot(rpmEntry.getDouble(0));
-  }
-
-  /**
-   * At the end stops the shooter
-   * @param interrupted
-   */
-  @Override
-  public void end(boolean interrupted) {
-    shooterSubsystem.stop();
-    System.out.println("stop");
+public class ManualShootCommand extends SequentialCommandGroup {
+  public ManualShootCommand(RobotContainer robotContainer) {
+    addCommands(
+        new RunShooterCommand(robotContainer, 5000).withTimeout(4),
+        new ParallelCommandGroup(
+            new RunShooterCommand(robotContainer, 5000),
+            new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.IN)
+        ).withTimeout(5)
+    );
   }
 }
