@@ -19,7 +19,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   private DigitalInput bottomLimitSwitch;
   private WPI_TalonFX climbMotor;
-  private Solenoid slapper, trigger;
+  public Solenoid slapper, trigger;
   private WPI_TalonSRX traverseMotor;
 
   /**
