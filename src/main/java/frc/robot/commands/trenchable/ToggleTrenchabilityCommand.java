@@ -1,7 +1,10 @@
 package frc.robot.commands.trenchable;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.collector.LiftCollectorCommand;
 import frc.robot.subsystems.TrenchableSubsystem;
 
 /**
@@ -22,10 +25,13 @@ public class ToggleTrenchabilityCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    if (robotContainer.trenchableSubsystem.trenchablifier.equals(TrenchableSubsystem.TrenchableState.TRENCHABLE)) {
+    if (robotContainer.trenchableSubsystem.trenchablifier.get() == Constants.TrenchableConstants.TRENCHABLE) {
       new UntrenchCommand(robotContainer).schedule();
     } else {
-      new TrenchCommand(robotContainer).schedule();
+      new SequentialCommandGroup(
+          new LiftCollectorCommand(robotContainer).withTimeout(2),
+          new TrenchCommand(robotContainer)
+      ).schedule();
     }
   }
 

@@ -4,21 +4,24 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.CollectorSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TrenchableSubsystem;
 
 public class TrenchCommand extends CommandBase {
-  TrenchableSubsystem trenchableSubsystem;
-  ClimberSubsystem climberSubsystem;
-  RobotContainer robotContainer;
+  private TrenchableSubsystem trenchableSubsystem;
+  private ClimberSubsystem climberSubsystem;
+  private RobotContainer robotContainer;
+  private ShooterSubsystem shooterSubsystem;
 
   /**
    * Creates a new Trench Command
    * @param robotContainer
    */
   public TrenchCommand(RobotContainer robotContainer) {
+    shooterSubsystem = robotContainer.shooterSubsystem;
     this.trenchableSubsystem = robotContainer.trenchableSubsystem;
     this.climberSubsystem = robotContainer.climberSubsystem;
-    this.robotContainer = robotContainer;
     addRequirements(trenchableSubsystem, climberSubsystem);
   }
 
@@ -27,7 +30,7 @@ public class TrenchCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    new InstantCommand(() -> robotContainer.shooterSubsystem.stop(), robotContainer.shooterSubsystem);
+    shooterSubsystem.stop();
     trenchableSubsystem.trench();
     climberSubsystem.slap();
   }
