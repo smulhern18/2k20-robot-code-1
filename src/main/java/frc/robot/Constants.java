@@ -11,7 +11,6 @@ import com.revrobotics.ColorMatch;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -145,7 +144,7 @@ public final class Constants {
   }
 
   public static class LEDConstants {
-    public final static int BLINKIN_PARK_CHANNEL = 0;
+    public final static int BLINKIN_PARK_CHANNEL = 9;
   }
 
   public static class TurretConstants {
@@ -163,17 +162,16 @@ public final class Constants {
 
     public final static double POT_MIN = 0;
     public final static double POT_MAX = 2048; // TODO: configure
-    public final static double TOTAL_ROTATION_DEGREES  = 270;
+    public final static double TOTAL_ROTATION_DEGREES = 270;
     public final static double MIN_ROTATION_DEGREES = -45.0;
     public final static double MAX_ROTATION_DEGREES = 225.0;
-    public final static double MIDDLE_ROTATION_DEGREES = (MAX_ROTATION_DEGREES + MIN_ROTATION_DEGREES)/2.0;
+    public final static double MIDDLE_ROTATION_DEGREES = (MAX_ROTATION_DEGREES + MIN_ROTATION_DEGREES) / 2.0;
 
     public final static double ERROR_TOLERANCE = 0.50;//TODO: set to real value
   }
 
   public final static class ClimberConstants {
-    // TODO: Configure DIO ports
-    public final static int BOTTOM_SWITCH_PORT = 0;
+    public final static int BOTTOM_SWITCH_PORT = 6;
     public final static int CLIMB_MOTOR_CHANNEL = 4;
     public final static int SLAPPER_PORT = 3;
     public final static int TRIGGER_PORT = 5;
