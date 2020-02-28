@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 public class ButtonBoxRight extends Joystick {
-  public JoystickButton autoTarget, collect, shoot, trenchable, rotationControl, positionControl, manualColorWheelRotation;
+  public JoystickButton autoTarget, collect, shoot, trenchable, rotationControl, positionControl, manualColorWheelRotation, resetTurret;
 
 
   /**
@@ -22,5 +22,6 @@ public class ButtonBoxRight extends Joystick {
     manualColorWheelRotation = new JoystickButton(this, 5);
     rotationControl = new JoystickButton(this, 6);
     positionControl = new JoystickButton(this, 7);
+    resetTurret = new JoystickButton(this, 8);
   }
 }
