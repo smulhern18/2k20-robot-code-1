@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.trenchable.UntrenchCommand;
+import frc.robot.commands.turret.VisionAimTurretCommand;
 
 /**
  * Prepares shooter
@@ -17,6 +18,7 @@ public class PrepShooterCommand extends SequentialCommandGroup {
     addCommands(
         // Untrench robot so turret and shooter can spin freely
         new UntrenchCommand(robotContainer),
+        new VisionAimTurretCommand(robotContainer),
         // spin up to a fast speed
         new ManualShootCommand(robotContainer, Constants.ShooterConstants.DEFAULT_RPM)
     );

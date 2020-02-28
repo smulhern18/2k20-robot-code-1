@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.abrahamblinkin.ChangeHatCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
-import frc.robot.commands.turret.AutoAimTurretCommand;
+import frc.robot.commands.turret.VisionAimTurretCommand;
 import frc.robot.subsystems.AbrahamBlinkinSubsystem;
 
 public class VisionAimAndShootCommand extends SequentialCommandGroup {
@@ -14,7 +14,7 @@ public class VisionAimAndShootCommand extends SequentialCommandGroup {
         // untrench
         new UntrenchCommand(robotContainer),
         // aim turret
-        new AutoAimTurretCommand(robotContainer),
+        new VisionAimTurretCommand(robotContainer),
         // set RPM and empty robot
         new VisionShootCommand(robotContainer),
         //wait for 3 seconds before shutting off the gooseneck

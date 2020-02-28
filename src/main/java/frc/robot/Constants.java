@@ -122,7 +122,7 @@ public final class Constants {
     public final static double MOTOR_TO_WHEEL = 1.23;
     public final static double RPM_THRESHOLD = 100;
 
-    public final static double DEFAULT_RPM = 7200;
+    public final static double DEFAULT_RPM = 5000;
 
     public final static String VELOCITY_ENTRY = "Shooter Velocity";
   }
@@ -175,7 +175,8 @@ public final class Constants {
     // TODO: Configure DIO ports
     public final static int BOTTOM_SWITCH_PORT = 0;
     public final static int CLIMB_MOTOR_CHANNEL = 4; // TODO: configure
-    public final static int SLAPPER_PORT = 3;
+    public final static int SLAPPER_PORT = 3; // TODO: configure
+    public final static int TRIGGER_PORT = 4;
     public final static boolean UNSLAP = true;
     public final static boolean SLAP = false;
     public final static double CLIMB_OFF = 0.0;

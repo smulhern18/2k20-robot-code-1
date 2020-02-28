@@ -95,8 +95,8 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
     double leftTargetAcceleration = (leftVelocity + leftPair.getVelocityMetersPerSecond()) / (Constants.LOOP_TIME_S);
     double rightTargetAcceleration = (rightVelocity + rightPair.getVelocityMetersPerSecond()) / (Constants.LOOP_TIME_S);
 
-    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(-leftVelocity, leftTargetAcceleration);
-    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(-rightVelocity, rightTargetAcceleration);
+    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftTargetAcceleration);
+    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightTargetAcceleration);
 
     leftPair.set(
         ControlMode.Velocity,

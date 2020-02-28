@@ -45,11 +45,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
     //give number between -45 and 225
     // Min on pot corresponds to MIN_ROTATION_DEGREES
     // Max on pot corresponds to MAX_ROTATION_DEGREES
-    // middle is 90
-    // - 45 + 90 = 45 
-    //45 / 270 = 1/6
-    //0 2048/6
-    //50 degrees + 45 / TOTAL_ROTATION_DEGREES
+    // default is 0
 
     double percent = (Units.radiansToDegrees(heading)  - TurretConstants.MIN_ROTATION_DEGREES) / TurretConstants.TOTAL_ROTATION_DEGREES;
     return percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN;
@@ -80,17 +76,13 @@ public class TurretSubsystem extends BeefSubsystemBase {
     }
   }
 
-  @Override
-  public void periodic() {
-  }
-
   /**
    * Rotates the turret to the target position
    *
-   * @param targetPosition
+   * @param targetPositionDegrees
    */
-  public void rotateToPosition(double targetPosition) {
-    turretMotor.set(ControlMode.Position, convertDegreesToPot(targetPosition));
+  public void rotateToPosition(double targetPositionDegrees) {
+    turretMotor.set(ControlMode.Position, convertDegreesToPot(targetPositionDegrees));
   }
 
   /**

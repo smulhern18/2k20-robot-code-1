@@ -19,16 +19,17 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   private DigitalInput bottomLimitSwitch;
   private WPI_TalonFX climbMotor;
-  public Solenoid slapper;
+  private Solenoid slapper, trigger;
   private WPI_TalonSRX traverseMotor;
 
   /**
-   * Construct hardware objects, set initial state to untrenchable.
+   * Construct hardware objects
    */
   public ClimberSubsystem() {
     bottomLimitSwitch = new DigitalInput(ClimberConstants.BOTTOM_SWITCH_PORT);// indicates when you reach the top
     climbMotor = new WPI_TalonFX(ClimberConstants.CLIMB_MOTOR_CHANNEL);
     slapper = new Solenoid(ClimberConstants.SLAPPER_PORT);
+    trigger = new Solenoid(ClimberConstants.TRIGGER_PORT);
 
     traverseMotor = new WPI_TalonSRX(ClimberConstants.TRAVERSE_MOTOR_PORT);
   }
@@ -47,6 +48,10 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     slapper.set(ClimberConstants.SLAP);
   }
 
+  public void triggerClimb() {
+    trigger.set(true);
+  }
+
   /**
    * Turns off retracting/extending falcon
    */
@@ -59,13 +64,6 @@ public class ClimberSubsystem extends BeefSubsystemBase {
    */
   public boolean atBottom() {
     return bottomLimitSwitch.get();
-  }
-
-  /**
-   * starts unspooling and begins to extend the climber
-   */
-  public void unspool() {
-    climbMotor.set(ClimberConstants.CLIMB_EXTEND);
   }
 
   /**

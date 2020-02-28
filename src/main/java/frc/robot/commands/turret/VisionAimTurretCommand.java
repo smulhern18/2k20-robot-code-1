@@ -11,7 +11,7 @@ import frc.robot.subsystems.VisionSubsystem;
 /**
  * Aims turret approximately where the port should be, then locks on
  */
-public class AutoAimTurretCommand extends CommandBase {
+public class VisionAimTurretCommand extends CommandBase {
   private final TurretSubsystem turretSubsystem;
   private final VisionSubsystem visionSubsystem;
   private final DrivetrainSubsystem drivetrainSubsystem;//need for odometry
@@ -20,9 +20,10 @@ public class AutoAimTurretCommand extends CommandBase {
 
   /**
    * Creates a new AutoAimTurretCommand
+   *
    * @param robotContainer
    */
-  public AutoAimTurretCommand(RobotContainer robotContainer) {
+  public VisionAimTurretCommand(RobotContainer robotContainer) {
     this.turretSubsystem = robotContainer.turretSubsystem;
     this.visionSubsystem = robotContainer.visionSubsystem;
     //drivetrain not required because it's only being used to read from NavX
@@ -44,7 +45,7 @@ public class AutoAimTurretCommand extends CommandBase {
   @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
-      targetPosition = Units.degreesToRadians(visionSubsystem.getAngleToTarget()) + Constants.TurretConstants.MIDDLE_ROTATION_DEGREES;
+      targetPosition = Units.radiansToDegrees(visionSubsystem.getAngleToTarget()) + Constants.TurretConstants.MIDDLE_ROTATION_DEGREES;
       turretSubsystem.rotateToPosition(targetPosition);//adjusts for middle offset
     } else {//currently unsure with where to point shooter with no vision
       targetPosition = drivetrainSubsystem.getYawDegrees();
