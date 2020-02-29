@@ -9,9 +9,9 @@ public class ExtendClimbCommand extends SequentialCommandGroup {
   public ExtendClimbCommand(RobotContainer robotContainer) {
     addCommands(
         // Untrenches an unslaps
-        new UntrenchCommand(robotContainer),
+        new UntrenchCommand(robotContainer).withTimeout(2),
         // extends climber
-        new InstantCommand(() -> robotContainer.climberSubsystem.triggerClimb(), robotContainer.climberSubsystem)
+        new InstantCommand(robotContainer.climberSubsystem::triggerClimb, robotContainer.climberSubsystem)
     );
   }
 }

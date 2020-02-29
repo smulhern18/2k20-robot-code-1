@@ -16,6 +16,11 @@ public class RetractClimbCommand extends CommandBase {
     addRequirements(climberSubsystem);
   }
 
+  @Override
+  public void initialize() {
+    climberSubsystem.triggerClimb();
+  }
+
   /**
    * Spools the climber subsystem
    */

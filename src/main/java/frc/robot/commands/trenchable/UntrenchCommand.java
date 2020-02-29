@@ -15,8 +15,7 @@ public class UntrenchCommand extends CommandBase {
    */
   public UntrenchCommand(RobotContainer robotContainer) {
     this.trenchableSubsystem = robotContainer.trenchableSubsystem;
-    this.climberSubsystem = robotContainer.climberSubsystem;
-    addRequirements(trenchableSubsystem, climberSubsystem);
+    addRequirements(trenchableSubsystem);
   }
 
   /**
@@ -25,15 +24,5 @@ public class UntrenchCommand extends CommandBase {
   @Override
   public void initialize() {
     trenchableSubsystem.untrench();
-    climberSubsystem.unslap();
-  }
-
-  /**
-   * Decides when untrenching is complete
-   * @return when the state of the subsystem is untrenched
-   */
-  @Override
-  public boolean isFinished() {
-    return trenchableSubsystem.trenchablifier.get().equals(TrenchableSubsystem.TrenchableState.UNTRENCHABLE);
   }
 }

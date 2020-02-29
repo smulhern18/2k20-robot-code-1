@@ -12,13 +12,14 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.abrahamblinkin.AllianceColorCommand;
 import frc.robot.commands.auto.ShootThreeAutoCommand;
-import frc.robot.commands.auto.test.TestAutoCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
 import frc.robot.commands.climber.ExtendClimbCommand;
 import frc.robot.commands.climber.RetractClimbCommand;
 import frc.robot.commands.climber.ToggleSlapCommand;
 import frc.robot.commands.climber.TraverseCommand;
+import frc.robot.commands.collector.ToggleCollectCommand;
+import frc.robot.commands.collector.ToggleCollectorPistonCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
 import frc.robot.commands.shooter.ManualShootCommand;
 import frc.robot.commands.shooter.RunShooterCommand;
@@ -43,7 +44,7 @@ public class RobotContainer {
   public AttackThree leftStick = new AttackThree(Constants.InputConstants.LEFT_JOYSTICK_CHANNEL);
   public AttackThree rightStick = new AttackThree(Constants.InputConstants.RIGHT_JOYSTICK_CHANNEL);
   public AbrahamBlinkinSubsystem abrahamBlinkinSubsystem = new AbrahamBlinkinSubsystem();
-  public BallPathSubsystem ballPathSubsystem;// = new BallPathSubsystem();
+  public BallPathSubsystem ballPathSubsystem = new BallPathSubsystem();
   public ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   public CollectorSubsystem collectorSubsystem = new CollectorSubsystem();
   public ColorWheelSubsystem colorWheelSubsystem;// = new ColorWheelSubsystem();
@@ -91,7 +92,7 @@ public class RobotContainer {
     // Trench or untrench when pressed
     leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
     // Auto aim turret, rev up shooter, empty robot of balls
-//    rightStick.getButton(1).whenPressed(new VisionAimAndShootCommand(this));
+    rightStick.getButton(1).whenPressed(new ManualShootCommand(this));
 
     /* Operator button box */
 
@@ -101,7 +102,7 @@ public class RobotContainer {
 //    // Toggle slapping onto coat hanger
     buttonBoxLeft.slap.whenPressed(new ToggleSlapCommand(this));
 //    // Climb by retracting elevator
-    buttonBoxLeft.retract.whenPressed(new RetractClimbCommand(this));
+    buttonBoxLeft.retract.whileActiveOnce(new RetractClimbCommand(this));
 //    // Traverse coat hanger left
     buttonBoxLeft.traverseLeft.whileActiveOnce(new TraverseCommand(this, ClimberSubsystem.TraverseDirection.LEFT));
 //    // Traverse coat hanger right
@@ -126,9 +127,10 @@ public class RobotContainer {
 //    // Untrench, aim, spin up shooter wheel
     buttonBoxRight.autoTarget.whenPressed(new PrepShooterCommand(this));
 //    // Collect 5 balls
-//    buttonBoxRight.collect.whenPressed(new CollectCommand(this));
+    buttonBoxRight.collect.whenPressed(new ToggleCollectorPistonCommand(this));
 //    // shoot until empty
 //    buttonBoxRight.shoot.whenPressed(new VisionAimAndShootCommand(this));
+    buttonBoxRight.shoot.whenPressed(new ManualShootCommand(this).withTimeout(10));
 //    // toggle trenchability
     buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
 //
@@ -136,7 +138,7 @@ public class RobotContainer {
 //    // do color wheel rotation control
 //    buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
 //    // do color wheel position control
-//    buttonBoxRight.positionControl.whenPressed(new PositionalCommand(this));
+    buttonBoxRight.rotationControl.whenPressed(new ToggleCollectCommand(this));
 //    buttonBoxRight.positionControl.whe //TODO: write the command
     //TODO: manual spin
 
@@ -148,7 +150,6 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-    shooterSubsystem.setDefaultCommand(new RunShooterCommand(this, 0));
 //    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
 //    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
@@ -164,5 +165,9 @@ public class RobotContainer {
     //TODO: uncomment for real robot
 //    return autoChooser.getSelected();
     return new ShootThreeAutoCommand(this);
+  }
+  public void teleopInit() {
+    climberSubsystem.untrigger();
+    collectorSubsystem.undeploy();
   }
 }

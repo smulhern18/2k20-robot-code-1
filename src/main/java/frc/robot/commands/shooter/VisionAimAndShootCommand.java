@@ -12,7 +12,7 @@ public class VisionAimAndShootCommand extends SequentialCommandGroup {
   public VisionAimAndShootCommand(RobotContainer robotContainer) {
     addCommands(
         // untrench
-        new UntrenchCommand(robotContainer),
+        new UntrenchCommand(robotContainer).withTimeout(2),
         // aim turret
         new VisionAimTurretCommand(robotContainer),
         // set RPM and empty robot

@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
     if (autoCommand != null) {
       autoCommand.schedule();
     }
+    robotContainer.teleopInit();
   }
 
   /**
@@ -104,6 +105,7 @@ public class Robot extends TimedRobot {
     if (autoCommand != null) {
       autoCommand.cancel();
     }
+    robotContainer.teleopInit();
   }
 
   /**

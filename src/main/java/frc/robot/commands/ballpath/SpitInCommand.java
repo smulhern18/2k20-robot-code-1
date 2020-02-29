@@ -14,7 +14,7 @@ public class SpitInCommand extends ParallelCommandGroup {
   public SpitInCommand(RobotContainer robotContainer) {
     addCommands(
         // rolls intake wheels
-        new ManualIntakeCommand(robotContainer),
+//        new ManualIntakeCommand(robotContainer),
         // runs ball path in
         new ManualLoadBallPathCommand(robotContainer)
     );

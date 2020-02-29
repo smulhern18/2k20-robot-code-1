@@ -171,16 +171,16 @@ public final class Constants {
   }
 
   public final static class ClimberConstants {
-    public final static int BOTTOM_SWITCH_PORT = 6;
-    public final static int CLIMB_MOTOR_CHANNEL = 4;
+    public final static int BOTTOM_SWITCH_PORT = 9;
+    public final static int CLIMB_MOTOR_CHANNEL = 13;
     public final static int SLAPPER_PORT = 3;
     public final static int TRIGGER_PORT = 5;
     public final static boolean UNSLAP = true;
     public final static DoubleSolenoid.Value SLAP = DoubleSolenoid.Value.kForward;
     public final static double CLIMB_OFF = 0.0;
     public final static double CLIMB_EXTEND = 0.3;
-    public final static double CLIMB_RETRACT = 0.9;
-    public final static int TRAVERSE_MOTOR_PORT = 5;
+    public final static double CLIMB_RETRACT = -1;
+    public final static int TRAVERSE_MOTOR_PORT = 14;
     public static final int UNSLAPPER_PORT = 2;
   }
 
@@ -199,7 +199,7 @@ public final class Constants {
 
   public final static class BallPathConstants {
     public final static int GOOSENECK_CHANNEL = 10;
-    public final static int INDEXER_MOTOR_CHANNEL = 8; // TODO: configure
+    public final static int INDEXER_MOTOR_CHANNEL = 12;
     public final static int FIRST_STAGE_MOTOR_CHANNEL = 7;
     public final static String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
     public final static int BELT_BANNER_SENSOR_PORT = 2;

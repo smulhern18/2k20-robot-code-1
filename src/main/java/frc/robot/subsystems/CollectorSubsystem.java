@@ -21,6 +21,10 @@ public class CollectorSubsystem extends BeefSubsystemBase {
     collectorDeployPiston = new Solenoid(CollectorConstants.DEPLOY_COLLECTOR_SOLENOID_CHANNEL);
   }
 
+  public double getCollectorSpeed() {
+    return collectorMotor.get();
+  }
+
   /**
    * Extend outside frame perimeter
    */
@@ -39,14 +43,14 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    * bring balls in
    */
   public void intake() {
-    collectorMotor.set(-.3);
+    collectorMotor.set(.3);
   }
 
   /**
    * push balls out
    */
   public void exhaust() {
-    collectorMotor.set(.3);
+    collectorMotor.set(-.3);
   }
 
   /**

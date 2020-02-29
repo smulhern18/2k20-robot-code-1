@@ -23,7 +23,6 @@ public class RunShooterCommand extends CommandBase {
     this.shooterSubsystem = robotContainer.shooterSubsystem;
     this.rpm = rpm;
     addRequirements(shooterSubsystem);
-    rpmEntry = Constants.SubsystemConstants.DEBUG_TAB.add("rpm", 0).getEntry();
   }
 
   /**
@@ -31,8 +30,8 @@ public class RunShooterCommand extends CommandBase {
    */
   @Override
   public void execute() {
-//    shooterSubsystem.shoot(rpm);
-    shooterSubsystem.shoot(rpmEntry.getDouble(0));
+    shooterSubsystem.shoot(rpm);
+//    shooterSubsystem.shoot(rpmEntry.getDouble(0));
   }
 
   /**

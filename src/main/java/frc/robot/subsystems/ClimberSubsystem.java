@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ClimberConstants;
 import frc.robot.models.sensors.Tensiometer;
 
@@ -34,6 +35,8 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     trigger = new Solenoid(ClimberConstants.TRIGGER_PORT);
 
     traverseMotor = new WPI_TalonSRX(ClimberConstants.TRAVERSE_MOTOR_PORT);
+    trigger.set(false);
+
   }
 
   /**
@@ -52,6 +55,9 @@ public class ClimberSubsystem extends BeefSubsystemBase {
 
   public void triggerClimb() {
     trigger.set(true);
+  }
+  public void untrigger() {
+    trigger.set(false);
   }
 
   /**
@@ -90,8 +96,8 @@ public class ClimberSubsystem extends BeefSubsystemBase {
    * Mapping of directions of traversal. Uses an enum to prevent any other speed from being set.
    */
   public enum TraverseDirection {
-    LEFT(.75),
-    RIGHT(-.75),
+    LEFT(1),
+    RIGHT(-1),
     OFF(0);
 
     private double value;
@@ -103,5 +109,10 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     public double get() {
       return value;
     }
+  }
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putBoolean("bottom", bottomLimitSwitch.get());
   }
 }

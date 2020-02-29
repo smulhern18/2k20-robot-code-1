@@ -5,6 +5,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.CollectorSubsystem;
 
 public class LiftCollectorCommand extends CommandBase {
+  private boolean done = false;
   private CollectorSubsystem collectorSubsystem;
   public LiftCollectorCommand(RobotContainer robotContainer) {
     collectorSubsystem = robotContainer.collectorSubsystem;
@@ -13,6 +14,12 @@ public class LiftCollectorCommand extends CommandBase {
 
   @Override
   public void initialize() {
+    done = collectorSubsystem.getState() == CollectorSubsystem.CollectorState.UNDEPLOYED;
     collectorSubsystem.undeploy();
+  }
+
+  @Override
+  public boolean isFinished() {
+    return done;
   }
 }
