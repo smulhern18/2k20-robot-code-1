@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.CollectorConstants;
 
 /**
@@ -15,6 +16,7 @@ public class CollectorSubsystem extends BeefSubsystemBase {
 
   private WPI_TalonSRX collectorMotor;
   private Solenoid collectorDeployPiston;
+  public boolean state = false;
 
   public CollectorSubsystem() {
     collectorMotor = new WPI_TalonSRX(CollectorConstants.COLLECTOR_MOTOR_CHANNEL);
@@ -43,14 +45,16 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    * bring balls in
    */
   public void intake() {
-    collectorMotor.set(.3);
+    collectorMotor.set(-.6);
+    state = true;
   }
 
   /**
    * push balls out
    */
   public void exhaust() {
-    collectorMotor.set(-.3);
+    collectorMotor.set(.3);
+    state = true;
   }
 
   /**
@@ -58,6 +62,7 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    */
   public void stopIntake() {
     collectorMotor.set(0);
+    state = false;
   }
 
   /**
@@ -74,5 +79,10 @@ public class CollectorSubsystem extends BeefSubsystemBase {
   public enum CollectorState {
     DEPLOYED,
     UNDEPLOYED
+  }
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putBoolean("collector", state);
   }
 }

@@ -14,7 +14,7 @@ public class ToggleCollectorPistonCommand extends SelectCommand {
   public ToggleCollectorPistonCommand(RobotContainer robotContainer) {
     super(
         Map.ofEntries(
-            Map.entry(CollectorSubsystem.CollectorState.UNDEPLOYED, new InstantCommand(robotContainer.collectorSubsystem::deploy, robotContainer.collectorSubsystem)),
+            Map.entry(CollectorSubsystem.CollectorState.UNDEPLOYED, new IntakeCommand(robotContainer)),
             Map.entry(CollectorSubsystem.CollectorState.DEPLOYED, new InstantCommand(robotContainer.collectorSubsystem::undeploy, robotContainer.collectorSubsystem))
         ),
         robotContainer.collectorSubsystem::getState

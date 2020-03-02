@@ -12,7 +12,7 @@ public class SpitOutCommand extends ParallelCommandGroup {
   public SpitOutCommand(RobotContainer robotContainer) {
     addCommands(
         // run ball path in reverse
-        new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.IN),
+        new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.OUT),
         // spit balls from deployed collector
         new ManualExhaustCommand(robotContainer)
     );

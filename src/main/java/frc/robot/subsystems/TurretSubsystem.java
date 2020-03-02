@@ -40,14 +40,16 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * @param heading
    * @return equivalent potentiometer values
    */
-  private static double convertDegreesToPot(double heading) {
+  public static double convertDegreesToPot(double heading) {
     // convert radians (negative left, positive right) to percent of 270 turn needed
     //give number between -45 and 225
     // Min on pot corresponds to MIN_ROTATION_DEGREES
     // Max on pot corresponds to MAX_ROTATION_DEGREES
     // default is 0
+//    System.out.println("RUNNING");
 
-    double percent = (Units.radiansToDegrees(heading)  - TurretConstants.MIN_ROTATION_DEGREES) / TurretConstants.TOTAL_ROTATION_DEGREES;
+    double percent = (heading - TurretConstants.MIN_ROTATION_DEGREES) / TurretConstants.TOTAL_ROTATION_DEGREES;
+    System.out.println(heading+" "+percent+" "+(percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN));
     return percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN;
   }
 
@@ -82,6 +84,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * @param targetPositionDegrees
    */
   public void rotateToPosition(double targetPositionDegrees) {
+//    convertDegreesToPot(targetPositionDegrees);
     turretMotor.set(ControlMode.Position, convertDegreesToPot(targetPositionDegrees));
   }
 
@@ -129,7 +132,10 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * @param direction
    */
   public void setDirection(TurretDirection direction) {
-    turretMotor.set(direction.get());
+    if ((direction == TurretDirection.RIGHT && getCurrentPotPosition() > 284) || (direction == TurretDirection.LEFT && getCurrentPotPosition() < 850)) {
+      manualRotateTurret(direction.get());
+    } else
+      manualRotateTurret(0);
   }
 
   /**
@@ -137,6 +143,10 @@ public class TurretSubsystem extends BeefSubsystemBase {
    */
   public void setOff() {
     turretMotor.set(0);
+  }
+
+  public void set(double d) {
+    turretMotor.set(ControlMode.PercentOutput, -d);
   }
 
   public enum TurretDirection {

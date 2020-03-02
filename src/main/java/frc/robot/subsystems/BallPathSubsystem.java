@@ -44,7 +44,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * Pushes the balls in the index wheel backward towards collector
    */
   private void indexWheelOut() {
-    indexWheelMotor.set(-1);
+    indexWheelMotor.set(-0.7);
   }
 
   /**
@@ -65,7 +65,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * Pushes the balls in the belt backwards towards the collector
    */
   private void spitBelt() {
-    beltMotor.set(1);
+    beltMotor.set(-1);
   }
 
   /**
@@ -106,8 +106,12 @@ public class BallPathSubsystem extends BeefSubsystemBase {
   }
 
   public void manualLoad() {
-    beltMotor.set(1);
-    indexWheelMotor.set(1);
+    beltMotor.set(-.5);
+    indexWheelMotor.set(.3);
+  }
+
+  public void manualBelt() {
+    beltMotor.set(-.5);
   }
 
   /**
@@ -124,7 +128,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    */
   public void runIndexer() {
     indexWheelIn();
-    runBelt();
+//    runBelt();
   }
 
   /**

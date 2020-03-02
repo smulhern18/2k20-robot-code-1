@@ -10,8 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.abrahamblinkin.AllianceColorCommand;
 import frc.robot.commands.auto.ShootThreeAutoCommand;
+import frc.robot.commands.ballpath.RunBallPathCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
 import frc.robot.commands.climber.ExtendClimbCommand;
@@ -25,8 +27,7 @@ import frc.robot.commands.shooter.ManualShootCommand;
 import frc.robot.commands.shooter.RunShooterCommand;
 import frc.robot.commands.shooter.PrepShooterCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
-import frc.robot.commands.turret.JogTurretCommand;
-import frc.robot.commands.turret.ResetTurretCommand;
+import frc.robot.commands.turret.*;
 import frc.robot.input.AttackThree;
 import frc.robot.input.ButtonBoxLeft;
 import frc.robot.input.ButtonBoxRight;
@@ -91,9 +92,12 @@ public class RobotContainer {
     /* Driver sticks */
     // Trench or untrench when pressed
     leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
+    rightStick.getButton(1).whenPressed(new ManualShootCommand(this, 7000));
     // Auto aim turret, rev up shooter, empty robot of balls
-    rightStick.getButton(1).whenPressed(new ManualShootCommand(this));
-
+//    leftStick.getButton(1).whenPressed(new TurretCommand(this, 0));
+//    rightStick.getButton(1).whenPressed(new TurretCommand(this, 90));
+//    rightStick.getButton(1).whileActiveOnce(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.IN));
+//rightStick.getButton(1).whileActiveOnce(new InstantCommand(() -> ballPathSubsystem.runIndexer(), ballPathSubsystem));
     /* Operator button box */
 
     /* Climb buttons */
@@ -130,7 +134,7 @@ public class RobotContainer {
     buttonBoxRight.collect.whenPressed(new ToggleCollectorPistonCommand(this));
 //    // shoot until empty
 //    buttonBoxRight.shoot.whenPressed(new VisionAimAndShootCommand(this));
-    buttonBoxRight.shoot.whenPressed(new ManualShootCommand(this).withTimeout(10));
+    buttonBoxRight.shoot.whenPressed(new ManualShootCommand(this, 11000).withTimeout(10));
 //    // toggle trenchability
     buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
 //
@@ -138,7 +142,7 @@ public class RobotContainer {
 //    // do color wheel rotation control
 //    buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
 //    // do color wheel position control
-    buttonBoxRight.rotationControl.whenPressed(new ToggleCollectCommand(this));
+    buttonBoxRight.manualColorWheelRotation.whenPressed(new ToggleCollectCommand(this));
 //    buttonBoxRight.positionControl.whe //TODO: write the command
     //TODO: manual spin
 
@@ -168,6 +172,8 @@ public class RobotContainer {
   }
   public void teleopInit() {
     climberSubsystem.untrigger();
+    climberSubsystem.unslap();
+    trenchableSubsystem.untrench();
     collectorSubsystem.undeploy();
   }
 }

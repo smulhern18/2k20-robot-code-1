@@ -23,7 +23,7 @@ public class JogTurretCommand extends CommandBase {
    * upon initialization sets the intended direction
    */
   @Override
-  public void initialize() {
+  public void execute() {
     turretSubsystem.setDirection(direction);
   }
 

@@ -108,7 +108,7 @@ public final class Constants {
     public final static double P = 1;
     public final static double I = 0;
     public final static double D = 0;
-    public final static double F = 4.3;
+    public final static double F = 5.5;
 
 //    public final static SimpleMotorFeedforward FEED_FORWARD = new SimpleMotorFeedforward(1.42, .0604, .122);
 
@@ -160,8 +160,8 @@ public final class Constants {
     public final static String POT_ENTRY = "Potentiometer Value";
     public final static String POSITION_ENTRY = "Position/Angle";
 
-    public final static double POT_MIN = 0;
-    public final static double POT_MAX = 2048; // TODO: configure
+    public final static double POT_MIN = 284;
+    public final static double POT_MAX = 850;
     public final static double TOTAL_ROTATION_DEGREES = 270;
     public final static double MIN_ROTATION_DEGREES = -45.0;
     public final static double MAX_ROTATION_DEGREES = 225.0;
@@ -179,7 +179,7 @@ public final class Constants {
     public final static DoubleSolenoid.Value SLAP = DoubleSolenoid.Value.kForward;
     public final static double CLIMB_OFF = 0.0;
     public final static double CLIMB_EXTEND = 0.3;
-    public final static double CLIMB_RETRACT = -1;
+    public final static double CLIMB_RETRACT = -.8;
     public final static int TRAVERSE_MOTOR_PORT = 14;
     public static final int UNSLAPPER_PORT = 2;
   }

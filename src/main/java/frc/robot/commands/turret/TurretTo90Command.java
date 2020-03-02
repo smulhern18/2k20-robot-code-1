@@ -13,6 +13,7 @@ public class TurretTo90Command extends CommandBase {
 
   @Override
   public void execute() {
-    turretSubsystem.rotateToPosition(90);
+    TurretSubsystem.convertDegreesToPot(90);
+    //turretSubsystem.rotateToPosition(90);
   }
 }

@@ -13,10 +13,10 @@ public class ToggleCollectCommand extends SelectCommand {
   public ToggleCollectCommand(RobotContainer robotContainer) {
     super(
         Map.ofEntries(
-            Map.entry(-.3, new InstantCommand(() -> robotContainer.collectorSubsystem.intake())),
-            Map.entry(0, new InstantCommand(() -> robotContainer.collectorSubsystem.stopIntake()))
+            Map.entry(false, new ManualInBallPathCommand(robotContainer)),
+            Map.entry(true, new InstantCommand(() -> robotContainer.collectorSubsystem.stopIntake(), robotContainer.collectorSubsystem))
         ),
-        () -> robotContainer.collectorSubsystem.getCollectorSpeed()
+        () -> robotContainer.collectorSubsystem.state
     );
   }
 }

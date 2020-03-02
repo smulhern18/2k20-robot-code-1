@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.collector.DeployCollectorCommand;
 import frc.robot.commands.collector.LiftCollectorCommand;
 import frc.robot.subsystems.TrenchableSubsystem;
 
@@ -33,7 +34,7 @@ public class ToggleTrenchabilityCommand extends CommandBase {
       ).schedule();
     } else {
       new SequentialCommandGroup(
-          new LiftCollectorCommand(robotContainer).withTimeout(1),
+          new DeployCollectorCommand(robotContainer).withTimeout(1),
           new TrenchCommand(robotContainer)
       ).schedule();
     }

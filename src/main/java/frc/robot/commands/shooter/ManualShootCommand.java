@@ -9,11 +9,11 @@ import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class ManualShootCommand extends SequentialCommandGroup {
-  public ManualShootCommand(RobotContainer robotContainer) {
+  public ManualShootCommand(RobotContainer robotContainer, double value) {
     addCommands(
-        new RunShooterCommand(robotContainer, 5000).withTimeout(4),
+        new RunShooterCommand(robotContainer, value).withTimeout(4),
         new ParallelCommandGroup(
-            new RunShooterCommand(robotContainer, 5000),
+            new RunShooterCommand(robotContainer, value),
             new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.IN)
         ).withTimeout(5)
     );

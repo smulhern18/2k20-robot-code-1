@@ -24,7 +24,7 @@ public class ButtonBoxLeft extends Joystick {
     jogTurretRight = new JoystickButton(this, 7);
     resetIndexer = new JoystickButton(this, 8);
     defaultShooterSpeed = new JoystickButton(this, 9);
-    spitOut = new JoystickButton(this, 11);
-    spitIn = new JoystickButton(this, 10);
+    spitIn = new JoystickButton(this, 11);
+    spitOut = new JoystickButton(this, 10);
   }
 }
