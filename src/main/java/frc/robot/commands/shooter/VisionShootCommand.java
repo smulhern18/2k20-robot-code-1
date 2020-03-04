@@ -1,5 +1,6 @@
 package frc.robot.commands.shooter;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
@@ -28,7 +29,7 @@ public class VisionShootCommand extends CommandBase {
 
   @Override
   public void initialize(){
-    targetRPM = shooterSubsystem.inchesToRPM(visionSubsystem.getDistanceToTarget());
+    targetRPM = ShooterSubsystem.inchesToRPM(visionSubsystem.getDistanceToTarget());
   }
 
   /**
@@ -38,10 +39,12 @@ public class VisionShootCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    shooterSubsystem.shoot(targetRPM);
+
     if (shooterSubsystem.atTargetRPM(targetRPM)) {
+      shooterSubsystem.shoot(targetRPM);
       ballPathSubsystem.runAll();
     } else {
+      shooterSubsystem.shoot(ControlMode.PercentOutput, 1);
       ballPathSubsystem.stopAll();
     }
   }

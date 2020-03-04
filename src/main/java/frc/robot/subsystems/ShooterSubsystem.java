@@ -90,7 +90,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    * @param mode  A {@link ControlMode}
    * @param value value
    */
-  private void shoot(ControlMode mode, double value) {
+  public void shoot(ControlMode mode, double value) {
     pair.set(mode, value);
   }
 
@@ -102,7 +102,6 @@ public class ShooterSubsystem extends BeefSubsystemBase {
   public void shoot(double velocityRPM) {
     double bonusRPM = bonusShooterRPMEntry.getDouble(0);
     shoot(ControlMode.Velocity, convertRPMToCPD(bonusRPM + velocityRPM));
-//    shoot(ControlMode.PercentOutput, .1);
   }
 
   /**
