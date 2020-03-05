@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.BallPathConstants;
 import frc.robot.models.sensors.BannerSensor;
 
@@ -31,6 +32,16 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     fourthCellBannerSensor = new BannerSensor(BallPathConstants.FOURTH_CELL_BANNER_PORT);
     fifthCellBannerSensor = new BannerSensor(BallPathConstants.FIFTH_CELL_BANNER_PORT);
 
+  }
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putBoolean("belt", beltBannerSensor.beamBroken());
+    SmartDashboard.putBoolean("first", firstCellBannerSensor.beamBroken());
+    SmartDashboard.putBoolean("second", secondCellBannerSensor.beamBroken());
+    SmartDashboard.putBoolean("third", secondCellBannerSensor.beamBroken());
+    SmartDashboard.putBoolean("fourth", fourthCellBannerSensor.beamBroken());
+    SmartDashboard.putNumber("count", getBallsInRobot());
   }
 
   /**
