@@ -175,8 +175,8 @@ public final class Constants {
     public final static int CLIMB_MOTOR_CHANNEL = 13;
     public final static int SLAPPER_PORT = 3;
     public static final int UNSLAPPER_PORT = 2;
-    public final static int TRIGGER_PORT_FORWARD = 3;
-    public final static int TRIGGER_PORT_BACKWARD = 3;
+    public final static int TRIGGER_PORT_FORWARD = 6;
+    public final static int TRIGGER_PORT_BACKWARD = 1;
     public final static boolean UNSLAP = true;
     public final static DoubleSolenoid.Value SLAP = DoubleSolenoid.Value.kForward;
     public final static double CLIMB_OFF = 0.0;
@@ -187,8 +187,7 @@ public final class Constants {
   }
 
   public final static class TrenchableConstants {
-    public final static int TRENCHABLE_PORT = 1;
-    public final static int UNTRENCHABLE_PORT = 6;
+    public final static int TRENCHABLE_PORT = 5;
     public final static DoubleSolenoid.Value TRENCHABLE = DoubleSolenoid.Value.kForward;
     public final static DoubleSolenoid.Value UNTRENCHABLE = DoubleSolenoid.Value.kReverse;
 
@@ -196,7 +195,7 @@ public final class Constants {
 
   public final static class CollectorConstants {
     public final static int COLLECTOR_MOTOR_CHANNEL = 8;
-    public final static int DEPLOY_COLLECTOR_SOLENOID_CHANNEL = 7;
+    public final static int DEPLOY_COLLECTOR_SOLENOID_CHANNEL = 4;
   }
 
   public final static class BallPathConstants {
