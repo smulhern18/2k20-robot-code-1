@@ -174,14 +174,16 @@ public final class Constants {
     public final static int BOTTOM_SWITCH_PORT = 9;
     public final static int CLIMB_MOTOR_CHANNEL = 13;
     public final static int SLAPPER_PORT = 3;
-    public final static int TRIGGER_PORT = 5;
+    public static final int UNSLAPPER_PORT = 2;
+    public final static int TRIGGER_PORT_FORWARD = 3;
+    public final static int TRIGGER_PORT_BACKWARD = 3;
     public final static boolean UNSLAP = true;
     public final static DoubleSolenoid.Value SLAP = DoubleSolenoid.Value.kForward;
     public final static double CLIMB_OFF = 0.0;
     public final static double CLIMB_EXTEND = 0.3;
     public final static double CLIMB_RETRACT = -.8;
     public final static int TRAVERSE_MOTOR_PORT = 14;
-    public static final int UNSLAPPER_PORT = 2;
+
   }
 
   public final static class TrenchableConstants {

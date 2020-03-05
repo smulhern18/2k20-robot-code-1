@@ -27,7 +27,7 @@ public class UntrenchCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    if (trenchableSubsystem.trenchablifier.get() == Constants.TrenchableConstants.UNTRENCHABLE)
+    if (!trenchableSubsystem.trenchablifier.get())
       done = true;
     trenchableSubsystem.untrench();
   }

@@ -22,7 +22,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
   private DigitalInput bottomLimitSwitch;
   private WPI_TalonFX climbMotor;
   public DoubleSolenoid slapper;
-  private Solenoid trigger;
+  private DoubleSolenoid trigger;
   private WPI_TalonSRX traverseMotor;
 
   /**
@@ -32,10 +32,10 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     bottomLimitSwitch = new DigitalInput(ClimberConstants.BOTTOM_SWITCH_PORT);// indicates when you reach the top
     climbMotor = new WPI_TalonFX(ClimberConstants.CLIMB_MOTOR_CHANNEL);
     slapper = new DoubleSolenoid(ClimberConstants.SLAPPER_PORT, ClimberConstants.UNSLAPPER_PORT);
-    trigger = new Solenoid(ClimberConstants.TRIGGER_PORT);
+    trigger = new DoubleSolenoid(ClimberConstants.TRIGGER_PORT_FORWARD, ClimberConstants.TRIGGER_PORT_BACKWARD);
 
     traverseMotor = new WPI_TalonSRX(ClimberConstants.TRAVERSE_MOTOR_PORT);
-    trigger.set(false);
+    trigger.set(DoubleSolenoid.Value.kForward);
 
   }
 
@@ -54,10 +54,10 @@ public class ClimberSubsystem extends BeefSubsystemBase {
   }
 
   public void triggerClimb() {
-    trigger.set(true);
+    trigger.set(DoubleSolenoid.Value.kForward);
   }
   public void untrigger() {
-    trigger.set(false);
+    trigger.set(DoubleSolenoid.Value.kReverse);
   }
 
   /**

@@ -145,10 +145,6 @@ public class TurretSubsystem extends BeefSubsystemBase {
     turretMotor.set(0);
   }
 
-  public void set(double d) {
-    turretMotor.set(ControlMode.PercentOutput, -d);
-  }
-
   public enum TurretDirection {
     //TODO: cut button for turret manuals
     LEFT(-.3),

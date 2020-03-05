@@ -2,40 +2,34 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.Constants.TrenchableConstants;
 
 /**
  * Controls the trenchability of the robot.
  */
 public class TrenchableSubsystem extends BeefSubsystemBase {
-  public DoubleSolenoid trenchablifier;
+  public Solenoid trenchablifier;
 
   /**
    * Constructs trenchabilifier, sets state
    */
   public TrenchableSubsystem() {
-    trenchablifier = new DoubleSolenoid(TrenchableConstants.TRENCHABLE_PORT, TrenchableConstants.UNTRENCHABLE_PORT);
+    trenchablifier = new Solenoid(TrenchableConstants.TRENCHABLE_PORT);
   }
 
   /**
    * Trenches robot
    */
   public void trench() {
-    trenchablifier.set(TrenchableConstants.TRENCHABLE);
+    trenchablifier.set(true);
   }
 
   /**
    * Untrenches robot
    */
   public void untrench() {
-    trenchablifier.set(TrenchableConstants.UNTRENCHABLE);
+    trenchablifier.set(false);
   }
 
-  /**
-   * Enum for the two possible states
-   */
-  public enum TrenchableState {
-    TRENCHABLE,
-    UNTRENCHABLE
-  }
 }
