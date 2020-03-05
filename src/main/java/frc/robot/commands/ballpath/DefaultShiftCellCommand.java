@@ -1,6 +1,7 @@
 package frc.robot.commands.ballpath;
 
 import edu.wpi.first.wpilibj2.command.SelectCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.ballpath.shift.*;
 import frc.robot.commands.collector.ManualExhaustCommand;
@@ -17,7 +18,7 @@ public class DefaultShiftCellCommand extends SelectCommand {
             Map.entry(2, new ShiftSecondToThirdCommand(robotContainer).withTimeout(3)),
             Map.entry(3, new ShiftThirdToFourthCommand(robotContainer).withTimeout(3)),
             Map.entry(4, new ShiftFourthToFifthCommand(robotContainer).withTimeout(3)),
-            Map.entry(5, new ManualExhaustCommand(robotContainer).withTimeout(3))
+            Map.entry(5, new WaitCommand(1))
         ),
         robotContainer.ballPathSubsystem::getBallsInRobot
     );

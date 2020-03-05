@@ -146,9 +146,9 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * @return int number of balls
    */
   public int getBallsInRobot() {
-    if (fifthCellBannerSensor.beamBroken()) {
+    if (fourthCellBannerSensor.beamBroken() && beltBannerSensor.beamBroken()) {
       return 5;
-    } else if (fourthCellBannerSensor.beamBroken()) {
+    } else if (fourthCellBannerSensor.beamBroken() ) {
       return 4;
     } else if (thirdCellBannerSensor.beamBroken()) {
       return 3;
