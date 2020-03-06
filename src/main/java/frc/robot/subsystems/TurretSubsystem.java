@@ -21,7 +21,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
     turretMotor = new WPI_TalonSRX(TurretConstants.TURRET_MOTOR_CHANNEL);
 
     turretMotor.configSelectedFeedbackSensor(
-        FeedbackDevice.Analog,
+        FeedbackDevice.QuadEncoder,
         TurretConstants.PID_LOOPTYPE,
         TurretConstants.TIMEOUT_MS);
 
@@ -30,8 +30,8 @@ public class TurretSubsystem extends BeefSubsystemBase {
     turretMotor.config_kD(TurretConstants.SLOT_ID, TurretConstants.D);
     turretMotor.config_kF(TurretConstants.SLOT_ID, TurretConstants.F);
 
-    createDoubleEntry(TurretConstants.POT_ENTRY, 7, 0, 1, 1, this::getCurrentPotPosition);
-    createDoubleEntry(TurretConstants.POSITION_ENTRY, 8, 0, 1, 1, this::getCurrentPositionDegrees);
+    createDoubleEntry(TurretConstants.POT_ENTRY, 3, 0, 1, 1, this::getCurrentPositionDegrees);
+    createDoubleEntry(TurretConstants.POSITION_ENTRY, 3, 1, 1, 1, turretMotor::getSelectedSensorPosition);
   }
 
   /**
@@ -105,7 +105,11 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * @return the potentiometer value
    */
   public double getCurrentPotPosition() {
-    return turretMotor.getSelectedSensorPosition();
+    return -turretMotor.getSelectedSensorPosition();
+  }
+
+  public String getPosition() {
+    return Double.toString(getCurrentPositionDegrees()) +" degrees";
   }
 
   /**
@@ -117,6 +121,11 @@ public class TurretSubsystem extends BeefSubsystemBase {
     return convertPotToDegrees(turretMotor.getSelectedSensorPosition());
   }
 
+
+  public void resetTurretEncoder() {
+    turretMotor.setSelectedSensorPosition(0);
+//    System.out.println("Running");
+  }
   /**
    * Manually rotates the turret given a speed
    *

@@ -157,11 +157,11 @@ public final class Constants {
     public final static double D = 0;
     public final static double F = 0;
 
-    public final static String POT_ENTRY = "Potentiometer Value";
-    public final static String POSITION_ENTRY = "Position/Angle";
+    public final static String POT_ENTRY = "Turret Angle";
+    public final static String POSITION_ENTRY = "Turret Raw";
 
-    public final static double POT_MIN = 200;
-    public final static double POT_MAX = 800;
+    public final static double POT_MIN = -530;
+    public final static double POT_MAX = 2825;
     public final static double TOTAL_ROTATION_DEGREES = 270;
     public final static double MIN_ROTATION_DEGREES = -45.0;
     public final static double MAX_ROTATION_DEGREES = 225.0;

@@ -164,7 +164,7 @@ public class RobotContainer {
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
     new Trigger(this).whenActive(new DefaultShiftCellCommand(this));
-    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
+//    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
   }
 
@@ -186,5 +186,6 @@ public class RobotContainer {
     climberSubsystem.unslap();
     trenchableSubsystem.untrench();
     collectorSubsystem.undeploy();
+    turretSubsystem.resetTurretEncoder();
   }
 }
