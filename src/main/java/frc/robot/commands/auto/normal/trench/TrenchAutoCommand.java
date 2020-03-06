@@ -1,12 +1,15 @@
 package frc.robot.commands.auto.normal.trench;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotContainer;
+import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.commands.shooter.ManualShootCommand;
 import frc.robot.commands.shooter.ShootCommand;
+import frc.robot.commands.shooter.VisionAimAndShootCommand;
 import frc.robot.commands.trenchable.TrenchCommand;
 import frc.robot.commands.trenchable.UntrenchCommand;
 
@@ -18,15 +21,15 @@ public class TrenchAutoCommand extends SequentialCommandGroup {
   public TrenchAutoCommand(RobotContainer robotContainer) {
     addCommands(
         // shoot 3 preload balls
-//        new VisionAimAndShootCommand(robotContainer).withTimeout(5),
-        new ShootCommand(robotContainer, 5500).withTimeout(5),
+        new VisionAimAndShootCommand(robotContainer).withTimeout(5),
+//        new ShootCommand(robotContainer, 5500).withTimeout(5),
         // trenchable
         new TrenchCommand(robotContainer).withTimeout(3),
         // Collect five balls from enemy trench
-//        new ParallelDeadlineGroup(
-//            new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.GRAB),
-//            new CollectCommand(robotContainer)
-//        ),
+        new ParallelDeadlineGroup(
+            new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.GRAB),
+            new CollectCommand(robotContainer)
+        ),
         new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.GRAB),
         // run away
         new ParallelCommandGroup(
@@ -37,8 +40,8 @@ public class TrenchAutoCommand extends SequentialCommandGroup {
             )
         ),
         // shoot 5
-//        new VisionAimAndShootCommand(robotContainer)
-        new ShootCommand(robotContainer, 5500)
+        new VisionAimAndShootCommand(robotContainer).withTimeout(5)
+//        new ShootCommand(robotContainer, 5500)
     );
   }
 }

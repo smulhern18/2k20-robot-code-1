@@ -16,9 +16,7 @@ public class VisionAimAndShootCommand extends SequentialCommandGroup {
         // aim turret
         new VisionAimTurretCommand(robotContainer),
         // set RPM and empty robot
-        new VisionShootCommand(robotContainer),
-        //wait for 3 seconds before shutting off the gooseneck
-        new WaitCommand(3),
+        new ShootCommand(robotContainer, 5500).withTimeout(5),
         // turn off shooter wheel
         new StopShootingCommand(robotContainer),
         // indicate when done

@@ -17,7 +17,7 @@ public class ToggleSlapCommand extends SelectCommand {
   public ToggleSlapCommand(RobotContainer robotContainer) {
     super(
         Map.ofEntries(
-            Map.entry(true, new InstantCommand(robotContainer.climberSubsystem::slap, robotContainer.climberSubsystem)),
+            Map.entry(true, new SlapCommand(robotContainer)),
             Map.entry(false, new InstantCommand(robotContainer.climberSubsystem::unslap, robotContainer.climberSubsystem))
         ),
         () -> robotContainer.climberSubsystem.slapper.get() == DoubleSolenoid.Value.kForward
