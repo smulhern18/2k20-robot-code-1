@@ -10,7 +10,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 public class ShootCommand extends SequentialCommandGroup {
   public ShootCommand(RobotContainer robotContainer, double rpm) {
     addCommands(
-        new RampUpShooterCommand(robotContainer, rpm).withTimeout(5),
+        new RampUpShooterCommand(robotContainer, rpm).withTimeout(4),
         new ParallelCommandGroup(
             new RunShooterCommand(robotContainer, rpm),
             new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.IN)

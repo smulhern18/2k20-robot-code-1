@@ -105,7 +105,7 @@ public class ShooterSubsystem extends BeefSubsystemBase {
     if (atTargetRPM(velocityRPM)) {
       shoot(ControlMode.Velocity, convertRPMToCPD(bonusRPM + velocityRPM));
     } else {
-      shoot(ControlMode.PercentOutput, .7);
+      shoot(ControlMode.PercentOutput, .75);
     }
   }
 

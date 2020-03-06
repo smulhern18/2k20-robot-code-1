@@ -21,7 +21,7 @@ public class TrenchAutoCommand extends SequentialCommandGroup {
   public TrenchAutoCommand(RobotContainer robotContainer) {
     addCommands(
         // shoot 3 preload balls
-        new VisionAimAndShootCommand(robotContainer).withTimeout(5),
+        new VisionAimAndShootCommand(robotContainer).withTimeout(7),
 //        new ShootCommand(robotContainer, 5500).withTimeout(5),
         // trenchable
         new TrenchCommand(robotContainer).withTimeout(3),
@@ -32,16 +32,15 @@ public class TrenchAutoCommand extends SequentialCommandGroup {
         ),
         new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.GRAB),
         // run away
-        new ParallelCommandGroup(
+        new ParallelDeadlineGroup(
             new TrajectoryFollowerCommand(robotContainer, TrenchTrajectories.RETURN),
             new SequentialCommandGroup(
-                new WaitCommand(1),
+                new WaitCommand(.5),
                 new UntrenchCommand(robotContainer)
             )
         ),
         // shoot 5
-        new VisionAimAndShootCommand(robotContainer).withTimeout(5)
-//        new ShootCommand(robotContainer, 5500)
+        new VisionAimAndShootCommand(robotContainer).withTimeout(7)
     );
   }
 }
