@@ -25,13 +25,9 @@ public class RunShooterCommand extends CommandBase {
     addRequirements(shooterSubsystem);
   }
 
-  /**
-   * Only feed balls if at target RPM
-   */
   @Override
   public void execute() {
     shooterSubsystem.shoot(rpm);
-//    shooterSubsystem.shoot(rpmEntry.getDouble(0));
   }
 
   /**

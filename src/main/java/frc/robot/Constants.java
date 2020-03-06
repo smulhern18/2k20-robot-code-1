@@ -57,14 +57,14 @@ public final class Constants {
     public final static int RIGHT_FOLLOWER_CHANNEL = 2;
 
     // Many of these values found with the frc-characterization tool
-    public final static double S_VOLTS = .179;
-    public final static double V_VOLT_SECONDS_PER_METER = 2.79;
-    public final static double A_VOLT_SECONDS_SQUARED_PER_METER = 0.224;
+    public final static double S_VOLTS = .162;
+    public final static double V_VOLT_SECONDS_PER_METER = 2.8;
+    public final static double A_VOLT_SECONDS_SQUARED_PER_METER = 0.153;
     public final static SimpleMotorFeedforward DRIVE_FEED_FORWARD = new SimpleMotorFeedforward(
         DrivetrainConstants.S_VOLTS, DrivetrainConstants.V_VOLT_SECONDS_PER_METER,
         DrivetrainConstants.A_VOLT_SECONDS_SQUARED_PER_METER);
 
-    public final static double P = 8.79;
+    public final static double P = .0139;
     public final static double I = 0;
     public final static double D = 0;
     public final static double F = 0;
@@ -105,10 +105,10 @@ public final class Constants {
     public final static int LEADER_CHANNEL = 5;
     public final static int FOLLOWER_CHANNEL = 6;
 
-    public final static double P = 1;
+    public final static double P = .5;
     public final static double I = 0;
     public final static double D = 0;
-    public final static double F = 5.5;
+    public final static double F = 0;
 
 //    public final static SimpleMotorFeedforward FEED_FORWARD = new SimpleMotorFeedforward(1.42, .0604, .122);
 
@@ -119,7 +119,7 @@ public final class Constants {
     public final static double COUNTS_PER_REVOLUTION = 12;
     public final static double WHEEL_DIAMETER = 4;
     public final static double MOTOR_TO_WHEEL = 1.23;
-    public final static double RPM_THRESHOLD = 100;
+    public final static double RPM_THRESHOLD = 200;
 
     public final static double DEFAULT_RPM = 5000;
 
@@ -152,16 +152,16 @@ public final class Constants {
     public final static int TIMEOUT_MS = 20;
     public final static int PID_LOOPTYPE = 0;
     public final static int SLOT_ID = 0;
-    public final static double P = 1.0;
-    public final static double I = 0; // undetermined
+    public final static double P = .03;
+    public final static double I = 0;
     public final static double D = 0;
     public final static double F = 0;
 
     public final static String POT_ENTRY = "Potentiometer Value";
     public final static String POSITION_ENTRY = "Position/Angle";
 
-    public final static double POT_MIN = 284;
-    public final static double POT_MAX = 850;
+    public final static double POT_MIN = 200;
+    public final static double POT_MAX = 800;
     public final static double TOTAL_ROTATION_DEGREES = 270;
     public final static double MIN_ROTATION_DEGREES = -45.0;
     public final static double MAX_ROTATION_DEGREES = 225.0;
@@ -203,12 +203,11 @@ public final class Constants {
     public final static int INDEXER_MOTOR_CHANNEL = 12;
     public final static int FIRST_STAGE_MOTOR_CHANNEL = 7;
     public final static String BALLS_CONTAINED_ENTRY = "Amount of Balls Collected";
-    public final static int BELT_BANNER_SENSOR_PORT = 2;
-    public final static int FIRST_CELL_BANNER_PORT = 3;// TODO: configure
-    public final static int SECOND_CELL_BANNER_PORT = 4;// TODO: configure
-    public final static int THIRD_CELL_BANNER_PORT = 5;// TODO: configure
-    public final static int FOURTH_CELL_BANNER_PORT = 6;// TODO: configure
-    public final static int FIFTH_CELL_BANNER_PORT = 7;// TODO: configure
+    public final static int BELT_BANNER_SENSOR_PORT = 1;
+    public final static int FIRST_CELL_BANNER_PORT = 0;
+    public final static int SECOND_CELL_BANNER_PORT = 2;
+    public final static int THIRD_CELL_BANNER_PORT = 4;
+    public final static int FOURTH_CELL_BANNER_PORT = 3;
   }
 
   public final static class ColorWheelConstants {

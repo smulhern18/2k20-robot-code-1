@@ -13,6 +13,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.abrahamblinkin.AllianceColorCommand;
 import frc.robot.commands.auto.ShootThreeAutoCommand;
+import frc.robot.commands.auto.Trajectories;
+import frc.robot.commands.auto.normal.trench.TrenchAutoCommand;
+import frc.robot.commands.auto.test.TestTrajectories;
+import frc.robot.commands.ballpath.DefaultShiftCellCommand;
 import frc.robot.commands.ballpath.RunBallPathCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
 import frc.robot.commands.ballpath.SpitOutCommand;
@@ -20,19 +24,24 @@ import frc.robot.commands.climber.ExtendClimbCommand;
 import frc.robot.commands.climber.RetractClimbCommand;
 import frc.robot.commands.climber.ToggleSlapCommand;
 import frc.robot.commands.climber.TraverseCommand;
+import frc.robot.commands.collector.CollectCommand;
 import frc.robot.commands.collector.ToggleCollectCommand;
 import frc.robot.commands.collector.ToggleCollectorPistonCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
+import frc.robot.commands.drivetrain.TrajectoryFollowerCommand;
 import frc.robot.commands.shooter.ManualShootCommand;
 import frc.robot.commands.shooter.RunShooterCommand;
 import frc.robot.commands.shooter.PrepShooterCommand;
+import frc.robot.commands.shooter.ShootCommand;
 import frc.robot.commands.trenchable.ToggleTrenchabilityCommand;
 import frc.robot.commands.turret.*;
+import frc.robot.commands.vision.DefaultVisionCommand;
 import frc.robot.input.AttackThree;
 import frc.robot.input.ButtonBoxLeft;
 import frc.robot.input.ButtonBoxRight;
 import frc.robot.models.AutoChooser;
 import frc.robot.models.Color;
+import frc.robot.models.Trigger;
 import frc.robot.subsystems.*;
 
 /**
@@ -91,11 +100,11 @@ public class RobotContainer {
 
     /* Driver sticks */
     // Trench or untrench when pressed
-    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
-    rightStick.getButton(1).whenPressed(new ManualShootCommand(this, 7000));
+//    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
+//    rightStick.getButton(1).whenPressed(new ManualShootCommand(this, 7000));
     // Auto aim turret, rev up shooter, empty robot of balls
-//    leftStick.getButton(1).whenPressed(new TurretCommand(this, 0));
-//    rightStick.getButton(1).whenPressed(new TurretCommand(this, 90));
+    leftStick.getButton(1).whenPressed(new TurretCommand(this, 0));
+    rightStick.getButton(1).whenPressed(new TurretCommand(this, 90));
 //    rightStick.getButton(1).whileActiveOnce(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.IN));
 //rightStick.getButton(1).whileActiveOnce(new InstantCommand(() -> ballPathSubsystem.runIndexer(), ballPathSubsystem));
     /* Operator button box */
@@ -129,12 +138,12 @@ public class RobotContainer {
 //
 //    /* Main teleop buttons */
 //    // Untrench, aim, spin up shooter wheel
-    buttonBoxRight.autoTarget.whenPressed(new PrepShooterCommand(this));
+    buttonBoxRight.autoTarget.whenPressed(new VisionAimTurretCommand(this));
 //    // Collect 5 balls
-    buttonBoxRight.collect.whenPressed(new ToggleCollectorPistonCommand(this));
+    buttonBoxRight.collect.whenPressed(new CollectCommand(this));
 //    // shoot until empty
 //    buttonBoxRight.shoot.whenPressed(new VisionAimAndShootCommand(this));
-    buttonBoxRight.shoot.whenPressed(new ManualShootCommand(this, 11000).withTimeout(10));
+    buttonBoxRight.shoot.whenPressed(new ShootCommand(this, 5500).withTimeout(10));
 //    // toggle trenchability
     buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
 //
@@ -154,8 +163,8 @@ public class RobotContainer {
    */
   private void setDefaultCommands() {
     drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(this));
-//    ballPathSubsystem.setDefaultCommand(new DefaultShiftCellCommand(this));
-//    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
+    new Trigger(this).whenActive(new DefaultShiftCellCommand(this));
+    visionSubsystem.setDefaultCommand(new DefaultVisionCommand(this));
     abrahamBlinkinSubsystem.setDefaultCommand(new AllianceColorCommand(this));
   }
 
@@ -168,10 +177,12 @@ public class RobotContainer {
     drivetrainSubsystem.resetAll();
     //TODO: uncomment for real robot
 //    return autoChooser.getSelected();
-    return new ShootThreeAutoCommand(this);
+//    return new ShootThreeAutoCommand(this);
+    return new TrenchAutoCommand(this);
   }
   public void teleopInit() {
-    climberSubsystem.untrigger();
+    System.out.println("Teleop init");
+    climberSubsystem.untriggerClimb();
     climberSubsystem.unslap();
     trenchableSubsystem.untrench();
     collectorSubsystem.undeploy();

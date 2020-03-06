@@ -49,10 +49,12 @@ public class CollectCommand extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
+    System.out.println("Collect end");
     if (!interrupted) {
       collectorSubsystem.stopIntake();
       collectorSubsystem.undeploy();
       new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowParty, 3).schedule();
     }
+    collectorSubsystem.stopIntake();
   }
 }

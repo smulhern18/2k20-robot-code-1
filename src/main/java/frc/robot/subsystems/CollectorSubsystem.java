@@ -45,7 +45,7 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    * bring balls in
    */
   public void intake() {
-    collectorMotor.set(-.6);
+    collectorMotor.set(.8);
     state = true;
   }
 

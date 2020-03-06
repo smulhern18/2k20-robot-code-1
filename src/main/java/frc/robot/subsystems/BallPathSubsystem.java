@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.BallPathConstants;
 import frc.robot.models.sensors.BannerSensor;
 
@@ -14,7 +13,7 @@ import frc.robot.models.sensors.BannerSensor;
  */
 public class BallPathSubsystem extends BeefSubsystemBase {
 
-  public BannerSensor beltBannerSensor, firstCellBannerSensor, secondCellBannerSensor, thirdCellBannerSensor, fourthCellBannerSensor, fifthCellBannerSensor;
+  public BannerSensor beltBannerSensor, firstCellBannerSensor, secondCellBannerSensor, thirdCellBannerSensor, fourthCellBannerSensor;
   private WPI_TalonSRX indexWheelMotor, beltMotor, gooseneckMotor;
 
   /**
@@ -30,25 +29,14 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     secondCellBannerSensor = new BannerSensor(BallPathConstants.SECOND_CELL_BANNER_PORT);
     thirdCellBannerSensor = new BannerSensor(BallPathConstants.THIRD_CELL_BANNER_PORT);
     fourthCellBannerSensor = new BannerSensor(BallPathConstants.FOURTH_CELL_BANNER_PORT);
-    fifthCellBannerSensor = new BannerSensor(BallPathConstants.FIFTH_CELL_BANNER_PORT);
 
-  }
-
-  @Override
-  public void periodic() {
-    SmartDashboard.putBoolean("belt", beltBannerSensor.beamBroken());
-    SmartDashboard.putBoolean("first", firstCellBannerSensor.beamBroken());
-    SmartDashboard.putBoolean("second", secondCellBannerSensor.beamBroken());
-    SmartDashboard.putBoolean("third", secondCellBannerSensor.beamBroken());
-    SmartDashboard.putBoolean("fourth", fourthCellBannerSensor.beamBroken());
-    SmartDashboard.putNumber("count", getBallsInRobot());
   }
 
   /**
-   *Moves the balls in the index wheel forward towards shooter
+   * Moves the balls in the index wheel forward towards shooter
    */
   private void indexWheelIn() {
-    indexWheelMotor.set(1);
+    indexWheelMotor.set(.3);
   }
 
   /**
@@ -117,8 +105,8 @@ public class BallPathSubsystem extends BeefSubsystemBase {
   }
 
   public void manualLoad() {
-    beltMotor.set(-.5);
-    indexWheelMotor.set(.3);
+    beltMotor.set(-.3);
+    indexWheelMotor.set(.1);
   }
 
   public void manualBelt() {
@@ -139,7 +127,6 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    */
   public void runIndexer() {
     indexWheelIn();
-//    runBelt();
   }
 
   /**
@@ -159,7 +146,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
   public int getBallsInRobot() {
     if (fourthCellBannerSensor.beamBroken() && beltBannerSensor.beamBroken()) {
       return 5;
-    } else if (fourthCellBannerSensor.beamBroken() ) {
+    } else if (fourthCellBannerSensor.beamBroken()) {
       return 4;
     } else if (thirdCellBannerSensor.beamBroken()) {
       return 3;
@@ -167,9 +154,9 @@ public class BallPathSubsystem extends BeefSubsystemBase {
       return 2;
     } else if (firstCellBannerSensor.beamBroken()) {
       return 1;
-    } else {
-      return 0;
     }
+    return 0;
+
   }
 
   public enum BallPathDirection {

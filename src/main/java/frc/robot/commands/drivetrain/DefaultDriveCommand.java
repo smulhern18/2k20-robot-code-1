@@ -39,6 +39,7 @@ public class DefaultDriveCommand extends CommandBase {
     left *= Math.abs(left); // squared to provide threshold
     double right = rightStick.getAxis(AttackThreeAxis.Y);
     right *= Math.abs(right); // squared to provide threshold
+//    System.out.println(left+" "+right);
     drivetrainSubsystem.drive(left, right);
   }
 

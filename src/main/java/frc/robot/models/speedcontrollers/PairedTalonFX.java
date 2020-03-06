@@ -72,7 +72,7 @@ public class PairedTalonFX extends WPI_TalonFX {
    * @return the distance in meters
    */
   public double getDistanceMeters() {
-    return getSelectedSensorPosition() * DrivetrainConstants.METERS_PER_COUNT;
+    return -getSelectedSensorPosition() * DrivetrainConstants.METERS_PER_COUNT;
   }
 
   /**
@@ -81,7 +81,7 @@ public class PairedTalonFX extends WPI_TalonFX {
    * @return velocity
    */
   public double getVelocityMetersPerSecond() {
-    return getSelectedSensorVelocity() * DrivetrainConstants.METERS_PER_COUNT * 10;
+    return -getSelectedSensorVelocity() * DrivetrainConstants.METERS_PER_COUNT * 10;
   }
 
 

@@ -35,7 +35,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
     trigger = new DoubleSolenoid(ClimberConstants.TRIGGER_PORT_FORWARD, ClimberConstants.TRIGGER_PORT_BACKWARD);
 
     traverseMotor = new WPI_TalonSRX(ClimberConstants.TRAVERSE_MOTOR_PORT);
-    trigger.set(DoubleSolenoid.Value.kForward);
+    untriggerClimb();
 
   }
 
@@ -54,10 +54,10 @@ public class ClimberSubsystem extends BeefSubsystemBase {
   }
 
   public void triggerClimb() {
-    trigger.set(DoubleSolenoid.Value.kForward);
-  }
-  public void untrigger() {
     trigger.set(DoubleSolenoid.Value.kReverse);
+  }
+  public void untriggerClimb() {
+    trigger.set(DoubleSolenoid.Value.kForward);
   }
 
   /**

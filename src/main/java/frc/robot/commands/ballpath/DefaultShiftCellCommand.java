@@ -23,4 +23,9 @@ public class DefaultShiftCellCommand extends SelectCommand {
         robotContainer.ballPathSubsystem::getBallsInRobot
     );
   }
+
+  @Override
+  public boolean isFinished() {
+    return super.isFinished();
+  }
 }

@@ -123,7 +123,11 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * @param speed
    */
   public void manualRotateTurret(double speed) { // for manual control of turret
-    turretMotor.set(ControlMode.PercentOutput, speed);
+    if ((speed > 0 && getCurrentPotPosition() > TurretConstants.POT_MIN) || (speed < 0 && getCurrentPotPosition() < TurretConstants.POT_MAX)) {
+      turretMotor.set(ControlMode.PercentOutput, speed);
+    } else
+      turretMotor.set(ControlMode.PercentOutput, 0);
+
   }
 
   /**
@@ -132,7 +136,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * @param direction
    */
   public void setDirection(TurretDirection direction) {
-    if ((direction == TurretDirection.RIGHT && getCurrentPotPosition() > 284) || (direction == TurretDirection.LEFT && getCurrentPotPosition() < 850)) {
+    if ((direction == TurretDirection.RIGHT && getCurrentPotPosition() > TurretConstants.POT_MIN) || (direction == TurretDirection.LEFT && getCurrentPotPosition() < TurretConstants.POT_MAX)) {
       manualRotateTurret(direction.get());
     } else
       manualRotateTurret(0);

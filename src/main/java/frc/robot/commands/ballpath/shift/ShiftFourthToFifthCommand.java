@@ -20,7 +20,7 @@ public class ShiftFourthToFifthCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    ballPathSubsystem.runIndexer();
+    ballPathSubsystem.manualLoad();
   }
 
   /**
@@ -30,7 +30,7 @@ public class ShiftFourthToFifthCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.fifthCellBannerSensor.beamBroken();
+    return ballPathSubsystem.getBallsInRobot() == 5;
   }
 
   @Override

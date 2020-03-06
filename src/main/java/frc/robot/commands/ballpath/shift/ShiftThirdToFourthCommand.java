@@ -5,6 +5,7 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.BallPathSubsystem;
 
 public class ShiftThirdToFourthCommand extends CommandBase {
+  boolean targetHit = false;
   BallPathSubsystem ballPathSubsystem;
 
   public ShiftThirdToFourthCommand(RobotContainer robotContainer) {
@@ -17,7 +18,7 @@ public class ShiftThirdToFourthCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    ballPathSubsystem.runIndexer();
+    ballPathSubsystem.manualLoad();
   }
 
   /**
@@ -27,8 +28,8 @@ public class ShiftThirdToFourthCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.fourthCellBannerSensor.beamBroken() ||
-        ballPathSubsystem.fifthCellBannerSensor.beamBroken();
+    targetHit |= ballPathSubsystem.fourthCellBannerSensor.beamBroken();
+    return targetHit && !ballPathSubsystem.beltBannerSensor.beamBroken();
   }
 
   @Override

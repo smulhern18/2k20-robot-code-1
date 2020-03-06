@@ -8,6 +8,6 @@ public class BannerSensor extends DigitalInput {
   }
 
   public final boolean beamBroken() {
-    return get();
+    return !get();
   }
 }

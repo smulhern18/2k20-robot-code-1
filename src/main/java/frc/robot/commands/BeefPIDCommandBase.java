@@ -6,12 +6,22 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public abstract class BeefPIDCommandBase extends CommandBase {
   public PIDController pidController;
-  private double output;
+  private double output, tolerance, p, i, d;
+  private double count = 0;
   private String errorTitle;
   public BeefPIDCommandBase(double p, double i, double d, double tolerance, String errorTitle) {
+    this.tolerance = tolerance;
+    this.errorTitle = errorTitle;
+    this.p = p;
+    this.i = i;
+    this.d = d;
+  }
+
+  @Override
+  public void initialize() {
     pidController = new PIDController(p, i, d);
     setTolerance(tolerance);
-    this.errorTitle = errorTitle;
+    count = 0;
   }
 
   @Override
@@ -23,7 +33,16 @@ public abstract class BeefPIDCommandBase extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return atSetpoint();
+    if (atSetpoint())
+      count++;
+    else
+      count = 0;
+    return count > 5;
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    System.out.println("PID Ended");
   }
 
   public final void setTolerance(double threshold) {
@@ -36,6 +55,7 @@ public abstract class BeefPIDCommandBase extends CommandBase {
 
   public final void logError(double error) {
     SmartDashboard.putNumber(errorTitle, error);
+    System.out.println(errorTitle +" "+error);
   }
 
   public abstract void usePIDOutput(double output);

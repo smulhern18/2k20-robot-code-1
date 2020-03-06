@@ -1,6 +1,5 @@
 package frc.robot.commands.shooter;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.RobotContainer;
@@ -8,12 +7,12 @@ import frc.robot.commands.ballpath.RunBallPathCommand;
 import frc.robot.subsystems.BallPathSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ManualShootCommand extends SequentialCommandGroup {
-  public ManualShootCommand(RobotContainer robotContainer, double value) {
+public class ShootCommand extends SequentialCommandGroup {
+  public ShootCommand(RobotContainer robotContainer, double rpm) {
     addCommands(
-        new RunShooterCommand(robotContainer, value).withTimeout(3),
+        new RampUpShooterCommand(robotContainer, rpm).withTimeout(5),
         new ParallelCommandGroup(
-            new RunShooterCommand(robotContainer, value),
+            new RunShooterCommand(robotContainer, rpm),
             new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.IN)
         )
     );

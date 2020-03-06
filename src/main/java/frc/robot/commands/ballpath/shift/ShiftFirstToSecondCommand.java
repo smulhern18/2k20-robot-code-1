@@ -20,7 +20,7 @@ public class ShiftFirstToSecondCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    ballPathSubsystem.runIndexer();
+    ballPathSubsystem.manualLoad();
   }
 
   /**
@@ -31,8 +31,7 @@ public class ShiftFirstToSecondCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     return ballPathSubsystem.secondCellBannerSensor.beamBroken() || ballPathSubsystem.thirdCellBannerSensor.beamBroken() ||
-        ballPathSubsystem.fourthCellBannerSensor.beamBroken() ||
-        ballPathSubsystem.fifthCellBannerSensor.beamBroken();
+        ballPathSubsystem.fourthCellBannerSensor.beamBroken();
   }
 
   /**

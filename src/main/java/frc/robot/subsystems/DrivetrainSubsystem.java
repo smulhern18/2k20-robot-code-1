@@ -95,17 +95,18 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
     double leftTargetAcceleration = (leftVelocity + leftPair.getVelocityMetersPerSecond()) / (Constants.LOOP_TIME_S);
     double rightTargetAcceleration = (rightVelocity + rightPair.getVelocityMetersPerSecond()) / (Constants.LOOP_TIME_S);
 
-    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(leftVelocity, leftTargetAcceleration);
-    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(rightVelocity, rightTargetAcceleration);
-
+    double leftFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(-leftVelocity, leftTargetAcceleration);
+    double rightFeedForwardVolts = DrivetrainConstants.DRIVE_FEED_FORWARD.calculate(-rightVelocity, rightTargetAcceleration);
+    System.out.println(leftFeedForwardVolts+" "+rightFeedForwardVolts+" "+leftVelocity+" "+rightVelocity);
+//    System.out.println();
     leftPair.set(
         ControlMode.Velocity,
-        metersPerSecondToCountsPerDeciSec(leftVelocity),
+        -metersPerSecondToCountsPerDeciSec(leftVelocity),
         DemandType.ArbitraryFeedForward,
         leftFeedForwardVolts / Constants.MAX_BATTERY_VOLTAGE);
     rightPair.set(
         ControlMode.Velocity,
-        metersPerSecondToCountsPerDeciSec(rightVelocity),
+        -metersPerSecondToCountsPerDeciSec(rightVelocity),
         DemandType.ArbitraryFeedForward,
         rightFeedForwardVolts / Constants.MAX_BATTERY_VOLTAGE);
   }
@@ -148,6 +149,7 @@ public class DrivetrainSubsystem extends BeefSubsystemBase {
    */
   private void resetNavX() {
     navx.reset();
+    System.out.println();
   }
 
   /**

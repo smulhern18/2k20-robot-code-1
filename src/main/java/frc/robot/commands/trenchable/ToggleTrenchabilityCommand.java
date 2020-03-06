@@ -27,7 +27,7 @@ public class ToggleTrenchabilityCommand extends CommandBase {
    */
   @Override
   public void initialize() {
-    if (!robotContainer.trenchableSubsystem.trenchablifier.get()) {
+    if (robotContainer.trenchableSubsystem.trenchablifier.get()) {
       new SequentialCommandGroup(
           new UntrenchCommand(robotContainer).withTimeout(2),
           new InstantCommand(() -> robotContainer.climberSubsystem.unslap(), robotContainer.climberSubsystem)

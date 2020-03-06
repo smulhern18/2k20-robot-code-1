@@ -6,6 +6,7 @@ import frc.robot.subsystems.BallPathSubsystem;
 
 public class ShiftToFirstCommand extends CommandBase {
   BallPathSubsystem ballPathSubsystem;
+  boolean targetHit = false;
 
   public ShiftToFirstCommand(RobotContainer robotContainer) {
     this.ballPathSubsystem = robotContainer.ballPathSubsystem;
@@ -17,19 +18,19 @@ public class ShiftToFirstCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    ballPathSubsystem.runIndexer();
+    ballPathSubsystem.manualLoad();
   }
 
   /**
-   * Stops when any banner sensor is triggered, either the intended one, or any past it
+   * Stops when any banner sensor is triggered, either the intended one, or any past its
    *
    * @return if the lead ball has reached or passed its intended point
    */
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.firstCellBannerSensor.beamBroken() || ballPathSubsystem.secondCellBannerSensor.beamBroken() ||
-        ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken() ||
-        ballPathSubsystem.fifthCellBannerSensor.beamBroken();
+    targetHit |= ballPathSubsystem.firstCellBannerSensor.beamBroken() || ballPathSubsystem.secondCellBannerSensor.beamBroken() || ballPathSubsystem.thirdCellBannerSensor.beamBroken() ||
+        ballPathSubsystem.fourthCellBannerSensor.beamBroken();
+    return targetHit && !ballPathSubsystem.beltBannerSensor.beamBroken();
   }
 
   @Override

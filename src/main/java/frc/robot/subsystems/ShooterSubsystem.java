@@ -101,7 +101,12 @@ public class ShooterSubsystem extends BeefSubsystemBase {
    */
   public void shoot(double velocityRPM) {
     double bonusRPM = bonusShooterRPMEntry.getDouble(0);
-    shoot(ControlMode.Velocity, convertRPMToCPD(bonusRPM + velocityRPM));
+
+    if (atTargetRPM(velocityRPM)) {
+      shoot(ControlMode.Velocity, convertRPMToCPD(bonusRPM + velocityRPM));
+    } else {
+      shoot(ControlMode.PercentOutput, .7);
+    }
   }
 
   /**
