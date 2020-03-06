@@ -19,6 +19,6 @@ public final class TrenchTrajectories extends Trajectories {
   public static final Trajectory RETURN = TrajectoryGenerator.generateTrajectory(
       List.of(
           TRENCH_END_ONE,
-          new Pose2d(0, 0, new Rotation2d(0))),
+          new Pose2d(-1.5, 0, new Rotation2d(0))),
       FORWARD_CONFIG);
 }
