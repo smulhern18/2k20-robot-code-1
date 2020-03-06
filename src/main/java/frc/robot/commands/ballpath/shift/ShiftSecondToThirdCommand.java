@@ -38,6 +38,7 @@ public class ShiftSecondToThirdCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    ballPathSubsystem.incrementBalls();
     ballPathSubsystem.stopAll();
   }
 }

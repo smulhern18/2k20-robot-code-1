@@ -189,5 +189,6 @@ public class RobotContainer {
     trenchableSubsystem.untrench();
     collectorSubsystem.undeploy();
     turretSubsystem.resetTurretEncoder();
+    ballPathSubsystem.resetBalls();
   }
 }

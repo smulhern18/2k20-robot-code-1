@@ -16,6 +16,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
   public BannerSensor beltBannerSensor, firstCellBannerSensor, secondCellBannerSensor, thirdCellBannerSensor, fourthCellBannerSensor;
   private WPI_TalonSRX indexWheelMotor, beltMotor, gooseneckMotor;
+  private int balls = 0;
 
   /**
    * Constructs the sensor and motor objects
@@ -31,6 +32,14 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     thirdCellBannerSensor = new BannerSensor(BallPathConstants.THIRD_CELL_BANNER_PORT);
     fourthCellBannerSensor = new BannerSensor(BallPathConstants.FOURTH_CELL_BANNER_PORT);
 
+  }
+
+  public void resetBalls() {
+    balls = 0;
+  }
+
+  public void incrementBalls() {
+    balls++;
   }
 
   /**
@@ -117,6 +126,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     SmartDashboard.putBoolean("second", secondCellBannerSensor.beamBroken());
     SmartDashboard.putBoolean("third", thirdCellBannerSensor.beamBroken());
     SmartDashboard.putBoolean("fourth", fourthCellBannerSensor.beamBroken());
+    SmartDashboard.putNumber("balls", getBallsInRobot());
   }
 
   public void manualBelt() {
@@ -154,19 +164,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * @return int number of balls
    */
   public int getBallsInRobot() {
-    if (fourthCellBannerSensor.beamBroken() && beltBannerSensor.beamBroken()) {
-      return 5;
-    } else if (fourthCellBannerSensor.beamBroken()) {
-      return 4;
-    } else if (thirdCellBannerSensor.beamBroken()) {
-      return 3;
-    } else if (secondCellBannerSensor.beamBroken()) {
-      return 2;
-    } else if (firstCellBannerSensor.beamBroken()) {
-      return 1;
-    }
-    return 0;
-
+    return balls;
   }
 
   public enum BallPathDirection {

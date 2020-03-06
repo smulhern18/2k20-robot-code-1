@@ -18,7 +18,7 @@ public class ShiftThirdToFourthCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    ballPathSubsystem.manualLoad();
+    ballPathSubsystem.manualBelt();
   }
 
   /**
@@ -34,6 +34,7 @@ public class ShiftThirdToFourthCommand extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
+    ballPathSubsystem.incrementBalls();
     ballPathSubsystem.stopAll();
   }
 }

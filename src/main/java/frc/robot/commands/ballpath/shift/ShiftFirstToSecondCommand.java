@@ -31,7 +31,7 @@ public class ShiftFirstToSecondCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    targetHit |= ballPathSubsystem.fourthCellBannerSensor.beamBroken();
+    targetHit |= (ballPathSubsystem.fourthCellBannerSensor.beamBroken() && ballPathSubsystem.thirdCellBannerSensor.beamBroken());
     return targetHit && !ballPathSubsystem.beltBannerSensor.beamBroken();
   }
 
@@ -42,6 +42,7 @@ public class ShiftFirstToSecondCommand extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
+    ballPathSubsystem.incrementBalls();
     ballPathSubsystem.stopAll();
   }
 }

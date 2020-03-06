@@ -16,10 +16,10 @@ public class DefaultShiftCellCommand extends SelectCommand {
     super(
         Map.ofEntries(
             Map.entry(0, new ShiftToFirstCommand(robotContainer).withTimeout(5)),
-            Map.entry(1, new ShiftFirstToSecondCommand(robotContainer).withTimeout(5)),
+            Map.entry(1, new ShiftFirstToSecondCommand(robotContainer).withTimeout(4)),
             Map.entry(2, new ShiftSecondToThirdCommand(robotContainer).withTimeout(5)),
             Map.entry(3, new ShiftThirdToFourthCommand(robotContainer).withTimeout(5)),
-            Map.entry(4, new ShiftFourthToFifthCommand(robotContainer).withTimeout(5)),
+            Map.entry(4, new ShiftFourthToFifthCommand(robotContainer).withTimeout(1)),
             Map.entry(5, new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowParty).withTimeout(3))
         ),
         robotContainer.ballPathSubsystem::getBallsInRobot

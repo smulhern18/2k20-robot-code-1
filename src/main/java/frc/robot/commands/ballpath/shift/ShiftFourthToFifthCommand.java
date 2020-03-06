@@ -30,11 +30,12 @@ public class ShiftFourthToFifthCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    return ballPathSubsystem.getBallsInRobot() == 5;
+    return false; // timeout
   }
 
   @Override
   public void end(boolean interrupted) {
+    ballPathSubsystem.incrementBalls();
     ballPathSubsystem.stopAll();
   }
 }
