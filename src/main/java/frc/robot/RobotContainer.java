@@ -25,6 +25,7 @@ import frc.robot.commands.climber.RetractClimbCommand;
 import frc.robot.commands.climber.ToggleSlapCommand;
 import frc.robot.commands.climber.TraverseCommand;
 import frc.robot.commands.collector.CollectCommand;
+import frc.robot.commands.collector.LiftCollectorCommand;
 import frc.robot.commands.collector.ToggleCollectCommand;
 import frc.robot.commands.collector.ToggleCollectorPistonCommand;
 import frc.robot.commands.drivetrain.DefaultDriveCommand;
@@ -148,10 +149,11 @@ public class RobotContainer {
     buttonBoxRight.trenchable.whenPressed(new ToggleTrenchabilityCommand(this));
 //
 //    /* Color wheel*/
+    
 //    // do color wheel rotation control
 //    buttonBoxRight.rotationControl.whenPressed(new RotationalCommand(this));
 //    // do color wheel position control
-    buttonBoxRight.manualColorWheelRotation.whenPressed(new ToggleCollectCommand(this));
+    buttonBoxRight.manualColorWheelRotation.whenPressed(new LiftCollectorCommand(this));
 //    buttonBoxRight.positionControl.whe //TODO: write the command
     //TODO: manual spin
 

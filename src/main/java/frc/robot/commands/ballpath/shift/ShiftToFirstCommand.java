@@ -28,8 +28,7 @@ public class ShiftToFirstCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    targetHit |= ballPathSubsystem.firstCellBannerSensor.beamBroken() || ballPathSubsystem.secondCellBannerSensor.beamBroken() || ballPathSubsystem.thirdCellBannerSensor.beamBroken() ||
-        ballPathSubsystem.fourthCellBannerSensor.beamBroken();
+    targetHit |= ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken();
     return targetHit && !ballPathSubsystem.beltBannerSensor.beamBroken();
   }
 

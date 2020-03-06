@@ -28,7 +28,7 @@ public class ShiftThirdToFourthCommand extends CommandBase {
    */
   @Override
   public boolean isFinished() {
-    targetHit |= ballPathSubsystem.fourthCellBannerSensor.beamBroken();
+    targetHit |= ballPathSubsystem.secondCellBannerSensor.beamBroken();
     return targetHit && !ballPathSubsystem.beltBannerSensor.beamBroken();
   }
 

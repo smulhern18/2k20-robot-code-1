@@ -22,17 +22,6 @@ public class ChangeHatCommand extends CommandBase {
   }
 
   /**
-   * Runs command, but with a timeout
-   *
-   * @param hat            hat to wear
-   * @param timeoutSeconds length of time to run command in seconds
-   */
-  public ChangeHatCommand(RobotContainer robotContainer, Hat hat, double timeoutSeconds) {
-    this(robotContainer, hat);
-    withTimeout(timeoutSeconds);
-  }
-
-  /**
    * Wears the hat
    */
   @Override

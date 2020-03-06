@@ -21,7 +21,7 @@ public class ShiftSecondToThirdCommand extends CommandBase {
    */
   @Override
   public void execute() {
-    ballPathSubsystem.manualLoad();
+    ballPathSubsystem.manualBelt();
   }
 
   /**
@@ -32,7 +32,7 @@ public class ShiftSecondToThirdCommand extends CommandBase {
   @Override
   public boolean isFinished() {
     targetHit |=
-        ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken();
+        ballPathSubsystem.secondCellBannerSensor.beamBroken() || ballPathSubsystem.firstCellBannerSensor.beamBroken();
     return targetHit && !ballPathSubsystem.beltBannerSensor.beamBroken();
   }
 

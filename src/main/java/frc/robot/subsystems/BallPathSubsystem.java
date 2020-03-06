@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.BallPathConstants;
 import frc.robot.models.sensors.BannerSensor;
 
@@ -106,11 +107,20 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
   public void manualLoad() {
     beltMotor.set(-.3);
-    indexWheelMotor.set(.1);
+    indexWheelMotor.set(.2);
+  }
+
+  @Override
+  public void periodic() {
+    SmartDashboard.putBoolean("belt", beltBannerSensor.beamBroken());
+    SmartDashboard.putBoolean("first", firstCellBannerSensor.beamBroken());
+    SmartDashboard.putBoolean("second", secondCellBannerSensor.beamBroken());
+    SmartDashboard.putBoolean("third", thirdCellBannerSensor.beamBroken());
+    SmartDashboard.putBoolean("fourth", fourthCellBannerSensor.beamBroken());
   }
 
   public void manualBelt() {
-    beltMotor.set(-.5);
+    beltMotor.set(-.3);
   }
 
   /**

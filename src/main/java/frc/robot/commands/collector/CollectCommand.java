@@ -53,7 +53,6 @@ public class CollectCommand extends CommandBase {
     if (!interrupted) {
       collectorSubsystem.stopIntake();
       collectorSubsystem.undeploy();
-      new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowParty, 3).schedule();
     }
     collectorSubsystem.stopIntake();
   }

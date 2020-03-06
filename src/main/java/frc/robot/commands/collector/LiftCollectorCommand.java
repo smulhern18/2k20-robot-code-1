@@ -16,6 +16,7 @@ public class LiftCollectorCommand extends CommandBase {
   public void initialize() {
     done = collectorSubsystem.getState() == CollectorSubsystem.CollectorState.UNDEPLOYED;
     collectorSubsystem.undeploy();
+    collectorSubsystem.stopIntake();
   }
 
   @Override

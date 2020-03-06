@@ -20,7 +20,7 @@ public class VisionAimAndShootCommand extends SequentialCommandGroup {
         // turn off shooter wheel
         new StopShootingCommand(robotContainer),
         // indicate when done
-        new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter, 3)
+        new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter).withTimeout(3)
     );
   }
 }
