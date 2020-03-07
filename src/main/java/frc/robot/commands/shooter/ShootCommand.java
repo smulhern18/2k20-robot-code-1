@@ -17,8 +17,9 @@ public class ShootCommand extends SequentialCommandGroup {
         new ParallelCommandGroup(
             new RunShooterCommand(robotContainer, rpm),
             new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.IN)
-        ),
+        ).withTimeout(4),
     new InstantCommand(robotContainer.ballPathSubsystem::resetBalls, robotContainer.ballPathSubsystem),
+    new StopShootingCommand(robotContainer),
     new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter).withTimeout(3)
     );
   }

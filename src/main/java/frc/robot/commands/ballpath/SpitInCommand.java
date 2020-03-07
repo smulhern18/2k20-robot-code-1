@@ -1,5 +1,6 @@
 package frc.robot.commands.ballpath;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -17,6 +18,7 @@ public class SpitInCommand extends ParallelCommandGroup {
 //        new ManualIntakeCommand(robotContainer),
         // runs ball path in
         new ManualLoadBallPathCommand(robotContainer)
+//        new InstantCommand()
     );
   }
 }

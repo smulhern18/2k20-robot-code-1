@@ -42,18 +42,4 @@ public class CollectCommand extends CommandBase {
     return ballPathSubsystem.getBallsInRobot() == 5;
   }
 
-  /**
-   * Terminates collector state-change process
-   *
-   * @param interrupted true if state change was interrupted
-   */
-  @Override
-  public void end(boolean interrupted) {
-    System.out.println("Collect end");
-    if (!interrupted) {
-      collectorSubsystem.stopIntake();
-      collectorSubsystem.undeploy();
-    }
-    collectorSubsystem.stopIntake();
-  }
 }

@@ -55,7 +55,7 @@ public abstract class BeefPIDCommandBase extends CommandBase {
 
   public final void logError(double error) {
     SmartDashboard.putNumber(errorTitle, error);
-    System.out.println(errorTitle +" "+error);
+//    System.out.println(errorTitle +" "+error);
   }
 
   public abstract void usePIDOutput(double output);

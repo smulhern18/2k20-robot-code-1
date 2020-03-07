@@ -44,6 +44,7 @@ public class ClimberSubsystem extends BeefSubsystemBase {
    */
   public void unslap() {
     slapper.set(DoubleSolenoid.Value.kForward);
+    System.out.println("unslapping");
   }
 
   /**
@@ -114,5 +115,6 @@ public class ClimberSubsystem extends BeefSubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("bottom", bottomLimitSwitch.get());
+    SmartDashboard.putBoolean("slap", slapper.get() == DoubleSolenoid.Value.kForward);
   }
 }

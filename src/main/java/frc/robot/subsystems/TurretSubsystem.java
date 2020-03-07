@@ -49,7 +49,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
 //    System.out.println("RUNNING");
 
     double percent = (heading - TurretConstants.MIN_ROTATION_DEGREES) / TurretConstants.TOTAL_ROTATION_DEGREES;
-    System.out.println(heading+" "+percent+" "+(percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN));
+//    System.out.println(heading+" "+percent+" "+(percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN));
     return percent * (TurretConstants.POT_MAX - TurretConstants.POT_MIN) + TurretConstants.POT_MIN;
   }
 
@@ -118,7 +118,7 @@ public class TurretSubsystem extends BeefSubsystemBase {
    * @return the position in degrees of the turret
    */
   public double getCurrentPositionDegrees() {
-    return convertPotToDegrees(turretMotor.getSelectedSensorPosition());
+    return -convertPotToDegrees(turretMotor.getSelectedSensorPosition());
   }
 
 
@@ -160,8 +160,8 @@ public class TurretSubsystem extends BeefSubsystemBase {
 
   public enum TurretDirection {
     //TODO: cut button for turret manuals
-    LEFT(-.3),
-    RIGHT(.3);
+    LEFT(-.5),
+    RIGHT(.5);
     private double value;
 
     TurretDirection(double value) {

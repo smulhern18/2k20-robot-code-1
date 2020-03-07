@@ -31,7 +31,6 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     secondCellBannerSensor = new BannerSensor(BallPathConstants.SECOND_CELL_BANNER_PORT);
     thirdCellBannerSensor = new BannerSensor(BallPathConstants.THIRD_CELL_BANNER_PORT);
     fourthCellBannerSensor = new BannerSensor(BallPathConstants.FOURTH_CELL_BANNER_PORT);
-
   }
 
   public void resetBalls() {
@@ -42,11 +41,15 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     balls++;
   }
 
+  public void preload(int balls) {
+    this.balls = balls;
+  }
+
   /**
    * Moves the balls in the index wheel forward towards shooter
    */
   private void indexWheelIn() {
-    indexWheelMotor.set(.3);
+    indexWheelMotor.set(.5);
   }
 
   /**
@@ -116,7 +119,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
 
   public void manualLoad() {
     beltMotor.set(-.3);
-    indexWheelMotor.set(.2);
+    indexWheelMotor.set(.15);
   }
 
   @Override
@@ -142,12 +145,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
     indexWheelOut();
   }
 
-  /**
-   * Runs the entire indexer system(indexer & belt), not the gooseneck
-   */
-  public void runIndexer() {
-    indexWheelIn();
-  }
+
 
   /**
    * Stops all movement in the ball path

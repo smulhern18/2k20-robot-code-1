@@ -34,10 +34,12 @@ public class VisionAimTurretCommand extends CommandBase {
     addRequirements(turretSubsystem, visionSubsystem);
   }
 
+
   /**
    * Turn on vision
    */
   @Override
+
   public void initialize() {
     visionSubsystem.setLightRing(true);
     done = false;
@@ -49,12 +51,14 @@ public class VisionAimTurretCommand extends CommandBase {
   @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
-      targetPosition = Units.radiansToDegrees(visionSubsystem.getAngleToTarget()) + turretSubsystem.getCurrentPositionDegrees();
-      new TurretCommand(robotContainer, targetPosition).schedule();
+      targetPosition = Units.radiansToDegrees(visionSubsystem.getAngleToTarget())+ turretSubsystem.getCurrentPositionDegrees();
       done = true;
+      System.out.println("done"+" "+-targetPosition);
+      new TurretCommand(robotContainer, -targetPosition + 3).schedule();
+      System.out.println(targetPosition);
     } else {//currently unsure with where to point shooter with no vision
       targetPosition = drivetrainSubsystem.getYawDegrees();
-      turretSubsystem.resetTargetWithDrivetrain(targetPosition);
+      turretSubsystem.resetTargetWithDrivetrain(-targetPosition);
     }
   }
 
@@ -75,7 +79,8 @@ public class VisionAimTurretCommand extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    turretSubsystem.rotateToPosition(turretSubsystem.getCurrentPositionDegrees());
+//    turretSubsystem.rotateToPosition(turretSubsystem.getCurrentPositionDegrees());
+    System.out.println("Done aiming");
     visionSubsystem.setLightRing(false);
   }
 }

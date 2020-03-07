@@ -30,10 +30,12 @@ public class ShiftToFirstCommand extends CommandBase {
   public boolean isFinished() {
     targetHit |= ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken();
     return targetHit && !ballPathSubsystem.beltBannerSensor.beamBroken();
+
   }
 
   @Override
   public void end(boolean interrupted) {
+    System.out.println("shifted to first");
     ballPathSubsystem.incrementBalls();
     ballPathSubsystem.stopAll();
   }

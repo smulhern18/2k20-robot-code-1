@@ -8,7 +8,7 @@ import frc.robot.commands.turret.TurretCommand;
 public class SlapCommand extends SequentialCommandGroup {
   public SlapCommand(RobotContainer robotContainer) {
     addCommands(
-        new TurretCommand(robotContainer, 0),
+//        new TurretCommand(robotContainer, 0).withTimeout(2),
         new InstantCommand(robotContainer.climberSubsystem::slap, robotContainer.climberSubsystem)
     );
   }

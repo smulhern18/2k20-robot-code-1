@@ -14,7 +14,8 @@ public class ManualLoadBallPathCommand extends CommandBase {
 
   @Override
   public void execute() {
-    ballPathSubsystem.manualLoad();
+//    ballPathSubsystem.manualLoad();
+    ballPathSubsystem.runAll();
   }
 
   @Override

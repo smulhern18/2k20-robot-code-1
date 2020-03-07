@@ -10,7 +10,7 @@ import frc.robot.commands.auto.Trajectories;
 import java.util.List;
 
 public final class HalfThiefTrenchTrajectories extends Trajectories {
-  private static final Pose2d SHOOT_ONE_START = new Pose2d(-2.214, 0.08, new Rotation2d(Units.degreesToRadians(0.00)));
+  private static final Pose2d SHOOT_ONE_START = new Pose2d(-2.214, 0, new Rotation2d(Units.degreesToRadians(0.00)));
   public static final Trajectory FIRST_TWO = TrajectoryGenerator.generateTrajectory(
       List.of(
           new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0.00))),

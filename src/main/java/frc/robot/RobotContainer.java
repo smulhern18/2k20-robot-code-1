@@ -16,6 +16,7 @@ import frc.robot.commands.auto.ShootThreeAutoCommand;
 import frc.robot.commands.auto.Trajectories;
 import frc.robot.commands.auto.normal.trench.TrenchAutoCommand;
 import frc.robot.commands.auto.test.TestTrajectories;
+import frc.robot.commands.auto.thief.half.HalfThiefTrenchAutoCommand;
 import frc.robot.commands.ballpath.DefaultShiftCellCommand;
 import frc.robot.commands.ballpath.RunBallPathCommand;
 import frc.robot.commands.ballpath.SpitInCommand;
@@ -72,12 +73,11 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
-//    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
+//    Shuffleboard.selectTab(Constants.SubsystemConstants.DEBUG_TAB_NAME);
+    Shuffleboard.selectTab(Constants.SubsystemConstants.DRIVER_TAB_NAME);
     configureButtonBindings();
     setDefaultCommands();
-    // TODO: uncomment when subsystems exist
-//    autoChooser = new AutoChooser(this);
+    autoChooser = new AutoChooser(this);
   }
 
   /**
@@ -101,12 +101,12 @@ public class RobotContainer {
 
     /* Driver sticks */
     // Trench or untrench when pressed
-//    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
-//    rightStick.getButton(1).whenPressed(new ManualShootCommand(this, 7000));
+    leftStick.getButton(1).whenPressed(new ToggleTrenchabilityCommand(this));
+    rightStick.getButton(1).whenPressed(new ManualShootCommand(this, 7000));
     // Auto aim turret, rev up shooter, empty robot of balls
-    leftStick.getButton(1).whenPressed(new TurretCommand(this, 0));
-    rightStick.getButton(1).whenPressed(new TurretCommand(this, 90));
-//    rightStick.getButton(1).whileActiveOnce(new RunBallPathCommand(this, BallPathSubsystem.BallPathDirection.IN));
+//    leftStick.getButton(1).whenPressed(new TurretCommand(this, 0));
+//    rightStick.getButton(1).whenPressed(new TurretCommand(this, 90));
+//    rightStick.getButton(1).whileActiveOnce(new TurretCommand(this, 90));
 //rightStick.getButton(1).whileActiveOnce(new InstantCommand(() -> ballPathSubsystem.runIndexer(), ballPathSubsystem));
     /* Operator button box */
 
@@ -179,8 +179,8 @@ public class RobotContainer {
     drivetrainSubsystem.resetAll();
     //TODO: uncomment for real robot
 //    return autoChooser.getSelected();
-//    return new ShootThreeAutoCommand(this);
-    return new TrenchAutoCommand(this);
+    return new ShootThreeAutoCommand(this);
+//    return new HalfThiefTrenchAutoCommand(this);
   }
   public void teleopInit() {
     System.out.println("Teleop init");
@@ -190,5 +190,6 @@ public class RobotContainer {
     collectorSubsystem.undeploy();
     turretSubsystem.resetTurretEncoder();
     ballPathSubsystem.resetBalls();
+    shooterSubsystem.stop();
   }
 }

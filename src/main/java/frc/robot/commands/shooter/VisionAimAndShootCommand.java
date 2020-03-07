@@ -17,8 +17,6 @@ public class VisionAimAndShootCommand extends SequentialCommandGroup {
         new VisionAimTurretCommand(robotContainer),
         // set RPM and empty robot
         new ShootCommand(robotContainer, 5500).withTimeout(5),
-        // turn off shooter wheel
-        new StopShootingCommand(robotContainer),
         // indicate when done
         new ChangeHatCommand(robotContainer, AbrahamBlinkinSubsystem.Hat.RainbowGlitter).withTimeout(3)
     );
