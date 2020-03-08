@@ -18,7 +18,6 @@ public class SpitInCommand extends ParallelCommandGroup {
 //        new ManualIntakeCommand(robotContainer),
         // runs ball path in
         new ManualLoadBallPathCommand(robotContainer)
-//        new InstantCommand()
     );
   }
 }

@@ -23,18 +23,25 @@ public class ShiftToFirstCommand extends CommandBase {
 
   /**
    * Stops when any banner sensor is triggered, either the intended one, or any past its
-   *
+   *[]\
    * @return if the lead ball has reached or passed its intended point
    */
   @Override
   public boolean isFinished() {
-    targetHit |= ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken();
-    return targetHit && !ballPathSubsystem.beltBannerSensor.beamBroken();
+//    if (ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken())
+//      System.out.println("third fourth "+ballPathSubsystem.thirdCellBannerSensor.beamBroken() +" "+ ballPathSubsystem.fourthCellBannerSensor.beamBroken());
+//    targetHit |= ();
+//    if (targetHit)
+//      System.out.println("third fourth "+ballPathSubsystem.thirdCellBannerSensor.beamBroken() +" "+ ballPathSubsystem.fourthCellBannerSensor.beamBroken());
+    return ballPathSubsystem.thirdCellBannerSensor.beamBroken() || ballPathSubsystem.fourthCellBannerSensor.beamBroken() && !ballPathSubsystem.beltBannerSensor.beamBroken();
 
   }
 
   @Override
   public void end(boolean interrupted) {
+    if (interrupted) {
+      System.out.println("interrupted");
+    }
     System.out.println("shifted to first");
     ballPathSubsystem.incrementBalls();
     ballPathSubsystem.stopAll();

@@ -14,7 +14,7 @@ public class TurretCommand extends BeefPIDCommandBase {
         Constants.TurretConstants.P,
         Constants.TurretConstants.I,
         Constants.TurretConstants.D,
-        2,
+        .5,
         "turret error"
     );
     turretSubsystem = robotContainer.turretSubsystem;
@@ -25,8 +25,6 @@ public class TurretCommand extends BeefPIDCommandBase {
   @Override
   public void usePIDOutput(double output) {
     turretSubsystem.manualRotateTurret(-output);
-//    System.out.println(setpoint);
-//    System.out.println(turretSubsystem.getCurrentPositionDegrees());
   }
 
   @Override
@@ -42,5 +40,7 @@ public class TurretCommand extends BeefPIDCommandBase {
   @Override
   public void end(boolean interrupted) {
     System.out.println("PID aiming done");
+    System.out.println(pidController.getPositionError()+" "+setpoint+" "+turretSubsystem.getCurrentPositionDegrees());
+
   }
 }

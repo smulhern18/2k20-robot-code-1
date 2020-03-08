@@ -1,6 +1,7 @@
 package frc.robot.commands.ballpath;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.robot.RobotContainer;
 import frc.robot.commands.collector.ManualExhaustCommand;
 import frc.robot.subsystems.BallPathSubsystem;
@@ -11,6 +12,7 @@ import frc.robot.subsystems.BallPathSubsystem;
 public class SpitOutCommand extends ParallelCommandGroup {
   public SpitOutCommand(RobotContainer robotContainer) {
     addCommands(
+        new PrintCommand("exhaust"),
         // run ball path in reverse
         new RunBallPathCommand(robotContainer, BallPathSubsystem.BallPathDirection.OUT),
         // spit balls from deployed collector

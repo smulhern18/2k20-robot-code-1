@@ -53,7 +53,7 @@ public class CollectorSubsystem extends BeefSubsystemBase {
    * push balls out
    */
   public void exhaust() {
-    collectorMotor.set(.3);
+    collectorMotor.set(-.8);
     state = true;
   }
 

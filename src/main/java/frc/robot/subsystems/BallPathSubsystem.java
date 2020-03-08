@@ -77,7 +77,7 @@ public class BallPathSubsystem extends BeefSubsystemBase {
    * Pushes the balls in the belt backwards towards the collector
    */
   private void spitBelt() {
-    beltMotor.set(-1);
+    beltMotor.set(1);
   }
 
   /**

@@ -15,7 +15,7 @@ public class DefaultShiftCellCommand extends SelectCommand {
   public DefaultShiftCellCommand(RobotContainer robotContainer) {
     super(
         Map.ofEntries(
-            Map.entry(0, new ShiftToFirstCommand(robotContainer).withTimeout(5)),
+            Map.entry(0, new ShiftToFirstCommand(robotContainer).withTimeout(10)),
             Map.entry(1, new ShiftFirstToSecondCommand(robotContainer).withTimeout(4)),
             Map.entry(2, new ShiftSecondToThirdCommand(robotContainer).withTimeout(5)),
             Map.entry(3, new ShiftThirdToFourthCommand(robotContainer).withTimeout(5)),

@@ -139,7 +139,7 @@ public class RobotContainer {
 //
 //    /* Main teleop buttons */
 //    // Untrench, aim, spin up shooter wheel
-    buttonBoxRight.autoTarget.whenPressed(new VisionAimTurretCommand(this));
+    buttonBoxRight.autoTarget.whenPressed(new AimTurretCommand(this).withTimeout(3));
 //    // Collect 5 balls
     buttonBoxRight.collect.whenPressed(new CollectCommand(this));
 //    // shoot until empty

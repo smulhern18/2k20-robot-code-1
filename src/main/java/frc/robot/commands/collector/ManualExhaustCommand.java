@@ -21,7 +21,7 @@ public class ManualExhaustCommand extends CommandBase {
    * Deploys collector and exhausts
    */
   @Override
-  public void initialize() {
+  public void execute() {
 //    collectorSubsystem.deploy();
     collectorSubsystem.exhaust();
   }
@@ -33,9 +33,9 @@ public class ManualExhaustCommand extends CommandBase {
    */
   @Override
   public void end(boolean interrupted) {
-    if (!interrupted) {
-      collectorSubsystem.stopIntake();
+//    if (!interrupted) {
+    collectorSubsystem.stopIntake();
 //      collectorSubsystem.undeploy();
-    }
+//    }
   }
 }

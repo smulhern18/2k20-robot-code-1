@@ -51,15 +51,15 @@ public class VisionAimTurretCommand extends CommandBase {
   @Override
   public void execute() {
     if (visionSubsystem.getTargetFound()) {
-      targetPosition = Units.radiansToDegrees(visionSubsystem.getAngleToTarget())+ turretSubsystem.getCurrentPositionDegrees();
+//      targetPosition = Units.radiansToDegrees(visionSubsystem.getAngleToTarget());
+      targetPosition = -((visionSubsystem.getAngleToTarget() - (320.0)) / (640.0/80.0));
+      targetPosition += turretSubsystem.getCurrentPositionDegrees();
       done = true;
-      System.out.println("done"+" "+-targetPosition);
-      new TurretCommand(robotContainer, -targetPosition + 3).schedule();
+      System.out.println("done"+" "+targetPosition);
+      new TurretCommand(robotContainer, targetPosition).schedule();
       System.out.println(targetPosition);
-    } else {//currently unsure with where to point shooter with no vision
-      targetPosition = drivetrainSubsystem.getYawDegrees();
-      turretSubsystem.resetTargetWithDrivetrain(-targetPosition);
     }
+    done = true;
   }
 
   /**
